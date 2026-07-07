@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wiki Sistemi di Fiducia — Mappa di studio</title>
+
+<!-- Stile base: identico a quello delle pagine di contenuto (fonte: 1.1). -->
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+  --link:var(--navy);
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+a{color:var(--navy);}
+
+/* il box che orienta (mappa) e la catena a pillole */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+
+<!-- MathJax: configurazione identica alle pagine (serve solo ai simboli nei risultati di ricerca). -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+a.xref:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+</style>
+
+<!-- Badge di stato: bozza come nelle pagine; verificata e preparazione dal design system. -->
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+.badge.verificata{background:var(--intu-bg);border:1px solid var(--intu-bd);color:#1d5c44;}
+.badge.preparazione{background:var(--ex-bg);border:1px solid var(--ex-bd);color:#5f594d;}
+</style>
+
+<!-- Stili propri della mappa: catena cliccabile, elenco tappe, ricerca, barra fissa. -->
+<style>
+.chain a{color:var(--navy);text-decoration:none;display:inline-block;
+ margin:-.12em -.5em;padding:.12em .5em;border-radius:6px;}
+.chain a:hover{background:#fff2c4;}
+.chain a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+
+ol.percorso{padding-left:2em;margin:.6em 0 1.6em;}
+ol.percorso li{margin:.5em 0;}
+ol.percorso li::marker{color:var(--navy2);font-weight:700;font-size:.85rem;}
+a.tappa{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .7rem;
+ background:#fff;border:1px solid var(--border);border-radius:6px;
+ padding:.5rem .8rem;text-decoration:none;color:var(--fg);}
+a.tappa:hover{background:#fff2c4;}
+a.tappa:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.tp-code{flex:0 0 2.4em;font-weight:700;color:var(--navy);}
+.tp-title{flex:1 1 12em;}
+a.tappa .badge{margin-left:auto;}
+
+.cerca{margin:1.6em 0 2em;}
+.cerca label{display:block;font-weight:700;color:var(--navy);margin-bottom:.4em;}
+#cerca-input{width:100%;box-sizing:border-box;font:inherit;color:var(--fg);
+ background:#fff;border:1px solid var(--border);border-radius:8px;padding:.55em .8em;}
+#cerca-input:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+#cerca-risultati{margin-top:.8em;}
+#cerca-risultati .gruppo{font-size:.82rem;font-weight:700;letter-spacing:.06em;
+ text-transform:uppercase;color:var(--navy2);margin:1em 0 .35em;}
+.ris-pagine{display:flex;flex-wrap:wrap;gap:.45rem;padding:0;margin:.3em 0;list-style:none;}
+.ris-pagine a{white-space:nowrap;text-decoration:none;font-size:.82rem;font-weight:700;
+ color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;border-radius:999px;padding:.18rem .62rem;}
+.ris-pagine a:hover{background:#fff2c4;}
+.ris-pagine a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.ris-simboli{list-style:none;padding:0;margin:.3em 0;}
+.ris-simboli li{margin:.45em 0;}
+
+.riprendi{margin:1.2em 0;}
+.riprendi a{display:inline-block;background:#fff8ec;border:1px solid #e8ddc6;border-radius:999px;
+ padding:.4rem 1rem;font-weight:700;color:var(--navy);text-decoration:none;}
+.riprendi a:hover{background:#fff2c4;}
+.riprendi a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+
+.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
+ background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
+ padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
+.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
+ overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.wikibar a:hover{background:#fff2c4;}
+.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
+
+@media print{.cerca,.riprendi,.wikibar{display:none;}}
+</style>
+</head>
+<body>
+
+<h1 id="top">Wiki Sistemi di Fiducia</h1>
+<p class="subtitle">La catena di montaggio del paper — 17 tappe, da 1.1 a 4.3, con le Fondamenta intercalate dove servono.</p>
+
+<p class="note">Stato del percorso:
+<span class="badge verificata">VERIFICATA</span> 1 ·
+<span class="badge bozza">BOZZA</span> 16 ·
+<span class="badge preparazione">IN PREPARAZIONE</span> 0 —
+<a class="xref" href="Come_si_studia.html#badge">cosa significano i badge</a></p>
+
+<div class="leg" data-screen-label="Mappa — catena di montaggio">
+<h2 id="mappa">La catena di montaggio (mappa)</h2>
+<p class="chain">
+<span><a href="Bella_copia_1.1_Filtraggio_Bayesiano.html" title="Filtraggio Bayesiano dello Spam">1.1</a></span><span class="arrow">→</span><span><a href="F4_Statistica_e_ML.html" title="Statistica e machine learning">F4</a></span><span class="arrow">→</span><span><a href="Sezione_1_2_Score_reputazionali.html" title="Score reputazionali di IP e dominio">1.2</a></span><span class="arrow">→</span><span><a href="F5_Segnali_e_rilevamento.html" title="Segnali e rilevamento">F5</a></span><span class="arrow">→</span><span><a href="Sezione_1_3_Warmup.html" title="Warmup di IP e dominio">1.3</a></span><span class="arrow">→</span><span><a href="F3_Teoria_informazione.html" title="Teoria dell'informazione">F3</a></span><span class="arrow">→</span><span><a href="F6_Similarita_hashing_codifiche.html" title="Similarità, hashing e codifiche">F6</a></span><span class="arrow">→</span><span><a href="Sezione_1_4_Difese.html" title="Difese: spam distribuito ed elusivo">1.4</a></span><span class="arrow">→</span><span><a href="F2_Algebra_lineare_Markov.html" title="Algebra lineare e catene di Markov">F2</a></span><span class="arrow">→</span><span><a href="Sezione_2_1_PageRank.html" title="PageRank: il random surfer">2.1</a></span><span class="arrow">→</span><span><a href="Sezione_2_2_TrustRank.html" title="TrustRank: semi e propagazione">2.2</a></span><span class="arrow">→</span><span><a href="Sezione_2_3_Spam_mass.html" title="Spam mass e l'isolamento delle link farm">2.3</a></span><span class="arrow">→</span><span><a href="Sezione_3_1_EEAT_ranking.html" title="E-E-A-T e learning-to-rank">3.1</a></span><span class="arrow">→</span><span><a href="Sezione_3_2_Knowledge_Graph.html" title="Knowledge Graph, co-citazioni, reputazione">3.2</a></span><span class="arrow">→</span><span><a href="Sezione_4_1_Safe_Browsing.html" title="Safe Browsing: blacklist a prefissi di hash">4.1</a></span><span class="arrow">→</span><span><a href="Sezione_4_2_Web_Risk.html" title="Web Risk API">4.2</a></span><span class="arrow">→</span><span><a href="Sezione_4_3_Sincronizzazione.html" title="Sincronizzazione blacklist e falsi positivi">4.3</a></span>
+</p>
+<p class="note">Questo è l'ordine di studio: le pagine <strong>Fondamenta</strong> (F2–F6) sono intercalate subito prima delle sezioni che le usano. L'elenco completo, con titoli e stato, è qui sotto.</p>
+<p class="chain">
+<span><a class="strumento" href="Glossario_globale.html">Glossario dei simboli</a></span> <span><a class="strumento" href="Come_si_studia.html">Come si studia</a></span>
+</p>
+</div>
+
+<div class="cerca" hidden data-screen-label="Ricerca">
+<label for="cerca-input">Cerca una pagina o un simbolo</label>
+<input id="cerca-input" type="search" autocomplete="off" spellcheck="false"
+ placeholder="es. warmup, entropia, logit, P(A|B)" />
+<div id="cerca-risultati" aria-live="polite"></div>
+</div>
+
+<h2 id="percorso">Il percorso, tappa per tappa</h2>
+
+<p class="riprendi" hidden><a id="riprendi-link" href="#percorso">Riprendi da dove eri</a></p>
+
+<!-- Per aggiornare lo stato di una pagina: sostituisci a mano la classe e il testo del badge
+     (bozza → verificata → preparazione) e aggiorna il conteggio in testa alla pagina. -->
+
+<h3 id="sez-1">Sezione 1 — filtraggio, reputazione, warmup, difese · con le Fondamenta F4, F5, F3, F6</h3>
+<ol class="percorso" start="1" data-screen-label="Percorso — sezione 1">
+<li><a class="tappa" href="Bella_copia_1.1_Filtraggio_Bayesiano.html"><span class="tp-code">1.1</span><span class="tp-title">Filtraggio Bayesiano dello Spam</span><span class="badge verificata">VERIFICATA</span></a></li>
+<li><a class="tappa" href="F4_Statistica_e_ML.html"><span class="tp-code">F4</span><span class="tp-title">Statistica e machine learning</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_1_2_Score_reputazionali.html"><span class="tp-code">1.2</span><span class="tp-title">Score reputazionali di IP e dominio</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="F5_Segnali_e_rilevamento.html"><span class="tp-code">F5</span><span class="tp-title">Segnali e rilevamento</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_1_3_Warmup.html"><span class="tp-code">1.3</span><span class="tp-title">Warmup di IP e dominio</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="F3_Teoria_informazione.html"><span class="tp-code">F3</span><span class="tp-title">Teoria dell'informazione</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="F6_Similarita_hashing_codifiche.html"><span class="tp-code">F6</span><span class="tp-title">Similarità, hashing e codifiche</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_1_4_Difese.html"><span class="tp-code">1.4</span><span class="tp-title">Difese: spam distribuito ed elusivo</span><span class="badge bozza">BOZZA</span></a></li>
+</ol>
+
+<h3 id="sez-2">Sezione 2 — PageRank, TrustRank, spam mass · con F2, il motore della sezione</h3>
+<ol class="percorso" start="9" data-screen-label="Percorso — sezione 2">
+<li><a class="tappa" href="F2_Algebra_lineare_Markov.html"><span class="tp-code">F2</span><span class="tp-title">Algebra lineare e catene di Markov</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_2_1_PageRank.html"><span class="tp-code">2.1</span><span class="tp-title">PageRank: il random surfer</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_2_2_TrustRank.html"><span class="tp-code">2.2</span><span class="tp-title">TrustRank: semi e propagazione</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_2_3_Spam_mass.html"><span class="tp-code">2.3</span><span class="tp-title">Spam mass e l'isolamento delle link farm</span><span class="badge bozza">BOZZA</span></a></li>
+</ol>
+
+<h3 id="sez-3">Sezione 3 — E-E-A-T e Knowledge Graph</h3>
+<ol class="percorso" start="13" data-screen-label="Percorso — sezione 3">
+<li><a class="tappa" href="Sezione_3_1_EEAT_ranking.html"><span class="tp-code">3.1</span><span class="tp-title">E-E-A-T e learning-to-rank</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_3_2_Knowledge_Graph.html"><span class="tp-code">3.2</span><span class="tp-title">Knowledge Graph, co-citazioni, reputazione</span><span class="badge bozza">BOZZA</span></a></li>
+</ol>
+
+<h3 id="sez-4">Sezione 4 — Safe Browsing, Web Risk, sincronizzazione</h3>
+<ol class="percorso" start="15" data-screen-label="Percorso — sezione 4">
+<li><a class="tappa" href="Sezione_4_1_Safe_Browsing.html"><span class="tp-code">4.1</span><span class="tp-title">Safe Browsing: blacklist a prefissi di hash</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_4_2_Web_Risk.html"><span class="tp-code">4.2</span><span class="tp-title">Web Risk API</span><span class="badge bozza">BOZZA</span></a></li>
+<li><a class="tappa" href="Sezione_4_3_Sincronizzazione.html"><span class="tp-code">4.3</span><span class="tp-title">Sincronizzazione blacklist e falsi positivi</span><span class="badge bozza">BOZZA</span></a></li>
+</ol>
+
+<hr/>
+<p class="note">Mappa della wiki «Sistemi di Fiducia» · i badge si aggiornano a mano, qui e nell'intestazione della singola pagina · il percorso completo è 1.1 → 4.3.</p>
+
+<!-- ═════════ INVOLUCRO WIKI: barra fissa (solo schermo) ═════════ -->
+<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
+<a href="Bella_copia_1.1_Filtraggio_Bayesiano.html">Inizia: 1.1 →</a>
+<span class="wk-sep"></span>
+<a href="Glossario_globale.html">Glossario</a>
+<a href="Come_si_studia.html">Metodo</a>
+</div></nav>
+
+<script>
+/* ── Involucro wiki: ricerca e «Riprendi da dove eri». Solo navigazione: nessun
+      contenuto vive qui — i titoli si leggono dalla mappa qui sopra, i simboli
+      dalla pagina Glossario_globale.html al momento della ricerca. ── */
+(function(){
+  'use strict';
+
+  /* Indice delle pagine, letto dal DOM della mappa (nessun dato duplicato). */
+  var voci = [];
+  document.querySelectorAll('a.tappa').forEach(function(a){
+    voci.push({
+      code:  a.querySelector('.tp-code').textContent.trim(),
+      title: a.querySelector('.tp-title').textContent.trim(),
+      href:  a.getAttribute('href')
+    });
+  });
+  document.querySelectorAll('a.strumento').forEach(function(a){
+    voci.push({ code:'', title:a.textContent.trim(), href:a.getAttribute('href') });
+  });
+
+  /* «Riprendi da dove eri»: l'ultima tappa visitata, salvata dalle pagine stesse. */
+  var salvata = null;
+  try { salvata = localStorage.getItem('wiki-tappa'); } catch(e) {}
+  if (salvata && salvata.indexOf('|') > -1) {
+    var parti = salvata.split('|');
+    var voce = voci.filter(function(v){ return v.href === parti[1]; })[0];
+    if (voce) {
+      var rl = document.getElementById('riprendi-link');
+      rl.setAttribute('href', voce.href);
+      rl.textContent = 'Riprendi da dove eri: ' + voce.code + ' — ' + voce.title + ' →';
+      rl.parentNode.hidden = false;
+    }
+  }
+
+  /* Ricerca. I simboli arrivano dal Glossario via fetch: funziona sul sito
+     pubblicato (o con un server locale); se il fetch non è disponibile la
+     ricerca copre comunque i titoli e rimanda al Glossario. */
+  var blocco = document.querySelector('.cerca');
+  var campo = document.getElementById('cerca-input');
+  var esito = document.getElementById('cerca-risultati');
+  blocco.hidden = false;
+
+  var glossario = null, glossarioKO = false, glossarioPromise = null;
+  function caricaGlossario(){
+    if (glossarioPromise) return glossarioPromise;
+    glossarioPromise = fetch('Glossario_globale.html')
+      .then(function(r){ if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(function(html){
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        glossario = [];
+        doc.querySelectorAll('table.gl tbody').forEach(function(tb){
+          var sezione = '';
+          tb.querySelectorAll('tr').forEach(function(tr){
+            var celle = tr.querySelectorAll('td');
+            if (celle.length && celle[0].hasAttribute('colspan')) {
+              var m = celle[0].textContent.split('—');
+              sezione = (m[1] || '').trim();
+              return;
+            }
+            if (celle.length >= 2) {
+              glossario.push({
+                sym: celle[0].textContent.trim(),
+                nome: celle[1].textContent.trim(),
+                sezione: sezione,
+                anchor: tb.id ? '#' + tb.id : ''
+              });
+            }
+          });
+        });
+      })
+      .catch(function(){ glossarioKO = true; });
+    return glossarioPromise;
+  }
+
+  function gruppo(testo){
+    var p = document.createElement('p');
+    p.className = 'gruppo';
+    p.textContent = testo;
+    return p;
+  }
+
+  function mostra(q){
+    esito.textContent = '';
+    if (q.length < 2) return;
+    var ql = q.toLowerCase();
+
+    var pagine = voci.filter(function(v){
+      return (v.code + ' ' + v.title).toLowerCase().indexOf(ql) > -1;
+    });
+    if (pagine.length) {
+      esito.appendChild(gruppo('Pagine'));
+      var ul = document.createElement('ul');
+      ul.className = 'ris-pagine';
+      pagine.forEach(function(v){
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = v.href;
+        a.textContent = v.code ? v.code + ' — ' + v.title : v.title;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      esito.appendChild(ul);
+    }
+
+    var chiudi = function(){
+      if (!pagine.length && !esito.querySelector('.ris-simboli')) {
+        var p = document.createElement('p');
+        p.className = 'note';
+        p.textContent = 'Nessun risultato per «' + q + '».';
+        esito.appendChild(p);
+      }
+    };
+
+    caricaGlossario().then(function(){
+      if (campo.value.trim() !== q) return; /* è già partita un'altra ricerca */
+      if (glossarioKO) {
+        var p = document.createElement('p');
+        p.className = 'note';
+        p.innerHTML = 'I simboli si cercano nel <a href="Glossario_globale.html">Glossario</a> (la ricerca dei simboli da qui funziona sul sito pubblicato).';
+        esito.appendChild(p);
+        chiudi();
+        return;
+      }
+      var trovati = glossario.filter(function(g){
+        return (g.sym + ' ' + g.nome).toLowerCase().indexOf(ql) > -1;
+      });
+      if (trovati.length) {
+        esito.appendChild(gruppo('Simboli — dal Glossario'));
+        var ul = document.createElement('ul');
+        ul.className = 'ris-simboli';
+        trovati.slice(0, 8).forEach(function(g){
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.className = 'xref';
+          a.href = 'Glossario_globale.html' + g.anchor;
+          a.textContent = g.sym + ' — ' + g.nome;
+          li.appendChild(a);
+          if (g.sezione) {
+            var s = document.createElement('span');
+            s.className = 'note';
+            s.textContent = ' · ' + g.sezione;
+            li.appendChild(s);
+          }
+          ul.appendChild(li);
+        });
+        esito.appendChild(ul);
+        if (trovati.length > 8) {
+          var di = document.createElement('p');
+          di.className = 'note';
+          di.innerHTML = 'Altri ' + (trovati.length - 8) + ' risultati: <a href="Glossario_globale.html">apri il Glossario</a>.';
+          esito.appendChild(di);
+        }
+        if (window.MathJax && MathJax.typesetPromise) {
+          MathJax.typesetPromise([esito]).catch(function(){});
+        }
+      }
+      chiudi();
+    });
+  }
+
+  var timer = null;
+  campo.addEventListener('input', function(){
+    clearTimeout(timer);
+    timer = setTimeout(function(){ mostra(campo.value.trim()); }, 180);
+  });
+  campo.addEventListener('keydown', function(ev){
+    if (ev.key === 'Escape') { campo.value = ''; esito.textContent = ''; }
+  });
+})();
+</script>
+</body>
+</html>

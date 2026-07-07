@@ -1,0 +1,41 @@
+/* ============================================================
+   Tipografia — Wiki «Sistemi di Fiducia»
+   Verdana di sistema: nessun webfont, nessun @font-face.
+   Scala e spaziature estratte tali e quali dal documento 1.1.
+   ============================================================ */
+:root{
+  /* font di sistema ad alta leggibilità (dislessia): niente webfont */
+  --font-sans:Verdana,Tahoma,"Trebuchet MS",sans-serif;
+  --font-mono:"DejaVu Sans Mono",Consolas,monospace;
+
+  /* base: html a 118% (≈18,9px), 112% sotto i 600px */
+  --html-size:118%;
+  --html-size-mobile:112%;
+
+  /* scala dei titoli (rem sul base 118%) */
+  --text-h1:1.7rem;
+  --text-h2:1.34rem;
+  --text-h3:1.12rem;
+  --text-h4:1rem;
+  --text-subtitle:1rem;
+  --text-body:1rem;
+  --text-table:.95rem;
+  --text-note:.9rem;
+  --text-code:.9em;
+  --text-tag:.82rem;      /* etichetta dei callout e pill quicknav */
+  --text-badge:.78rem;
+
+  /* respiro del testo: la scelta-chiave per la dislessia */
+  --leading-body:1.75;
+  --leading-heading:1.3;
+  --leading-chain:1.9;
+  --tracking-body:.012em;
+  --word-spacing-body:.03em;
+  --tracking-tag:.06em;
+  --tracking-badge:.05em;
+
+  /* misura e ritmo */
+  --measure:46rem;                    /* larghezza massima della colonna */
+  --page-pad:2.4rem 1.3rem 5rem;      /* padding pagina desktop */
+  --page-pad-mobile:1.4rem 1rem 4rem; /* padding pagina mobile */
+}

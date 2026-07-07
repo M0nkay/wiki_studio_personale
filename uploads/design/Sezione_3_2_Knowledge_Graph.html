@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>3.2 — Knowledge Graph e co-citazioni · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Entità</a><a href="#sec-2">§2 Co-citazione</a><a href="#sec-3">§3 Propagazione</a><a href="#sec-4">§4 Antifrode</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F3_Teoria_informazione.html#sec-4">↩ F3 §4</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">3.2 — Knowledge Graph, co-citazioni, reputazione <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki · paper §3.2. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="F3_Teoria_informazione.html">F3</a> §4 (PMI), il grafo di <a class="xref" href="Sezione_1_4_Difese.html">1.4</a> §2, e la macchina di propagazione di <a class="xref" href="F2_Algebra_lineare_Markov.html">F2</a> / <a class="xref" href="Sezione_2_2_TrustRank.html">2.2</a>.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Dal documento all'entità</h2>
+<p>Il <strong>Knowledge Graph</strong> è un grafo (nodi e archi, 1.4 §2) dove i nodi non sono pagine ma <strong>entità</strong>: persone, organizzazioni, opere, luoghi. Il ranking moderno ragiona anche a questo livello: l'<strong>autore che firma</strong> un articolo (3.1 §3) è un nodo con la sua reputazione, e la domanda diventa: <strong>come si misura la reputazione di un'entità?</strong></p>
+
+<hr/>
+
+<h2 id="sec-2">2. Gli archi: co-citazione pesata con la PMI</h2>
+<p>Il segnale grezzo: due entità che compaiono <strong>insieme</strong> nei documenti. Ma «insieme» quanto conta? Il metro è la PMI di F3 §4 — insieme <strong>più del caso</strong>:</p>
+<div class="formula key">\[ \text{peso dell'arco}(a, b) \;=\; \text{PMI}^{+}(a, b) \;=\; \max\Bigl(0,\ \log_2 \frac{P(a,b)}{P(a)\,P(b)}\Bigr) \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>L'entità \(a\) compare nel \(2\%\) dei documenti, \(b\) nel \(5\%\). Sotto puro caso: \(P(a)P(b) = 0{,}001\).</p>
+<ol>
+<li>Osservato \(P(a,b) = 0{,}01\): rapporto \(10\) → \(\text{PMI} = \log_2 10 \approx 3{,}32\) → <strong>arco forte</strong>.</li>
+<li>Osservato \(P(a,b) = 0{,}001\): rapporto \(1\) → \(\text{PMI} = 0\) → <strong>nessun arco</strong>: la coincidenza da sola non basta.</li>
+</ol>
+</div>
+<p>Il \(^{+}\) taglia i negativi: per propagare autorevolezza servono i legami, non le antipatie — e pesi negativi romperebbero la macchina del §3.</p>
+
+<hr/>
+
+<h2 id="sec-3">3. La propagazione: la stessa macchina, terza divisa</h2>
+<p>Coi pesi PMI si costruisce la matrice \(W\) del grafo delle entità (normalizzata per colonna → stocastica, F2 §2), e la reputazione si propaga <strong>[INF]</strong> con lo schema ormai di famiglia:</p>
+<div class="formula key">\[ \mathbf{rep} \;=\; (1-\alpha)\,\mathbf{seed} \;+\; \alpha\, W\, \mathbf{rep} \]</div>
+<p>È il Personalized PageRank di 2.1 §4 sul grafo delle entità: i <strong>seed</strong> sono le entità di autorevolezza accertata (l'oracolo, ancora), e la fiducia viaggia sugli archi di co-citazione pagando il solito pedaggio \(\alpha\) per hop. Lettura locale: la reputazione che ti arriva è la <strong>media pesata</strong> — coi pesi PMI — delle reputazioni dei tuoi vicini, smorzata.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — la media pesata dei vicini</span>
+<p>L'entità \(E\) è co-citata con \(A\) (autorevole: rep \(0{,}8\), peso normalizzato \(0{,}75\)) e con \(B\) (ignota: rep \(0{,}1\), peso \(0{,}25\)):</p>
+<div class="formula">\[ 0{,}75 \cdot 0{,}8 + 0{,}25 \cdot 0{,}1 = 0{,}6 + 0{,}025 = 0{,}625 \]</div>
+<p>poi lo smorzamento \(\alpha\) e la quota dei seed completano il conto. Essere citati <strong>accanto a chi conta</strong> vale più di essere citati tanto.</p>
+</div>
+<div class="callout warn"><span class="tag">Trappola dei simboli</span>
+<p>\(W\) maiuscola è la <strong>matrice</strong> dei pesi di co-citazione: non il peso di miscela \(w\) della 1.2, non la parola \(w\) della 1.1. Maiuscola + contesto matriciale = matrice.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Perché è dura da falsificare</h2>
+<p>Per gonfiare la tua PMI con un'entità autorevole devi comparirle accanto <strong>in documenti che il sistema indicizza e pesa</strong> — documenti che hanno a loro volta un rank, una spam mass, una reputazione (sezione 2). Il costo della frode <strong>risale la catena</strong>: per manipolare il piano delle entità dovresti prima conquistare il piano delle pagine. Le difese si impilano: è il disegno ricorrente dell'intero paper.</p>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
+<ol>
+<li>\(P(a) = 0{,}04\), \(P(b) = 0{,}05\), \(P(a,b) = 0{,}01\): calcola la PMI (serve: \(\log_2 5 \approx 2{,}32\)).</li>
+<li>Vicini con pesi \(0{,}5 / 0{,}5\) e reputazioni \(0{,}9 / 0{,}3\): quanto arriva a \(E\) prima dello smorzamento?</li>
+<li>Perché si usa \(\text{PMI}^{+}\) e non la PMI con segno? (Una frase.)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<ol>
+<li>Caso puro: \(0{,}002\); rapporto \(0{,}01/0{,}002 = 5\) → \(\text{PMI} = \log_2 5 \approx 2{,}32\): legame reale.</li>
+<li>\(0{,}5 \cdot 0{,}9 + 0{,}5 \cdot 0{,}3 = 0{,}6\).</li>
+<li>Perché i legami negativi («si evitano») non trasportano autorevolezza, e pesi sotto zero romperebbero la matrice stocastica della propagazione.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>entità, Knowledge Graph</td><td>—</td><td>persone/organizzazioni/opere come nodi; il grafo delle loro relazioni</td><td>3.2 §1</td></tr>
+<tr><td>co-citazione</td><td>—</td><td>due entità che compaiono insieme in un documento</td><td>3.2 §2</td></tr>
+<tr><td>\(W\)</td><td>matrice dei pesi</td><td>pesi \(\text{PMI}^{+}\) normalizzati per colonna (maiuscola: matrice, ≠ \(w\))</td><td>3.2 §3</td></tr>
+<tr><td>\(\mathbf{rep}\), \(\mathbf{seed}\)</td><td>reputazione; semi di entità</td><td>vettore di reputazione; entità di autorevolezza accertata</td><td>3.2 §3</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">3.2 — Knowledge Graph e co-citazioni · stato: <strong>bozza</strong> · chiude la sezione 3. Prossima: la sezione 4 (Safe Browsing).</p>
+</body>
+</html>

@@ -1,0 +1,45 @@
+/* ============================================================
+   Colori — Wiki «Sistemi di Fiducia»
+   Estratti tali e quali da Bella_copia_1.1_Filtraggio_Bayesiano.html.
+   Prima sezione: i nomi originali del documento (non rinominare).
+   Seconda sezione: alias documentati per i valori che nel
+   documento originale erano letterali hardcoded.
+   ============================================================ */
+:root{
+  /* — nomi originali del documento — */
+  --bg:#FBF7EF;        /* sfondo crema di tutta la pagina */
+  --fg:#22201c;        /* inchiostro del testo corrente */
+  --navy:#1F3A5F;      /* titoli h1/h2, tag N.B., bordi chiave */
+  --navy2:#2c4a6e;     /* h3/h4, sottotitoli, note */
+  --box:#F1E9DA;       /* fondo di formula e code */
+  --border:#e2d6bf;    /* bordo standard: hr, tabelle, formula */
+
+  --intu-bg:#EAF3EE;   --intu-bd:#2E8B6F;   /* callout Intuizione (verde) */
+  --warn-bg:#FBEEE6;   --warn-bd:#C2683A;   /* callout Attenzione (arancio) */
+  --deep-bg:#EDF0F6;   --deep-bd:#3B5C86;   /* callout Approfondimento (blu) */
+  --ex-bg:#F2F0EA;     --ex-bd:#8a8478;     /* callout Esempio/Esercizi (grigio) */
+  --leg-bg:#FFF8EC;    --leg-bd:#e8ddc6;    /* box mappa/legenda (carta calda) */
+
+  /* --link: referenziato da a.xref nel documento originale ma mai
+     definito lì (il bordo tratteggiato non veniva reso). Qui è
+     definito = navy, ripristinando l'intento. Correzione segnalata
+     nel readme. */
+  --link:var(--navy);
+
+  /* — alias per i letterali hardcoded del documento — */
+  --paper:#fff8ec;          /* carta calda: toc, quicknav pill, th */
+  --paper-bd:#e8ddc6;       /* bordo carta calda (= --leg-bd) */
+  --hover:#fff2c4;          /* giallo evidenziatore: hover di pill e xref, righe-sezione del glossario */
+  --quicknav-bd:#e4d9c4;    /* bordo inferiore della barra quicknav */
+  --nb-bg:#eef3fa;          /* callout N.B. — fondo azzurrino */
+  --nb-bd:#c9d7ea;          /* callout N.B. — bordo */
+  --ex-tag:#5f594d;         /* colore del tag nel callout ex */
+
+  /* semantica della matrice di confusione */
+  --cm-ok:#EAF3EE;          /* verde: risposta giusta */
+  --cm-fn:#FBF3DC;          /* giallo: falso negativo */
+  --cm-fp:#F8E3DC;          /* rosso tenue: falso positivo (errore peggiore) */
+
+  /* badge di stato */
+  --badge-bozza-bg:#fff2c4; --badge-bozza-bd:#dfc86a; --badge-bozza-fg:#7a5c00;
+}

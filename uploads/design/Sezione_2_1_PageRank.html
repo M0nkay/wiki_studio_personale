@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2.1 — PageRank · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Surfer</a><a href="#sec-2">§2 Formula</a><a href="#sec-3">§3 Matrice G</a><a href="#sec-4">§4 Personalizzato</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F2_Algebra_lineare_Markov.html">↩ F2</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">2.1 — PageRank: il random surfer <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki · paper §2.1. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="F2_Algebra_lineare_Markov.html">F2</a> per intero: è la sua applicazione più famosa.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Il modello: un navigatore casuale</h2>
+<p>Immagina un navigatore che vaga per il web all'infinito. A ogni pagina:</p>
+<ul>
+<li>con probabilità \(d\) clicca <strong>un link uscente a caso</strong>;</li>
+<li>con probabilità \(1 - d\) si <strong>teletrasporta</strong> su una pagina qualunque, a caso.</li>
+</ul>
+<p>\(d \approx 0{,}85\) è il <strong>damping factor</strong> (fattore di smorzamento). Il <strong>PageRank</strong> di una pagina è la frazione di tempo che il navigatore, alla lunga, ci passa sopra — cioè la <strong>distribuzione stazionaria</strong> (F2 §3) della catena di Markov appena descritta. L'intera sezione 2 del paper è F2 travestita da web.</p>
+<div class="callout warn"><span class="tag">Trappola dei simboli</span>
+<p>Questo \(d\) è il damping, non il «giorno» della 1.3. E attenzione doppia in §2: \(M(p_i)\) con l'argomento tra parentesi è un <strong>insieme di pagine</strong>, non la matrice \(M\) di F2; \(L(p_j)\) è un <strong>conteggio di link</strong>, non la verosimiglianza \(L(\theta)\).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. La formula scalare</h2>
+<div class="formula key">\[ PR(p_i) \;=\; \frac{1-d}{N} \;+\; d \sum_{p_j \in M(p_i)} \frac{PR(p_j)}{L(p_j)} \]</div>
+<p>I pezzi: \(N\) = numero totale di pagine; \(M(p_i)\) = l'insieme delle pagine che <strong>puntano a</strong> \(p_i\); \(L(p_j)\) = numero di link <strong>uscenti</strong> da \(p_j\). Lettura in due tempi:</p>
+<ul>
+<li>\(\dfrac{1-d}{N}\): la <strong>pioggia uniforme</strong> del teletrasporto — tocca a tutti, anche alle pagine senza link in entrata;</li>
+<li>ogni pagina \(p_j\) <strong>divide il suo punteggio in parti uguali</strong> tra i suoi \(L(p_j)\) link uscenti, e \(p_i\) raccoglie le fette che le arrivano. Un link vale tanto se chi lo dà conta molto <em>e</em> non lo dà a tutti.</li>
+</ul>
+<div class="callout ex"><span class="tag">Esempio numerico — un web di tre pagine</span>
+<p>Pagine A, B, C con link: A→B, A→C, B→C, C→A. Quindi \(L(A) = 2\), \(L(B) = 1\), \(L(C) = 1\), \(N = 3\). Uso \(d = 0{,}5\) per l'aritmetica (il valore vero è \(\approx 0{,}85\)). Parto da PageRank uniforme \(1/3\) e faccio <strong>un passo</strong>, usando i valori vecchi:</p>
+<ol>
+<li>\(PR(A) = \dfrac{1}{6} + 0{,}5 \cdot \dfrac{1/3}{1} = \dfrac{1}{6} + \dfrac{1}{6} = \dfrac{1}{3} \approx 0{,}333\) — riceve tutto da C.</li>
+<li>\(PR(B) = \dfrac{1}{6} + 0{,}5 \cdot \dfrac{1/3}{2} = \dfrac{1}{6} + \dfrac{1}{12} = \dfrac{1}{4} = 0{,}25\) — riceve mezza fetta di A.</li>
+<li>\(PR(C) = \dfrac{1}{6} + 0{,}5 \cdot \Bigl(\dfrac{1/3}{2} + \dfrac{1/3}{1}\Bigr) = \dfrac{1}{6} + \dfrac{1}{4} = \dfrac{5}{12} \approx 0{,}417\) — due sorgenti.</li>
+</ol>
+<p>Prova del nove: \(\frac{4}{12} + \frac{3}{12} + \frac{5}{12} = 1\). ✓ C, con due link in entrata, guida già dopo un passo; iterando (F2 §5) i valori si assestano.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. La forma matriciale e la matrice di Google</h2>
+<p>In notazione F2, con \(\mathbf{v} = \frac{1}{N}\mathbf{1}\) (dove \(\mathbf{1}\) è il <strong>vettore di tutti uni</strong>, quindi \(\mathbf{v}\) è la distribuzione uniforme):</p>
+<div class="formula key">\[ \mathbf{p} \;=\; (1-d)\,\mathbf{v} \;+\; d\,M\,\mathbf{p} \]</div>
+<p>Un intoppo: i <strong>nodi dangling</strong> (pagine <strong>senza link uscenti</strong>) hanno colonna vuota → \(M\) non è più stocastica e il punteggio «evapora». Rimedio: la loro massa si ridistribuisce uniformemente (nel paper: il vettore indicatore \(\mathbf{a}\) segna chi è dangling). Impacchettando link, dangling e teletrasporto in un'unica matrice si ottiene la <strong>matrice di Google</strong> \(G\): stocastica, <strong>irriducibile e aperiodica</strong> — esattamente le condizioni di Perron–Frobenius (F2 §5). Conseguenze, tutte già tue:</p>
+<ul>
+<li>la stazionaria <strong>esiste ed è unica</strong>: il PageRank è ben definito;</li>
+<li>il secondo autovalore soddisfa \(|\lambda_2| \le d\) → l'iterazione di potenza converge con errore \(\sim d^{\,k}\).</li>
+</ul>
+<div class="callout ex"><span class="tag">Esempio numerico — quanto ci mette?</span>
+<p>Con \(d = 0{,}85\), per errore \(10^{-6}\) servono circa \(k\) passi con \(0{,}85^{k} = 10^{-6}\) → \(k \approx 85\) iterazioni. Ottantacinque moltiplicazioni per classificare il web: il motivo per cui PageRank era calcolabile già nel 1998.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Il teletrasporto personalizzato: la porta verso TrustRank</h2>
+<p>La generalizzazione decisiva: nel teletrasporto, al posto della distribuzione uniforme \(\mathbf{v}\), metti una distribuzione <strong>concentrata su un sottoinsieme</strong> di pagine. Il navigatore, quando si teletrasporta, riparte sempre da lì. Questo è il <strong>Personalized PageRank</strong> — e <strong>TrustRank</strong> (pagina 2.2) è l'istanza in cui il sottoinsieme sono i <strong>semi fidati</strong>.</p>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
+<ol>
+<li>Due pagine: A→B e B→A, \(d = 0{,}5\), partenza \((1;\ 0)\). Calcola il PageRank di A e B dopo un passo.</li>
+<li>Nel web di §2: perché C batte A anche se entrambe ricevono link? (Una frase, con la parola «fetta».)</li>
+<li>Cosa succederebbe senza teletrasporto (\(d = 1\)) a una pagina dangling? (Una frase.)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(PR(A) = \frac{0{,}5}{2} + 0{,}5 \cdot \frac{0}{1} = 0{,}25\); \(PR(B) = 0{,}25 + 0{,}5 \cdot \frac{1}{1} = 0{,}75\). Tutta la massa di A è scivolata su B, più la pioggia.</li>
+<li>C riceve <strong>due</strong> fette (metà di A e tutta B); A ne riceve una sola, per quanto intera (tutta C). Contano quante fette arrivano e quanto sono grosse.</li>
+<li>La massa entrerebbe e non uscirebbe mai: il punteggio si accumulerebbe lì e la catena si romperebbe — è il motivo dei rimedi di §3.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(PR(p_i)\)</td><td>PageRank della pagina \(p_i\)</td><td>frazione di tempo del navigatore casuale = componente della stazionaria</td><td>2.1 §1</td></tr>
+<tr><td>\(d\)</td><td>damping factor</td><td>probabilità di seguire un link (≈ 0,85); \(1-d\) = teletrasporto (≠ giorno della 1.3)</td><td>2.1 §1</td></tr>
+<tr><td>\(N\)</td><td>numero di pagine</td><td>la taglia del web in esame</td><td>2.1 §2</td></tr>
+<tr><td>\(M(p_i)\)</td><td>insieme dei predecessori</td><td>le pagine che puntano a \(p_i\) — con argomento: insieme, ≠ matrice \(M\)</td><td>2.1 §2</td></tr>
+<tr><td>\(L(p_j)\)</td><td>grado uscente</td><td>numero di link in uscita da \(p_j\) (≠ verosimiglianza \(L(\theta)\))</td><td>2.1 §2</td></tr>
+<tr><td>\(\mathbf{1}\), \(\mathbf{v}\)</td><td>vettore di uni; teletrasporto</td><td>tutti 1; \(\mathbf{v} = \frac{1}{N}\mathbf{1}\) = uniforme (personalizzabile, §4)</td><td>2.1 §3</td></tr>
+<tr><td>dangling, \(\mathbf{a}\)</td><td>nodo senza uscite; suo indicatore</td><td>pagina senza link uscenti; \(\mathbf{a}\) segna quali (questo \(\mathbf{a}\) ≠ peso di 1.3)</td><td>2.1 §3</td></tr>
+<tr><td>\(G\)</td><td>matrice di Google</td><td>link + dangling + teletrasporto in un'unica matrice stocastica</td><td>2.1 §3</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">2.1 — PageRank · stato: <strong>bozza</strong> · prossima: 2.2 (TrustRank).</p>
+</body>
+</html>

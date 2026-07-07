@@ -1,0 +1,7 @@
+/* Wiki «Sistemi di Fiducia» — punto d'ingresso unico del CSS.
+   Solo @import: i consumatori collegano questo file e ottengono tutto. */
+@import "tokens/colors.css";
+@import "tokens/typography.css";
+@import "tokens/fonts.css";
+@import "tokens/base.css";
+@import "components/wiki.css";

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F6 — Similarità, hashing e codifiche · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+
+<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
+     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
+     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
+     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
+<style>
+:root{--link:var(--navy);}
+a{color:var(--navy);}
+.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
+ background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
+ padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
+.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
+ overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.wikibar a:hover{background:#fff2c4;}
+.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
+.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
+@media print{.wikibar{display:none;}}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Hash</a><a href="#sec-2">§2 k-anonimità</a><a href="#sec-3">§3 Jaccard</a><a href="#sec-4">§4 MinHash</a><a href="#sec-5">§5 LSH</a><a href="#sec-6">§6 Rice</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F6 — Similarità, hashing e codifiche <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Fondamenta della wiki · serve alla 1.4 (near-duplicate) e a tutta la sezione 4 (Safe Browsing). <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: cardinalità e intersezione (§1.3), unione (§2.2), probabilità (§1). Da <a class="xref" href="F4_Statistica_e_ML.html">F4</a>: le potenze \(a^b\).</p>
+
+<div class="callout warn"><span class="tag">Trappola dei simboli — lettere affollate in questa pagina</span>
+<p>(1) \(s\) qui è la <strong>similarità</strong> tra due documenti, non la forza del prior della 1.1. (2) \(r\) fa <strong>due lavori qui dentro</strong>: righe per banda (§5) e resto della divisione (§6) — oltre ai lavori delle altre pagine. (3) \(k\) pure: numero di funzioni hash (§4) e parametro di Rice (§6). Il contesto della formula decide sempre.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-1">1. Funzioni di hash e collisioni</h2>
+<p>Da programmatore la conosci: una <strong>funzione di hash</strong> prende un input qualsiasi (una URL, un documento) e restituisce un numero di <strong>lunghezza fissa</strong>, in modo deterministico ma «ben mescolato»: output indistinguibili dal caso, e input simili finiscono lontani. SHA-256, usata dal paper, produce \(32\) <strong>byte</strong> (un byte = 8 <strong>bit</strong>, quindi \(256\) bit).</p>
+<p>Una <strong>collisione</strong> è quando due input diversi ricevono lo stesso output. Per un hash ben mescolato con \(N\) uscite possibili, una coppia fissata collide con probabilità \(1/N\): con \(N\) astronomico, quasi mai — ed è un fatto che il paper userà <strong>in entrambe le direzioni</strong>: evitare le collisioni (verifica finale) e <em>cercarle</em> apposta (privacy, §2; MinHash, §4).</p>
+
+<hr/>
+
+<h2 id="sec-2">2. Prefissi e k-anonimità</h2>
+<p>Il <strong>prefisso</strong> di un hash sono i suoi primi byte: il paper usa 4 byte = 32 bit, quindi \(2^{32} \approx 4{,}3\) miliardi di prefissi possibili. Idea di Safe Browsing: il telefono conserva solo i <strong>prefissi</strong> delle URL pericolose, e quando c'è un match chiede al server «dammi gli hash completi di questo prefisso» — inviando <strong>solo il prefisso</strong>.</p>
+<p>La privacy sta nella <strong>k-anonimità</strong>: nasconderti in un gruppo di almeno \(k\) indistinguibili. Siccome <strong>innumerevoli URL diverse</strong> condividono lo stesso prefisso corto, il server non può dedurre quale stavi visitando. Due conti del paper, ora leggibili:</p>
+<div class="formula key">\[ \mathbb{E}[\#\text{collisioni}] \approx \frac{D}{2^{32}} \qquad\quad \Pr[\text{match} \mid \text{URL sicura}] \approx \frac{P}{2^{32}} \]</div>
+<p>dove \(D\) = hash completi nel database e \(P\) = prefissi in lista. Con \(P = 4{,}3\) milioni: \(4{,}3 \cdot 10^6 / 4{,}3 \cdot 10^9 = 0{,}001\) — una navigazione sicura su mille fa scattare (per puro caso) la verifica completa. Il match di prefisso <strong>non è un verdetto</strong>: è solo un campanello.</p>
+
+<div class="callout ex" id="ex-2"><span class="tag">Esercizi — §1–§2</span>
+<ol>
+<li>Prefissi a 2 byte = 16 bit: quante uscite possibili? (Serve solo \(2^{16}\).)</li>
+<li>Perché prefissi più <strong>corti</strong> danno più privacy ma più verifiche inutili?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-2">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. Similarità di Jaccard e shingling</h2>
+<p>Quanto si somigliano due <strong>insiemi</strong>? La misura di Jaccard: quota di elementi condivisi sul totale distinto.</p>
+<div class="formula key">\[ J(A, B) \;=\; \frac{|A \cap B|}{|A \cup B|} \;\in\; [0, 1] \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(A = \{a, b, c, d\}\), \(B = \{c, d, e\}\): intersezione \(\{c, d\}\) → \(2\); unione \(\{a,b,c,d,e\}\) → \(5\); \(J = 2/5 = 0{,}4\).</p>
+</div>
+<p>Ma un'email è testo, non un insieme. Lo <strong>shingling</strong> fa il ponte: spezza il testo in <strong>finestre scorrevoli</strong> di parole consecutive. «il gatto dorme bene», con finestre da 2: \(\{\)«il gatto», «gatto dorme», «dorme bene»\(\}\). Documento → insieme di shingle → Jaccard tra documenti. Due spam quasi-fotocopia condividono quasi tutti gli shingle: \(J\) vicino a \(1\).</p>
+
+<hr/>
+
+<h2 id="sec-4">4. MinHash: stimare Jaccard senza confrontare tutto</h2>
+<p><strong>Problema</strong>: confrontare milioni di email a coppie, insieme contro insieme, è impossibile. <strong>Trucco</strong>: per una funzione di hash, il <strong>min-hash</strong> di un insieme è il minimo degli hash dei suoi elementi. Vale un fatto esatto:</p>
+<div class="formula key">\[ \Pr\bigl[\,h_{\min}(A) = h_{\min}(B)\,\bigr] \;=\; J(A, B) \]</div>
+<p><strong>Perché</strong> (ed è una dimostrazione vera, non un'analogia): hashare = mettere tutti gli elementi di \(A \cup B\) in un ordine casuale. I due minimi coincidono esattamente quando il <strong>primo</strong> elemento dell'unione, in quell'ordine, appartiene <strong>a entrambi</strong> — cioè all'intersezione. Ogni elemento dell'unione ha la stessa probabilità di essere il primo, quindi la probabilità è \(|A \cap B| / |A \cup B| = J\).</p>
+<p>Una moneta sola dice poco: si usano tante funzioni hash indipendenti (il paper: 128) → la <strong>firma</strong> del documento è la lista dei minimi, e la frazione di posizioni uguali <strong>stima</strong> \(J\). Con \(J = 0{,}4\) e 100 hash: attese \(\approx 40\) coincidenze.</p>
+
+<hr/>
+
+<h2 id="sec-5">5. LSH: la curva a S</h2>
+<p>Restano troppi confronti a coppie. <strong>LSH</strong> (locality-sensitive hashing) li evita: taglia la firma in \(b\) <strong>bande</strong> da \(r\) <strong>righe</strong> ciascuna, e mette nello stesso secchio i documenti identici <strong>in almeno una banda intera</strong>. Solo quelli diventano candidati. La probabilità, per similarità \(s\):</p>
+<div class="formula key">\[ P_{\text{cand}}(s) \;=\; 1 - \bigl(1 - s^{\,r}\bigr)^{b} \]</div>
+<p>Lettura: una riga coincide con probabilità \(s\); una banda intera con \(s^r\); «almeno una banda su \(b\)» è il complemento di «nessuna». Il risultato è una <strong>curva a S</strong>: quasi zero per i dissimili, quasi uno per i simili, con la transizione attorno a \(\approx (1/b)^{1/r}\) — formula indicativa della zona dove la curva si impenna, non un 50% esatto.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — \(r = 2\), \(b = 3\) (soglia \(\approx 0{,}58\))</span>
+<ol>
+<li>\(s = 0{,}3\): \(s^r = 0{,}09\); \(P = 1 - 0{,}91^3 \approx 0{,}25\) — i dissimili restano quasi tutti fuori.</li>
+<li>\(s = 0{,}9\): \(s^r = 0{,}81\); \(P = 1 - 0{,}19^3 \approx 0{,}99\) — i quasi-duplicati non scappano.</li>
+</ol>
+<p>Regolando \(r\) e \(b\) sposti la soglia: è la manopola del rilevatore di campagne della 1.4.</p>
+</div>
+
+<div class="callout ex" id="ex-5"><span class="tag">Esercizi — §3–§5</span>
+<ol>
+<li>\(A = \{1,2,3\}\), \(B = \{2,3,4,5\}\): calcola \(J\).</li>
+<li>Con \(r = 2\), \(b = 3\) e \(s = 0{,}5\): calcola \(P_{\text{cand}}\).</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-5">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-6">6. Rice–Golomb: comprimere una lista di numeri</h2>
+<p>Sezione 4 del paper: il telefono scarica <strong>milioni di prefissi</strong> — vanno compressi. Ricetta in tre mosse: <strong>ordina</strong> i numeri, tieni le <strong>differenze</strong> (delta \(\delta\)) tra consecutivi — piccole, se i numeri sono fitti — e codifica ogni delta così:</p>
+<div class="formula key">\[ \delta \;=\; q \cdot 2^{k} + r \qquad q = \bigl\lfloor \delta / 2^{k} \bigr\rfloor, \quad r = \delta \bmod 2^{k} \]</div>
+<p>Simboli nuovi, tutti da programmatore: \(\lfloor \cdot \rfloor\) è il <strong>floor</strong>, arrotonda in giù all'intero (\(\lfloor 2{,}75 \rfloor = 2\)); \(\bmod\) è il <strong>resto della divisione</strong> (il tuo <code>%</code>); \(k\) è il parametro di Rice, fissato a monte. Poi: il quoziente \(q\) si scrive in <strong>unario</strong> (\(q\) bit a 1 seguiti da uno 0: contare coi segni), il resto \(r\) nei suoi \(k\) bit binari.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — \(k = 2\) (quindi \(2^k = 4\))</span>
+<ol>
+<li>\(\delta = 11\): \(q = \lfloor 11/4 \rfloor = 2\), \(r = 11 \bmod 4 = 3\) → unario «110» + binario «11» → <strong>11011</strong> (5 bit).</li>
+<li>\(\delta = 2\): \(q = 0\), \(r = 2\) → «0» + «10» → <strong>010</strong> (3 bit).</li>
+</ol>
+<p>Delta piccoli → \(q\) piccoli → codici corti: la compressione premia i numeri fitti. La decodifica ricostruisce i delta e li <strong>somma in cascata</strong> dal primo valore (somma prefissa).</p>
+</div>
+
+<div class="callout ex" id="ex-6"><span class="tag">Esercizi — §6</span>
+<ol>
+<li>\(k = 2\), \(\delta = 6\): calcola \(q\), \(r\) e scrivi il codice.</li>
+<li>Perché prima si ordinano i numeri? (Una frase, con la parola «delta».)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-6">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<h3 id="sol-2">Soluzioni — §1–§2</h3>
+<p class="note"><a class="xref" href="#ex-2">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(2^{16} = 65.536\) uscite.</li>
+<li>Prefisso corto → più URL per prefisso → gruppo di anonimato più grande (privacy su), ma anche più match casuali da verificare (costo su). È una manopola privacy/lavoro.</li>
+</ol>
+<h3 id="sol-5">Soluzioni — §3–§5</h3>
+<p class="note"><a class="xref" href="#ex-5">↩ Torna agli esercizi</a></p>
+<ol>
+<li>Intersezione \(\{2,3\}\) → \(2\); unione \(\{1,2,3,4,5\}\) → \(5\); \(J = 0{,}4\).</li>
+<li>\(s^r = 0{,}25\); \(P = 1 - 0{,}75^3 = 1 - 0{,}422 \approx 0{,}58\): proprio in zona di transizione.</li>
+</ol>
+<h3 id="sol-6">Soluzioni — §6</h3>
+<p class="note"><a class="xref" href="#ex-6">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(q = \lfloor 6/4 \rfloor = 1\), \(r = 6 \bmod 4 = 2\) → «10» + «10» → <strong>1010</strong>.</li>
+<li>Perché numeri ordinati e fitti danno <strong>delta piccoli</strong>, e Rice paga poco solo i delta piccoli.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>hash, SHA-256</td><td>funzione di hash</td><td>input qualsiasi → numero fisso «ben mescolato»; SHA-256 = 32 byte</td><td>F6 §1</td></tr>
+<tr><td>byte</td><td>otto bit</td><td>4 byte = 32 bit → \(2^{32}\) valori possibili</td><td>F6 §1</td></tr>
+<tr><td>collisione</td><td>—</td><td>input diversi, stesso output; per coppia fissata: prob. \(1/N\)</td><td>F6 §1</td></tr>
+<tr><td>k-anonimità</td><td>—</td><td>nascondersi in un gruppo di almeno \(k\) indistinguibili</td><td>F6 §2</td></tr>
+<tr><td>\(D\), \(P\)</td><td>conteggi del database</td><td>hash completi in DB; prefissi in lista (questo \(D\) ≠ dati di §3.2)</td><td>F6 §2</td></tr>
+<tr><td>\(J(A,B)\)</td><td>similarità di Jaccard</td><td>\(|A \cap B| / |A \cup B|\): quota condivisa sul totale distinto</td><td>F6 §3</td></tr>
+<tr><td>shingle</td><td>finestra scorrevole</td><td>frammento di parole consecutive; trasforma un testo in un insieme</td><td>F6 §3</td></tr>
+<tr><td>\(h_{\min}\)</td><td>min-hash</td><td>il minimo degli hash degli elementi; coincide con prob. \(= J\)</td><td>F6 §4</td></tr>
+<tr><td>\(s\), \(r\), \(b\)</td><td>similarità; righe; bande</td><td>parametri LSH (questo \(s\) ≠ forza del prior; questo \(r\) ≠ resto, ≠ tasso)</td><td>F6 §5</td></tr>
+<tr><td>\(\lfloor \cdot \rfloor\)</td><td>floor</td><td>arrotonda in giù all'intero: \(\lfloor 2{,}75 \rfloor = 2\)</td><td>F6 §6</td></tr>
+<tr><td>\(\bmod\)</td><td>modulo</td><td>resto della divisione intera (il <code>%</code>)</td><td>F6 §6</td></tr>
+<tr><td>\(\delta\), \(q\), \(k\) (Rice)</td><td>delta; quoziente; parametro</td><td>differenza tra consecutivi; \(\lfloor \delta/2^k \rfloor\) in unario; taglia del resto</td><td>F6 §6</td></tr>
+<tr><td>unario</td><td>—</td><td>contare coi segni: \(q\) bit a 1 chiusi da uno 0</td><td>F6 §6</td></tr>
+<tr><td>somma prefissa</td><td>—</td><td>ricostruire la lista sommando i delta in cascata dal primo valore</td><td>F6 §6</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F6 — Similarità, hashing e codifiche · stato: <strong>bozza</strong> · serve a 1.4 e alla sezione 4.</p>
+
+<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
+<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
+<a href="index.html">↩ Mappa</a>
+<span class="wk-sep"></span>
+<a rel="prev" href="F3_Teoria_informazione.html" aria-label="Precedente: F3 — Teoria dell'informazione" title="Precedente: F3 — Teoria dell'informazione">← F3</a>
+<span class="wk-pos">7 di 17</span>
+<a rel="next" href="Sezione_1_4_Difese.html" aria-label="Successiva: 1.4 — Difese: spam distribuito ed elusivo" title="Successiva: 1.4 — Difese: spam distribuito ed elusivo">1.4 →</a>
+<span class="wk-sep"></span>
+<a href="Glossario_globale.html">Glossario</a>
+<a href="Come_si_studia.html">Metodo</a>
+</div></nav>
+<script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
+try{localStorage.setItem('wiki-tappa','F6|F6_Similarita_hashing_codifiche.html');}catch(e){}</script>
+</body>
+</html>

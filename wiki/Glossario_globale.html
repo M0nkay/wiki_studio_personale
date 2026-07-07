@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Glossario globale · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+
+<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
+     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
+     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
+     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
+<style>
+:root{--link:var(--navy);}
+a{color:var(--navy);}
+.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
+ background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
+ padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
+.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
+ overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.wikibar a:hover{background:#fff2c4;}
+.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
+.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
+@media print{.wikibar{display:none;}}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#1-1-filtraggio-bayesiano">1.1</a><a href="#f4-statistica-e-machine">F4</a><a href="#1-2-score-reputazionali">1.2</a><a href="#f5-segnali-e-rilevamento">F5</a><a href="#1-3-warmup">1.3</a><a href="#f3-teoria-dell-informazi">F3</a><a href="#f6-similarit-hashing-e-c">F6</a><a href="#1-4-difese">1.4</a><a href="#f2-algebra-lineare-e-mar">F2</a><a href="#2-1-pagerank">2.1</a><a href="#2-2-trustrank">2.2</a><a href="#2-3-spam-mass">2.3</a><a href="#3-1-e-e-a-t-e-learning-t">3.1</a><a href="#3-2-knowledge-graph">3.2</a><a href="#4-1-safe-browsing">4.1</a><a href="#4-2-web-risk">4.2</a><a href="#4-3-sincronizzazione">4.3</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">Glossario globale dei simboli</h1>
+<p class="note">La <strong>fonte di verità unica</strong> dei simboli della wiki: fusione, in ordine di percorso, della tabella della 1.1 (Appendice B) e delle righe «Simboli nuovi» di ogni pagina. Le pagine mantengono le loro tabelle locali come <strong>indice</strong>; qualunque correzione si fa <strong>qui</strong> e si riporta lì. Totale voci: <strong>177</strong>.</p>
+<p class="note">Ordinamento: <strong>per apparizione</strong> nel documento. <strong>Pavimento dichiarato</strong> — sono esclusi di proposito i simboli che si leggono da soli: le quattro operazioni (\(+\), \(-\), la barra e la linea di frazione), l'uguale \(=\), il punto di moltiplicazione \(\cdot\), le disuguaglianze (\(\ge\), \(\le\), \(>\), \(<\), \(\neq\), \(\gg\), \(\ll\)), l'insieme vuoto \(\emptyset\), le cifre e le parentesi di raggruppamento. Tutto il resto è censito. «(opz.)» = compare solo in un box o in un'appendice opzionale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody id="1-1-filtraggio-bayesiano">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 1.1 — Filtraggio bayesiano (Appendice B) —</td></tr>
+<tr><td>\([a,b]\), \((a,b)\)</td><td>intervallo chiuso / aperto</td><td>tutti i numeri tra \(a\) e \(b\): quadre = estremi inclusi, tonde = estremi esclusi</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-1-1">§1.1</a> / <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(P(A)\)</td><td>probabilità di \(A\)</td><td>numero in \([0,1]\) che misura quanto è probabile l'evento \(A\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-1-1">§1.1</a></td></tr>
+<tr><td>\(\%\)</td><td>per cento</td><td>«su cento»: \(70\% = 0{,}70\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-1-1">§1.1</a></td></tr>
+<tr><td>\(\overline{A}\)</td><td>complemento</td><td>l'evento «\(A\) non accade»; \(P(\overline{A}) = 1 - P(A)\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-1-2">§1.2</a></td></tr>
+<tr><td>\(P(A\mid B)\), \(\mid\)</td><td>probabilità condizionata; barra «dato»</td><td>probabilità di \(A\) sapendo che \(B\) è accaduto</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-1-3">§1.3</a></td></tr>
+<tr><td>\(A \cap B\)</td><td>intersezione</td><td>«\(A\) e \(B\)»: accadono entrambi insieme</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-1-3">§1.3</a></td></tr>
+<tr><td>\(|B|\)</td><td>cardinalità</td><td>numero di elementi dell'insieme \(B\) (barre attorno a un <em>insieme</em>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-1-3">§1.3</a></td></tr>
+<tr><td>\(\approx\)</td><td>circa uguale</td><td>uguaglianza approssimata, dopo un arrotondamento</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-1">§2.1</a></td></tr>
+<tr><td>\(\Omega\), \(\omega\)</td><td>spazio campionario; esito</td><td>l'insieme di tutti gli esiti possibili; un singolo esito elementare</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\in\)</td><td>appartiene a</td><td>l'elemento a sinistra sta nell'insieme a destra</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\{\dots\}\)</td><td>insieme per elenco</td><td>le graffe elencano gli elementi: \(\{1,2,3\}\); i puntini \(\dots\) = «e così via»</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\mathcal{F}\)</td><td>\(\sigma\)-algebra degli eventi</td><td>la famiglia dei sottoinsiemi di \(\Omega\) a cui si assegna una probabilità</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\setminus\)</td><td>differenza tra insiemi</td><td>\(\Omega \setminus A\): gli elementi di \(\Omega\) che non stanno in \(A\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\bigcup\), \(\cup\)</td><td>unione</td><td>«oppure»: gli esiti che stanno in almeno uno degli insiemi</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\to\), \(\Longrightarrow\)</td><td>freccia</td><td>tre usi: tipo di funzione (\(P:\mathcal{F} \to [0,1]\), da–a); «quindi / da cui» nelle catene; «tende a» nei limiti (<a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-4">§4.4</a>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\sum\)</td><td>sommatoria</td><td>somma di tutti i termini indicati dall'indice</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(:=\)</td><td>uguale per definizione</td><td>introduce un nome: il lato sinistro è definito come il lato destro; niente da verificare</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\arg\max\)</td><td>argomento del massimo</td><td>il valore dell'argomento che rende massima la funzione (non il massimo stesso)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(S\), \(H\)</td><td>classi spam / ham</td><td>le due classi di email (ham = buone). Attenzione: in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-6">§5.6</a> \(H\) e \(S\) cambiano ruolo (indicatori di Fisher)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(w\)</td><td>parola (token)</td><td>una parola dell'email</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(b\), \(N_S\)</td><td>conteggi spam</td><td>spam contenenti la parola / totale spam (definiti in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(g\), \(N_H\)</td><td>conteggi ham</td><td>ham contenenti la parola / totale ham (definiti in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\Theta\)</td><td>spazio del parametro</td><td>l'elenco dei candidati per \(\theta\): tutti i valori che potrebbe assumere (es. una probabilità: \(\Theta = [0,1]\)); coppia maiuscola/minuscola come \(\Omega\)/\(\omega\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a> (opz.)</td></tr>
+<tr><td>\(\int\)</td><td>integrale</td><td>la «somma continua»; nel documento compare solo nel box sul caso continuo</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a> (opz.)</td></tr>
+<tr><td>\(\mathrm{LR}\)</td><td>rapporto di verosimiglianza</td><td>\(P(w\mid S)/P(w\mid H)\): quante volte la parola è più frequente nello spam</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-1">§3.1</a></td></tr>
+<tr><td>MLE</td><td>stima di massima verosimiglianza</td><td>il valore del parametro che rende massima \(L(\theta)\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(\theta\), \(\hat\theta\)</td><td>parametro; sua stima</td><td>valore vero sconosciuto; il cappello \(\hat{\ }\) = «stimato»</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(D\)</td><td>dati</td><td>i dati osservati (qui: i conteggi del campione)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(L(\theta)\)</td><td>verosimiglianza</td><td>probabilità dei dati osservati, come funzione di \(\theta\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(\binom{n}{k}\)</td><td>coefficiente binomiale</td><td>in quanti modi si scelgono \(k\) oggetti tra \(n\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(a^{b}\)</td><td>potenza</td><td>\(a\) moltiplicato per sé stesso \(b\) volte; copre \(\theta^{\,b}\), \(e^t\), \(2^{10}\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(p(w)\)</td><td>probabilità di spam per parola</td><td>la formula di Graham</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-3">§3.3</a></td></tr>
+<tr><td>\(\leftarrow\)</td><td>assegnazione</td><td>«assegna il nuovo valore»: aggiorna la variabile a sinistra</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-4">§3.4</a></td></tr>
+<tr><td>\(\min\), \(\max\)</td><td>minimo / massimo</td><td>il più piccolo / il più grande tra gli argomenti</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-4">§3.4</a></td></tr>
+<tr><td>\(f(w)\)</td><td>stima contratta</td><td>\(p(w)\) corretto da Robinson (shrinkage)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-3">§4.3</a></td></tr>
+<tr><td>\(x\), \(s\), \(n\)</td><td>neutro; forza del prior; osservazioni</td><td>\(0{,}5\); numero di osservazioni virtuali; numero di osservazioni vere</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-3">§4.3</a></td></tr>
+<tr><td>\(\alpha\), \(\beta\), \(k\), \(\text{Beta}(\alpha,\beta)\)</td><td>parametri Beta; successi</td><td>conteggi virtuali del prior Beta; \(k\) = successi reali su \(n\) prove</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-5">§4.5</a> (opz.)</td></tr>
+<tr><td>\(\prod\)</td><td>produttoria</td><td>prodotto di tutti i termini indicati dall'indice</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-1">§5.1</a></td></tr>
+<tr><td>\(\sim\)</td><td>dell'ordine di</td><td>«si comporta circa come»: \(\sim p^{\,n}\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(e\), \(\ln\)</td><td>numero di Nepero; logaritmo naturale</td><td>\(e \approx 2{,}718\); \(\ln\) è l'inverso di \(e^t\); \(\ln(ab)=\ln a + \ln b\); negativo su \((0,1)\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
+<tr><td>odds, \(\mathrm{logit}\)</td><td>quota; log-odds</td><td>\(p/(1-p)\); il suo logaritmo (per esteso in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#app-a-2">A.2</a>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(\mathrm{LLR}\)</td><td>log-likelihood ratio</td><td>il «peso di evidenza» in log-odds: positivo → spam, negativo → ham</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(\sigma(\cdot)\)</td><td>sigmoide (logistica)</td><td>\(\sigma(t) = 1/(1+e^{-t})\), inversa del logit</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(\mathbf{w}\)</td><td>email intera</td><td>in grassetto: tutte le parole dell'email insieme</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(H_0\)</td><td>ipotesi nulla</td><td>«nessun segnale, solo caso»: ciò che il test mette alla prova</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-4">§5.4</a></td></tr>
+<tr><td>\(u\)</td><td>p-value</td><td>probabilità, sotto \(H_0\), di un risultato almeno così estremo</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-4">§5.4</a></td></tr>
+<tr><td>\(F(t)\), CDF</td><td>funzione di ripartizione</td><td>\(P(X \le t)\); la sopravvivenza è \(1 - F(t) = P(X > t)\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(\chi^2_\nu\), \(\nu\)</td><td>chi-quadro; gradi di libertà</td><td>famiglia di distribuzioni note e tabulate; \(\nu\) ne fissa la forma</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(T\)</td><td>statistica di Fisher</td><td>\(-2\sum\ln(\cdot)\): la «sorpresa accumulata»</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(C^{-1}(t,\nu)\)</td><td>sopravvivenza della chi-quadro</td><td>\(P(\chi^2_\nu > t)\); nonostante il «\(-1\)», non è una funzione inversa</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(H\), \(S\), \(I\)</td><td>indicatori di Fisher</td><td>bussola: \(H\)/\(S\) <em>piccolo</em> = evidenza forte di ham/spam; \(I = (1+H-S)/2\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-6">§5.6</a></td></tr>
+<tr><td>\(|x|\)</td><td>valore assoluto</td><td>distanza di \(x\) da zero (barre attorno a un <em>numero</em>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-6">§5.6</a></td></tr>
+<tr><td>\(\tau\)</td><td>soglia di decisione</td><td>il livello con cui si confronta \(I\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-6">§5.6</a></td></tr>
+<tr><td>\(\infty\)</td><td>infinito</td><td>oltre ogni numero; la scala del logit va da \(-\infty\) a \(+\infty\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#app-a-2">A.2</a></td></tr>
+<tr><td>\(X\), \(\mathbb{E}[X]\)</td><td>variabile casuale; valore atteso</td><td>numero che dipende dall'esito (maiuscola = variabile, minuscola = valore); media pesata con le probabilità</td><td>App. D (opz.)</td></tr>
+<tr><td>\(\mathcal{G}\)</td><td>sotto-\(\sigma\)-algebra</td><td>famiglia di eventi più povera di \(\mathcal{F}\): informazione parziale</td><td>App. D (opz.)</td></tr>
+<tr><td>\(\mathbb{E}[X \mid \mathcal{G}]\)</td><td>aspettazione condizionata</td><td>la miglior stima di \(X\) usando solo l'informazione in \(\mathcal{G}\)</td><td>App. D (opz.)</td></tr>
+</tbody>
+<tbody id="f4-statistica-e-machine">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— F4 — Statistica e machine learning —</td></tr>
+<tr><td>\(\mathbf{x}\), \(\boldsymbol\theta\)</td><td>vettori (dati; pesi)</td><td>liste ordinate di numeri; grassetto = più componenti</td><td>F4 §1.1</td></tr>
+<tr><td>\(\top\), \(\boldsymbol\theta^{\top}\mathbf{x}\)</td><td>trasposto; prodotto scalare</td><td>«moltiplica componente per componente e somma»</td><td>F4 §1.2</td></tr>
+<tr><td>\(\sqrt{\ }\)</td><td>radice quadrata</td><td>il numero che al quadrato dà l'argomento</td><td>F4 §1.3</td></tr>
+<tr><td>\(\lVert\boldsymbol\theta\rVert\)</td><td>norma</td><td>lunghezza del vettore: \(\sqrt{\sum_j \theta_j^2}\)</td><td>F4 §1.3</td></tr>
+<tr><td>\(r(\mathbf{x})\)</td><td>uscita della logistica</td><td>\(\sigma(\boldsymbol\theta^{\top}\mathbf{x})\): probabilità stimata che \(y=1\)</td><td>F4 §2.2</td></tr>
+<tr><td>\(y\)</td><td>etichetta</td><td>la verità osservata, \(0\) oppure \(1\)</td><td>F4 §2.2</td></tr>
+<tr><td>\(\ell\), \(\mathcal{L}(\boldsymbol\theta)\)</td><td>log-loss (perdita)</td><td>costo dell'errore; \(\mathcal{L} = -\ln L\): non confondere con la verosimiglianza \(L\)</td><td>F4 §2.3</td></tr>
+<tr><td>\(\lambda\)</td><td>due mestieri</td><td>forza della penale L2 (§2.4) <em>e</em> fattore EWMA (§4.1): decide il contesto</td><td>F4 §2.4</td></tr>
+<tr><td>\(\eta\)</td><td>learning rate</td><td>lunghezza del passo nella discesa del gradiente</td><td>F4 §3.1</td></tr>
+<tr><td>SGD, FTRL</td><td>sigle</td><td>discesa del gradiente un esempio alla volta; sua variante online industriale</td><td>F4 §3.2</td></tr>
+<tr><td>\(\bar{x}\)</td><td>media EWMA</td><td>la barra = media; qui la media mobile che dimentica</td><td>F4 §4.1</td></tr>
+<tr><td>\(\Delta t\), \(\tau\)</td><td>intervallo; costante di tempo</td><td>tempo dall'ultimo aggiornamento; scala della memoria (questo \(\tau\) ≠ soglia della 1.1)</td><td>F4 §4.2</td></tr>
+<tr><td>\(\hat{p}\), \(k\), \(m\)</td><td>stima campionaria; conteggi</td><td>\(\hat{p} = k/m\): eventi osservati su prove totali</td><td>F4 §5.1</td></tr>
+<tr><td>\(z\)</td><td>quantile normale</td><td>numero dalla curva a campana: \(1{,}96\) ↔ 95%; regola la prudenza</td><td>F4 §5.2</td></tr>
+<tr><td>IC, LCB</td><td>intervallo di confidenza; bordo inferiore</td><td>forchetta di valori plausibili; il suo estremo prudente</td><td>F4 §5.2</td></tr>
+<tr><td>\(rel_i\)</td><td>voto di rilevanza</td><td>etichetta graduata (0–3) del documento in posizione \(i\)</td><td>F4 §6.1</td></tr>
+<tr><td>\(@k\)</td><td>cutoff</td><td>«considerando solo le prime \(k\) posizioni»</td><td>F4 §6.2</td></tr>
+<tr><td>DCG, IDCG, NDCG</td><td>pagelle di ranking</td><td>guadagno scontato per posizione; la sua versione ideale; il rapporto in \([0,1]\)</td><td>F4 §6.2</td></tr>
+<tr><td>\(s_i\), \(P_{ij}\)</td><td>punteggio; prob. di coppia</td><td>score di ranking; \(\sigma(s_i - s_j)\) = prob. che \(i\) stia sopra \(j\)</td><td>F4 §6.3</td></tr>
+<tr><td>GBDT, RankNet, LambdaMART</td><td>sigle</td><td>alberi in sequenza; il modello a coppie; il ranker industriale guidato dall'NDCG</td><td>F4 §6</td></tr>
+</tbody>
+<tbody id="1-2-score-reputazionali">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 1.2 — Score reputazionali —</td></tr>
+<tr><td>\(c\)</td><td>tasso di reclamo</td><td>\(\#\text{reclami}/\#\text{consegnate}\): il segnale «Segnala spam»</td><td>1.2 §2</td></tr>
+<tr><td>\(\#\)</td><td>numero di</td><td>cancelletto di conteggio: \(\#\text{reclami}\) = quanti reclami</td><td>1.2 §2</td></tr>
+<tr><td>\(\Delta V\)</td><td>variazione di volume</td><td>\(\Delta\) = «variazione di»: quanto è cambiato \(V\)</td><td>1.2 §2</td></tr>
+<tr><td>\(\alpha_0\), \(\beta_0\)</td><td>prior Beta (di partenza)</td><td>conteggi virtuali ereditati dal vicinato; pedice \(0\) = di partenza</td><td>1.2 §3</td></tr>
+<tr><td>\(\sim\)</td><td>si distribuisce come</td><td>secondo uso di \(\sim\) (in F4 era «dell'ordine di»): decide il contesto</td><td>1.2 §3</td></tr>
+<tr><td>ASN, /24</td><td>vicinato di rete</td><td>fornitore di rete; blocco di 256 indirizzi IP contigui</td><td>1.2 §3</td></tr>
+<tr><td>\(w\)</td><td>peso della miscela</td><td>quanto pesa lo score personale contro il prior del vicinato (≠ parola \(w\) della 1.1)</td><td>1.2 §5</td></tr>
+</tbody>
+<tbody id="f5-segnali-e-rilevamento">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— F5 — Segnali e rilevamento —</td></tr>
+<tr><td>\(\mu\)</td><td>media</td><td>somma dei dati diviso il loro numero</td><td>F5 §1.1</td></tr>
+<tr><td>\(\sigma\)</td><td>deviazione standard</td><td>righello della dispersione: \(\sqrt{\text{media dei quadrati degli scarti}}\) — senza parentesi-argomento, ≠ sigmoide \(\sigma(\cdot)\)</td><td>F5 §1.1</td></tr>
+<tr><td>\(z\)</td><td>z-score</td><td>\((x-\mu)/\sigma\): distanza dalla media in unità di \(\sigma\)</td><td>F5 §1.2</td></tr>
+<tr><td>\(S_t\), pedice \(t\)</td><td>accumulatore CUSUM; tempo</td><td>la «vasca» degli sforamenti al passo \(t\) (≠ classe S, ≠ spamminess)</td><td>F5 §2</td></tr>
+<tr><td>\(\mu_0\)</td><td>livello di riferimento</td><td>il valore atteso in condizioni normali</td><td>F5 §2</td></tr>
+<tr><td>\(\kappa\)</td><td>kappa, margine</td><td>lo sforamento tollerato che non accumula</td><td>F5 §2</td></tr>
+<tr><td>\(h\)</td><td>soglia d'allarme</td><td>livello della vasca oltre cui scatta il rilevamento</td><td>F5 §2</td></tr>
+<tr><td>\(B\), \(r\)</td><td>capacità; tasso di ricarica</td><td>burst massimo del secchio; gettoni per unità di tempo (questo \(r\) ≠ \(r(\mathbf{x})\))</td><td>F5 §3</td></tr>
+<tr><td>\(t^-\)</td><td>istante precedente</td><td>il momento dell'ultimo aggiornamento del secchio</td><td>F5 §3</td></tr>
+</tbody>
+<tbody id="1-3-warmup">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 1.3 — Warmup —</td></tr>
+<tr><td>\(V_d\), \(V_0\), \(V_{\max}\)</td><td>volumi</td><td>email del giorno \(d\); volume iniziale; tetto</td><td>1.3 §2</td></tr>
+<tr><td>\(\rho\)</td><td>rho, fattore di crescita</td><td>moltiplicatore giornaliero del volume (≠ \(p\) di probabilità)</td><td>1.3 §2</td></tr>
+<tr><td>\(d\)</td><td>giorno</td><td>l'indice dei giorni di warmup</td><td>1.3 §2</td></tr>
+<tr><td>\(\mathbb{1}[\cdot]\)</td><td>funzione indicatrice</td><td>vale \(1\) se la condizione è vera, \(0\) altrimenti</td><td>1.3 §3</td></tr>
+<tr><td>\(\wedge\)</td><td>e logica</td><td>l'<code>and</code>: vera solo se tutte le condizioni sono vere</td><td>1.3 §3</td></tr>
+<tr><td>\(c^{*}\), \(b^{*}\), \(\beta^{*}\)</td><td>valori obiettivo</td><td>l'asterisco in alto marca la soglia da rispettare</td><td>1.3 §3</td></tr>
+<tr><td>KPI, ESP</td><td>sigle</td><td>indicatori chiave di prestazione; il fornitore email che riceve e giudica</td><td>1.3 §3–§4</td></tr>
+<tr><td>\(z_V\), \(\mu_V\), \(\sigma_V\)</td><td>z-score del volume</td><td>anomalia del volume di oggi rispetto allo storico; pedice \(V\) = «del volume»</td><td>1.3 §4</td></tr>
+<tr><td>\(a\), \(b\)</td><td>pesi</td><td>importanza di reputazione e anomalia (questo \(b\) ≠ conteggio spam della 1.1)</td><td>1.3 §4</td></tr>
+<tr><td>4xx, deferral</td><td>rifiuto temporaneo</td><td>«riprova più tardi»: il freno gentile del ricevente</td><td>1.3 §4</td></tr>
+</tbody>
+<tbody id="f3-teoria-dell-informazi">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— F3 — Teoria dell'informazione —</td></tr>
+<tr><td>\(\log_2\)</td><td>logaritmo in base 2</td><td>l'esponente da dare a \(2\); cugino di \(\ln\), cambia solo l'unità</td><td>F3 §1</td></tr>
+<tr><td>bit</td><td>unità di sorpresa</td><td>la sorpresa di una moneta equa; una domanda sì/no</td><td>F3 §1</td></tr>
+<tr><td>\(H\), \(H_{\text{src}}\), \(H_{\text{content}}\)</td><td>entropia</td><td>sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera H)</td><td>F3 §2</td></tr>
+<tr><td>\(0 \cdot \log_2 0 := 0\)</td><td>convenzione</td><td>gli esiti impossibili non contribuiscono all'entropia</td><td>F3 §2</td></tr>
+<tr><td>PMI, \(\text{PMI}^{+}\)</td><td>pointwise mutual information</td><td>\(\log_2\) del rapporto tra co-occorrenza reale e caso puro; la versione \(^{+}\) azzera i negativi</td><td>F3 §4</td></tr>
+</tbody>
+<tbody id="f6-similarit-hashing-e-c">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— F6 — Similarità, hashing e codifiche —</td></tr>
+<tr><td>hash, SHA-256</td><td>funzione di hash</td><td>input qualsiasi → numero fisso «ben mescolato»; SHA-256 = 32 byte</td><td>F6 §1</td></tr>
+<tr><td>byte</td><td>otto bit</td><td>4 byte = 32 bit → \(2^{32}\) valori possibili</td><td>F6 §1</td></tr>
+<tr><td>collisione</td><td>—</td><td>input diversi, stesso output; per coppia fissata: prob. \(1/N\)</td><td>F6 §1</td></tr>
+<tr><td>k-anonimità</td><td>—</td><td>nascondersi in un gruppo di almeno \(k\) indistinguibili</td><td>F6 §2</td></tr>
+<tr><td>\(D\), \(P\)</td><td>conteggi del database</td><td>hash completi in DB; prefissi in lista (questo \(D\) ≠ dati di §3.2)</td><td>F6 §2</td></tr>
+<tr><td>\(J(A,B)\)</td><td>similarità di Jaccard</td><td>\(|A \cap B| / |A \cup B|\): quota condivisa sul totale distinto</td><td>F6 §3</td></tr>
+<tr><td>shingle</td><td>finestra scorrevole</td><td>frammento di parole consecutive; trasforma un testo in un insieme</td><td>F6 §3</td></tr>
+<tr><td>\(h_{\min}\)</td><td>min-hash</td><td>il minimo degli hash degli elementi; coincide con prob. \(= J\)</td><td>F6 §4</td></tr>
+<tr><td>\(s\), \(r\), \(b\)</td><td>similarità; righe; bande</td><td>parametri LSH (questo \(s\) ≠ forza del prior; questo \(r\) ≠ resto, ≠ tasso)</td><td>F6 §5</td></tr>
+<tr><td>\(\lfloor \cdot \rfloor\)</td><td>floor</td><td>arrotonda in giù all'intero: \(\lfloor 2{,}75 \rfloor = 2\)</td><td>F6 §6</td></tr>
+<tr><td>\(\bmod\)</td><td>modulo</td><td>resto della divisione intera (il <code>%</code>)</td><td>F6 §6</td></tr>
+<tr><td>\(\delta\), \(q\), \(k\) (Rice)</td><td>delta; quoziente; parametro</td><td>differenza tra consecutivi; \(\lfloor \delta/2^k \rfloor\) in unario; taglia del resto</td><td>F6 §6</td></tr>
+<tr><td>unario</td><td>—</td><td>contare coi segni: \(q\) bit a 1 chiusi da uno 0</td><td>F6 §6</td></tr>
+<tr><td>somma prefissa</td><td>—</td><td>ricostruire la lista sommando i delta in cascata dal primo valore</td><td>F6 §6</td></tr>
+</tbody>
+<tbody id="1-4-difese">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 1.4 — Difese —</td></tr>
+<tr><td>\(\theta^{*}\), \(N\), \(v\), \(V_{\text{target}}\)</td><td>parametri snowshoe</td><td>soglia per sorgente; numero di sorgenti; volume per sorgente; obiettivo totale</td><td>1.4 §1</td></tr>
+<tr><td>grafo, nodo, arco</td><td>—</td><td>pallini e linee: oggetti e relazioni fra loro</td><td>1.4 §2</td></tr>
+<tr><td>componente connessa</td><td>—</td><td>l'«isola»: i nodi raggiungibili l'uno dall'altro sugli archi</td><td>1.4 §2</td></tr>
+<tr><td>\(\propto\)</td><td>proporzionale a</td><td>cresce e cala insieme a, senza fissare la scala</td><td>1.4 §3</td></tr>
+<tr><td>\(\varepsilon\)</td><td>epsilon</td><td>numero piccolissimo anti-divisione-per-zero</td><td>1.4 §3</td></tr>
+<tr><td>\(\vee\)</td><td>o logica</td><td>l'<code>or</code>: vera se almeno un lato è vero</td><td>1.4 §4</td></tr>
+<tr><td>\(\Longleftrightarrow\)</td><td>se e solo se</td><td>doppia implicazione: i due lati veri negli stessi casi</td><td>1.4 §4</td></tr>
+<tr><td>\(w_1, w_2, \dots\)</td><td>pesi delle bandierine</td><td>quanto pesa ogni indizio nello score di anomalia</td><td>1.4 §4</td></tr>
+</tbody>
+<tbody id="f2-algebra-lineare-e-mar">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— F2 — Algebra lineare e Markov —</td></tr>
+<tr><td>\(M\), \(M_{ij}\)</td><td>matrice; sua voce</td><td>tabella di numeri; \(M_{ij}\) = riga \(i\), colonna \(j\) (qui: prob. di andare da \(j\) a \(i\))</td><td>F2 §1</td></tr>
+<tr><td>\(M\mathbf{p}\)</td><td>prodotto matrice·vettore</td><td>pila di prodotti scalari riga-per-vettore: un passo della catena</td><td>F2 §1</td></tr>
+<tr><td>colonna-stocastica</td><td>—</td><td>ogni colonna somma a \(1\): probabilità in uscita da uno stato</td><td>F2 §2</td></tr>
+<tr><td>catena di Markov</td><td>—</td><td>sistema senza memoria: il futuro dipende solo dal presente</td><td>F2 §2</td></tr>
+<tr><td>\(\mathbf{p}^{*}\)</td><td>distribuzione stazionaria</td><td>il punto fermo: \(M\mathbf{p}^{*} = \mathbf{p}^{*}\)</td><td>F2 §3</td></tr>
+<tr><td>\(\mathbf{v}\), \(\lambda\)</td><td>autovettore; autovalore</td><td>direzione non deviata; suo fattore di scala (terzo mestiere di \(\lambda\))</td><td>F2 §4</td></tr>
+<tr><td>irriducibile, aperiodica</td><td>—</td><td>tutto raggiungibile da tutto; niente ritorni a passi fissi obbligati</td><td>F2 §5</td></tr>
+<tr><td>\(I\)</td><td>matrice identità</td><td>la macchina «non fare niente»: \(I\mathbf{v} = \mathbf{v}\)</td><td>F2 §6</td></tr>
+<tr><td>\(A^{-1}\)</td><td>matrice inversa</td><td>annulla l'effetto di \(A\) (stavolta il \(-1\) è un'inversa vera)</td><td>F2 §6</td></tr>
+<tr><td>\(M^{k}\)</td><td>potenza di matrice</td><td>\(M\) applicata \(k\) volte: \(k\) passi della catena</td><td>F2 §6</td></tr>
+<tr><td>serie di Neumann</td><td>—</td><td>\((I-\alpha M)^{-1} = \sum_k \alpha^k M^k\): l'inversa come somma di cammini smorzati</td><td>F2 §6</td></tr>
+</tbody>
+<tbody id="2-1-pagerank">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 2.1 — PageRank —</td></tr>
+<tr><td>\(PR(p_i)\)</td><td>PageRank della pagina \(p_i\)</td><td>frazione di tempo del navigatore casuale = componente della stazionaria</td><td>2.1 §1</td></tr>
+<tr><td>\(d\)</td><td>damping factor</td><td>probabilità di seguire un link (≈ 0,85); \(1-d\) = teletrasporto (≠ giorno della 1.3)</td><td>2.1 §1</td></tr>
+<tr><td>\(N\)</td><td>numero di pagine</td><td>la taglia del web in esame</td><td>2.1 §2</td></tr>
+<tr><td>\(M(p_i)\)</td><td>insieme dei predecessori</td><td>le pagine che puntano a \(p_i\) — con argomento: insieme, ≠ matrice \(M\)</td><td>2.1 §2</td></tr>
+<tr><td>\(L(p_j)\)</td><td>grado uscente</td><td>numero di link in uscita da \(p_j\) (≠ verosimiglianza \(L(\theta)\))</td><td>2.1 §2</td></tr>
+<tr><td>\(\mathbf{1}\), \(\mathbf{v}\)</td><td>vettore di uni; teletrasporto</td><td>tutti 1; \(\mathbf{v} = \frac{1}{N}\mathbf{1}\) = uniforme (personalizzabile, §4)</td><td>2.1 §3</td></tr>
+<tr><td>dangling, \(\mathbf{a}\)</td><td>nodo senza uscite; suo indicatore</td><td>pagina senza link uscenti; \(\mathbf{a}\) segna quali (questo \(\mathbf{a}\) ≠ peso di 1.3)</td><td>2.1 §3</td></tr>
+<tr><td>\(G\)</td><td>matrice di Google</td><td>link + dangling + teletrasporto in un'unica matrice stocastica</td><td>2.1 §3</td></tr>
+</tbody>
+<tbody id="2-2-trustrank">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 2.2 — TrustRank —</td></tr>
+<tr><td>\(O(p)\)</td><td>oracolo</td><td>giudizio umano certo, \(0\) o \(1\): costoso, budget di \(L\) chiamate</td><td>2.2 §1</td></tr>
+<tr><td>\(T(p)\), \(\mathbf{t}\)</td><td>funzione di trust; suo vettore</td><td>fiducia in \([0,1]\) calcolabile per tutte le pagine</td><td>2.2 §1</td></tr>
+<tr><td>\(L\)</td><td>budget dell'oracolo</td><td>quante valutazioni umane puoi permetterti (terzo mestiere della lettera)</td><td>2.2 §1</td></tr>
+<tr><td>\(G^{\top}\)</td><td>grafo trasposto</td><td>tutti gli archi girati al contrario</td><td>2.2 §2</td></tr>
+<tr><td>\(S^{+}\)</td><td>semi buoni</td><td>le pagine promosse dall'oracolo</td><td>2.2 §2</td></tr>
+<tr><td>\(\mathbf{d}\)</td><td>distribuzione dei semi</td><td>uniforme su \(S^{+}\), zero altrove (in grassetto: vettore, ≠ damping \(d\))</td><td>2.2 §2</td></tr>
+<tr><td>\(\begin{cases}\cdot\end{cases}\)</td><td>definizione per casi</td><td>la graffa: ogni riga vale nel suo caso</td><td>2.2 §2</td></tr>
+<tr><td>\(\alpha\)</td><td>damping del trust</td><td>\(\approx 0{,}85\); terzo mestiere di \(\alpha\) (era conteggio virtuale nella 1.2)</td><td>2.2 §3</td></tr>
+<tr><td>hop</td><td>passo di grafo</td><td>un passo lungo un arco</td><td>2.2 §3</td></tr>
+</tbody>
+<tbody id="2-3-spam-mass">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 2.3 — Spam mass —</td></tr>
+<tr><td>link farm</td><td>—</td><td>pagine fantasma interconnesse per gonfiare il rank di un bersaglio</td><td>2.3 §1</td></tr>
+<tr><td>\(10^{-k}\)</td><td>esponente negativo</td><td>dividere per la potenza: \(10^{-6} = 1/1.000.000\)</td><td>2.3 §1</td></tr>
+<tr><td>\(PR^{+}(p)\)</td><td>rank giustificato</td><td>il PageRank che arriva propagando solo dal nucleo fidato (2.2)</td><td>2.3 §2</td></tr>
+<tr><td>\(M(p)\), \(m(p)\)</td><td>spam mass assoluta; relativa</td><td>\(PR - PR^{+}\); la sua frazione su \(PR\) (quarto mestiere della lettera M)</td><td>2.3 §2</td></tr>
+</tbody>
+<tbody id="3-1-e-e-a-t-e-learning-t">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 3.1 — E-E-A-T e learning-to-rank —</td></tr>
+<tr><td>E-E-A-T</td><td>sigla</td><td>Experience, Expertise, Authoritativeness, Trust: i criteri dei valutatori</td><td>3.1 §1</td></tr>
+<tr><td>rater</td><td>valutatore di qualità</td><td>l'oracolo umano che produce le etichette di addestramento</td><td>3.1 §2</td></tr>
+<tr><td>\(q\)</td><td>query</td><td>la ricerca dell'utente (≠ quoziente di Rice, F6 §6)</td><td>3.1 §2</td></tr>
+<tr><td>\((q, \text{doc}, rel)\)</td><td>tripla di addestramento</td><td>query, documento e voto: una riga del dataset</td><td>3.1 §2</td></tr>
+</tbody>
+<tbody id="3-2-knowledge-graph">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 3.2 — Knowledge Graph —</td></tr>
+<tr><td>entità, Knowledge Graph</td><td>—</td><td>persone/organizzazioni/opere come nodi; il grafo delle loro relazioni</td><td>3.2 §1</td></tr>
+<tr><td>co-citazione</td><td>—</td><td>due entità che compaiono insieme in un documento</td><td>3.2 §2</td></tr>
+<tr><td>\(W\)</td><td>matrice dei pesi</td><td>pesi \(\text{PMI}^{+}\) normalizzati per colonna (maiuscola: matrice, ≠ \(w\))</td><td>3.2 §3</td></tr>
+<tr><td>\(\mathbf{rep}\), \(\mathbf{seed}\)</td><td>reputazione; semi di entità</td><td>vettore di reputazione; entità di autorevolezza accertata</td><td>3.2 §3</td></tr>
+</tbody>
+<tbody id="4-1-safe-browsing">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 4.1 — Safe Browsing —</td></tr>
+<tr><td>canonicalizzazione</td><td>—</td><td>riscrittura della URL in forma standard: una pagina, un solo hash</td><td>4.1 §2</td></tr>
+<tr><td>full hash</td><td>hash completo</td><td>l'intero SHA-256, contro cui avviene il verdetto finale (in locale)</td><td>4.1 §2</td></tr>
+</tbody>
+<tbody id="4-2-web-risk">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 4.2 — Web Risk —</td></tr>
+<tr><td>Update API, Lookup API</td><td>le due modalità</td><td>DB locale a prefissi (privato) contro interrogazione diretta (semplice)</td><td>4.2 §2</td></tr>
+</tbody>
+<tbody id="4-3-sincronizzazione">
+<tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 4.3 — Sincronizzazione —</td></tr>
+<tr><td>diff</td><td>differenza tra versioni</td><td>solo aggiunte e rimozioni rispetto alla copia locale</td><td>4.3 §1</td></tr>
+<tr><td>indice di rimozione</td><td>—</td><td>la posizione da cancellare nella lista ordinata locale</td><td>4.3 §3</td></tr>
+<tr><td>checksum</td><td>sigillo di integrità</td><td>hash dell'intero database: se non torna, ri-sincronizzi</td><td>4.3 §3</td></tr>
+<tr><td>TTL, cache pos./neg.</td><td>scadenza; memorie di risposta</td><td>time-to-live; ricordare i verdetti (corto per i positivi)</td><td>4.3 §4</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">Glossario globale · generato automaticamente dalle pagine · stato: <strong>bozza</strong> (segue lo stato delle pagine d'origine).</p>
+
+<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
+<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
+<a href="index.html">↩ Mappa</a>
+<span class="wk-sep"></span>
+<a href="Come_si_studia.html">Metodo</a>
+</div></nav>
+</body>
+</html>

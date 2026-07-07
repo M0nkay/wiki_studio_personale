@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F2 — Algebra lineare e Markov · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+
+<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
+     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
+     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
+     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
+<style>
+:root{--link:var(--navy);}
+a{color:var(--navy);}
+.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
+ background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
+ padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
+.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
+ overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.wikibar a:hover{background:#fff2c4;}
+.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
+.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
+@media print{.wikibar{display:none;}}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Matrici</a><a href="#sec-2">§2 Markov</a><a href="#sec-3">§3 Stazionaria</a><a href="#sec-4">§4 Autovettori</a><a href="#sec-5">§5 Potenza</a><a href="#sec-6">§6 Neumann</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F2 — Algebra lineare e catene di Markov <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Fondamenta della wiki · il motore di tutta la sezione 2 (PageRank e TrustRank). <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>Da <a class="xref" href="F4_Statistica_e_ML.html">F4</a>: vettori e prodotto scalare (§1). Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: probabilità (§1–§2).</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Matrici e prodotto matrice·vettore</h2>
+<p>Una <strong>matrice</strong> è una tabella di numeri: righe e colonne. Da programmatore: un array bidimensionale. La voce \(M_{ij}\) sta alla <strong>riga \(i\), colonna \(j\)</strong>.</p>
+<p>Il <strong>prodotto matrice·vettore</strong> \(M\mathbf{p}\) produce un nuovo vettore: la componente \(i\) è il <strong>prodotto scalare della riga \(i\) con \(\mathbf{p}\)</strong> (F4 §1.2). Una matrice è quindi una pila di prodotti scalari: una <strong>macchina che trasforma vettori in vettori</strong>.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(M = \begin{pmatrix} 0{,}9 & 0{,}2 \\ 0{,}1 & 0{,}8 \end{pmatrix}\), \(\mathbf{p} = (0{,}5;\ 0{,}5)\):</p>
+<div class="formula">\[ M\mathbf{p} = \bigl(0{,}9 \cdot 0{,}5 + 0{,}2 \cdot 0{,}5;\ \ 0{,}1 \cdot 0{,}5 + 0{,}8 \cdot 0{,}5\bigr) = (0{,}55;\ 0{,}45) \]</div>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Matrici stocastiche e catene di Markov</h2>
+<p>Un sistema salta tra <strong>stati</strong> (pagine web, condizioni del tempo…). Un <strong>vettore di probabilità</strong> \(\mathbf{p}\) dice dove potresti essere: componenti \(\ge 0\) che sommano a \(1\).</p>
+<p>Una matrice è <strong>colonna-stocastica</strong> quando ogni <strong>colonna</strong> somma a \(1\): la colonna \(j\) elenca le probabilità di transizione <strong>uscendo</strong> dallo stato \(j\) — cioè \(M_{ij}\) = probabilità di passare da \(j\) a \(i\). Una <strong>catena di Markov</strong> è un sistema <strong>senza memoria</strong>: il prossimo passo dipende solo da dove sei ora. Un passo intero della catena è una moltiplicazione:</p>
+<div class="formula key">\[ \mathbf{p}_{\text{domani}} \;=\; M\,\mathbf{p}_{\text{oggi}} \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico — il meteo a due stati</span>
+<p>Stati: sole, pioggia. Dal sole: 90% resta sole, 10% pioggia. Dalla pioggia: 20% torna sole, 80% resta pioggia. È esattamente la \(M\) di §1. Oggi c'è il sole: \(\mathbf{p} = (1;\ 0)\).</p>
+<p>Domani: \(M\mathbf{p} = (0{,}9;\ 0{,}1)\). Dopodomani: \(M(0{,}9;\ 0{,}1) = (0{,}81 + 0{,}02;\ 0{,}09 + 0{,}08) = (0{,}83;\ 0{,}17)\).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. La distribuzione stazionaria: il punto fermo</h2>
+<p>Continuando a moltiplicare, dove si finisce? La <strong>distribuzione stazionaria</strong> \(\mathbf{p}^{*}\) è il vettore che la catena <strong>non cambia più</strong>:</p>
+<div class="formula key">\[ M\,\mathbf{p}^{*} \;=\; \mathbf{p}^{*} \]</div>
+<p>È l'equilibrio: la frazione di tempo che, alla lunga, passi in ogni stato.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — l'equilibrio del meteo</span>
+<p>Cerco \(\mathbf{p}^{*} = (x;\ 1-x)\) con \(0{,}9x + 0{,}2(1-x) = x\) → \(0{,}2 = 0{,}3x\) → \(x = 2/3\).</p>
+<p>\(\mathbf{p}^{*} = (2/3;\ 1/3)\): a regime, due giorni di sole ogni giorno di pioggia. Prova del nove: \(0{,}9 \cdot \frac{2}{3} + 0{,}2 \cdot \frac{1}{3} = 0{,}6 + 0{,}0\overline{6} = \frac{2}{3}\). ✓ E la sequenza di §2 — \(1;\ 0{,}9;\ 0{,}83;\ 0{,}781;\ 0{,}747\dots\) — sta scivolando proprio verso \(0{,}667\).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Autovalori e autovettori</h2>
+<p>Definizione generale: un <strong>autovettore</strong> di \(M\) è un vettore \(\mathbf{v}\) che la matrice <strong>non devia</strong> — lo riscala soltanto:</p>
+<div class="formula key">\[ M\,\mathbf{v} \;=\; \lambda\,\mathbf{v} \]</div>
+<p>Il fattore di scala \(\lambda\) è l'<strong>autovalore</strong>. Colpo d'occhio: la stazionaria di §3 <strong>è</strong> un autovettore, con \(\lambda = 1\).</p>
+<div class="callout warn"><span class="tag">Trappola dei simboli — terzo mestiere di \(\lambda\)</span>
+<p>\(\lambda\) è già stata forza della penale L2 e fattore EWMA (F4). Qui è un <strong>autovalore</strong>. Il contesto — una matrice nei paraggi — decide.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico — i due autovettori del meteo, verificati a mano</span>
+<ol>
+<li>\(\mathbf{v} = (2;\ 1)\): \(M\mathbf{v} = (0{,}9 \cdot 2 + 0{,}2;\ 0{,}1 \cdot 2 + 0{,}8) = (2;\ 1)\) → \(\lambda = 1\). È la stazionaria, non normalizzata.</li>
+<li>\(\mathbf{v} = (1;\ -1)\): \(M\mathbf{v} = (0{,}9 - 0{,}2;\ 0{,}1 - 0{,}8) = (0{,}7;\ -0{,}7)\) → \(\lambda_2 = 0{,}7\).</li>
+</ol>
+<p>Il primo dice <strong>dove</strong> si finisce; il secondo, come vedrai subito, dice <strong>quanto in fretta</strong>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-5">5. Perron–Frobenius e l'iterazione di potenza</h2>
+<p>Il teorema di <strong>Perron–Frobenius</strong> (enunciato, non dimostrato) garantisce: se la matrice stocastica è <strong>irriducibile</strong> (da ogni stato puoi raggiungere ogni altro) e <strong>aperiodica</strong> (niente metronomo: non sei costretto a tornare solo a passi fissi), allora la stazionaria <strong>esiste ed è unica</strong>, l'autovalore dominante è \(1\), e tutti gli altri hanno \(|\lambda| < 1\).</p>
+<p>Da qui l'algoritmo più semplice del mondo, l'<strong>iterazione di potenza</strong>: parti da un \(\mathbf{p}\) qualsiasi e applica \(M\) in loop. L'errore si restringe a ogni passo di un fattore \(|\lambda_2|\) — <strong>decadimento geometrico</strong>, la crescita geometrica di 1.3 girata al contrario:</p>
+<div class="formula key">\[ \text{errore dopo } k \text{ passi} \;\sim\; |\lambda_2|^{\,k} \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico — l'errore che si dimezza (quasi)</span>
+<p>Meteo, componente sole, bersaglio \(2/3 \approx 0{,}667\): errori a ogni passo</p>
+<p>\(0{,}333 \to 0{,}233 \to 0{,}163 \to 0{,}114 \to 0{,}080\)</p>
+<p>Ogni errore è il precedente \(\times\, 0{,}7\) — <strong>esattamente</strong> \(\lambda_2\). Il secondo autovalore è il cronometro della convergenza.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-6">6. La serie di Neumann: l'inversa come somma di cammini</h2>
+<p>Servirà per la forma chiusa di TrustRank. Prima due mattoni: \(I\) è la <strong>matrice identità</strong> — la macchina «non fare niente»: \(1\) sulla diagonale, \(0\) altrove, \(I\mathbf{v} = \mathbf{v}\). E \(A^{-1}\) è l'<strong>inversa</strong> di una matrice: la macchina che ne annulla l'effetto.</p>
+<div class="callout warn"><span class="tag">Nota sui simboli</span>
+<p>Questa volta l'esponente \(-1\) è <strong>davvero</strong> un'inversa — a differenza del \(C^{-1}\) della 1.1 §5.5, che era solo un nome.</p>
+</div>
+<p>Ricordi la serie geometrica dei numeri? Per \(|x| < 1\): \(\dfrac{1}{1-x} = 1 + x + x^2 + x^3 + \dots\) (prova con \(x = 0{,}5\): \(1 + 0{,}5 + 0{,}25 + 0{,}125 + \dots \to 2 = \frac{1}{1-0{,}5}\)). La <strong>serie di Neumann</strong> è la stessa identica cosa per le matrici, con \(0 < \alpha < 1\):</p>
+<div class="formula key">\[ (I - \alpha M)^{-1} \;=\; \sum_{k=0}^{\infty} \alpha^{k} M^{k} \]</div>
+<p>dove \(M^k\) significa «\(M\) applicata \(k\) volte», cioè <strong>\(k\) passi della catena</strong>. Lettura che serve a TrustRank: l'inversa è la <strong>somma dei contributi di tutti i cammini</strong>, con i cammini lunghi \(k\) smorzati da \(\alpha^k\).</p>
+
+<div class="callout ex" id="ex-6"><span class="tag">Esercizi</span>
+<ol>
+<li>Con la \(M\) del meteo, calcola \(M\mathbf{p}\) per \(\mathbf{p} = (0{,}6;\ 0{,}4)\).</li>
+<li>Verifica che \((3;\ 1)\) <strong>non</strong> è autovettore di \(M\) (calcola \(M\mathbf{v}\) e mostra che non è un multiplo di \(\mathbf{v}\)).</li>
+<li>Serie geometrica con \(x = 0{,}1\): a cosa converge \(1 + x + x^2 + \dots\)?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-6">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\((0{,}9 \cdot 0{,}6 + 0{,}2 \cdot 0{,}4;\ 0{,}1 \cdot 0{,}6 + 0{,}8 \cdot 0{,}4) = (0{,}62;\ 0{,}38)\).</li>
+<li>\(M(3;\ 1) = (2{,}7 + 0{,}2;\ 0{,}3 + 0{,}8) = (2{,}9;\ 1{,}1)\). Un multiplo di \((3; 1)\) avrebbe rapporto \(3:1\); qui il rapporto è \(2{,}9 : 1{,}1 \approx 2{,}6\) → non è autovettore.</li>
+<li>\(\dfrac{1}{1 - 0{,}1} = \dfrac{1}{0{,}9} \approx 1{,}111\).</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(M\), \(M_{ij}\)</td><td>matrice; sua voce</td><td>tabella di numeri; \(M_{ij}\) = riga \(i\), colonna \(j\) (qui: prob. di andare da \(j\) a \(i\))</td><td>F2 §1</td></tr>
+<tr><td>\(M\mathbf{p}\)</td><td>prodotto matrice·vettore</td><td>pila di prodotti scalari riga-per-vettore: un passo della catena</td><td>F2 §1</td></tr>
+<tr><td>colonna-stocastica</td><td>—</td><td>ogni colonna somma a \(1\): probabilità in uscita da uno stato</td><td>F2 §2</td></tr>
+<tr><td>catena di Markov</td><td>—</td><td>sistema senza memoria: il futuro dipende solo dal presente</td><td>F2 §2</td></tr>
+<tr><td>\(\mathbf{p}^{*}\)</td><td>distribuzione stazionaria</td><td>il punto fermo: \(M\mathbf{p}^{*} = \mathbf{p}^{*}\)</td><td>F2 §3</td></tr>
+<tr><td>\(\mathbf{v}\), \(\lambda\)</td><td>autovettore; autovalore</td><td>direzione non deviata; suo fattore di scala (terzo mestiere di \(\lambda\))</td><td>F2 §4</td></tr>
+<tr><td>irriducibile, aperiodica</td><td>—</td><td>tutto raggiungibile da tutto; niente ritorni a passi fissi obbligati</td><td>F2 §5</td></tr>
+<tr><td>\(I\)</td><td>matrice identità</td><td>la macchina «non fare niente»: \(I\mathbf{v} = \mathbf{v}\)</td><td>F2 §6</td></tr>
+<tr><td>\(A^{-1}\)</td><td>matrice inversa</td><td>annulla l'effetto di \(A\) (stavolta il \(-1\) è un'inversa vera)</td><td>F2 §6</td></tr>
+<tr><td>\(M^{k}\)</td><td>potenza di matrice</td><td>\(M\) applicata \(k\) volte: \(k\) passi della catena</td><td>F2 §6</td></tr>
+<tr><td>serie di Neumann</td><td>—</td><td>\((I-\alpha M)^{-1} = \sum_k \alpha^k M^k\): l'inversa come somma di cammini smorzati</td><td>F2 §6</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F2 — Algebra lineare e catene di Markov · stato: <strong>bozza</strong> · motore della sezione 2.</p>
+
+<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
+<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
+<a href="index.html">↩ Mappa</a>
+<span class="wk-sep"></span>
+<a rel="prev" href="Sezione_1_4_Difese.html" aria-label="Precedente: 1.4 — Difese: spam distribuito ed elusivo" title="Precedente: 1.4 — Difese: spam distribuito ed elusivo">← 1.4</a>
+<span class="wk-pos">9 di 17</span>
+<a rel="next" href="Sezione_2_1_PageRank.html" aria-label="Successiva: 2.1 — PageRank: il random surfer" title="Successiva: 2.1 — PageRank: il random surfer">2.1 →</a>
+<span class="wk-sep"></span>
+<a href="Glossario_globale.html">Glossario</a>
+<a href="Come_si_studia.html">Metodo</a>
+</div></nav>
+<script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
+try{localStorage.setItem('wiki-tappa','F2|F2_Algebra_lineare_Markov.html');}catch(e){}</script>
+</body>
+</html>

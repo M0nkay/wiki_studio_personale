@@ -1,0 +1,26 @@
+/* ============================================================
+   Font — Wiki «Sistemi di Fiducia»
+   Il sistema usa ESCLUSIVAMENTE font di sistema (nessun webfont,
+   per design: massima leggibilità e zero rete). Le due famiglie
+   qui sotto sono fallback dello stack originale e vengono
+   dichiarate con src:local(): si risolvono dal sistema operativo
+   se presenti, altrimenti lo stack scivola sul fallback successivo.
+   Se in futuro si vogliono spedire i binari, aggiungere qui i
+   relativi url(...) accanto ai local(...).
+   ============================================================ */
+@font-face {
+  font-family: "Trebuchet MS";
+  src: local("Trebuchet MS"), local("TrebuchetMS");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Trebuchet MS";
+  font-weight: bold;
+  src: local("Trebuchet MS Bold"), local("TrebuchetMS-Bold");
+  font-display: swap;
+}
+@font-face {
+  font-family: "DejaVu Sans Mono";
+  src: local("DejaVu Sans Mono"), local("DejaVuSansMono");
+  font-display: swap;
+}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>4.1 — Safe Browsing · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Problema</a><a href="#sec-2">§2 Flusso</a><a href="#sec-3">§3 Privacy</a><a href="#sec-4">§4 4 byte</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F6_Similarita_hashing_codifiche.html">↩ F6</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">4.1 — Safe Browsing: blacklist a prefissi di hash <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki · paper §4.1. <strong>Bozza</strong>: schermo sì, carta no. La matematica è tutta in F6 §1–§2: qui la vedi montata.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="F6_Similarita_hashing_codifiche.html">F6</a> §1 (hash e collisioni) e §2 (prefissi, k-anonimità).</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Il problema: tre vincoli in collisione</h2>
+<p>Milioni di URL pericolose, miliardi di dispositivi, e tre vincoli: (a) il controllo deve avvenire <strong>a ogni navigazione</strong>, in millisecondi; (b) la lista non entra tutta sul telefono; (c) la cronologia dell'utente <strong>non deve finire al server</strong>. Safe Browsing risolve tutti e tre con lo stesso trucco: i <strong>prefissi di hash</strong>.</p>
+
+<hr/>
+
+<h2 id="sec-2">2. Il flusso di verifica, in cinque passi</h2>
+<ol>
+<li><strong>Canonicalizzazione</strong>: la URL viene riscritta in forma standard (minuscole, niente parti ridondanti) — così una stessa pagina ha un solo hash.</li>
+<li><strong>Hash</strong>: SHA-256 della URL canonica (F6 §1).</li>
+<li><strong>Confronto locale</strong>: i primi 4 byte contro il database di <strong>prefissi</strong> che il dispositivo tiene in locale. Nessun match (il caso normale): via libera, <strong>zero rete</strong>.</li>
+<li><strong>Match di prefisso</strong>: il dispositivo chiede al server <strong>gli hash completi di quel prefisso</strong> — inviando solo il prefisso.</li>
+<li><strong>Verdetto locale</strong>: il confronto finale tra l'hash completo della URL e quelli ricevuti avviene <strong>sul dispositivo</strong>. Solo un match completo fa scattare l'avviso.</li>
+</ol>
+<p>Nota bene il disegno: la URL, e perfino il suo hash completo, <strong>non lasciano mai il telefono</strong>.</p>
+
+<hr/>
+
+<h2 id="sec-3">3. La matematica in gioco (richiami F6, coi numeri)</h2>
+<p>Dal §2 di F6, già tuoi: la probabilità che una URL <strong>sicura</strong> becchi per caso un prefisso in lista è \(\approx P/2^{32}\); con \(P = 4{,}3\) milioni di prefissi fa \(\approx 0{,}1\%\) — una navigazione su mille attiva il passo 4 <strong>per puro rumore</strong>. Ed è proprio quel rumore a comprare la privacy: dietro ogni prefisso ci sono innumerevoli URL possibili (<strong>k-anonimità</strong>), quindi il server, vedendo il prefisso, non sa quale ti interessava. Il match di prefisso è un campanello, mai un verdetto.</p>
+
+<hr/>
+
+<h2 id="sec-4">4. Perché proprio 4 byte</h2>
+<p>La lunghezza del prefisso è una <strong>manopola</strong>: più corto → gruppo di anonimato più grande (privacy su) ma più falsi campanelli (banda e latenza su); più lungo → l'inverso, fino a distruggere la k-anonimità. I 4 byte sono il punto d'equilibrio adottato <strong>[INF]</strong>: falsi campanelli rari (\(\sim 0{,}1\%\)) e anonimato ancora enorme.</p>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
+<ol>
+<li>In quale dei cinque passi la URL (o il suo hash completo) lascia il dispositivo?</li>
+<li>Lista raddoppiata: \(P = 8{,}6\) milioni di prefissi. Probabilità di campanello casuale?</li>
+<li>Perché il confronto finale del passo 5 deve avvenire sul dispositivo e non sul server? (Una frase.)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<ol>
+<li><strong>In nessuno</strong>: viaggia solo il prefisso (passo 4). È il cuore del disegno.</li>
+<li>\(8{,}6 \cdot 10^{6} / 2^{32} \approx 0{,}002 = 0{,}2\%\): raddoppia la lista, raddoppia il rumore — lineare.</li>
+<li>Se il server facesse il confronto, dovrebbe ricevere l'hash completo — e l'hash completo identifica la URL: addio k-anonimità.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>canonicalizzazione</td><td>—</td><td>riscrittura della URL in forma standard: una pagina, un solo hash</td><td>4.1 §2</td></tr>
+<tr><td>full hash</td><td>hash completo</td><td>l'intero SHA-256, contro cui avviene il verdetto finale (in locale)</td><td>4.1 §2</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">4.1 — Safe Browsing · stato: <strong>bozza</strong> · prossime: 4.2 (Web Risk) e 4.3 (sincronizzazione).</p>
+</body>
+</html>

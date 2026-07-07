@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2.3 — Spam mass · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Link farm</a><a href="#sec-2">§2 Spam mass</a><a href="#sec-3">§3 Esempio</a><a href="#sec-4">§4 Quadro</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="Sezione_2_2_TrustRank.html">↩ 2.2</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">2.3 — Spam mass e l'isolamento delle link farm <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki · paper §2.3. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="Sezione_2_1_PageRank.html">2.1</a> (la pioggia del teletrasporto) e <a class="xref" href="Sezione_2_2_TrustRank.html">2.2</a> (il trust dai semi).</p>
+
+<hr/>
+
+<h2 id="sec-1">1. La link farm: gonfiarsi con la pioggia</h2>
+<p>Una <strong>link farm</strong> è un mucchio di pagine fantasma, fitte di link reciproci, costruite per pompare il PageRank di un <strong>bersaglio</strong>. Il trucco sfrutta proprio la pioggia uniforme di 2.1: il teletrasporto regala \(\frac{1-d}{N}\) a <strong>ogni</strong> pagina, anche a quelle che nessuno ha mai linkato. La farm raccoglie tante gocce e le <strong>incanala</strong> tutte sul bersaglio.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — quanto rende una farm</span>
+<p>Web di \(N = 10^{6}\) pagine (un milione; l'esponente negativo divide: \(10^{-6} = 1/1.000.000\)), \(d = 0{,}85\).</p>
+<ol>
+<li>Pioggia per pagina: \(\dfrac{1-d}{N} = \dfrac{0{,}15}{10^{6}} = 1{,}5 \cdot 10^{-7}\).</li>
+<li>Farm di \(F = 10.000\) pagine, ognuna con <strong>un solo link</strong>, verso il bersaglio: gli porta almeno \(d \cdot F \cdot 1{,}5 \cdot 10^{-7} = 0{,}85 \cdot 10^{4} \cdot 1{,}5 \cdot 10^{-7} \approx 0{,}0013\).</li>
+<li>La pagina media vale \(1/N = 10^{-6}\): il bersaglio pesa <strong>circa 1.300 volte la media</strong> — senza un solo link dal web vero.</li>
+</ol>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. La spam mass: quanto del tuo rank è ingiustificato?</h2>
+<p>L'idea di Gyöngyi e colleghi: confronta <strong>due mondi</strong>.</p>
+<ul>
+<li>\(PR(p)\): il PageRank normale — tutti contribuiscono, pioggia compresa.</li>
+<li>\(PR^{+}(p)\): il rank che \(p\) riceverebbe se la massa partisse <strong>solo dal nucleo buono</strong> — in pratica, la propagazione dai semi fidati di 2.2.</li>
+</ul>
+<p>La differenza è la parte di rank che il web fidato <strong>non giustifica</strong>:</p>
+<div class="formula key">\[ M(p) \;=\; PR(p) - PR^{+}(p) \qquad\qquad m(p) \;=\; \frac{PR(p) - PR^{+}(p)}{PR(p)} \]</div>
+<p>\(M(p)\) è la <strong>spam mass assoluta</strong>; \(m(p)\), la <strong>relativa</strong>, è la <strong>frazione</strong> del rank non giustificata: vicino a \(1\) = quasi tutto il tuo peso arriva da fonti che i fidati non conoscono. Sopra una soglia: demozione o revisione.</p>
+<div class="callout warn"><span class="tag">Trappola dei simboli — quarto mestiere della M</span>
+<p>\(M(p)\) qui è la massa assoluta: non la matrice \(M\), non l'insieme \(M(p_i)\) di 2.1. Onestà in più: nella scomposizione ideale \(m \in [0,1]\); usando il TrustRank come <strong>stima</strong> di \(PR^{+}\) può sforare leggermente — è una stima, non un'identità.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. L'esempio completo: farm contro pagina onesta</h2>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<ol>
+<li><strong>Bersaglio della farm</strong> (§1): \(PR \approx 0{,}0013\), ma dai semi non arriva quasi nulla: \(PR^{+} \approx 1{,}5 \cdot 10^{-6}\). Quindi \(m = \dfrac{0{,}0013 - 0{,}0000015}{0{,}0013} \approx 0{,}999\): il 99,9% del rank è ingiustificato.</li>
+<li><strong>Pagina onesta</strong>: \(PR = 4 \cdot 10^{-6}\), di cui \(PR^{+} = 3{,}6 \cdot 10^{-6}\) spiegato dai fidati → \(m = \dfrac{0{,}4}{4} = 0{,}1\).</li>
+</ol>
+<p>0,999 contro 0,1: c'è un oceano di margine per la soglia. E si vede la trappola per lo spammer: <strong>aggiungere pagine farm alza \(PR\) ma non \(PR^{+}\)</strong> — più gonfia, più la sua \(m\) si avvicina a 1.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Il quadro della sezione 2, in tre righe</h2>
+<p><strong>PageRank</strong> misura la popolarità — manipolabile con la pioggia. <strong>TrustRank</strong> misura la vicinanza ai fidati — costosa da falsificare, perché la fiducia paga pedaggio a ogni hop. <strong>Spam mass</strong> misura il <strong>divario</strong> tra le due — ed è proprio nel divario che lo spam non può nascondersi: per abbassarlo servirebbero link veri dal web buono, cioè smettere di essere spam.</p>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
+<ol>
+<li>\(PR = 8 \cdot 10^{-6}\), \(PR^{+} = 6 \cdot 10^{-6}\): calcola \(m\).</li>
+<li>Farm più piccola: \(F = 1.000\) pagine, stesso web di §1. Quanto porta al bersaglio, e quante volte la pagina media vale?</li>
+<li>Perché lo spammer non può abbassare la propria \(m\) aggiungendo altre pagine alla farm? (Una frase.)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(m = (8-6)/8 = 0{,}25\): un quarto del rank non è spiegato dai fidati — sospettabile, non condannabile.</li>
+<li>\(0{,}85 \cdot 1.000 \cdot 1{,}5 \cdot 10^{-7} \approx 1{,}3 \cdot 10^{-4}\): circa \(130\) volte la media. Farm dieci volte più piccola, bottino dieci volte più piccolo: il rapporto è lineare.</li>
+<li>Perché le pagine farm alzano solo il numeratore ingiustificato: \(PR\) sale, \(PR^{+}\) resta fermo → \(m\) cresce verso 1.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>link farm</td><td>—</td><td>pagine fantasma interconnesse per gonfiare il rank di un bersaglio</td><td>2.3 §1</td></tr>
+<tr><td>\(10^{-k}\)</td><td>esponente negativo</td><td>dividere per la potenza: \(10^{-6} = 1/1.000.000\)</td><td>2.3 §1</td></tr>
+<tr><td>\(PR^{+}(p)\)</td><td>rank giustificato</td><td>il PageRank che arriva propagando solo dal nucleo fidato (2.2)</td><td>2.3 §2</td></tr>
+<tr><td>\(M(p)\), \(m(p)\)</td><td>spam mass assoluta; relativa</td><td>\(PR - PR^{+}\); la sua frazione su \(PR\) (quarto mestiere della lettera M)</td><td>2.3 §2</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">2.3 — Spam mass · stato: <strong>bozza</strong> · chiude la sezione 2. Prossima: la sezione 3, con F4 §6 (learning-to-rank).</p>
+</body>
+</html>

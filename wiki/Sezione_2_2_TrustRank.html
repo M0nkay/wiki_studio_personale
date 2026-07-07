@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2.2 — TrustRank · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+
+<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
+     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
+     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
+     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
+<style>
+:root{--link:var(--navy);}
+a{color:var(--navy);}
+.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
+ background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
+ padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
+.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
+ overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.wikibar a:hover{background:#fff2c4;}
+.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
+.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
+.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
+@media print{.wikibar{display:none;}}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Oracolo</a><a href="#sec-2">§2 Semi</a><a href="#sec-3">§3 Propagazione</a><a href="#sec-4">§4 Contro lo spam</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="Sezione_2_1_PageRank.html">↩ 2.1</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">2.2 — TrustRank: semi e propagazione <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki · paper §2.2. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="Sezione_2_1_PageRank.html">2.1</a> (soprattutto il teletrasporto personalizzato, §4) e <a class="xref" href="F2_Algebra_lineare_Markov.html">F2</a> §6 (serie di Neumann).</p>
+
+<div class="callout warn"><span class="tag">Trappola dei simboli — cambio di guardia</span>
+<p>In questa sezione il damping si chiama \(\alpha\) (terzo mestiere: era conteggio virtuale \(\alpha_0\) nella 1.2, autovalore mai — quello è \(\lambda\)). La lettera \(\mathbf{d}\) in <strong>grassetto</strong> qui è la <strong>distribuzione dei semi</strong> (un vettore!), non il damping scalare di 2.1. E \(L\) da solo è il <strong>budget di chiamate all'oracolo</strong> — terzo lavoro dopo \(L(\theta)\) e \(L(p_j)\).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-1">1. L'oracolo, il budget, l'assunzione</h2>
+<p>Distinguere pagine buone da spam con certezza richiede un <strong>oracolo</strong> \(O(p) \in \{0, 1\}\): la valutazione umana. Ma è costosa: puoi permettertela solo su \(L\) pagine (il <strong>budget</strong>), su un web di miliardi. TrustRank cerca una <strong>funzione di trust</strong> \(T(p) \in [0,1]\) calcolabile per tutti, che <strong>ordini</strong> le pagine come farebbe l'oracolo.</p>
+<p>L'assunzione che regge tutto — dichiarata, non dimostrata — è la <strong>separazione approssimata</strong>: le pagine buone <strong>raramente</strong> linkano spam (per sbaglio, o per commenti infestati: raramente, non mai). Quindi la fiducia può <strong>viaggiare sui link</strong>: chi è raggiungibile in pochi passi dai fidati, probabilmente è a posto.</p>
+
+<hr/>
+
+<h2 id="sec-2">2. Scegliere i semi: PageRank all'incontrario</h2>
+<p>Quali \(L\) pagine mostrare all'oracolo? Le più <strong>utili a propagare</strong>: quelle da cui si <strong>raggiunge</strong> tanto web. Il trucco del paper è elegante: calcola PageRank sul <strong>grafo trasposto</strong> \(G^{\top}\) — tutti gli archi <strong>girati al contrario</strong>. Nel grafo girato, «ricevere tanti link» significa, nel grafo vero, «<strong>puntare</strong> verso tante pagine importanti»: è l'<strong>inverse PageRank</strong>, un punteggio di copertura.</p>
+<p>Procedura: ordina per inverse PageRank, chiama l'oracolo sui primi \(L\), tieni i promossi: l'insieme dei <strong>semi buoni</strong> \(S^{+}\). La distribuzione dei semi è l'uniforme su di loro:</p>
+<div class="formula key">\[ \mathbf{d}_i \;=\; \begin{cases} 1 / |S^{+}| & \text{se la pagina } i \text{ è un seme} \\ 0 & \text{altrimenti} \end{cases} \]</div>
+<p>(La graffa è una <strong>definizione per casi</strong>: la prima riga vale nel primo caso, la seconda altrimenti.)</p>
+
+<hr/>
+
+<h2 id="sec-3">3. La propagazione del trust</h2>
+<p>Ora il colpo di scena che non è un colpo di scena: TrustRank <strong>è</strong> il Personalized PageRank di 2.1 §4, col teletrasporto sui semi:</p>
+<div class="formula key">\[ \mathbf{t} \;=\; \alpha\,M\,\mathbf{t} \;+\; (1-\alpha)\,\mathbf{d} \]</div>
+<p>Il navigatore segue i link con probabilità \(\alpha \approx 0{,}85\), e quando si teletrasporta <strong>torna sempre a un seme fidato</strong>. Il vettore \(\mathbf{t}\) è il trust di ogni pagina. Due principi, leggibili nella soluzione in forma chiusa via serie di Neumann (F2 §6):</p>
+<div class="formula key">\[ \mathbf{t}^{*} \;=\; (1-\alpha) \sum_{k=0}^{\infty} \alpha^{k} M^{k} \mathbf{d} \]</div>
+<ul>
+<li><strong>Trust dampening</strong>: \(M^k \mathbf{d}\) è la fiducia che arriva in \(k\) <strong>hop</strong> (un hop = un passo lungo un arco) dai semi, e pesa \(\alpha^k\): decade geometricamente con la distanza. Con \(\alpha = 0{,}85\): \(0{,}85^{5} \approx 0{,}44\), \(0{,}85^{10} \approx 0{,}20\), \(0{,}85^{20} \approx 0{,}04\) — la fiducia si esaurisce in una manciata di passi.</li>
+<li><strong>Trust splitting</strong>: dentro \(M\) c'è la divisione \(1/L(p_j)\) di 2.1 — chi dà fiducia a cento link ne dà un centesimo a ciascuno.</li>
+</ul>
+<div class="callout ex"><span class="tag">Esempio numerico — il trust lungo una catena</span>
+<p>Tre pagine in anello: Seme → A → B → Seme. Semi: solo la prima, quindi \(\mathbf{d} = (1;\ 0;\ 0)\). Uso \(\alpha = 0{,}5\) per i conti. All'equilibrio (risolvendo, o sommando la serie):</p>
+<div class="formula">\[ \mathbf{t}^{*} \;=\; \bigl(0{,}571;\ 0{,}286;\ 0{,}143\bigr) \]</div>
+<p>Prova del nove doppia: la somma fa \(1\), e i tre valori stanno in rapporto <strong>4 : 2 : 1</strong> — ogni hop dimezza, esattamente \(\alpha = 0{,}5\) per passo. Il dampening reso visibile.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Perché mette in difficoltà lo spam</h2>
+<p>Confronta i due mondi. Nel <strong>PageRank</strong> classico, il teletrasporto uniforme regala \((1-d)/N\) a <strong>tutte</strong> le pagine — anche a una link farm sperduta, che poi se lo rimpalla internamente per gonfiarsi. Nel <strong>TrustRank</strong> quella pioggia non esiste: la fiducia nasce <strong>solo dai semi</strong> e per raggiungerti deve percorrere link reali, pagando \(\alpha^k\) a ogni hop e la divisione a ogni bivio. Una farm lontana dai semi e poco linkata dal web buono riceve trust <strong>quasi nullo</strong> — qualunque sia il suo PageRank interno. Il divario tra i due punteggi è proprio la firma che la 2.3 (spam mass) trasformerà in un rilevatore.</p>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
+<ol>
+<li>Con \(\alpha = 0{,}85\): dopo quanti hop il fattore di dampening scende sotto \(0{,}1\)? (Riferimenti: \(0{,}85^{10} \approx 0{,}20\), \(0{,}85^{14} \approx 0{,}10\), \(0{,}85^{15} \approx 0{,}09\).)</li>
+<li>Perché i semi si scelgono col PageRank sul grafo <strong>trasposto</strong> e non su quello normale? (Una frase.)</li>
+<li>Nell'esempio dell'anello: quanto varrebbe \(t^{*}\) della pagina B se anche lei fosse un seme, a intuito — più alto o più basso di 0,143, e perché?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<ol>
+<li>Al quindicesimo hop: \(0{,}85^{15} \approx 0{,}087 < 0{,}1\) (il quattordicesimo è ancora \(\approx 0{,}10\)).</li>
+<li>Perché all'oracolo servono pagine <strong>da cui la fiducia si diffonde</strong>: il grafo trasposto premia chi <strong>raggiunge</strong> molto web, non chi è raggiunto.</li>
+<li>Più alto: il teletrasporto tornerebbe anche da lei, quindi riceverebbe fiducia diretta \((1-\alpha)/|S^{+}|\) a ogni giro, non solo quella filtrata da due hop.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(O(p)\)</td><td>oracolo</td><td>giudizio umano certo, \(0\) o \(1\): costoso, budget di \(L\) chiamate</td><td>2.2 §1</td></tr>
+<tr><td>\(T(p)\), \(\mathbf{t}\)</td><td>funzione di trust; suo vettore</td><td>fiducia in \([0,1]\) calcolabile per tutte le pagine</td><td>2.2 §1</td></tr>
+<tr><td>\(L\)</td><td>budget dell'oracolo</td><td>quante valutazioni umane puoi permetterti (terzo mestiere della lettera)</td><td>2.2 §1</td></tr>
+<tr><td>\(G^{\top}\)</td><td>grafo trasposto</td><td>tutti gli archi girati al contrario</td><td>2.2 §2</td></tr>
+<tr><td>\(S^{+}\)</td><td>semi buoni</td><td>le pagine promosse dall'oracolo</td><td>2.2 §2</td></tr>
+<tr><td>\(\mathbf{d}\)</td><td>distribuzione dei semi</td><td>uniforme su \(S^{+}\), zero altrove (in grassetto: vettore, ≠ damping \(d\))</td><td>2.2 §2</td></tr>
+<tr><td>\(\begin{cases}\cdot\end{cases}\)</td><td>definizione per casi</td><td>la graffa: ogni riga vale nel suo caso</td><td>2.2 §2</td></tr>
+<tr><td>\(\alpha\)</td><td>damping del trust</td><td>\(\approx 0{,}85\); terzo mestiere di \(\alpha\) (era conteggio virtuale nella 1.2)</td><td>2.2 §3</td></tr>
+<tr><td>hop</td><td>passo di grafo</td><td>un passo lungo un arco</td><td>2.2 §3</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">2.2 — TrustRank · stato: <strong>bozza</strong> · prossime: 2.3 (spam mass), poi la sezione 3.</p>
+
+<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
+<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
+<a href="index.html">↩ Mappa</a>
+<span class="wk-sep"></span>
+<a rel="prev" href="Sezione_2_1_PageRank.html" aria-label="Precedente: 2.1 — PageRank: il random surfer" title="Precedente: 2.1 — PageRank: il random surfer">← 2.1</a>
+<span class="wk-pos">11 di 17</span>
+<a rel="next" href="Sezione_2_3_Spam_mass.html" aria-label="Successiva: 2.3 — Spam mass e l'isolamento delle link farm" title="Successiva: 2.3 — Spam mass e l'isolamento delle link farm">2.3 →</a>
+<span class="wk-sep"></span>
+<a href="Glossario_globale.html">Glossario</a>
+<a href="Come_si_studia.html">Metodo</a>
+</div></nav>
+<script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
+try{localStorage.setItem('wiki-tappa','2.2|Sezione_2_2_TrustRank.html');}catch(e){}</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F5 — Segnali e rilevamento · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 z-score</a><a href="#sec-2">§2 CUSUM</a><a href="#sec-3">§3 Token bucket</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F4_Statistica_e_ML.html">↩ F4</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F5 — Segnali e rilevamento <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Fondamenta della wiki · serve alle sezioni 1.3 e 1.4 del paper. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: la media (Appendice D.2). Da <a class="xref" href="F4_Statistica_e_ML.html">F4</a>: il ruolo di \(z\) (§5.2) — qui lo vedrai dall'altro lato.</p>
+
+<div class="callout warn"><span class="tag">Trappola dei simboli — tre lettere riciclate in questa pagina</span>
+<p>(1) \(\sigma\) qui è la <strong>deviazione standard</strong>, non la sigmoide \(\sigma(\cdot)\): la sigmoide ha sempre le parentesi con un argomento dentro. (2) \(S_t\) è l'<strong>accumulatore CUSUM</strong>, non la classe spam né la spamminess: il pedice \(t\) = tempo lo distingue. (3) \(r\) qui è un <strong>tasso di ricarica</strong>, non l'uscita \(r(\mathbf{x})\) della logistica.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-1">1. Lo z-score: «quanto sei strano?»</h2>
+
+<h3 id="sec-1-1">1.1 Prima i due mattoni: media e deviazione standard</h3>
+<p>La <strong>media</strong> \(\mu\) di una serie di numeri la conosci: somma diviso quanti sono. La <strong>deviazione standard</strong> \(\sigma\) è il <strong>righello della dispersione</strong>: misura quanto, in tipico, i dati si allontanano dalla media.</p>
+<div class="formula key">\[ \sigma \;=\; \sqrt{\ \text{media dei quadrati degli scarti}\ } \;=\; \sqrt{\frac{1}{n}\sum_{i=1}^{n} (x_i - \mu)^2} \]</div>
+<p>Ricetta in tre passi: (1) scarto di ogni dato dalla media, (2) quadrato di ogni scarto (così i negativi non cancellano i positivi), (3) media dei quadrati, e radice per tornare all'unità originale.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>Dati: \(2,\ 4,\ 4,\ 4,\ 5,\ 5,\ 7,\ 9\) (otto numeri).</p>
+<ol>
+<li>Media: \(\mu = 40/8 = 5\).</li>
+<li>Scarti: \(-3, -1, -1, -1, 0, 0, 2, 4\) → quadrati: \(9, 1, 1, 1, 0, 0, 4, 16\), somma \(= 32\).</li>
+<li>\(\sigma = \sqrt{32/8} = \sqrt{4} = 2\).</li>
+</ol>
+</div>
+
+<h3 id="sec-1-2">1.2 Lo z-score</h3>
+<p>Lo <strong>z-score</strong> di un valore \(x\) risponde a: «quante deviazioni standard disti dalla media?»</p>
+<div class="formula key">\[ z \;=\; \frac{x - \mu}{\sigma} \]</div>
+<p>È un numero <strong>puro</strong> (senza unità): \(z = 0\) = perfettamente nella media; \(z = 2\) = due righelli sopra; \(z\) negativo = sotto. Regola spannometrica: oltre \(|z| = 2\)–\(3\) sei ufficialmente «strano». Nell'esempio: \(x = 9\) → \(z = (9-5)/2 = 2\).</p>
+<p class="note">Legame con F4 §5.2: là \(z\) era un valore <strong>scelto a tavolino</strong> (quanta prudenza voglio); qui è <strong>misurato dai dati</strong> (quanto è anomalo ciò che vedo). Stessa scala, direzioni opposte.</p>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi — §1</span>
+<ol>
+<li>Con i dati dell'esempio: z-score di \(x = 2\).</li>
+<li>Un mittente invia in media \(\mu = 1000\) email al giorno con \(\sigma = 200\). Oggi ne invia \(1800\): calcola \(z\) e commenta.</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-1">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. CUSUM: la vasca che accumula gli sforamenti</h2>
+<p><strong>Il problema</strong>: un singolo picco può essere caso; un <strong>cambiamento di regime</strong> (il volume medio è davvero salito) va colto anche se fatto di tanti piccoli sforamenti. Serve una memoria che <strong>accumuli</strong>.</p>
+<p><strong>L'idea</strong>: una vasca. Ogni osservazione sopra il livello atteso versa acqua nella vasca; quelle sotto ne tolgono; la vasca non va mai sotto lo zero. Se l'acqua supera un'asta di allarme, scatta il rilevamento.</p>
+<div class="formula key">\[ S_t \;=\; \max\bigl(0,\ S_{t-1} + (x_t - \mu_0 - \kappa)\bigr) \qquad \text{allarme se } S_t > h \]</div>
+<p>I pezzi: \(\mu_0\) = livello atteso di riferimento (pedice \(0\) = «di riferimento»); \(\kappa\) (kappa) = <strong>margine di tolleranza</strong>, lo sforamento gratis che non conta; \(h\) = <strong>soglia d'allarme</strong>; il \(\max(0,\cdot)\) impedisce crediti infiniti dai periodi tranquilli.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(\mu_0 = 10\), \(\kappa = 1\), \(h = 5\), partenza \(S_0 = 0\). Ogni passo somma \(x_t - 11\):</p>
+<ol>
+<li>\(x = 12\): \(S = \max(0,\ 0 + 1) = 1\)</li>
+<li>\(x = 13\): \(S = 1 + 2 = 3\)</li>
+<li>\(x = 9\): \(S = \max(0,\ 3 - 2) = 1\) — la vasca scende ma non si svuota del tutto</li>
+<li>\(x = 14\): \(S = 1 + 3 = 4\)</li>
+<li>\(x = 14\): \(S = 4 + 3 = 7 > 5\) → <strong>allarme</strong>: il livello è cambiato davvero.</li>
+</ol>
+</div>
+
+<div class="callout ex" id="ex-2"><span class="tag">Esercizi — §2</span>
+<ol>
+<li>\(\mu_0 = 5\), \(\kappa = 0\), \(h = 3\), osservazioni \(6, 7, 7\). Quando scatta l'allarme?</li>
+<li>A cosa serve \(\kappa\)? (Una frase.)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-2">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. Token bucket: il rate limiting</h2>
+<p><strong>L'idea</strong>: un secchio di gettoni. Ogni messaggio in ingresso <strong>consuma un gettone</strong>; il secchio si <strong>ricarica</strong> a velocità costante fino a un tetto. Secchio vuoto = messaggio rifiutato temporaneamente (il «4xx» del mondo email: «riprova più tardi»).</p>
+<div class="formula key">\[ \text{gettoni}(t) \;=\; \min\bigl(B,\ \text{gettoni}(t^-) + r\,(t - t^-)\bigr) \]</div>
+<p>I pezzi: \(B\) = capacità del secchio (il <strong>burst</strong> massimo concesso tutto insieme); \(r\) = tasso di ricarica (gettoni al minuto); \(t^-\) si legge «l'istante dell'ultimo aggiornamento». Il \(\min\) impedisce di accumulare oltre il tetto.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(B = 10\), \(r = 2\) gettoni al minuto, secchio pieno.</p>
+<ol>
+<li>Arrivano 10 messaggi di fila: passano tutti, secchio a \(0\).</li>
+<li>L'11º, subito dopo: <strong>rifiutato</strong> (4xx).</li>
+<li>Passa 1 minuto e mezzo: ricarica \(2 \cdot 1{,}5 = 3\) gettoni → \(\min(10,\ 0+3) = 3\).</li>
+<li>Arrivano 4 messaggi: passano i primi 3, il 4º è differito.</li>
+</ol>
+<p>Effetto netto: raffiche brevi tollerate fino a \(B\), ritmo di regime inchiodato a \(r\).</p>
+</div>
+
+<div class="callout ex" id="ex-3"><span class="tag">Esercizi — §3</span>
+<ol>
+<li>\(B = 5\), \(r = 1\) al minuto, secchio pieno: arrivano 6 messaggi in raffica. Quanti passano subito? Dopo quanto passa l'ultimo?</li>
+<li>Che ruolo hanno \(B\) e \(r\), in una frase ciascuno?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-3">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+
+<h3 id="sol-1">Soluzioni — §1</h3>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi di §1</a></p>
+<ol>
+<li>\(z = (2 - 5)/2 = -1{,}5\): un righello e mezzo sotto la media.</li>
+<li>\(z = (1800 - 1000)/200 = 4\): quattro deviazioni sopra — anomalia netta, esattamente il segnale che la 1.3 e la 1.4 andranno a caccia di.</li>
+</ol>
+
+<h3 id="sol-2">Soluzioni — §2</h3>
+<p class="note"><a class="xref" href="#ex-2">↩ Torna agli esercizi di §2</a></p>
+<ol>
+<li>Somme di \(x_t - 5\): \(S = 1\), poi \(1+2 = 3\) (non ancora: serve \(> 3\)), poi \(3+2 = 5 > 3\) → allarme al terzo passo.</li>
+<li>\(\kappa\) è la tolleranza: ignora il rumore quotidiano, così la vasca si riempie solo con sforamenti che contano.</li>
+</ol>
+
+<h3 id="sol-3">Soluzioni — §3</h3>
+<p class="note"><a class="xref" href="#ex-3">↩ Torna agli esercizi di §3</a></p>
+<ol>
+<li>Passano \(5\); il 6º aspetta la ricarica: con \(r = 1\) al minuto, dopo \(1\) minuto c'è il gettone che gli serve.</li>
+<li>\(B\) decide quanto grande può essere una <strong>raffica</strong> occasionale; \(r\) decide il <strong>ritmo sostenibile</strong> a regime.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(\mu\)</td><td>media</td><td>somma dei dati diviso il loro numero</td><td>F5 §1.1</td></tr>
+<tr><td>\(\sigma\)</td><td>deviazione standard</td><td>righello della dispersione: \(\sqrt{\text{media dei quadrati degli scarti}}\) — senza parentesi-argomento, ≠ sigmoide \(\sigma(\cdot)\)</td><td>F5 §1.1</td></tr>
+<tr><td>\(z\)</td><td>z-score</td><td>\((x-\mu)/\sigma\): distanza dalla media in unità di \(\sigma\)</td><td>F5 §1.2</td></tr>
+<tr><td>\(S_t\), pedice \(t\)</td><td>accumulatore CUSUM; tempo</td><td>la «vasca» degli sforamenti al passo \(t\) (≠ classe S, ≠ spamminess)</td><td>F5 §2</td></tr>
+<tr><td>\(\mu_0\)</td><td>livello di riferimento</td><td>il valore atteso in condizioni normali</td><td>F5 §2</td></tr>
+<tr><td>\(\kappa\)</td><td>kappa, margine</td><td>lo sforamento tollerato che non accumula</td><td>F5 §2</td></tr>
+<tr><td>\(h\)</td><td>soglia d'allarme</td><td>livello della vasca oltre cui scatta il rilevamento</td><td>F5 §2</td></tr>
+<tr><td>\(B\), \(r\)</td><td>capacità; tasso di ricarica</td><td>burst massimo del secchio; gettoni per unità di tempo (questo \(r\) ≠ \(r(\mathbf{x})\))</td><td>F5 §3</td></tr>
+<tr><td>\(t^-\)</td><td>istante precedente</td><td>il momento dell'ultimo aggiornamento del secchio</td><td>F5 §3</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F5 — Segnali e rilevamento · stato: <strong>bozza</strong> · serve a 1.3 e 1.4.</p>
+</body>
+</html>

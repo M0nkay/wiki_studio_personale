@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>4.3 — Sincronizzazione blacklist · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Diff</a><a href="#sec-2">§2 Compressione</a><a href="#sec-3">§3 Integrità</a><a href="#sec-4">§4 Falsi positivi</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F6_Similarita_hashing_codifiche.html#sec-6">↩ F6 §6</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">4.3 — Sincronizzazione blacklist e falsi positivi <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki · paper §4.3. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="Sezione_4_1_Safe_Browsing.html">4.1</a> (il DB locale) e <a class="xref" href="F6_Similarita_hashing_codifiche.html">F6</a> §1 (hash) e §6 (Rice–Golomb).</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Il problema: tenere il passo senza riscaricare il mondo</h2>
+<p>La lista cambia di continuo: siti infettati entrano, siti ripuliti escono. Riscaricare milioni di prefissi a ogni giro è banda buttata. La soluzione: il client scarica <strong>diff</strong> — solo le <strong>aggiunte</strong> e le <strong>rimozioni</strong> rispetto alla versione che ha già.</p>
+
+<hr/>
+
+<h2 id="sec-2">2. La compressione delle aggiunte: Rice–Golomb al lavoro</h2>
+<p>Le aggiunte sono prefissi: numeri a 32 bit. La catena di F6 §6, esattamente: <strong>ordina → delta → Rice</strong>. E qui i conti spiegano perché funziona così bene:</p>
+<div class="callout ex"><span class="tag">Esempio numerico — quanto si comprime</span>
+<ol>
+<li>I prefissi sono hash: <strong>quasi uniformi</strong> su \(2^{32}\) valori. Con \(P = 4{,}3\) milioni di voci, il <strong>delta medio</strong> tra consecutivi (ordinati) è \(\approx 2^{32}/P \approx 1.000\).</li>
+<li>Parametro di Rice sensato: \(k \approx \log_2 1.000 \approx 10\) bit di resto.</li>
+<li>Codice medio: \(\approx 10\) bit di resto + poco unario \(\approx 12\) bit per prefisso, contro i \(32\) grezzi: <strong>quasi un terzo</strong> (stima di massima).</li>
+</ol>
+</div>
+<p>Uniformità → delta prevedibili → Rice paga poco: la compressione è figlia della matematica dell'hash.</p>
+
+<hr/>
+
+<h2 id="sec-3">3. Rimozioni e integrità</h2>
+<p>Le <strong>rimozioni</strong> non spediscono i prefissi: spediscono gli <strong>indici</strong> — le posizioni da cancellare nella lista ordinata che il client già possiede (numeri molto più piccoli dei prefissi stessi). Applicato il diff, il client calcola il <strong>checksum</strong> del proprio database — un hash (F6 §1) dell'intero contenuto — e lo confronta con quello dichiarato dal server: se non tornano, la copia locale è corrotta e si <strong>ri-sincronizza da zero</strong>. L'hash come sigillo, stavolta.</p>
+
+<hr/>
+
+<h2 id="sec-4">4. Falsi positivi e cache</h2>
+<p>Il falso campanello di prefisso (F6 §2: \(\sim 0{,}1\%\) delle navigazioni sicure) si risolve da sé al passo 5 di 4.1: il full hash non corrisponde, nessun avviso. Per non ripetere il giro a ogni visita, le risposte del server si <strong>mettono in cache</strong> con una scadenza (<strong>TTL</strong>, time-to-live):</p>
+<ul>
+<li><strong>cache positiva</strong> (il full hash era davvero in lista): TTL <strong>corto</strong> — un sito ripulito non deve restare bollato a lungo;</li>
+<li><strong>cache negativa</strong> (era solo il campanello): TTL più disteso — inutile richiedere lo stesso prefisso a raffica.</li>
+</ul>
+<p><strong>[INF]</strong> Principio di progetto dichiarato dal genere di sistema: in caso di guasto del server, meglio <strong>lasciar passare</strong> che bloccare il web intero — la protezione degrada, non esplode.</p>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
+<ol>
+<li>Prefissi (già ordinati) \(100,\ 104,\ 116\): calcola i delta e codificali con Rice a \(k = 2\) (F6 §6).</li>
+<li>Perché le rimozioni viaggiano come indici e non come prefissi? (Una frase.)</li>
+<li>Perché la cache <strong>positiva</strong> ha il TTL corto e non lungo? (Una frase.)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<ol>
+<li>Delta: \(4\) e \(12\). Con \(2^k = 4\): \(\delta = 4\) → \(q = 1\), \(r = 0\) → «10»+«00» = <strong>1000</strong>; \(\delta = 12\) → \(q = 3\), \(r = 0\) → «1110»+«00» = <strong>111000</strong>.</li>
+<li>Perché gli indici sono numeri piccoli (al più la lunghezza della lista), molto più economici dei prefissi a 32 bit — e il client la lista ordinata ce l'ha già.</li>
+<li>Perché il costo di un errore lì è <strong>bollare un innocente</strong>: un sito ripulito deve tornare pulito in fretta.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>diff</td><td>differenza tra versioni</td><td>solo aggiunte e rimozioni rispetto alla copia locale</td><td>4.3 §1</td></tr>
+<tr><td>indice di rimozione</td><td>—</td><td>la posizione da cancellare nella lista ordinata locale</td><td>4.3 §3</td></tr>
+<tr><td>checksum</td><td>sigillo di integrità</td><td>hash dell'intero database: se non torna, ri-sincronizzi</td><td>4.3 §3</td></tr>
+<tr><td>TTL, cache pos./neg.</td><td>scadenza; memorie di risposta</td><td>time-to-live; ricordare i verdetti (corto per i positivi)</td><td>4.3 §4</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">4.3 — Sincronizzazione · stato: <strong>bozza</strong> · <strong>chiude il paper</strong>. La wiki dei contenuti è completa.</p>
+</body>
+</html>

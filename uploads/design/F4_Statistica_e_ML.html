@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F4 — Statistica e machine learning · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#prerequisiti">Prerequisiti</a><a href="#sec-1">§1 Vettori</a><a href="#sec-2">§2 Logistica</a><a href="#sec-3">§3 Gradiente</a><a href="#sec-4">§4 EWMA</a><a href="#sec-5">§5 Wilson</a><a href="#sec-6">§6 Ranking</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="Bella_copia_1.1_Filtraggio_Bayesiano.html">↩ 1.1</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F4 — Statistica e machine learning <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Fondamenta della wiki «Sistemi di Fiducia» · copre ciò che serve alla sezione 1.2 del paper. Include anche il blocco <strong>learning-to-rank</strong> (§6), che serve alla sezione 3.1.</p>
+
+<div class="callout warn"><span class="tag">Stato: bozza — regole d'ingaggio</span>
+<p>Questa pagina è <strong>generata e auto-collaudata</strong> (numeri verificati a macchina), ma <strong>non ancora studiata insieme</strong>. Si legge a schermo, si segnala tutto ciò che non regge, e <strong>non si trascrive su carta</strong> finché non diventa «verificata».</p>
+</div>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>Tutto da <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1 — Filtraggio bayesiano</a> (già verificata): probabilità e Bayes (§1–§2), la <strong>sigmoide</strong> \(\sigma\) (§5.2), <strong>MLE e verosimiglianza</strong> (§3.2), i <strong>logaritmi</strong> (§5.2), le <strong>osservazioni virtuali</strong> di Robinson (§4.3–4.5).</p>
+<p class="note"><strong>Simboli nuovi introdotti qui</strong>: censiti nella <a class="xref" href="#simboli">tabella in fondo</a>, da fondere nel Glossario globale della wiki.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Vettori, prodotto scalare, norma</h2>
+
+<h3 id="sec-1-1">1.1 Il vettore: una lista ordinata di numeri</h3>
+<p>Nella sezione 1.2 del paper un mittente non è descritto da <em>un</em> numero ma da <strong>tanti numeri insieme</strong>: tasso di reclami, tasso di bounce, frazione di posta autenticata… Un <strong>vettore</strong> è esattamente questo: una <strong>lista ordinata di numeri</strong>, scritta in grassetto:</p>
+<div class="formula">\[ \mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n) \]</div>
+<p>Ogni posizione \(x_j\) è una <strong>componente</strong>. Da programmatore: un array di float. Esempio dal mondo della 1.2: \(\mathbf{x} = (0{,}002;\ 0{,}03;\ 0{,}95)\) — reclami, bounce, autenticazione di un mittente.</p>
+<div class="callout warn"><span class="tag">Trappola dei simboli — il grassetto</span>
+<p>La regola è: <strong>grassetto = oggetto a più componenti</strong>. Nella 1.1, \(\mathbf{w}\) era l'elenco delle parole dell'email; qui \(\mathbf{x}\) e \(\boldsymbol{\theta}\) sono elenchi di numeri. Stessa convenzione, contenuti diversi.</p>
+</div>
+
+<h3 id="sec-1-2">1.2 Il prodotto scalare \(\boldsymbol\theta^{\top}\mathbf{x}\)</h3>
+<p>Accanto ai dati \(\mathbf{x}\) c'è un vettore di <strong>pesi</strong> \(\boldsymbol\theta = (\theta_1; \dots; \theta_n)\): quanto conta ogni componente. Il <strong>prodotto scalare</strong> combina i due in <strong>un solo numero</strong>: moltiplica componente per componente, poi somma.</p>
+<div class="formula key">\[ \boldsymbol\theta^{\top}\mathbf{x} \;=\; \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n \;=\; \sum_{j=1}^{n} \theta_j\, x_j \]</div>
+<p>Il simbolo \(\top\) si legge «<strong>trasposto</strong>»: è la convenzione che gira il vettore «in orizzontale» per poterlo moltiplicare — a livello di calcolo, per noi, significa solo «moltiplica e somma». Da programmatore: <code>sum(t*x for t, x in zip(theta, xs))</code>.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(\boldsymbol\theta = (1;\ -2)\), \(\mathbf{x} = (0{,}5;\ 0{,}25)\):</p>
+<div class="formula">\[ \boldsymbol\theta^{\top}\mathbf{x} = 1 \cdot 0{,}5 + (-2) \cdot 0{,}25 = 0{,}5 - 0{,}5 = 0 \]</div>
+<p>Lettura: un peso <strong>positivo</strong> spinge il punteggio in su, uno <strong>negativo</strong> lo spinge in giù; qui i due contributi si annullano.</p>
+</div>
+
+<h3 id="sec-1-3">1.3 La norma \(\lVert\boldsymbol\theta\rVert\)</h3>
+<p>La <strong>norma</strong> è la <strong>lunghezza</strong> del vettore: la distanza dall'origine al punto che il vettore descrive. È Pitagora esteso a più componenti:</p>
+<div class="formula">\[ \lVert\boldsymbol\theta\rVert \;=\; \sqrt{\theta_1^2 + \theta_2^2 + \dots + \theta_n^2} \]</div>
+<p>Il simbolo \(\sqrt{\ }\) è la <strong>radice quadrata</strong>: il numero che, moltiplicato per sé stesso, dà l'argomento (\(\sqrt{25} = 5\) perché \(5 \cdot 5 = 25\)). Esempio: \(\boldsymbol\theta = (3;\ 4)\) → \(\lVert\boldsymbol\theta\rVert = \sqrt{9 + 16} = \sqrt{25} = 5\). Misura «quanto sono grossi i pesi nel complesso»: servirà tra poco per la regolarizzazione.</p>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi — §1</span>
+<ol>
+<li>\(\boldsymbol\theta = (2;\ -1;\ 0{,}5)\), \(\mathbf{x} = (1;\ 2;\ 4)\). Calcola \(\boldsymbol\theta^{\top}\mathbf{x}\). Quale componente spinge più in giù?</li>
+<li>Calcola \(\lVert(3;\ 4)\rVert\) e \(\lVert(1;\ 0)\rVert\).</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-1">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. La regressione logistica</h2>
+
+<h3 id="sec-2-1">2.1 L'idea: da punteggio a probabilità</h3>
+<p>Il prodotto scalare \(\boldsymbol\theta^{\top}\mathbf{x}\) è un <strong>punteggio</strong>: può essere qualsiasi numero, positivo o negativo. Ma la 1.2 vuole una <strong>probabilità</strong> («quanto è probabile che questo mittente sia abusivo?»), cioè un numero in \((0,1)\). Il traduttore lo conosci già: è la <strong>sigmoide</strong> \(\sigma\) della 1.1 (§5.2), la funzione che comprime tutta la retta reale in \((0,1)\).</p>
+
+<h3 id="sec-2-2">2.2 Definizione</h3>
+<div class="formula key">\[ r(\mathbf{x}) \;=\; \sigma\bigl(\boldsymbol\theta^{\top}\mathbf{x}\bigr) \;=\; \frac{1}{1 + e^{-\boldsymbol\theta^{\top}\mathbf{x}}} \]</div>
+<p>Questo è tutto il modello: <strong>punteggio lineare, poi sigmoide</strong>. \(r(\mathbf{x})\) è la probabilità stimata che l'etichetta valga 1. L'<strong>etichetta</strong> \(y \in \{0, 1\}\) è la verità osservata: nel mondo della 1.2, \(y = 1\) = mittente abusivo, \(y = 0\) = legittimo.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>Con \(\boldsymbol\theta = (1;\ -2)\): per \(\mathbf{x} = (0{,}5;\ 0{,}25)\) il punteggio è \(0\) → \(r = \sigma(0) = 0{,}5\), incertezza pura. Per \(\mathbf{x} = (2;\ 0{,}5)\): punteggio \(= 2 - 1 = 1\) → \(r = \sigma(1) \approx 0{,}73\).</p>
+</div>
+
+<h3 id="sec-2-3">2.3 La log-loss: come si misura l'errore</h3>
+<p>Per <strong>imparare</strong> i pesi \(\boldsymbol\theta\) serve un modo di misurare quanto una previsione è sbagliata. La <strong>log-loss</strong> per un singolo esempio \((\mathbf{x}, y)\) è:</p>
+<div class="formula key">\[ \ell \;=\; -\bigl[\, y \ln r + (1 - y)\ln(1 - r) \,\bigr] \]</div>
+<p>Lettura pratica: se \(y = 1\) resta solo \(-\ln r\); se \(y = 0\) resta solo \(-\ln(1-r)\). Con i logaritmi che conosci (§5.2 della 1.1): previsione giusta e sicura → perdita quasi zero (\(r = 0{,}9\), \(y = 1\): \(\ell = -\ln 0{,}9 \approx 0{,}105\)); previsione <strong>sicura e sbagliata</strong> → punizione enorme (\(r = 0{,}9\), \(y = 0\): \(\ell = -\ln 0{,}1 \approx 2{,}303\)). La sicurezza mal riposta costa cara — di proposito.</p>
+<p>La perdita totale sul campione è la somma sugli esempi, ed è la \(\mathcal{L}(\boldsymbol\theta)\) che vedi nella formula della 1.2.</p>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — perché «log»-loss: è la vecchia conoscenza MLE</span>
+<p>Per esempi indipendenti, la verosimiglianza dei dati è \(L(\boldsymbol\theta) = \prod_i r_i^{\,y_i}(1-r_i)^{1-y_i}\). Prendi \(-\ln\): il prodotto diventa somma e ottieni esattamente \(\mathcal{L}(\boldsymbol\theta)\). Quindi <strong>minimizzare la log-loss = massimizzare la verosimiglianza</strong>: la regressione logistica è la MLE di §3.2 in abiti nuovi.</p>
+</div>
+<div class="callout warn"><span class="tag">Trappola dei simboli — \(L\) contro \(\mathcal{L}\)</span>
+<p>\(L(\theta)\) (1.1, §3.2) è la <strong>verosimiglianza</strong>: alta = bene. \(\mathcal{L}(\boldsymbol\theta)\) (corsiva calligrafica, qui e nel paper) è la <strong>perdita</strong>: alta = male. Legate da \(\mathcal{L} = -\ln L\), ma di segno opposto nello spirito.</p>
+</div>
+
+<h3 id="sec-2-4">2.4 La regolarizzazione L2</h3>
+<p>Nel paper la perdita ha una coda: \(+\ \dfrac{\lambda}{2}\lVert\boldsymbol\theta\rVert^2\). È la <strong>regolarizzazione L2</strong>: una penale sulla <strong>grandezza dei pesi</strong> (la norma di §1.3, al quadrato). Scopo: impedire al modello di «imparare a memoria» il campione gonfiando pesi enormi su dettagli casuali (<strong>overfitting</strong>), invece di imparare la regola. \(\lambda\) regola la severità della penale: \(\lambda = 0\) = nessun freno; \(\lambda\) grande = pesi tenuti piccoli e modello più prudente.</p>
+
+<div class="callout ex" id="ex-2"><span class="tag">Esercizi — §2</span>
+<ol>
+<li>\(r = 0{,}99\) ma \(y = 0\). Calcola la log-loss (serve: \(\ln 0{,}01 \approx -4{,}605\)). Confrontala con il caso \(r = 0{,}5\) (\(\ln 0{,}5 \approx -0{,}693\)).</li>
+<li>In una frase: perché serve la sigmoide dopo il prodotto scalare?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-2">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. La discesa del gradiente</h2>
+
+<h3 id="sec-3-1">3.1 L'idea: scendere la collina</h3>
+<p>Ho la perdita \(\mathcal{L}(\boldsymbol\theta)\): un paesaggio dove ogni punto è una scelta di pesi e l'altitudine è quanto sbaglio. Voglio il punto più basso. Strategia: da dove sono, guardo <strong>da che parte il terreno sale di più</strong> e faccio un passo <strong>nella direzione opposta</strong>. Ripeto.</p>
+<p>«Da che parte sale» è il <strong>gradiente</strong>: il vettore delle pendenze della perdita rispetto a ciascun peso (la pendenza è l'idea di derivata del box opzionale di §3.2 della 1.1: quanto cambia l'uscita per un piccolo ritocco dell'ingresso). Il <strong>passo</strong> è governato dal <strong>learning rate</strong> \(\eta\): un numero piccolo (\(0{,}01\)–\(0{,}5\)) che decide quanto lungo è ogni passo.</p>
+
+<h3 id="sec-3-2">3.2 La regola del paper</h3>
+<p>Per la regressione logistica il gradiente ha una forma incredibilmente pulita, e la regola di aggiornamento della 1.2 è:</p>
+<div class="formula key">\[ \boldsymbol\theta \;\leftarrow\; \boldsymbol\theta \;-\; \eta\,\bigl(\underbrace{\sigma(\boldsymbol\theta^{\top}\mathbf{x}) - y}_{\text{errore}}\bigr)\,\mathbf{x} \]</div>
+<p>Lettura: \((r - y)\) è l'<strong>errore</strong> (previsione meno verità, tra \(-1\) e \(1\)); l'aggiornamento è <strong>errore × feature</strong>, riscalato da \(\eta\). Se ho sovrastimato (\(r > y\)) i pesi delle feature attive scendono; se ho sottostimato, salgono. Fatto un esempio alla volta si chiama <strong>SGD</strong> (discesa del gradiente <em>stocastica</em>); FTRL, citata nel paper, è una variante industriale online della stessa idea.</p>
+<p class="note">Che \((r-y)\,\mathbf{x}\) sia davvero il gradiente della log-loss si dimostra con la regola della catena delle derivate — fuori perimetro qui; se vorrai, diventerà una N.B.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — un passo completo, verificabile</span>
+<p>\(\boldsymbol\theta = (1;\ -2)\), \(\mathbf{x} = (0{,}5;\ 0{,}25)\), verità \(y = 1\), \(\eta = 0{,}2\).</p>
+<ol>
+<li>Punteggio: \(0\) (calcolato in §1.2) → \(r = 0{,}5\).</li>
+<li>Errore: \(r - y = -0{,}5\). Sottostima: i pesi devono salire.</li>
+<li>Aggiornamento: \(\boldsymbol\theta - 0{,}2 \cdot (-0{,}5) \cdot \mathbf{x} = \boldsymbol\theta + 0{,}1 \cdot \mathbf{x} = (1 + 0{,}05;\ -2 + 0{,}025) = (1{,}05;\ -1{,}975)\).</li>
+<li>Prova del nove: nuovo punteggio \(= 1{,}05 \cdot 0{,}5 - 1{,}975 \cdot 0{,}25 = 0{,}525 - 0{,}494 = 0{,}031 > 0\) → \(r \approx 0{,}51\): la previsione si è <strong>mossa verso</strong> \(y = 1\). Funziona.</li>
+</ol>
+</div>
+
+<div class="callout ex" id="ex-3"><span class="tag">Esercizi — §3</span>
+<ol>
+<li>\(\boldsymbol\theta = (1;\ 1)\), \(\mathbf{x} = (1;\ 0)\), \(y = 0\), \(\eta = 0{,}1\), e \(\sigma(1) \approx 0{,}73\). Esegui un passo e verifica che il punteggio scenda.</li>
+<li>Cosa succede con \(\eta\) enorme (es. \(\eta = 50\))? Rispondi con l'immagine della collina.</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-3">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. EWMA — la media che dimentica</h2>
+
+<h3 id="sec-4-1">4.1 L'idea</h3>
+<p>La reputazione della 1.2 non è una media di tutta la storia: il passato remoto deve <strong>contare sempre meno</strong>. La <strong>media mobile esponenziale</strong> (EWMA) tiene una sola cella di memoria \(\bar{x}\) e a ogni nuovo dato la aggiorna mescolando nuovo e vecchio:</p>
+<div class="formula key">\[ \bar{x}_t \;=\; \lambda\, x_t \;+\; (1 - \lambda)\,\bar{x}_{t-1} \]</div>
+<p>\(\lambda \in [0,1]\) è il <strong>fattore di apprendimento</strong>: la fetta di fiducia data al dato nuovo. Da programmatore è un accumulatore: <code>media = lam*nuovo + (1-lam)*media</code>.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(\lambda = 0{,}5\), partenza \(\bar{x} = 10\), arrivano due valori \(20\):</p>
+<p>\(\bar{x} = 0{,}5 \cdot 20 + 0{,}5 \cdot 10 = 15\), poi \(\bar{x} = 0{,}5 \cdot 20 + 0{,}5 \cdot 15 = 17{,}5\). La media <strong>insegue</strong> il nuovo livello senza saltarci sopra.</p>
+</div>
+<p>Il dato di \(k\) passi fa pesa \(\lambda(1-\lambda)^k\): un decadimento <strong>geometrico</strong> — la «dimenticanza» è esponenziale, da cui il nome.</p>
+
+<h3 id="sec-4-2">4.2 La costante di tempo \(\tau\)</h3>
+<p>Il paper fissa \(\lambda = 1 - e^{-\Delta t/\tau}\), dove \(\Delta t\) è il tempo trascorso dall'ultimo aggiornamento e \(\tau\) è la <strong>costante di tempo</strong>: la scala della memoria. Prova del nove: se passa esattamente \(\Delta t = \tau\), allora \(\lambda = 1 - e^{-1} \approx 0{,}63\) — il nuovo dato prende subito il 63% della fiducia. \(\tau\) grande = memoria lunga; \(\tau\) piccolo = reputazione nervosa.</p>
+<div class="callout warn"><span class="tag">Trappola dei simboli — \(\lambda\) e \(\tau\) sono riciclati</span>
+<p>Nel paper \(\lambda\) fa <strong>due lavori</strong>: forza della regolarizzazione L2 (§2.4) e fattore EWMA (qui). E \(\tau\) pure: <strong>soglia di decisione</strong> nella 1.1 (§5.6), <strong>costante di tempo</strong> qui. Stesso segno, mestieri diversi: decide il contesto.</p>
+</div>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi — §4</span>
+<ol>
+<li>\(\lambda = 0{,}2\), \(\bar{x} = 100\), arrivano due valori \(200\). Calcola le due medie successive.</li>
+<li>\(\lambda\) alto significa memoria lunga o corta?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-4">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-5">5. L'intervallo di Wilson (lower confidence bound)</h2>
+
+<h3 id="sec-5-1">5.1 Il problema: pochi dati, stima bugiarda</h3>
+<p>È il fantasma di Robinson (§4 della 1.1) sotto altro nome: la frequenza \(\hat{p} = k/m\) — \(k\) eventi su \(m\) prove — con \(m\) piccolo è <strong>instabile</strong>. Un mittente con 1 reclamo su 10 invii ha \(\hat{p} = 0{,}1\), ma con 10 invii quel numero è quasi rumore. Robinson correggeva contraendo verso un prior; Wilson risponde a un'altra domanda: «<strong>quanto in basso potrebbe realisticamente essere il valore vero</strong>, visti così pochi dati?»</p>
+
+<h3 id="sec-5-2">5.2 Intervallo di confidenza e il numero \(z\)</h3>
+<p>Un <strong>intervallo di confidenza</strong> è una forchetta di valori plausibili per il parametro, costruita dai dati. Il suo bordo inferiore è il <strong>lower confidence bound</strong> (LCB). La larghezza della forchetta la governa \(z\): un numero preso dalla <strong>distribuzione normale</strong> (la classica curva a campana — trattazione completa più avanti nella wiki; per ora la usiamo come la \(\chi^2\): valori tabulati). Riferimenti: \(z = 1{,}96\) ↔ confidenza 95%; \(z = 1\) ↔ circa 68%. Più \(z\) è grande, più il bordo scende: più prudenza.</p>
+<div class="callout warn"><span class="tag">Trappola classica — cosa significa «95%»</span>
+<p>Il 95% è una proprietà della <strong>procedura</strong>: ripetendola su tanti campioni, azzecca il valore vero il 95% delle volte. <strong>Non</strong> è «il vero \(p\) sta qui dentro con probabilità 95%» per <em>questo</em> campione — per dire quello servirebbe Bayes, con un prior. Stessa famiglia di trappole di likelihood/posterior e del p-value (§5.4 della 1.1). Esistono anche sottigliezze a una/due code che qui non servono.</p>
+</div>
+
+<h3 id="sec-5-3">5.3 La formula, smontata</h3>
+<div class="formula key">\[ \text{LCB} \;=\; \frac{\hat{p} + \dfrac{z^2}{2m} \;-\; z\sqrt{\dfrac{\hat{p}(1-\hat{p})}{m} + \dfrac{z^2}{4m^2}}}{1 + \dfrac{z^2}{m}} \]</div>
+<p>Tre pezzi: un <strong>centro</strong> \(\bigl(\hat{p} + z^2/2m\bigr)/(1 + z^2/m)\), spostato da \(\hat{p}\) verso \(0{,}5\); una <strong>larghezza</strong> (il termine con la radice), grande quando \(m\) è piccolo; il LCB è centro meno larghezza, riscalato.</p>
+<div class="callout intu"><span class="tag">Intuizione — le email-fantasma sono tornate</span>
+<p>Con un po' di algebra il centro si riscrive \(\dfrac{k + z^2/2}{m + z^2}\): è come aggiungere \(z^2/2\) successi virtuali e \(z^2/2\) insuccessi virtuali ai conteggi veri. Con \(z = 2\): due e due. Esattamente il trucco di Robinson (§4.3 della 1.1), riscoperto da un'altra strada.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico — con \(z = 2\) per fare i conti a mano</span>
+<p>(Il valore fine sarebbe \(1{,}96\); uso \(2\) per l'aritmetica: \(z^2 = 4\).)</p>
+<p><strong>Pochi dati</strong>: \(k = 1\) evento su \(m = 10\), \(\hat{p} = 0{,}1\).</p>
+<ol>
+<li>Centro: \(\dfrac{0{,}1 + 4/20}{1 + 4/10} = \dfrac{0{,}3}{1{,}4} \approx 0{,}214\) — verifica con i conteggi virtuali: \((1+2)/(10+4) = 3/14 \approx 0{,}214\). ✓</li>
+<li>Radice: \(\sqrt{\dfrac{0{,}1 \cdot 0{,}9}{10} + \dfrac{4}{400}} = \sqrt{0{,}009 + 0{,}01} = \sqrt{0{,}019} \approx 0{,}138\); per \(z\): \(0{,}276\); riscalata: \(0{,}276/1{,}4 \approx 0{,}197\).</li>
+<li>\(\text{LCB} \approx 0{,}214 - 0{,}197 = 0{,}017\).</li>
+</ol>
+<p><strong>Tanti dati</strong>: \(k = 100\) su \(m = 1000\), stesso \(\hat{p} = 0{,}1\) → \(\text{LCB} \approx 0{,}083\).</p>
+<p>Stessa frequenza osservata, verdetti onesti diversi: con 10 invii «potrebbe essere anche solo 1,7%», con 1000 «è almeno l'8,3%». Decide \(m\) — di nuovo.</p>
+</div>
+<p>Perché la 1.2 lo preferisce alla media: usare il <strong>bordo prudente</strong> invece di \(\hat{p}\) impedisce di premiare (o condannare) chi ha pochi dati. Il filo è lo stesso di tutta la 1.1: clamp → shrink → Wilson, tre risposte alla stessa domanda «quanto fidarsi di un conteggio piccolo?».</p>
+
+<div class="callout ex" id="ex-5"><span class="tag">Esercizi — §5</span>
+<ol>
+<li>\(z = 2\), \(k = 0\) eventi su \(m = 10\). Calcola il LCB (suggerimento: \(\hat{p} = 0\) semplifica quasi tutto).</li>
+<li>Robinson (§4 della 1.1) e Wilson curano la stessa malattia. In una frase ciascuno: qual è la medicina di ognuno?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-5">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-6">6. Learning-to-rank: imparare a ordinare</h2>
+
+<h3 id="sec-6-1">6.1 Il problema: ordinare, non classificare</h3>
+<p>Un motore di ricerca non deve dire «rilevante sì/no»: deve <strong>mettere in fila</strong>. Le etichette sono voti di rilevanza graduati, \(rel_i \in \{0, 1, 2, 3\}\), e l'obiettivo è che i voti alti finiscano <strong>in cima</strong>. Serve quindi (a) una pagella per gli ordinamenti, (b) un modello che impari a massimizzarla.</p>
+
+<h3 id="sec-6-2">6.2 La pagella: DCG e NDCG</h3>
+<div class="formula key">\[ \mathrm{DCG@}k \;=\; \sum_{i=1}^{k} \frac{2^{\,rel_i} - 1}{\log_2(i+1)} \]</div>
+<p>La chiocciola \(@k\) si legge «considerando solo le prime \(k\) posizioni». Due leve nella formula: il <strong>guadagno</strong> \(2^{rel}-1\) premia in modo esplosivo i molto rilevanti (\(rel = 3 \to 7\), \(rel = 1 \to 1\)); lo <strong>sconto di posizione</strong> \(\log_2(i+1)\) penalizza chi sta in basso (posizione 1 divide per \(1\); posizione 3 divide per \(2\)). Il valore assoluto dipende dalla query, quindi si normalizza: <strong>NDCG</strong> \(= \mathrm{DCG}/\mathrm{IDCG}\), dove IDCG è la DCG dell'<strong>ordinamento ideale</strong>. NDCG \(\in [0,1]\): \(1\) = ordine perfetto.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — serve solo \(\log_2 3 \approx 1{,}585\)</span>
+<p>Tre risultati mostrati nell'ordine con voti \((3;\ 0;\ 2)\). Guadagni: \(7;\ 0;\ 3\).</p>
+<ol>
+<li>\(\mathrm{DCG} = \dfrac{7}{1} + \dfrac{0}{1{,}585} + \dfrac{3}{2} = 8{,}5\).</li>
+<li>Ordine ideale \((3;\ 2;\ 0)\): \(\mathrm{IDCG} = 7 + \dfrac{3}{1{,}585} + 0 \approx 8{,}89\).</li>
+<li>\(\mathrm{NDCG} = 8{,}5 / 8{,}89 \approx 0{,}956\): buono, ma quel 2 in terza posizione costa.</li>
+</ol>
+</div>
+
+<h3 id="sec-6-3">6.3 RankNet: la sigmoide sulle coppie</h3>
+<p>Come si <strong>impara</strong> a ordinare? L'idea di RankNet: il modello assegna a ogni documento un punteggio \(s_i\), e per ogni <strong>coppia</strong> stima la probabilità che \(i\) debba stare sopra \(j\):</p>
+<div class="formula key">\[ P_{ij} \;=\; \sigma\bigl(s_i - s_j\bigr) \]</div>
+<p>La sigmoide, di nuovo: differenza di punteggi → probabilità. La perdita è la log-loss (§2.3) sulle coppie con etichetta nota, e si scende col gradiente (§3). Esempio: \(s_i = 2\), \(s_j = 1\) → \(P_{ij} = \sigma(1) \approx 0{,}73\).</p>
+
+<h3 id="sec-6-4">6.4 LambdaMART, in una riga</h3>
+<p>Il motore industriale: <strong>alberi di decisione in sequenza</strong> (GBDT: ogni albero corregge gli errori del precedente), guidati da gradienti «lambda» pesati per <strong>quanto uno scambio di posizioni cambierebbe l'NDCG</strong>. Nome da riconoscere nella 3.1; il suo smontaggio fine è oltre il perimetro.</p>
+
+<div class="callout ex" id="ex-6"><span class="tag">Esercizi — §6</span>
+<ol>
+<li>Stessi tre documenti, mostrati nell'ordine \((2;\ 3;\ 0)\): calcola DCG e NDCG (IDCG \(\approx 8{,}89\)).</li>
+<li>Perché il guadagno è \(2^{rel}-1\) e non semplicemente \(rel\)? (Una frase.)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-6">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+
+<h3 id="sol-1">Soluzioni — §1</h3>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi di §1</a></p>
+<ol>
+<li>\(2 \cdot 1 + (-1) \cdot 2 + 0{,}5 \cdot 4 = 2 - 2 + 2 = 2\). Spinge più in giù la seconda componente: contributo \(-2\).</li>
+<li>\(\lVert(3;4)\rVert = \sqrt{9+16} = 5\); \(\lVert(1;0)\rVert = \sqrt{1} = 1\).</li>
+</ol>
+
+<h3 id="sol-2">Soluzioni — §2</h3>
+<p class="note"><a class="xref" href="#ex-2">↩ Torna agli esercizi di §2</a></p>
+<ol>
+<li>\(y = 0\) → \(\ell = -\ln(1 - 0{,}99) = -\ln 0{,}01 \approx 4{,}605\). Con \(r = 0{,}5\): \(\ell = -\ln 0{,}5 \approx 0{,}693\). L'errore sicuro costa quasi 7 volte l'incertezza onesta.</li>
+<li>Perché il punteggio lineare può essere qualsiasi numero, ma serve una probabilità: la sigmoide lo comprime in \((0,1)\) — è la stessa mossa di §5.2 della 1.1.</li>
+</ol>
+
+<h3 id="sol-3">Soluzioni — §3</h3>
+<p class="note"><a class="xref" href="#ex-3">↩ Torna agli esercizi di §3</a></p>
+<ol>
+<li>Punteggio \(= 1\), \(r \approx 0{,}73\), errore \(= 0{,}73 - 0 = 0{,}73\). Aggiornamento: \(\boldsymbol\theta - 0{,}1 \cdot 0{,}73 \cdot (1;0) = (1 - 0{,}073;\ 1) = (0{,}927;\ 1)\). Nuovo punteggio \(= 0{,}927 < 1\): scende verso \(y = 0\). ✓</li>
+<li>Passi enormi: invece di scendere la collina, la scavalchi e rimbalzi da un versante all'altro — la perdita può perfino peggiorare. \(\eta\) piccolo = passi corti ma discesa affidabile.</li>
+</ol>
+
+<h3 id="sol-4">Soluzioni — §4</h3>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi di §4</a></p>
+<ol>
+<li>\(\bar{x} = 0{,}2 \cdot 200 + 0{,}8 \cdot 100 = 120\); poi \(\bar{x} = 0{,}2 \cdot 200 + 0{,}8 \cdot 120 = 136\).</li>
+<li>Memoria <strong>corta</strong>: \(\lambda\) alto dà quasi tutta la fiducia al dato nuovo, il passato evapora in fretta.</li>
+</ol>
+
+<h3 id="sol-5">Soluzioni — §5</h3>
+<p class="note"><a class="xref" href="#ex-5">↩ Torna agli esercizi di §5</a></p>
+<ol>
+<li>\(\hat{p} = 0\): centro \(= \dfrac{0 + 0{,}2}{1{,}4}\), radice \(= \sqrt{0 + 4/400} = 0{,}1\), per \(z\): \(0{,}2\). Numeratore: \(0 + 0{,}2 - 0{,}2 = 0\) → \(\text{LCB} = 0\). Con zero eventi osservati, il bordo prudente non concede nulla: onesto.</li>
+<li>Robinson: <strong>contrae la stima verso un prior</strong> (osservazioni virtuali al neutro). Wilson: <strong>riporta il bordo prudente</strong> della forchetta compatibile coi dati. Due medicine, stessa malattia: i conteggi piccoli mentono.</li>
+</ol>
+
+<h3 id="sol-6">Soluzioni — §6</h3>
+<p class="note"><a class="xref" href="#ex-6">↩ Torna agli esercizi di §6</a></p>
+<ol>
+<li>Guadagni nell'ordine: \(3;\ 7;\ 0\) → \(\mathrm{DCG} = \dfrac{3}{1} + \dfrac{7}{1{,}585} + 0 pprox 3 + 4{,}42 = 7{,}42\); \(\mathrm{NDCG} = 7{,}42/8{,}89 pprox 0{,}834\). Peggio di prima: il documento migliore è sceso di una posizione.</li>
+<li>Perché l'esponenziale rende un \(rel = 3\) <strong>sette volte</strong> un \(rel = 1\): sbagliare sui contenuti eccellenti deve costare molto più che sbagliare sui mediocri.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel <strong>Glossario globale</strong> della wiki (stessa struttura: simbolo · nome · definizione · prima occorrenza). Il pavimento dichiarato della 1.1 resta valido.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(\mathbf{x}\), \(\boldsymbol\theta\)</td><td>vettori (dati; pesi)</td><td>liste ordinate di numeri; grassetto = più componenti</td><td>F4 §1.1</td></tr>
+<tr><td>\(\top\), \(\boldsymbol\theta^{\top}\mathbf{x}\)</td><td>trasposto; prodotto scalare</td><td>«moltiplica componente per componente e somma»</td><td>F4 §1.2</td></tr>
+<tr><td>\(\sqrt{\ }\)</td><td>radice quadrata</td><td>il numero che al quadrato dà l'argomento</td><td>F4 §1.3</td></tr>
+<tr><td>\(\lVert\boldsymbol\theta\rVert\)</td><td>norma</td><td>lunghezza del vettore: \(\sqrt{\sum_j \theta_j^2}\)</td><td>F4 §1.3</td></tr>
+<tr><td>\(r(\mathbf{x})\)</td><td>uscita della logistica</td><td>\(\sigma(\boldsymbol\theta^{\top}\mathbf{x})\): probabilità stimata che \(y=1\)</td><td>F4 §2.2</td></tr>
+<tr><td>\(y\)</td><td>etichetta</td><td>la verità osservata, \(0\) oppure \(1\)</td><td>F4 §2.2</td></tr>
+<tr><td>\(\ell\), \(\mathcal{L}(\boldsymbol\theta)\)</td><td>log-loss (perdita)</td><td>costo dell'errore; \(\mathcal{L} = -\ln L\): non confondere con la verosimiglianza \(L\)</td><td>F4 §2.3</td></tr>
+<tr><td>\(\lambda\)</td><td>due mestieri</td><td>forza della penale L2 (§2.4) <em>e</em> fattore EWMA (§4.1): decide il contesto</td><td>F4 §2.4</td></tr>
+<tr><td>\(\eta\)</td><td>learning rate</td><td>lunghezza del passo nella discesa del gradiente</td><td>F4 §3.1</td></tr>
+<tr><td>SGD, FTRL</td><td>sigle</td><td>discesa del gradiente un esempio alla volta; sua variante online industriale</td><td>F4 §3.2</td></tr>
+<tr><td>\(\bar{x}\)</td><td>media EWMA</td><td>la barra = media; qui la media mobile che dimentica</td><td>F4 §4.1</td></tr>
+<tr><td>\(\Delta t\), \(\tau\)</td><td>intervallo; costante di tempo</td><td>tempo dall'ultimo aggiornamento; scala della memoria (questo \(\tau\) ≠ soglia della 1.1)</td><td>F4 §4.2</td></tr>
+<tr><td>\(\hat{p}\), \(k\), \(m\)</td><td>stima campionaria; conteggi</td><td>\(\hat{p} = k/m\): eventi osservati su prove totali</td><td>F4 §5.1</td></tr>
+<tr><td>\(z\)</td><td>quantile normale</td><td>numero dalla curva a campana: \(1{,}96\) ↔ 95%; regola la prudenza</td><td>F4 §5.2</td></tr>
+<tr><td>IC, LCB</td><td>intervallo di confidenza; bordo inferiore</td><td>forchetta di valori plausibili; il suo estremo prudente</td><td>F4 §5.2</td></tr>
+<tr><td>\(rel_i\)</td><td>voto di rilevanza</td><td>etichetta graduata (0–3) del documento in posizione \(i\)</td><td>F4 §6.1</td></tr>
+<tr><td>\(@k\)</td><td>cutoff</td><td>«considerando solo le prime \(k\) posizioni»</td><td>F4 §6.2</td></tr>
+<tr><td>DCG, IDCG, NDCG</td><td>pagelle di ranking</td><td>guadagno scontato per posizione; la sua versione ideale; il rapporto in \([0,1]\)</td><td>F4 §6.2</td></tr>
+<tr><td>\(s_i\), \(P_{ij}\)</td><td>punteggio; prob. di coppia</td><td>score di ranking; \(\sigma(s_i - s_j)\) = prob. che \(i\) stia sopra \(j\)</td><td>F4 §6.3</td></tr>
+<tr><td>GBDT, RankNet, LambdaMART</td><td>sigle</td><td>alberi in sequenza; il modello a coppie; il ranker industriale guidato dall'NDCG</td><td>F4 §6</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F4 — Statistica e machine learning · pagina Fondamenta della wiki «Sistemi di Fiducia» · stato: <strong>bozza</strong> · prossima tappa: sezione 1.2 (Score reputazionali), che usa tutto questo.</p>
+</body>
+</html>

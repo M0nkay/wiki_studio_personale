@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Filtraggio Bayesiano dello Spam — Sezione 1.1 (bella copia)</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#mappa">Mappa</a><a href="#sec-1">§1</a><a href="#sec-2">§2</a><a href="#sec-3">§3</a><a href="#sec-4">§4</a><a href="#sec-5">§5</a><a href="#app-a">Concetti</a><a href="#app-b">Glossario</a><a href="#app-c">Soluzioni</a><a href="#app-d">Extra</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">Filtraggio Bayesiano dello Spam</h1>
+<p class="subtitle">Sezione 1.1 — bella copia degli appunti · probabilità, Bayes, Graham, Robinson, Fisher</p>
+
+<div class="leg">
+<h2 id="mappa">La catena di montaggio (mappa)</h2>
+<p>Tutta la sezione 1.1 costruisce un'unica cosa: trasformare le parole di un'email in un verdetto <strong>spam / non spam</strong>. Ogni parola attraversa quattro stadi, poi tutti i punteggi si fondono in uno solo.</p>
+<p class="chain">
+<span>stima (Graham, <a class="xref" href="#sec-3">§3</a>)</span><span class="arrow">→</span><span>clamp [0,01; 0,99]</span><span class="arrow">→</span><span>shrink (Robinson, <a class="xref" href="#sec-4">§4</a>)</span><span class="arrow">→</span><span>fusione (Fisher, <a class="xref" href="#sec-5">§5</a>)</span>
+</p>
+<p class="note">Tieni questa catena sotto mano: ogni paragrafo che segue è uno di questi anelli. Corrispondenza con il paper: <strong><a class="xref" href="#sec-3">§3</a> = 1.1.1 · <a class="xref" href="#sec-4">§4</a> = 1.1.2 · <a class="xref" href="#sec-5">§5</a> = 1.1.3</strong> (i numeri del paper compaiono solo come etichette; la navigazione interna usa sempre <a class="xref" href="#sec-1">§1</a>–<a class="xref" href="#sec-5">§5</a>). Ogni sezione chiude con i suoi <strong>esercizi</strong>; le soluzioni sono in <strong><a class="xref" href="#app-c">Appendice C</a></strong>, il glossario dei simboli in <strong><a class="xref" href="#app-b">Appendice B</a></strong>; gli approfondimenti facoltativi, fuori dal perimetro del paper, in <strong><a class="xref" href="#app-d">Appendice D</a></strong>.</p>
+</div>
+
+<details class="toc"><summary>Indice completo — tocca per aprire</summary>
+<nav aria-label="Indice"><ul>
+<li><a href="#sec-1">1. Fondamenta di probabilità</a><ul>
+<li><a href="#sec-1-1">1.1 Cos'è una probabilità</a></li>
+<li><a href="#sec-1-2">1.2 Regola del complemento</a></li>
+<li><a href="#sec-1-3">1.3 Probabilità condizionata</a></li>
+</ul></li>
+<li><a href="#sec-2">2. Il teorema di Bayes</a><ul>
+<li><a href="#sec-2-1">2.1 A cosa serve: girare la freccia</a></li>
+<li><a href="#sec-2-2">2.2 La regola di Bayes (formulazione rigorosa)</a></li>
+</ul></li>
+<li><a href="#sec-3">3. La formula di Graham — probabilità di spam per parola (paper: 1.1.1)</a><ul>
+<li><a href="#sec-3-1">3.1 Le due verosimiglianze di una parola</a></li>
+<li><a href="#sec-3-2">3.2 Quei numeri sono STIME: la massima verosimiglianza</a></li>
+<li><a href="#sec-3-3">3.3 Da Bayes alla formula per-parola</a></li>
+<li><a href="#sec-3-4">3.4 I tre accorgimenti di Graham</a></li>
+</ul></li>
+<li><a href="#sec-4">4. La correzione di Robinson (paper: 1.1.2)</a><ul>
+<li><a href="#sec-4-1">4.1 Il problema vero: scarsità di dati</a></li>
+<li><a href="#sec-4-2">4.2 L'idea: media pesata verso \(0{,}5\), calibrata sui dati</a></li>
+<li><a href="#sec-4-3">4.3 La formula</a></li>
+<li><a href="#sec-4-4">4.4 Comportamento agli estremi (prova del nove)</a></li>
+<li><a href="#sec-4-5">4.5 Esempio numerico svolto</a></li>
+</ul></li>
+<li><a href="#sec-5">5. La combinazione di Fisher (paper: 1.1.3)</a><ul>
+<li><a href="#sec-5-1">5.1 Il problema: da tante \(f\) a un solo verdetto</a></li>
+<li><a href="#sec-5-2">5.2 Perché degenera (in termini formali)</a></li>
+<li><a href="#sec-5-3">5.3 L'idea di Fisher (la strategia)</a></li>
+<li><a href="#sec-5-4">5.4 Primo mattone: il p-value</a></li>
+<li><a href="#sec-5-5">5.5 Secondo mattone: la chi-quadro e la sua funzione di sopravvivenza</a></li>
+<li><a href="#sec-5-6">5.6 Le formule finali: \(H\), \(S\) e l'indicatore \(I\)</a></li>
+</ul></li>
+<li><a href="#app-a">Appendice A — Concetti che ricorrono nel paper</a><ul>
+<li><a href="#app-a-1">A.1 I due errori (matrice di confusione)</a></li>
+<li><a href="#app-a-2">A.2 Odds e log-odds (logit)</a></li>
+<li><a href="#app-a-3">A.3 Indipendenza condizionale</a></li>
+<li><a href="#app-a-4">A.4 Universale vs situazionale</a></li>
+</ul></li>
+<li><a href="#app-b">Appendice B — Glossario dei simboli</a><ul>
+</ul></li>
+<li><a href="#app-c">Appendice C — Soluzioni degli esercizi</a><ul>
+<li><a href="#sol-1">Soluzioni — §1</a></li>
+<li><a href="#sol-2">Soluzioni — §2</a></li>
+<li><a href="#sol-3">Soluzioni — §3</a></li>
+<li><a href="#sol-4">Soluzioni — §4</a></li>
+<li><a href="#sol-5">Soluzioni — §5</a></li>
+</ul></li>
+<li><a href="#app-d">Appendice D — Approfondimenti opzionali (fuori dal perimetro del paper)</a><ul>
+<li><a href="#app-d-1">D.1 Perché «credere» obbedisce alla probabilità: de Finetti e Cox</a></li>
+<li><a href="#app-d-2">D.2 Mattone: il valore atteso \(\mathbb{E}[X]\)</a></li>
+<li><a href="#app-d-3">D.3 Sotto-\(\sigma\)-algebra: l'informazione parziale</a></li>
+<li><a href="#app-d-4">D.4 L'aspettazione condizionata \(\mathbb{E}[X \mid \mathcal{G}]\)</a></li>
+<li><a href="#app-d-5">D.5 Radon–Nikodym: la garanzia di esistenza</a></li>
+</ul></li>
+</ul></nav></details>
+
+<hr/>
+
+<h2 id="sec-1">1. Fondamenta di probabilità</h2>
+
+<h3 id="sec-1-1">1.1 Cos'è una probabilità</h3>
+<p>Una probabilità è un numero che misura quanto è probabile che un evento accada. Vive sempre nell'intervallo <strong>\([0,1]\)</strong>: il valore \(0\) significa impossibile, il valore \(1\) significa certo, e i valori intermedi misurano i gradi di "forse".</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>È la scala delle previsioni meteo: "70% di pioggia" è la probabilità \(0{,}7\). Vicino a \(1\) = quasi sicuro che accade; vicino a \(0\) = quasi sicuro di no.</p>
+</div>
+
+<h3 id="sec-1-2">1.2 Regola del complemento</h3>
+<p>L'<strong>opposto</strong>, ovvero l'evento «non accade», è detto <strong>complemento</strong> e si indica con \(\overline{A}\). Poiché "accade" e "non accade" insieme coprono ogni possibilità, le loro probabilità sommano a \(1\):</p>
+<div class="formula">\[ P(\overline{A}) = 1 - P(A) \]</div>
+<p class="note">Esempio: se un'email ha \(P(\text{spam})=0{,}9\), allora \(P(\text{buona}) = 1 - 0{,}9 = 0{,}1\). Nel paper l'espressione \(1-p\) ricorre ovunque: è sempre il "non".</p>
+
+<h3 id="sec-1-3">1.3 Probabilità condizionata</h3>
+<p>La <strong>probabilità condizionata</strong> è la probabilità di \(A\) <em>sapendo già</em> che è accaduto \(B\). In pratica ci si <strong>restringe a un mondo più piccolo</strong> (solo i casi in cui vale \(B\)) e si ricalcola lì dentro.</p>
+<div class="formula key">\[ P(A \mid B) = \frac{P(A \cap B)}{P(B)} \qquad\text{(a conteggi: } \frac{|A \cap B|}{|B|}\text{)} \]</div>
+<p>La barra <strong>\(\mid\)</strong> si legge "dato" / "sapendo". Il simbolo \(A \cap B\) (oppure "\(A\) e \(B\)") significa che accadono <strong>tutti e due insieme</strong>. Le barre attorno a un <strong>insieme</strong>, come \(|B|\), indicano la sua <strong>cardinalità</strong>: quanti elementi contiene. (Da non confondere con le stesse barre attorno a un <strong>numero</strong>, \(|x|\): là significheranno un'altra cosa, il valore assoluto — <a class="xref" href="#sec-5-6">§5.6</a>.)</p>
+<div class="callout warn"><span class="tag">Attenzione — il denominatore</span>
+<p>Il denominatore è il <strong>mondo ristretto \(B\)</strong>, non l'intero universo. Se su 300 email totali 120 sono spam e 90 di queste contengono una parola, allora \(P(\text{parola}\mid\text{spam}) = 90/120\), non \(90/300\). La condizione "è spam" ha già buttato via le altre 180.</p>
+</div>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi — <a class="xref" href="#sec-1">§1</a></span>
+<ol>
+<li>Un filtro assegna a un'email \(P(\text{spam}) = 0{,}7\). Quanto vale \(P(\text{buona})\)?</li>
+<li>Su 200 email totali, 80 sono spam; 60 di queste contengono «offerta». Calcola \(P(\text{«offerta»} \mid \text{spam})\). Attento al denominatore.</li>
+<li>Nell'esercizio 2: qual è il "mondo ristretto" su cui si calcola? Quante email restano fuori gioco?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-1">Appendice C — blocco §1</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Il teorema di Bayes</h2>
+
+<h3 id="sec-2-1">2.1 A cosa serve: girare la freccia</h3>
+<p>Misurare \(P(B \mid A)\) è spesso facile, ma quello che serve è il verso opposto, \(P(A \mid B)\). I due versi sono <strong>quantità diverse</strong>: non si passa dall'uno all'altro per simmetria. Bayes è la regola che li lega, e per farlo usa il <strong>prior</strong> \(P(A)\): la probabilità dell'ipotesi <em>prima</em> di ogni indizio, il punto di partenza (definizione formale in <a class="xref" href="#sec-2-2">§2.2</a>).</p>
+<div class="callout intu"><span class="tag">Intuizione — la fallacia del tasso di base</span>
+<p>Una malattia rara colpisce l'<strong>1%</strong> della popolazione: \(P(\text{malato}) = 0{,}01\). Un test è "accurato al 95%": dà positivo nel 95% dei malati, ma anche nel 5% dei sani. <strong>Se il test è positivo, quanto è probabile essere davvero malati?</strong></p>
+<p>L'istinto dice "circa 95%". La risposta vera è <strong>circa 16%</strong>. Si vede contando su 10.000 persone:</p>
+<ul>
+<li>malati: \(1\%\) di 10.000 = <strong>100</strong> → di cui positivi: \(95\%\) = <strong>95</strong> (veri positivi)</li>
+<li>sani: <strong>9.900</strong> → di cui positivi: \(5\%\) = <strong>495</strong> (falsi positivi)</li>
+<li>positivi in tutto: \(95 + 495 =\) <strong>590</strong>, di cui solo <strong>95</strong> malati davvero</li>
+</ul>
+<p>Quindi \(P(\text{malato}\mid +) = 95/590 \approx 0{,}16\). Il test è preciso, ma applicato a una platea enorme di sani: i <strong>falsi positivi</strong> (495) <strong>sommergono</strong> i veri positivi (95).</p>
+</div>
+<p>La stessa cosa con Bayes, dove il prior \(P(\text{malato})=0{,}01\) entra in gioco esplicitamente:</p>
+<div class="formula">\[ P(\text{malato}\mid +) = \frac{P(+\mid\text{malato})\,P(\text{malato})}{P(+\mid\text{malato})\,P(\text{malato}) + P(+\mid\text{sano})\,P(\text{sano})} = \frac{0{,}95 \cdot 0{,}01}{0{,}95\cdot 0{,}01 + 0{,}05\cdot 0{,}99} \approx 0{,}16 \]</div>
+<p>Trascurare il tasso di base — cioè il <strong>prior</strong> — porta a rispondere 95% invece di 16%: è la <strong>fallacia del tasso di base</strong>. Ed è esattamente perché, per girare la freccia, Bayes ha bisogno del prior.</p>
+
+<h3 id="sec-2-2">2.2 La regola di Bayes (formulazione rigorosa)</h3>
+<p>Bayes vive dentro una struttura standard, lo <strong>spazio di probabilità</strong> \((\Omega, \mathcal{F}, P)\): il "palcoscenico" formale su cui accade tutto. Lo monto pezzo per pezzo, perché ognuno serve a leggere il resto.</p>
+
+<h4>1) \(\Omega\) (omega) — lo spazio campionario</h4>
+<p>È l'insieme di <strong>tutti gli esiti possibili</strong> dell'esperimento casuale in esame. Ogni elemento \(\omega \in \Omega\) — il simbolo \(\in\) si legge «<strong>appartiene a</strong>»: \(\omega\) è uno degli elementi dell'insieme \(\Omega\) — è <strong>un</strong> esito completo e indivisibile (un "esito elementare"). Serve a fissare l'universo del problema: ciò che non sta in \(\Omega\), per questo esperimento, non esiste.</p>
+<div class="callout ex"><span class="tag">Esempio</span>
+<p>Lancio di un dado: gli esiti sono sei, quindi \(\Omega = \{1,2,3,4,5,6\}\).</p>
+</div>
+<p>Per lo spam l'esperimento è "pesco un'email a caso", e \(\Omega\) in teoria è l'insieme di <strong>tutte le email possibili</strong>: sterminato, di fatto infinito. Ma su un insieme infinito non si può <strong>contare</strong> nulla, e servono frequenze. Quindi \(\Omega\) si rimpiazza con un suo sottoinsieme <strong>finito</strong>, quello che si ha davvero "in mano": il <strong>campione</strong>.</p>
+<p>Il <strong>campione</strong> (in inglese <em>sample</em>) è il concetto che conta qui: una collezione <strong>finita</strong> di dati osservati, presa da una popolazione, da cui si <strong>stimano</strong> le quantità vere (vale per qualsiasi dato — altezze, temperature, email). È proprio questa sostituzione, campione finito al posto della popolazione infinita, a rendere \(b/N_S\) una <strong>stima</strong> e non il valore vero (vedi <a class="xref" href="#sec-3-2">§3.2</a>).</p>
+<div class="callout ex"><span class="tag">Nota di vocabolario — "corpus"</span>
+<p>Quando i dati sono <strong>testi</strong> (come le email), lo stesso campione si chiama anche <strong>corpus</strong>: è solo il nome d'uso quando si lavora con documenti, <strong>senza nulla di matematico in più</strong>. Lo segnalo per una ragione pratica — <strong>il paper usa "corpus"</strong> (per es. nello pseudocodice <code>train_bayes(corpus)</code>): quando lo incontri, leggilo come «campione».</p>
+</div>
+
+<h4>2) \(\mathcal{F}\) (una \(\sigma\)-algebra) — la famiglia degli eventi</h4>
+<p>Prima il mattone di base: un <strong>evento</strong> è un <strong>sottoinsieme di \(\Omega\)</strong>, cioè un gruppo di esiti. "Il dado è pari" è l'evento \(\{2,4,6\}\); "l'email è spam" è il sottoinsieme di tutte le spam.</p>
+<p>\(\mathcal{F}\) è la <strong>collezione degli eventi</strong> a cui possiamo assegnare una probabilità. Non una collezione qualsiasi: dev'essere una <strong>\(\sigma\)-algebra</strong>, cioè rispettare tre proprietà di chiusura.</p>
+<ul>
+<li>\(\Omega \in \mathcal{F}\): l'evento certo è incluso.</li>
+<li>se \(A \in \mathcal{F}\), allora il complemento \(\overline{A} = \Omega \setminus A \in \mathcal{F}\): se posso parlare di \(A\), posso parlare di "non \(A\)". (Il simbolo \(\setminus\) è la <strong>differenza tra insiemi</strong>: \(\Omega \setminus A\) = tutti gli elementi di \(\Omega\) che non stanno in \(A\).)</li>
+<li>se \(A_1, A_2, \dots \in \mathcal{F}\) — anche <strong>infiniti numerabili</strong>, cioè un infinito che si può mettere in fila ed etichettare \(1, 2, 3, \dots\), come gli interi — allora l'unione \(\bigcup_i A_i \in \mathcal{F}\): combinare eventi con "oppure" dà ancora un evento.</li>
+</ul>
+<p>L'intersezione, l'"e", segue da queste due tramite le <strong>leggi di De Morgan</strong>: «non (\(A\) oppure \(B\))» equivale a «(non \(A\)) e (non \(B\))», e viceversa — da cui \(A \cap B = \overline{\overline{A} \cup \overline{B}}\), costruita con soli complementi e unioni. A cosa serve tutto ciò: <strong>garantisce</strong> che ogni operazione logica sugli eventi resti dentro la famiglia, così la probabilità è sempre definita.</p>
+<div class="callout ex"><span class="tag">Esempio · quando serve davvero</span>
+<p>Nel caso <strong>finito o discreto</strong> (un dado, un corpus di email) basta prendere \(\mathcal{F} = \) <em>tutti</em> i sottoinsiemi di \(\Omega\), e le tre proprietà valgono da sole. La macchina della \(\sigma\)-algebra diventa indispensabile <strong>solo</strong> quando \(\Omega\) è infinito/continuo. Per il paper, discreto: sappi cos'è, ma il peso vero è altrove.</p>
+</div>
+
+<h4>3) \(P\) — la misura di probabilità</h4>
+<p>È una funzione \(P : \mathcal{F} \to [0,1]\) che assegna a ogni evento un numero tra \(0\) e \(1\), rispettando i tre <strong>assiomi di Kolmogorov</strong>:</p>
+<ul>
+<li><strong>non-negatività</strong>: \(P(A) \ge 0\) per ogni evento \(A\);</li>
+<li><strong>normalizzazione</strong>: \(P(\Omega) = 1\) (qualcosa, di sicuro, accade);</li>
+<li><strong>additività numerabile</strong> (\(\sigma\)-additività): se gli eventi \(A_1, A_2, \dots\) sono <strong>a due a due disgiunti</strong> (\(A_i \cap A_j = \emptyset\) per \(i \neq j\): il simbolo \(\emptyset\) è l'<strong>insieme vuoto</strong>, nessun elemento in comune, e \(\neq\) si legge «diverso da» — cioè si escludono a vicenda), allora \(P\bigl(\bigcup_i A_i\bigr) = \sum_i P(A_i)\).</li>
+</ul>
+<p>Sono le <strong>regole minime</strong> perché "probabilità" si comporti come ci aspettiamo: tutto il resto — perfino la regola del complemento \(P(\overline{A}) = 1 - P(A)\) — si <strong>deriva</strong> da questi tre assiomi.</p>
+<div class="callout ex"><span class="tag">Esempio</span>
+<p>Dado equo: \(P(\{k\}) = 1/6\) per ogni faccia. Allora \(P(\{2,4,6\}) = 1/6 + 1/6 + 1/6 = 1/2\), per additività (le tre facce sono disgiunte).</p>
+</div>
+
+<h4>Definizione — probabilità condizionata (il posterior)</h4>
+<p>Per due eventi \(A, B \in \mathcal{F}\) con <strong>\(P(B) > 0\)</strong>, la probabilità di \(A\) condizionata a \(B\) è definita da</p>
+<div class="formula key">\[ P(A \mid B) \;:=\; \frac{P(A \cap B)}{P(B)} \]</div>
+<p class="note">Il simbolo \(:=\) si legge «<strong>uguale per definizione</strong>»: non è un'uguaglianza da verificare: introduce un nome, il lato sinistro è <strong>definito</strong> come il lato destro.</p>
+<p>Smontiamola. \(A \cap B\) è l'evento "<strong>\(A\) e \(B\) insieme</strong>" (l'intersezione: gli esiti che stanno in entrambi i sottoinsiemi). La domanda è: <strong>sapendo già</strong> che \(B\) è accaduto, quanto è probabile \(A\)?</p>
+<p>Lo si fa <strong>rimpicciolendo l'universo</strong> da \(\Omega\) a \(B\): solo gli esiti dentro \(B\) restano "in gioco". In questo universo ridotto si misura quanta parte è anche in \(A\) (il numeratore), e si <strong>divide per \(P(B)\)</strong> per riscalare, così che nel nuovo universo la probabilità totale torni a \(1\) (infatti \(P(B \mid B) = 1\)). Si richiede \(P(B) > 0\) perché non si può dividere per zero: condizionare su un evento impossibile non ha senso.</p>
+<div class="callout ex"><span class="tag">Esempio · spam</span>
+<p>\(A\) = "contiene «gratis»", \(B\) = "è spam". Allora \(P(A \mid B) = \dfrac{P(\text{spam e «gratis»})}{P(\text{spam})}\): tra le sole spam, la frazione che contiene «gratis».</p>
+</div>
+<p>Il posterior <em>è</em> questo oggetto — una probabilità condizionata — e nient'altro. La lettura "grado di credenza dopo l'evidenza" è un'<strong>interpretazione</strong> (vedi sotto), non la definizione.</p>
+
+<h4>Teorema di Bayes (forma con partizione)</h4>
+<p>Prima il mattone: cos'è una <strong>partizione</strong>? È un modo di tagliare l'intero universo \(\Omega\) in pezzi \(\{A_1, A_2, \dots\}\) che siano <strong>a due a due disgiunti</strong> (nessun esito sta in due pezzi: \(A_i \cap A_j = \emptyset\) per \(i \neq j\)) ed <strong>esaustivi</strong> (la loro unione è tutto \(\Omega\): ogni esito sta in qualche pezzo). In breve: si escludono a vicenda e coprono tutto.</p>
+<div class="callout ex"><span class="tag">Esempio</span>
+<p>Per lo spam, \(\{S, H\}\) (spam, ham) è una partizione: ogni email è o spam o ham, mai entrambe, e non c'è una terza possibilità.</p>
+</div>
+<p>Ora il teorema. Dalla definizione di condizionata si riscrive il numeratore: \(P(A_k \cap B) = P(B \mid A_k)\,P(A_k)\). Il denominatore \(P(B)\) si costruisce con la <strong>legge della probabilità totale</strong>: poiché i pezzi \(A_i\) coprono tutto, l'evento \(B\) si "spalma" su di essi, e la sua probabilità è la somma dei contributi da ogni pezzo, ciascuno pesato per quanto quel pezzo è grande.</p>
+<div class="formula">\[ P(B) = \sum_i P(B \mid A_i)\,P(A_i) \]</div>
+<p>Mettendo insieme numeratore e denominatore si ottiene il teorema:</p>
+<div class="formula key">\[ P(A_k \mid B) \;=\; \frac{P(B \mid A_k)\,P(A_k)}{\sum_i P(B \mid A_i)\,P(A_i)} \]</div>
+<p>Nel caso binario \(\{A, \overline{A}\}\) la somma al denominatore ha due termini: è la forma che si usa per il filtro spam, con \(A = S\) e \(\overline{A} = H\).</p>
+
+<h4>I quattro termini</h4>
+<ul>
+<li><strong>Prior</strong> — \(P(A)\). Misura marginale (non condizionata) dell'ipotesi; numericamente, la sua frequenza di base.</li>
+<li><strong>Likelihood</strong> (verosimiglianza) — \(P(B \mid A)\). Tenendo \(B\) fisso e facendo variare l'ipotesi, è una <strong>funzione dell'ipotesi</strong>, <strong>non</strong> una distribuzione di probabilità sulle ipotesi (in generale \(\sum_i P(B \mid A_i) \neq 1\)).</li>
+<li><strong>Posterior</strong> — \(P(A \mid B)\). La probabilità condizionata definita sopra. A \(B\) fissato, l'applicazione \(P(\cdot \mid B)\) è essa stessa una <strong>misura di probabilità</strong> su \(\mathcal{F}\) (soddisfa gli assiomi di Kolmogorov).</li>
+<li><strong>Evidenza / normalizzatore</strong> — \(P(B) = \sum_i P(B \mid A_i)\,P(A_i)\). Costante di normalizzazione che garantisce \(\sum_k P(A_k \mid B) = 1\). <strong>Non dipende da \(k\)</strong>: per la sola classificazione (scegliere l'ipotesi più probabile — in simboli \(\arg\max\), cioè <em>quale</em> ipotesi rende massimo il valore) è irrilevante, essendo un fattore comune a tutti i numeratori. È la ragione strutturale per cui, nel filtro, si possono <strong>confrontare i numeratori</strong> senza calcolare \(P(B)\).</li>
+</ul>
+
+<div class="callout warn"><span class="tag">Da non confondere — likelihood e posterior</span>
+<p>Invertire i due lati della barra cambia la <strong>natura</strong> dell'oggetto: \(P(B \mid A)\) è una <strong>funzione dell'ipotesi \(A\)</strong> (likelihood), mentre \(P(A \mid B)\) è una <strong>misura sull'ipotesi</strong> dato il dato (posterior). Per lo spam: \(P(w \mid S)\) è la likelihood (si stima dai conteggi), \(P(S \mid w)\) è il posterior (è ciò che serve). Bayes è la mappa dall'una all'altro.</p>
+</div>
+
+<h4>Definizione vs interpretazione</h4>
+<p>La definizione \(P(A \mid B) = P(A \cap B)/P(B)\) è pura teoria della misura, priva di soggettività. Cosa <em>significhi</em> è invece materia di interpretazione:</p>
+<ul>
+<li><strong>frequentista</strong> — tra le ripetizioni in cui si verifica \(B\), la frazione in cui si verifica anche \(A\);</li>
+<li><strong>soggettiva (bayesiana)</strong> — grado di credenza razionale in \(A\) aggiornato dall'evidenza \(B\); è formalizzabile con gli assiomi di coerenza di <strong>de Finetti</strong> e <strong>Cox</strong> — i risultati per cui ogni sistema di credenze <em>coerente</em> (che non si contraddice e non accetta scommesse in perdita certa) deve obbedire agli assiomi di Kolmogorov; sviluppo con esempio in <a class="xref" href="#app-d-1">Appendice D.1</a>, opzionale — ma resta un'<strong>interpretazione</strong> di \(P\), non la definizione del posterior.</li>
+</ul>
+
+<div class="callout deep"><span class="tag">Nota — caso continuo (fuori dal perimetro del paper)</span>
+<p>Con un parametro \(\theta \in \Theta\) (dove \(\Theta\) è l'insieme dei valori possibili del parametro) e dati \(x\), la versione a densità è \(p(\theta \mid x) = \dfrac{p(x \mid \theta)\,p(\theta)}{\int_\Theta p(x \mid \theta)\,p(\theta)\,d\theta}\) — il simbolo \(\int\) è l'<strong>integrale</strong>, la versione «continua» della somma \(\sum\). Quando si condiziona su un evento di probabilità nulla (es. \(X = x\) continua) la definizione elementare non basta, perché \(P(B) = 0\). Il rigore passa allora per tre oggetti: l'<strong>aspettazione condizionata</strong> — la generalizzazione del condizionare che funziona anche quando \(P(B) = 0\) — definita rispetto a una <strong>sotto-\(\sigma\)-algebra</strong> — una famiglia di eventi più povera di \(\mathcal{F}\), cioè un livello di <strong>informazione parziale</strong> — mentre il teorema di <strong>Radon–Nikodym</strong> garantisce che quell'oggetto <strong>esiste ed è unico</strong>. Il paper sullo spam è interamente <strong>discreto</strong>, quindi questa macchina non serve per la 1.1: la versione svolta, con esempi a mano, è in <strong><a class="xref" href="#app-d-2">Appendice D.2</a>–<a class="xref" href="#app-d-5">D.5</a></strong> (opzionale).</p>
+</div>
+
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa: parametro e spazio del parametro</span>
+<p>Un <strong>parametro</strong> \(\theta\) è un numero sconosciuto che caratterizza il modello (trattazione completa in <a class="xref" href="#sec-3-2">§3.2</a>). Lo <strong>spazio del parametro</strong> \(\Theta\) è l'insieme di <strong>tutti i valori candidati</strong> che \(\theta\) può assumere: scrivere \(\theta \in \Theta\) dichiara che il valore vero, chiunque sia, è uno di quei candidati. Stessa coppia maiuscola/minuscola di \(\Omega\) e \(\omega\): l'insieme, e un suo elemento.</p>
+<p>Esempio: se \(\theta\) è una probabilità (la moneta di <a class="xref" href="#sec-3-2">§3.2</a>), \(\Theta = [0,1]\). Se i candidati fossero solo tre, \(\Theta = \{0{,}25;\ 0{,}5;\ 0{,}75\}\), ogni ricerca del migliore (\(\arg\max\)) sceglierebbe soltanto tra quei tre: \(\Theta\) risponde alla domanda «chi è in gara?».</p>
+</div>
+
+<div class="callout ex" id="ex-2"><span class="tag">Esercizi — <a class="xref" href="#sec-2">§2</a></span>
+<ol>
+<li>Una malattia colpisce il \(2\%\) della popolazione. Un test dà positivo nel \(90\%\) dei malati e nel \(10\%\) dei sani. Il test è positivo: quanto vale \(P(\text{malato} \mid +)\)? (Conta su 1.000 persone, come in <a class="xref" href="#sec-2-1">§2.1</a>.)</li>
+<li>Ti dicono: «\(P(w \mid S) = 0{,}3\)». È una likelihood o un posterior? Significa che "l'email è spam al 30%"?</li>
+<li>Perché, per la sola classificazione (\(\arg\max\)), si può evitare di calcolare il denominatore \(P(B)\)?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-2">Appendice C — blocco §2</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. La formula di Graham — probabilità di spam per parola <span style="font-weight:400;">(paper: 1.1.1)</span></h2>
+<p class="note">D'ora in poi: \(S\) = spam (<em>bad mail</em>), \(H\) = ham (<em>good mail</em>, le email buone), \(w\) = una parola.</p>
+
+<h3 id="sec-3-1">3.1 Le due verosimiglianze di una parola</h3>
+<p>Per ogni parola misuriamo <strong>due verosimiglianze</strong> (il termine è quello di <a class="xref" href="#sec-2-2">§2.2</a>: una probabilità \(P(\text{dato}\mid\text{ipotesi})\) letta come funzione dell'ipotesi):</p>
+<ul>
+<li>\(P(w \mid S)\) — quanto la parola è frequente <strong>dentro lo spam</strong>;</li>
+<li>\(P(w \mid H)\) — quanto è frequente <strong>dentro le email buone</strong>.</li>
+</ul>
+<p>Una parola è un buon <strong>segnale</strong> quando queste due quantità sono molto <strong>diverse</strong> tra loro: la sua presenza sposta il giudizio in modo netto verso una delle due classi.</p>
+<h4>Definizione — rapporto di verosimiglianza</h4>
+<p>Il modo corretto di misurare "quanto sono diverse" non è la sottrazione, ma il <strong>rapporto</strong>. In generale il rapporto \(a/b\) di due numeri positivi dice <em>quante volte</em> il primo contiene il secondo: vale \(1\) se sono uguali, \(>1\) se il primo è più grande, \(<1\) se è più piccolo. Applicato alle due verosimiglianze:</p>
+<div class="formula key">\[ \mathrm{LR}(w) \;=\; \frac{P(w \mid S)}{P(w \mid H)} \]</div>
+<p>\(\mathrm{LR}\) sta per <em>likelihood ratio</em> (rapporto di verosimiglianza). Si legge così:</p>
+<ul>
+<li>\(\mathrm{LR} = 1\): ugualmente frequente nelle due classi → <strong>nessun segnale</strong>;</li>
+<li>\(\mathrm{LR} \gg 1\): molto più frequente nello spam → segnale forte verso \(S\);</li>
+<li>\(\mathrm{LR} \ll 1\): molto più frequente nelle buone → segnale forte verso \(H\).</li>
+</ul>
+<div class="callout ex"><span class="tag">Esempio · perché il rapporto e non la differenza</span>
+<p>«viagra»: \(P(w\mid S) = 0{,}10\) e \(P(w\mid H) = 0{,}001\). La <strong>differenza</strong> è \(0{,}099\), un numero piccolo che sembra dire "conta poco". Il <strong>rapporto</strong> è \(0{,}10 / 0{,}001 = 100\): la parola è <strong>cento volte</strong> più probabile nello spam. È il <em>quante-volte</em> a portare il segnale, non il <em>quanto</em> assoluto — ecco perché «viagra» è un indizio fortissimo pur essendo una parola rara.</p>
+</div>
+
+<h3 id="sec-3-2">3.2 Quei numeri sono STIME: la massima verosimiglianza</h3>
+<p>Punto delicato. Le verosimiglianze <em>vere</em> \(P(w\mid S)\) e \(P(w\mid H)\) <strong>non le conosciamo</strong>: descrivono l'intera popolazione di email possibili, che è infinita (<a class="xref" href="#sec-2-2">§2.2</a>). Noi abbiamo solo un <strong>campione</strong> finito di email (quello che il paper chiama <em>corpus</em>). Da lì dobbiamo <strong>stimare</strong> i valori veri, contando.</p>
+<p>Il metodo standard per stimarli si chiama <strong>massima verosimiglianza</strong> e produce la <strong>stima di massima verosimiglianza</strong> (inglese <em>maximum likelihood estimate</em>, <strong>MLE</strong>). La definisco prima in generale, poi la calo sui nostri conteggi.</p>
+<div class="callout intu"><span class="tag">Intuizione — quale moneta spiega meglio i lanci?</span>
+<p>Lancio 10 volte una moneta di cui ignoro lo sbilanciamento ed escono <strong>7 teste</strong>. La stima più ragionevole della probabilità di testa è \(0{,}7\). Perché proprio \(0{,}7\)? Perché è il valore che rende <strong>"7 teste su 10" il risultato meno sorprendente</strong>. Una moneta giusta (\(0{,}5\)) può dare 7 teste, ma più di rado; una da \(0{,}9\) pure; è \(0{,}7\) a rendere <em>massima</em> la probabilità di ciò che ho visto. Quello è il numero di massima verosimiglianza.</p>
+</div>
+<h4>Definizione — massima verosimiglianza (caso generale)</h4>
+<p>C'è un modello con un <strong>parametro sconosciuto</strong> \(\theta\) (qui: la vera probabilità che una spam contenga \(w\)). Si osservano dei <strong>dati</strong> \(D\). La <strong>verosimiglianza</strong> è la probabilità dei dati osservati, vista come funzione di \(\theta\):</p>
+<div class="formula">\[ L(\theta) \;=\; P(D \mid \theta) \]</div>
+<p>La <strong>stima di massima verosimiglianza</strong> \(\hat\theta\) è il valore di \(\theta\) che <strong>massimizza</strong> \(L\): fra tutti i valori possibili del parametro, quello sotto cui i dati realmente osservati erano i più probabili.</p>
+<div class="formula key">\[ \hat\theta \;=\; \arg\max_{\theta}\; L(\theta) \]</div>
+<p>(\(\arg\max\), come in <a class="xref" href="#sec-2-2">§2.2</a>, è "<em>quale</em> \(\theta\) rende massimo", non il valore massimo di \(L\).)</p>
+<h4>Applicazione — perché \(b/N_S\) è proprio la MLE</h4>
+<p>Ogni spam contiene la parola oppure no, con probabilità vera \(\theta = P(w\mid S)\), indipendentemente da email a email. Su \(N_S\) spam ne osserviamo \(b\) con la parola. La probabilità di questo conteggio è data dalla <strong>legge binomiale</strong>:</p>
+<div class="formula">\[ L(\theta) \;=\; \binom{N_S}{b}\,\theta^{\,b}\,(1-\theta)^{\,N_S - b} \]</div>
+<p>(il coefficiente \(\binom{N_S}{b}\) conta in quanti modi le \(b\) email possono disporsi tra le \(N_S\); è una costante, non dipende da \(\theta\)). Il valore di \(\theta\) che massimizza \(L\) è esattamente la <strong>frequenza osservata</strong>:</p>
+<div class="formula key">\[ P(w\mid S)\;\approx\;\hat\theta \;=\; \frac{b}{N_S} \qquad\text{e analogamente}\qquad P(w\mid H)\;\approx\;\frac{g}{N_H} \]</div>
+<ul>
+<li>\(b\) = email <strong>spam</strong> che contengono la parola &nbsp;·&nbsp; \(N_S\) = totale spam;</li>
+<li>\(g\) = email <strong>ham</strong> che contengono la parola &nbsp;·&nbsp; \(N_H\) = totale ham.</li>
+</ul>
+<p>In una riga: la MLE di una probabilità "presenza / assenza" è semplicemente <strong>la frazione di volte in cui l'evento è capitato</strong>. Intuitivo — ma con una fragilità importante.</p>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — perché il massimo cade su \(b/N_S\)</span>
+<p>Massimizzare \(L(\theta)\) o il suo logaritmo \(\ln L\) è equivalente (il \(\ln\) è monotòno). Annullando la derivata di \(\ln L(\theta) = \text{cost} + b\ln\theta + (N_S-b)\ln(1-\theta)\) si ottiene \(\dfrac{b}{\theta} - \dfrac{N_S-b}{1-\theta} = 0\), che risolto dà \(\theta = b/N_S\). Usa una derivata: se il calcolo differenziale è un buco, salta il box — il risultato qui sopra basta.</p>
+</div>
+<div class="callout warn"><span class="tag">La fragilità della MLE — pochi dati</span>
+<p>Con poche osservazioni la frazione \(b/N_S\) è <strong>inaffidabile</strong>: una parola vista in 2 sole email può dare \(0/2 = 0\) o \(2/2 = 1\) per puro caso, e la MLE prende quel valore estremo <strong>alla lettera</strong>, come fosse certo. Non è il valore vero, è un'eco di pochi dati — ed è la malattia che Robinson (<a class="xref" href="#sec-4">§4</a>) viene a curare.</p>
+</div>
+
+<h3 id="sec-3-3">3.3 Da Bayes alla formula per-parola</h3>
+<p>Ora applichiamo il teorema di Bayes (<a class="xref" href="#sec-2-2">§2.2</a>) per ottenere ciò che davvero serve: \(P(S\mid w)\), la probabilità che l'email sia spam <strong>data</strong> la parola. Nel caso binario \(\{S, H\}\):</p>
+<div class="formula">\[ P(S\mid w) \;=\; \frac{P(w\mid S)\,P(S)}{P(w\mid S)\,P(S) + P(w\mid H)\,P(H)} \]</div>
+<p>Qui entra una scelta di Graham, da marcare come <strong>situazionale</strong> (una decisione per il suo problema, non un principio universale): spam e ham <strong>ugualmente probabili in partenza</strong>, cioè prior \(P(S) = P(H) = 0{,}5\).</p>
+<div class="formula">\[ P(S\mid w) \;=\; \frac{P(w\mid S)\cdot 0{,}5}{P(w\mid S)\cdot 0{,}5 + P(w\mid H)\cdot 0{,}5} \]</div>
+<p>Il fattore \(0{,}5\) compare <strong>identico in ogni termine</strong>, sopra e sotto la frazione: si <strong>semplifica</strong> e sparisce (valendo \(0{,}5\) da entrambe le parti, il prior non sposta nulla). Resta la formula di Graham — nel paper è la (1.1.1) — con le verosimiglianze sostituite dalle loro stime MLE:</p>
+<div class="formula key">\[ P(S\mid w) \;=\; \frac{P(w\mid S)}{P(w\mid S) + P(w\mid H)} \qquad\Longrightarrow\qquad p(w) \;=\; \frac{\dfrac{b}{N_S}}{\dfrac{b}{N_S} + \dfrac{g}{N_H}} \]</div>
+<p><strong>Prova del nove</strong> — così chiamo, da qui in poi, ogni verifica rapida di una formula su numeri facili o casi estremi. Qui: se \(b/N_S = 0{,}4\) e \(g/N_H = 0{,}1\), allora \(p(w) = 0{,}4 / (0{,}4 + 0{,}1) = 0{,}8\).</p>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — il legame col rapporto di <a class="xref" href="#sec-3-1">§3.1</a></span>
+<p>Dividendo numeratore e denominatore per \(P(w\mid H)\), la formula diventa \(p(w) = \dfrac{\mathrm{LR}}{\mathrm{LR}+1}\): il <strong>posterior per-parola è il rapporto di verosimiglianza \(\mathrm{LR}\) schiacciato dentro \([0,1]\)</strong>. Così \(\mathrm{LR}=1\) (nessun segnale) dà \(p=0{,}5\); \(\mathrm{LR}\) grande dà \(p\) vicino a \(1\); \(\mathrm{LR}\) piccolo dà \(p\) vicino a \(0\). È lo stesso oggetto di <a class="xref" href="#sec-3-1">§3.1</a> visto da un altro lato, e si riaggancia al logit dell'<a class="xref" href="#app-a-2">Appendice A.2</a>.</p>
+</div>
+
+<h3 id="sec-3-4">3.4 I tre accorgimenti di Graham</h3>
+<p>Con dati finiti \(p(w)\) può finire incollato a \(0\) o \(1\), e il valore secco è pericoloso per due ragioni precise: \(g = 0\) non significa "impossibile" ma soltanto "<strong>non ancora osservato</strong>"; e una sola parola con valore estremo può avere <strong>potere di veto</strong> sul calcolo finale (in <a class="xref" href="#sec-5">§5</a>: un singolo \(0\) annulla un intero prodotto). Graham aggiunge tre correzioni.</p>
+<h4>1) Clamping (confinamento dei valori estremi)</h4>
+<p><strong>Clamping</strong> significa, in generale, <strong>forzare un numero a restare dentro un intervallo fissato</strong>: se scende sotto il minimo lo si riporta al minimo, se sale sopra il massimo lo si riporta al massimo. Qui ogni \(p(w)\) è confinato in \([0{,}01;\,0{,}99]\):</p>
+<div class="formula">\[ p(w) \;\leftarrow\; \min\!\bigl(0{,}99,\; \max(0{,}01,\; p(w))\bigr) \]</div>
+<p>Effetto: nessuna parola può più valere \(0\) o \(1\), quindi nessuna ha <strong>certezza assoluta</strong> né potere di veto — solo un peso relativo, un indizio più o meno forte.</p>
+<div class="callout warn"><span class="tag">Da non confondere — clamp ≠ normalizzare</span>
+<p>"Normalizzare" significa dividere per un totale perché i valori sommino a \(1\) (è ciò che fa il <strong>normalizzatore</strong> di Bayes, <a class="xref" href="#sec-2-2">§2.2</a>). Il clamp <strong>non somma nulla</strong>: tappa soltanto i due estremi. Verbo corretto: <strong>confinare / limitare</strong>, non "normalizzare".</p>
+</div>
+<h4>2) Conteggio ham raddoppiato (\(2g\))</h4>
+<p>In fase di stima, le occorrenze nelle email <strong>buone</strong> vengono contate <strong>il doppio</strong>: il termine ham diventa \(2g/N_H\).</p>
+<div class="formula">\[ p(w) \;=\; \frac{b/N_S}{\,b/N_S + 2\,g/N_H\,} \]</div>
+<p>Effetto: ogni parola appare un po' più "innocente", quindi il filtro diventa più <strong>restio a dichiarare spam</strong>. In termini della matrice di confusione (<a class="xref" href="#app-a">Appendice A</a>): <strong>meno falsi positivi</strong> (posta buona cestinata) al prezzo di <strong>più falsi negativi</strong> (qualche spam che passa). Scelta deliberata, perché il falso positivo è l'errore più grave.</p>
+<div class="callout warn"><span class="tag">Universale vs situazionale</span>
+<p>Il <strong>principio</strong> "sbilancia il filtro verso l'errore meno costoso" è universale (teoria della decisione). Il <strong>numero \(2\)</strong> no: è una manopola scelta da Graham per il suo caso. Su un altro problema il fattore — e perfino quale sia l'errore peggiore — cambierebbe.</p>
+</div>
+<h4>3) Valore neutro \(0{,}4\) per parole mai viste</h4>
+<p>Una parola <strong>mai incontrata</strong>, né in spam né in ham, non ha conteggi: la sua stima non esiste. Graham le assegna d'ufficio \(p = 0{,}4\), appena <strong>sotto</strong> il neutro \(0{,}5\). La logica: su zero dati non si tira a indovinare un valore estremo; si resta vicini al neutro, con una lievissima pendenza verso "innocente".</p>
+
+<div class="callout ex" id="ex-3"><span class="tag">Esercizi — <a class="xref" href="#sec-3">§3</a></span>
+<ol>
+<li>Conteggi: \(b = 30\), \(N_S = 100\), \(g = 10\), \(N_H = 200\). Calcola \(P(w\mid S)\), \(P(w\mid H)\), il rapporto \(\mathrm{LR}\) e \(p(w)\) (senza raddoppio).</li>
+<li>Ricalcola \(p(w)\) con il raddoppio \(2g\). Il valore sale o scende? Verso quale dei due errori (falso positivo / falso negativo) si sposta il filtro?</li>
+<li>Una parola compare in \(0\) ham su \(50\) (\(g = 0\)). Quanto vale \(p(w)\) con la MLE nuda? Perché è pericoloso, e quale dei tre accorgimenti interviene?</li>
+<li>In una frase: che cosa massimizza la stima di massima verosimiglianza?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-3">Appendice C — blocco §3</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. La correzione di Robinson <span style="font-weight:400;">(paper: 1.1.2)</span></h2>
+
+<h3 id="sec-4-1">4.1 Il problema vero: scarsità di dati</h3>
+<p>Il vero problema dei token rari <strong>non è il valore estremo</strong> (quello è solo il sintomo): è la <strong>scarsità di dati</strong>. Con poche osservazioni la stima \(p(w)\) è inaffidabile, esce \(0\) o \(1\) per caso.</p>
+<p>Il clamp di Graham è <strong>cieco sui dati</strong>: tratta una parola vista 2 volte e una vista 10.000 volte allo stesso modo, e taglia. Non distingue il dato fragile da quello solido.</p>
+
+<h3 id="sec-4-2">4.2 L'idea: media pesata verso \(0{,}5\), calibrata sui dati</h3>
+<p>Invece di tagliare, Robinson <strong>contrae \(p(w)\) verso il neutro \(0{,}5\)</strong> — tanto più forte quanto <strong>meno dati</strong> hai. Il paper chiama questa operazione <strong>stima a contrazione</strong> (inglese <em>shrinkage</em>, «restringimento»): è il termine da riconoscere nella sezione 1.1.2, ed è lo «shrink» della mappa iniziale.</p>
+<div class="callout intu"><span class="tag">Intuizione — le recensioni online</span>
+<p>Un prodotto con <strong>una sola</strong> recensione a 5 stelle non è "il migliore, media \(5{,}0\)". Con un solo dato non ti fidi dell'estremo: i siti seri tirano quel voto verso la media di default. Più recensioni arrivano → meno conta il default. Robinson fa identico con le parole.</p>
+</div>
+
+<h3 id="sec-4-3">4.3 La formula</h3>
+<div class="formula key">\[ f(w) = \frac{s\,x + n\,p(w)}{s + n} \]</div>
+<ul>
+<li>\(f(w)\) — il valore <strong>corretto</strong> (l'output, la stima aggiustata)</li>
+<li>\(p(w)\) — il valore <strong>grezzo</strong> di Graham (già clampato)</li>
+<li>\(x\) — il valore <strong>neutro</strong> verso cui si contrae \(=0{,}5\)</li>
+<li>\(n\) — quante volte hai <strong>visto</strong> la parola (i dati veri)</li>
+<li>\(s\) — la <strong>forza</strong> del prior: quante osservazioni "finte" vale lo \(0{,}5\) (di solito \(s=1\))</li>
+</ul>
+<p>È una <strong>media pesata</strong>: il neutro \(0{,}5\) con peso \(s\), il valore vero \(p(w)\) con peso \(n\). In immagini: come aggiungere \(s\) email-fantasma neutre al tuo mucchio di \(n\) email vere: se hai pochi dati la fantasma pesa tanto, se ne hai tanti sparisce nel mucchio.</p>
+
+<h3 id="sec-4-4">4.4 Comportamento agli estremi (prova del nove)</h3>
+<ul>
+<li>\(n = 0\) (mai vista): \(f = \dfrac{s\,x + 0}{s + 0} = x = 0{,}5\) → puro neutro, zero pretese.</li>
+<li>\(n\) enorme: i termini con \(n\) dominano → \(f \to p(w)\) → vince il valore vero.</li>
+</ul>
+<p>La formula <strong>scivola liscia</strong> da \(0{,}5\) (nessun dato) fino a \(p(w)\) (tanti dati). Nessun taglio netto: <strong>questa è la differenza con il clamp</strong>.</p>
+<h3 id="sec-4-5">4.5 Esempio numerico svolto</h3>
+<p>Parola con valore grezzo \(p(w) = 0{,}99\) (fortemente spam), \(s = 1\), \(x = 0{,}5\).</p>
+<ul>
+<li><strong>Vista \(n = 2\) volte:</strong> \(f = \dfrac{1 \cdot 0{,}5 + 2 \cdot 0{,}99}{1 + 2} = \dfrac{0{,}5 + 1{,}98}{3} = \dfrac{2{,}48}{3} \approx 0{,}83\). Lo \(0{,}99\) gridato da due sole email viene ridimensionato di netto.</li>
+<li><strong>Vista \(n = 200\) volte:</strong> \(f = \dfrac{0{,}5 + 198}{201} = \dfrac{198{,}5}{201} \approx 0{,}99\). Con tanti dati la correzione quasi scompare.</li>
+</ul>
+<p>Stesso valore grezzo, due esiti diversi: a decidere è <strong>\(n\)</strong>, la quantità di dati. È esattamente ciò che il clamp non sa fare.</p>
+
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — il nome tecnico di \(f(w)\): Beta-Bernoulli</span>
+<p>La formula di Robinson non è un trucco ad hoc: è un pezzo preciso di statistica bayesiana. I nomi, uno per volta.</p>
+<p><strong>Bernoulli</strong> è l'esperimento elementare sì/no: una singola prova che riesce con probabilità \(\theta\) e fallisce con probabilità \(1-\theta\) (qui: "la parola c'è / non c'è" in un'email).</p>
+<p>La <strong>distribuzione Beta</strong> è una distribuzione di probabilità <em>sopra una probabilità</em>: descrive l'incertezza su un valore \(\theta \in [0,1]\) tramite due parametri \(\alpha, \beta\), leggibili come <strong>conteggi virtuali</strong> — \(\alpha\) successi e \(\beta\) insuccessi "già visti" in immaginazione prima dei dati.</p>
+<p><strong>Coniugazione</strong>: se la credenza iniziale su \(\theta\) è \(\text{Beta}(\alpha, \beta)\) e si osservano \(k\) successi su \(n\) prove reali, la credenza aggiornata è ancora una Beta: \(\text{Beta}(\alpha + k,\ \beta + n - k)\). "Coniugata" significa questo: prior e posterior nella <strong>stessa famiglia</strong>, e aggiornare = <strong>sommare i conteggi reali a quelli virtuali</strong>.</p>
+<p>La <strong>media a posteriori</strong> è la media della distribuzione aggiornata: \(\dfrac{\alpha + k}{\alpha + \beta + n}\). Ponendo \(\alpha = s\,x\) e \(\beta = s\,(1-x)\) — cioè "\(s\) osservazioni virtuali con media \(x\)" — diventa \(\dfrac{s\,x + k}{s + n}\): <strong>esattamente la formula di Robinson</strong>, con \(p(w)\) al posto della frequenza \(k/n\). Le "email-fantasma" di <a class="xref" href="#sec-4-3">§4.3</a> <em>sono</em> il prior Beta.</p>
+<p class="note">Onestà: Robinson inserisce il \(p(w)\) di Graham (che non è una pura frequenza) al posto di \(k/n\): la struttura è Beta-Bernoulli, l'uso è euristico. Questo modello torna da protagonista nella sezione 1.2.2 del paper (reputazione dei mittenti): qui è un assaggio, non serve per proseguire.</p>
+</div>
+
+<div class="callout ex" id="ex-4"><span class="tag">Esercizi — <a class="xref" href="#sec-4">§4</a></span>
+<ol>
+<li>\(p(w) = 0{,}9\), \(s = 1\), \(x = 0{,}5\), parola vista \(n = 2\) volte. Calcola \(f(w)\).</li>
+<li>Stessa parola, ma \(n = 0\). Quanto vale \(f(w)\), senza fare conti?</li>
+<li>Come nell'esercizio 1 ma con \(s = 3\). Calcola \(f(w)\) e spiega in una frase che cosa rappresenta \(s\).</li>
+<li>In una frase: qual è la differenza di fondo tra il clamp di Graham e lo shrink di Robinson?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-4">Appendice C — blocco §4</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-5">5. La combinazione di Fisher <span style="font-weight:400;">(paper: 1.1.3)</span></h2>
+
+<h3 id="sec-5-1">5.1 Il problema: da tante \(f\) a un solo verdetto</h3>
+<p>Ora ogni parola ha il suo punteggio \(f(w)\). Ma un'email ha <strong>decine</strong> di parole → decine di \(f\). Serve <strong>un solo</strong> numero: spam o no?</p>
+<p>L'idea immediata (quella di Graham) è <strong>moltiplicare</strong> tutte le \(f\) e confrontarle col prodotto degli opposti \((1-f)\). È la riga con le produttorie \(\prod\):</p>
+<div class="formula">\[ P = \frac{\prod_i f(w_i)}{\prod_i f(w_i) + \prod_i \bigl(1 - f(w_i)\bigr)} \]</div>
+<p>Funziona, ma ha un difetto grave: degenera. (Il termine è quello del paper: «degenerazione numerica», nel titolo della sezione 1.1.1.)</p>
+
+<h3 id="sec-5-2">5.2 Perché degenera (in termini formali)</h3>
+<p>Il difetto ha tre nomi tecnici intrecciati.</p>
+
+<h4>Underflow numerico (problema di rappresentazione)</h4>
+<p>Moltiplicando molti fattori in \((0,1)\) — parentesi tonde: intervallo con <strong>estremi esclusi</strong>, numeri strettamente tra \(0\) e \(1\), a differenza di \([0,1]\) che li include — il prodotto <strong>decade esponenzialmente</strong> (\(\sim p^{\,n}\)) e finisce <strong>sotto la precisione di macchina</strong> → viene arrotondato a \(0\). La cura standard, citata nel paper, è lavorare in <strong>spazio logaritmico</strong>: il logaritmo è <strong>monotòno</strong> (preserva l'ordine) e trasforma il prodotto in somma.</p>
+<div class="formula">\[ \ln \prod_i p_i = \sum_i \ln p_i \]</div>
+<p class="note">Qui \(\ln\) è il <strong>logaritmo naturale</strong>: l'inverso della funzione \(e^t\), dove \(e \approx 2{,}718\) (numero di Nepero). Due proprietà che useremo: \(\ln(a \cdot b) = \ln a + \ln b\) (trasforma i prodotti in somme), e per numeri in \((0,1)\) il logaritmo è <strong>negativo</strong> — più il numero è vicino a \(0\), più \(\ln\) è grande in negativo.</p>
+
+<h4>Saturazione del posterior (problema statistico)</h4>
+<p>Anche ignorando l'aritmetica, c'è un difetto strutturale. Per vederlo servono due oggetti; li definisco prima di usarli.</p>
+<p><strong>LLR (log-likelihood ratio)</strong>. Per una probabilità \(p\), gli <strong>odds</strong> sono \(p/(1-p)\) e il loro logaritmo è il <strong>log-odds</strong>, detto anche <em>logit</em> (l'<a class="xref" href="#app-a-2">Appendice A.2</a> li tratta per esteso, con esempio numerico). Il \(\mathrm{LLR}\) di una parola è il log-odds del suo punteggio: <strong>positivo</strong> se la parola punta a spam, <strong>negativo</strong> se punta a ham, \(0\) al neutro \(0{,}5\). È il "peso di evidenza" della parola, su una scala dove i pesi si <strong>sommano</strong>.</p>
+<p><strong>Sigmoide \(\sigma\) (funzione logistica)</strong>. Definizione generale: \(\sigma(t) = \dfrac{1}{1 + e^{-t}}\). Prende <em>qualsiasi</em> numero reale \(t\) e lo comprime nell'intervallo \((0,1)\): \(\sigma(0) = 0{,}5\); per \(t\) grande e positivo \(\sigma \to 1\); per \(t\) grande e negativo \(\sigma \to 0\) (valori: \(\sigma(2) \approx 0{,}88\), \(\sigma(-2) \approx 0{,}12\)). È la <strong>funzione inversa del logit</strong>: riporta i log-odds in probabilità. Il suo grafico è una "S" con due <strong>asintoti</strong> orizzontali — i livelli \(0\) e \(1\) a cui la curva si avvicina sempre più senza mai toccarli.</p>
+<p>Prima il nome: il metodo costruito finora — teorema di Bayes più indipendenza tra le parole — si chiama <strong>naïve Bayes</strong>, «Bayes ingenuo», proprio per quell'assunzione di indipendenza (<a class="xref" href="#app-a-3">Appendice A.3</a>), comoda ma falsa. Con i due oggetti appena definiti, il suo posterior si scrive in una riga — è una <strong>sigmoide della somma dei log-odds</strong> (qui \(\mathbf{w}\) in grassetto indica l'intera email, cioè tutte le sue parole insieme):</p>
+<div class="formula">\[ P(S \mid \mathbf{w}) = \sigma\!\Bigl(\textstyle\sum_i \mathrm{LLR}_i\Bigr), \qquad \mathrm{LLR}_i = \ln \frac{p(w_i)}{1 - p(w_i)} \]</div>
+<p>Con molti token la somma esplode in modulo e la sigmoide la <strong>schiaccia</strong> ai suoi asintoti, \(0\) o \(1\). Questo è il termine corretto: <strong>saturazione</strong>. Il risultato è un classificatore <strong>overconfident</strong> (mal calibrato): dice \(0{,}99\) anche quando l'evidenza non lo giustifica, e la preziosa zona del "<strong>incerto</strong>" svanisce.</p>
+
+<h4>La causa a monte: l'indipendenza è falsa</h4>
+<p>Le parole di un'email sono <strong>correlate</strong>. Trattarle come indipendenti conta più volte la stessa evidenza (come testimoni separati che però ripetono la stessa cosa), gonfiando la somma dei \(\mathrm{LLR}\) e peggiorando la saturazione.</p>
+
+<div class="callout intu"><span class="tag">Termine chiave — calibrazione</span>
+<p>Un classificatore è <strong>ben calibrato</strong> se, tra i casi a cui assegna \(0{,}8\), circa l'80% è davvero spam. Naïve Bayes <strong>non lo è</strong>. Fisher serve proprio a restituire un punteggio calibrato, con un vero \(0{,}5\) di mezzo.</p>
+</div>
+
+<h3 id="sec-5-3">5.3 L'idea di Fisher (la strategia)</h3>
+<p>Robinson abbandona la moltiplicazione diretta e adotta il <strong>metodo di Fisher</strong>: un metodo statistico classico per <strong>combinare più test indipendenti in un unico verdetto</strong>. Due mosse:</p>
+<ol>
+<li>invece di moltiplicare i punteggi, ne <strong>somma i logaritmi</strong> (stabile: niente underflow);</li>
+<li>confronta quella somma con una <strong>distribuzione di riferimento nota</strong> (la chi-quadro), che la converte in un punteggio graduato in \([0,1]\), capace di fermarsi a \(0{,}5\) quando l'evidenza non basta — o si contraddice.</li>
+</ol>
+<p>Per montare il metodo servono due mattoni che ancora mancano: il <strong>p-value</strong> (<a class="xref" href="#sec-5-4">§5.4</a>) e la <strong>chi-quadro</strong> con la sua funzione di sopravvivenza (<a class="xref" href="#sec-5-5">§5.5</a>). Poi le formule finali (<a class="xref" href="#sec-5-6">§5.6</a>).</p>
+
+<h3 id="sec-5-4">5.4 Primo mattone: il p-value</h3>
+<p>Prima un concetto di contorno. Un test statistico parte sempre da un'<strong>ipotesi nulla</strong> (simbolo \(H_0\)): l'ipotesi di base che «non ci sia niente di speciale» — nessun effetto, nessun segnale, solo caso. Il test misura quanto i dati la contraddicono.</p>
+<h4>Definizione — p-value</h4>
+<p>Il <strong>p-value</strong> di un risultato osservato è <strong>la probabilità, calcolata assumendo vera l'ipotesi nulla, di ottenere un risultato almeno altrettanto estremo</strong> di quello osservato.</p>
+<p>Lettura: p-value <strong>piccolo</strong> = "se davvero non ci fosse nulla di speciale, un risultato così sarebbe rarissimo" = forte <strong>sorpresa</strong> = evidenza contro l'ipotesi nulla. P-value vicino a \(1\) = risultato del tutto ordinario sotto \(H_0\).</p>
+<div class="callout warn"><span class="tag">Trappola classica</span>
+<p>Il p-value <strong>non</strong> è "la probabilità che l'ipotesi nulla sia vera". È una probabilità <em>sui dati</em>, calcolata <em>dentro</em> il mondo in cui \(H_0\) è vera — la stessa distinzione likelihood/posterior di <a class="xref" href="#sec-2-2">§2.2</a>: per girare la freccia servirebbero Bayes e un prior.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico — la moneta sospetta</span>
+<p>Ipotesi nulla: la moneta è equa, \(P(\text{testa}) = 0{,}5\). Lancio 10 volte: escono <strong>9 teste</strong>. Quanto è sorprendente?</p>
+<ul>
+<li>Risultati "almeno altrettanto estremi" (nella direzione «troppe teste»): <strong>9 oppure 10 teste</strong>.</li>
+<li>Sequenze possibili in 10 lanci: \(2^{10} = 1024\), tutte equiprobabili sotto \(H_0\). Quelle con 9 teste sono \(\binom{10}{9} = 10\); con 10 teste, \(\binom{10}{10} = 1\) (coefficiente binomiale, <a class="xref" href="#sec-3-2">§3.2</a>).</li>
+<li>p-value \(= \dfrac{10 + 1}{1024} = \dfrac{11}{1024} \approx 0{,}011\).</li>
+</ul>
+<p>Circa l'1%: sotto l'ipotesi "moneta equa", un risultato così capita una volta su cento. Sorpresa alta → l'ipotesi nulla vacilla.</p>
+</div>
+<h4>La proprietà che serve a Fisher</h4>
+<p><strong>Se l'ipotesi nulla è vera, il p-value è distribuito uniformemente su \([0,1]\)</strong>: ogni valore è ugualmente probabile, nessuna zona è preferita. Intuizione: sotto \(H_0\) il p-value è solo la "posizione in classifica" del tuo risultato tra tutti quelli possibili, e le posizioni in classifica sono equidistribuite. Questo è esattamente il punto di partenza del metodo di Fisher.</p>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale)</span>
+<p>Il fatto ha un nome: <strong>trasformazione integrale di probabilità</strong>. Vale esattamente per statistiche continue; per quelle discrete (come i conteggi della moneta) vale in modo approssimato. Per il nostro uso basta la versione "ogni valore ugualmente probabile".</p>
+</div>
+
+<h3 id="sec-5-5">5.5 Secondo mattone: la chi-quadro e la sua funzione di sopravvivenza</h3>
+<h4>CDF e sopravvivenza (definizioni generali)</h4>
+<p>Per <em>qualsiasi</em> quantità casuale \(X\), la <strong>funzione di ripartizione</strong> (inglese <em>CDF</em>) è \(F(t) = P(X \le t)\): quanta probabilità sta "a sinistra" di \(t\), cioè la probabilità di non superare \(t\). La <strong>funzione di sopravvivenza</strong> è il suo complemento (regola di <a class="xref" href="#sec-1-2">§1.2</a>):</p>
+<div class="formula">\[ P(X > t) \;=\; 1 - F(t) \]</div>
+<p>cioè quanta probabilità sta "a destra" di \(t\). Esempio col dado: \(F(2) = P(X \le 2) = 2/6\); sopravvivenza \(P(X > 2) = 4/6\).</p>
+<h4>La distribuzione chi-quadro</h4>
+<p>La <strong>chi-quadro</strong> (\(\chi^2\)) è una famiglia di distribuzioni <strong>continue</strong> (i valori possibili non sono conteggi separati, ma tutto un intervallo di numeri reali) usate come riferimento nei test, note e tabulate ovunque. Prende solo valori \(\ge 0\) e ha un unico parametro, \(\nu\), detto <strong>gradi di libertà</strong>, che ne fissa forma e scala. Non serve la sua formula: serve sapere che è <strong>completamente nota</strong> — fissato \(\nu\), ogni probabilità \(P(\chi^2_\nu > t)\) si calcola con tavole o software (nell'algoritmo del paper è la funzione <code>chi2_sf</code>, dove "sf" sta per <em>survival function</em>).</p>
+<h4>Il teorema di Fisher</h4>
+<p>Siano \(u_1, \dots, u_n\) p-value <strong>indipendenti</strong>, tutti con ipotesi nulla vera (quindi ciascuno uniforme su \([0,1]\), per <a class="xref" href="#sec-5-4">§5.4</a>). Allora la statistica — cioè il numero riassuntivo calcolato dai dati —</p>
+<div class="formula key">\[ T \;=\; -2 \sum_{i=1}^{n} \ln u_i \]</div>
+<p>segue <strong>esattamente</strong> una chi-quadro con <strong>\(2n\)</strong> gradi di libertà. Lettura di \(T\): ogni \(\ln u_i\) è negativo (perché \(u_i < 1\); nota di <a class="xref" href="#sec-5-2">§5.2</a>), quindi \(-2\ln u_i\) è positivo — e <strong>tanto più grande quanto più \(u_i\) è piccolo</strong>, cioè sorprendente: \(u = 0{,}5 \to 1{,}39\); \(u = 0{,}1 \to 4{,}61\); \(u = 0{,}01 \to 9{,}21\). \(T\) è la <strong>sorpresa accumulata</strong> di tutti i test insieme.</p>
+<p>Il passo finale: sotto \(H_0\) la distribuzione di \(T\) è nota (\(\chi^2_{2n}\)), quindi la sua sopravvivenza</p>
+<div class="formula key">\[ C^{-1}(T,\ 2n) \;:=\; P\bigl(\chi^2_{2n} > T\bigr) \]</div>
+<p>è la probabilità di una sorpresa complessiva almeno pari alla tua: è il <strong>p-value combinato</strong> di tutti i test. \(T\) grande → sopravvivenza piccola → evidenza forte.</p>
+<div class="callout warn"><span class="tag">Trappola di notazione — \(C^{-1}\)</span>
+<p>Nonostante l'esponente "\(-1\)", il \(C^{-1}\) del paper <strong>non è una funzione inversa</strong>: è solo il nome che il paper (sulla scia di SpamBayes) dà alla <strong>sopravvivenza della chi-quadro</strong>. Leggi \(C^{-1}(t, \nu)\) come «probabilità che una \(\chi^2\) a \(\nu\) gradi di libertà superi \(t\)». L'output è in \([0,1]\).</p>
+</div>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — perché proprio \(2n\) gradi, e una prova del nove</span>
+<p>Si dimostra che \(-2\ln u\) di <em>una sola</em> uniforme è, da solo, una \(\chi^2\) a \(2\) gradi di libertà; e sommando chi-quadro indipendenti i gradi <strong>si sommano</strong>: \(n\) pezzi da \(2\) gradi = \(2n\). Bonus verificabile a mano: per \(\nu = 2\) la sopravvivenza ha la forma semplice \(P(\chi^2_2 > t) = e^{-t/2}\). Con un solo p-value \(u\): \(T = -2\ln u\), quindi \(e^{-T/2} = e^{\ln u} = u\). Fisher applicato a un solo ingrediente restituisce l'ingrediente: il metodo è coerente.</p>
+</div>
+
+<h3 id="sec-5-6">5.6 Le formule finali: \(H\), \(S\) e l'indicatore \(I\)</h3>
+<div class="callout warn"><span class="tag">Attenzione ai simboli</span>
+<p>Da qui in poi \(H\) e \(S\) <strong>non</strong> indicano le classi ham/spam: sono i <strong>due indicatori</strong> di Robinson–Fisher, così chiamati dal paper. Le classi, in questo paragrafo, le scrivo per esteso.</p>
+</div>
+<p>Per un'email con \(n\) parole selezionate abbiamo i punteggi \(f(w_1), \dots, f(w_n)\). Robinson esegue <strong>due test di Fisher speculari</strong>, trattando i punteggi come p-value (mossa euristica: il box in fondo dice dove il rigore si perde).</p>
+<p><strong>Test in direzione ham</strong> — usa direttamente le \(f\). Se l'email è piena di parole da ham, le \(f_i\) sono tutte <strong>piccole</strong> → sorpresa \(T\) grande → sopravvivenza piccola:</p>
+<div class="formula key">\[ H \;=\; C^{-1}\!\Bigl(-2 \sum_{i=1}^{n} \ln f(w_i),\ 2n\Bigr) \]</div>
+<p><strong>Lettura: \(H\) piccolo = forte evidenza di ham.</strong></p>
+<p><strong>Test in direzione spam</strong> — usa i complementi \(1-f\). Parole da spam → \(f_i\) vicine a \(1\) → \((1-f_i)\) piccoli → \(T\) grande → sopravvivenza piccola:</p>
+<div class="formula key">\[ S \;=\; C^{-1}\!\Bigl(-2 \sum_{i=1}^{n} \ln\bigl(1 - f(w_i)\bigr),\ 2n\Bigr) \]</div>
+<p><strong>Lettura: \(S\) piccolo = forte evidenza di spam.</strong></p>
+<div class="callout warn"><span class="tag">Trappola dei nomi</span>
+<p>Il paper li chiama "hamminess" e "spamminess", ma i nomi girano <strong>al contrario dell'istinto</strong>: non è "\(H\) grande = molto ham". La bussola giusta è quella di ogni p-value: <strong>piccolo = evidenza forte</strong> in quella direzione.</p>
+</div>
+<h4>L'indicatore combinato \(I\)</h4>
+<p>Trasformo i due p-value in due <strong>evidenze</strong> in \([0,1]\) che crescono con la forza del segnale (regola del complemento, <a class="xref" href="#sec-1-2">§1.2</a>): evidenza di spam \(= 1-S\), evidenza di ham \(= 1-H\). L'indicatore è la media tra "quanta evidenza di spam c'è" e "quanta evidenza di ham <em>manca</em>":</p>
+<div class="formula key">\[ I \;=\; \frac{(1 - S) + \bigl(1 - (1 - H)\bigr)}{2} \;=\; \frac{1 + H - S}{2} \;\in\; [0,1] \]</div>
+<p>Comportamento agli estremi (prova del nove, come sempre):</p>
+<ul>
+<li><strong>spam netto</strong>: \(S \approx 0\), \(H \approx 1\) → \(I \approx 1\);</li>
+<li><strong>ham netto</strong>: \(H \approx 0\), \(S \approx 1\) → \(I \approx 0\);</li>
+<li><strong>nessun segnale, oppure segnali in conflitto</strong>: \(H\) e \(S\) si bilanciano → \(I \approx 0{,}5\).</li>
+</ul>
+<p>La decisione finale confronta \(I\) con una <strong>soglia</strong> \(\tau\) scelta dal progettista (es. \(I \ge 0{,}9 \to\) spam, come nell'algoritmo del paper). La catena della mappa è completa: <strong>stima → clamp → shrink → fusione → confronto con \(\tau\)</strong>.</p>
+
+<div class="callout ex"><span class="tag">Esempio numerico 1 — spam netto</span>
+<p>Tre parole (\(n = 3\), quindi \(2n = 6\) gradi di libertà), tutte con \(f = 0{,}9\). Logaritmi che servono: \(\ln 0{,}9 \approx -0{,}105\), \(\ln 0{,}1 \approx -2{,}303\).</p>
+<ul>
+<li>\(T_H = -2 \cdot 3 \cdot (-0{,}105) = 0{,}63\) → dalla <code>chi2_sf</code>: \(H = P(\chi^2_6 > 0{,}63) \approx 0{,}996\) (sorpresa quasi nulla in direzione ham).</li>
+<li>\(T_S = -2 \cdot 3 \cdot (-2{,}303) = 13{,}82\) → \(S = P(\chi^2_6 > 13{,}82) \approx 0{,}032\) (sorpresa alta: forte evidenza di spam).</li>
+<li>\(I = \dfrac{1 + 0{,}996 - 0{,}032}{2} \approx 0{,}98\) → spam netto.</li>
+</ul>
+<p class="note">I due valori di sopravvivenza vengono da tavole o software (\(n = 3\) è piccolo apposta, per fare a mano i conti di \(T\)).</p>
+</div>
+
+<div class="callout ex"><span class="tag">Esempio numerico 2 — il conflitto: dove Fisher batte naïve Bayes</span>
+<p>Tre parole con evidenze <strong>contraddittorie</strong>: \(f = 0{,}99\), \(0{,}99\), \(0{,}01\) (due gridano spam, una grida ham). Logaritmi: \(\ln 0{,}99 \approx -0{,}010\), \(\ln 0{,}01 \approx -4{,}605\).</p>
+<ul>
+<li><strong>Metodo naïve (prodotti, <a class="xref" href="#sec-5-1">§5.1</a>)</strong>: \(\prod f = 0{,}99 \cdot 0{,}99 \cdot 0{,}01 = 0{,}0098\); \(\prod (1-f) = 0{,}01 \cdot 0{,}01 \cdot 0{,}99 \approx 0{,}0001\). Quindi \(P = \dfrac{0{,}0098}{0{,}0098 + 0{,}0001} \approx 0{,}99\): verdetto <strong>saturato</strong>, "spam al 99%", come se il conflitto non esistesse.</li>
+<li><strong>Fisher</strong>: \(T_H = -2\,(-0{,}010 - 0{,}010 - 4{,}605) = 9{,}25 \to H \approx 0{,}16\); \(T_S = -2\,(-4{,}605 - 4{,}605 - 0{,}010) = 18{,}44 \to S \approx 0{,}005\); \(I = \dfrac{1 + 0{,}16 - 0{,}005}{2} \approx 0{,}58\).</li>
+</ul>
+<p>Dove naïve Bayes spara certezza, Fisher risponde «quasi indeciso, lieve pendenza spam». Questa <strong>zona di indecisione onesta</strong> è il guadagno che ripaga tutta la costruzione.</p>
+</div>
+
+<div class="callout warn"><span class="tag">Onestà — dove il rigore è sacrificato (consapevolmente)</span>
+<p>Il teorema di Fisher richiede p-value <strong>veri</strong> (uniformi sotto una precisa ipotesi nulla) e <strong>indipendenti</strong>. Le \(f(w)\) non sono né l'una né l'altra cosa: non nascono da un test formale, e le parole di un'email sono correlate. Robinson le <em>tratta</em> come p-value: mossa <strong>euristica</strong>. Conseguenza: \(I\) non è un vero p-value ma uno <strong>score calibrato</strong> in \([0,1]\), da confrontare con una soglia. In pratica funziona molto bene — è la matematica di SpamBayes e del filtro bayesiano di SpamAssassin.</p>
+</div>
+
+<div class="callout intu"><span class="tag">Nel paper, subito dopo — la selezione dei token</span>
+<p>L'algoritmo <code>score_message</code> non usa <em>tutte</em> le parole: seleziona i <strong>15–27 token più informativi</strong>, quelli con \(|p(w) - 0{,}5|\) massimo. Il simbolo \(|x|\) è il <strong>valore assoluto</strong>: la distanza di \(x\) da zero, segno ignorato (stesse barre, altro significato rispetto alla cardinalità \(|B|\) di <a class="xref" href="#sec-1-3">§1.3</a>); quindi \(|p - 0{,}5|\) è la distanza dal neutro. Due effetti: meno rumore; e resistenza al <em>Bayesian poisoning</em> ("word salad", sezione 1.4 del paper) — le parole neutre iniettate apposta dallo spammer per diluire il punteggio non vengono nemmeno selezionate.</p>
+</div>
+
+<div class="callout ex" id="ex-5"><span class="tag">Esercizi — <a class="xref" href="#sec-5">§5</a></span>
+<ol>
+<li>Prova del nove con un solo valore \(u = 0{,}5\): calcola \(T = -2\ln u\) e verifica, usando \(P(\chi^2_2 > t) = e^{-t/2}\), che il p-value combinato torna \(0{,}5\). (Serve: \(\ln 0{,}5 \approx -0{,}693\).)</li>
+<li>Un'email dà \(H = 0{,}9\) e \(S = 0{,}1\). Calcola \(I\). E se fosse \(H = S\)?</li>
+<li>Soglia \(\tau = 0{,}9\): un'email con \(I = 0{,}85\) viene consegnata in inbox, ma era spam. Con il vocabolario dell'<a class="xref" href="#app-a-1">Appendice A.1</a>: che tipo di errore è?</li>
+<li>Due ragioni per cui si sommano logaritmi invece di moltiplicare direttamente le probabilità?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-5">Appendice C — blocco §5</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="app-a">Appendice A — Concetti che ricorrono nel paper</h2>
+
+<h3 id="app-a-1">A.1 I due errori (matrice di confusione)</h3>
+<p>Trucco per non confonderli: <strong>positivo / negativo = la risposta del filtro</strong>. Il filtro è un test che cerca lo spam: se dice "sì, spam" → <strong>positivo</strong>; se dice "no, ok" → <strong>negativo</strong>. E <strong>"falso" = si è sbagliato</strong>.</p>
+<table class="cm">
+<caption>Righe = com'è davvero l'email · Colonne = cosa fa il filtro</caption>
+<thead>
+<tr><th></th><th>il filtro BLOCCA (dice: spam!)</th><th>il filtro LASCIA PASSARE (dice: ok)</th></tr>
+</thead>
+<tbody>
+<tr><th>è SPAM</th><td class="ok">GIUSTO<br>spam preso</td><td class="fn">FALSO NEGATIVO<br>spam sfugge in inbox</td></tr>
+<tr><th>è BUONA (ham)</th><td class="fp">FALSO POSITIVO<br>posta vera nel cestino<br>(errore peggiore)</td><td class="ok">GIUSTO<br>posta consegnata</td></tr>
+</tbody>
+</table>
+<p class="note">Il <strong>falso positivo</strong> (perdere posta vera) è più grave del falso negativo (uno spam in più). Per questo Graham raddoppia \(g\): per spostare il filtro verso l'errore meno grave.</p>
+
+<h3 id="app-a-2">A.2 Odds e log-odds (logit)</h3>
+<p>Invece di "probabilità \(0{,}8\)" si può dire \(0{,}8/0{,}2 = 4\) (quattro a uno). Questo è l'<strong>odds</strong>; il suo logaritmo è il <strong>log-odds (logit)</strong>.</p>
+<div class="formula">\[ \text{odds} = \frac{p}{1-p} \qquad\qquad \mathrm{logit}(p) = \ln \frac{p}{1-p} \]</div>
+<p>A cosa serve: raddrizza la scala storta \([0,1]\) in una scala dritta da \(-\infty\) a \(+\infty\), dove l'evidenza si <strong>somma</strong> invece di moltiplicare. Lo \(0{,}5\) diventa logit \(0\) (incertezza pura). È la riga "in spazio logaritmico" della sezione 1.1.1 del paper, ed è il motore della <strong>regressione logistica</strong> della sezione 1.2 del paper (la \(\sigma\) di <a class="xref" href="#sec-5-2">§5.2</a> è la funzione inversa: riporta i log-odds in probabilità).</p>
+<p class="note">Numeri: \(p = 0{,}8 \to\) odds \(= 0{,}8/0{,}2 = 4 \to\) logit \(= \ln 4 \approx +1{,}39\). &nbsp; \(p = 0{,}5 \to\) odds \(1 \to\) logit \(0\). &nbsp; \(p = 0{,}2 \to\) odds \(0{,}25 \to\) logit \(\approx -1{,}39\): la scala è simmetrica intorno allo zero.</p>
+
+<h3 id="app-a-3">A.3 Indipendenza condizionale</h3>
+<p>L'assunto su cui si apre la sezione 1.1.1 del paper: <strong>sapendo già la classe</strong>, una parola non dice nulla sulle altre.</p>
+<div class="formula">\[ P(w_1, w_2 \mid S) = P(w_1 \mid S)\,\cdot\,P(w_2 \mid S) \]</div>
+<p>È ciò che autorizza la produttoria \(\prod\) nella verosimiglianza. Assunzione <strong>comoda ma falsa</strong> (le parole sono correlate) — la stessa falsità che a fine catena gonfia la saturazione (<a class="xref" href="#sec-5-2">§5.2</a>).</p>
+
+<h3 id="app-a-4">A.4 Universale vs situazionale</h3>
+<p>Leggendo il paper, ad ogni formula chiediti: è un <strong>principio universale</strong> o una <strong>scelta dell'autore</strong> per il suo problema? È la differenza tra subire una formula e dominarla.</p>
+<table>
+<thead><tr><th>Universale (vale in tutta la probabilità)</th><th>Situazionale (scelte di Graham per l'email)</th></tr></thead>
+<tbody>
+<tr><td>probabilità, complemento, condizionata, Bayes; che gli errori non costino uguale (teoria della decisione)</td><td>il raddoppio \(2g\); il clamp \([0{,}01;0{,}99]\); il valore \(0{,}4\); il prior bloccato a \(0{,}5\)</td></tr>
+</tbody>
+</table>
+<p class="note">Il principio "sbilancia verso l'errore meno grave" è universale; il numero \(2\) no. E attenzione: anche <em>quale</em> sia l'errore peggiore cambia col contesto (in un test medico il falso negativo può essere il più grave).</p>
+
+<hr/>
+
+<h2 id="app-b">Appendice B — Glossario dei simboli</h2>
+<p class="note">Ordinamento: <strong>per apparizione</strong> nel documento. <strong>Pavimento dichiarato</strong> — sono esclusi di proposito i simboli che si leggono da soli: le quattro operazioni (\(+\), \(-\), la barra e la linea di frazione), l'uguale \(=\), il punto di moltiplicazione \(\cdot\), le disuguaglianze (\(\ge\), \(\le\), \(>\), \(<\), \(\neq\), \(\gg\), \(\ll\)), l'insieme vuoto \(\emptyset\), le cifre e le parentesi di raggruppamento. Tutto il resto è censito. «(opz.)» = compare solo in un box o in un'appendice opzionale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\([a,b]\), \((a,b)\)</td><td>intervallo chiuso / aperto</td><td>tutti i numeri tra \(a\) e \(b\): quadre = estremi inclusi, tonde = estremi esclusi</td><td><a class="xref" href="#sec-1-1">§1.1</a> / <a class="xref" href="#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(P(A)\)</td><td>probabilità di \(A\)</td><td>numero in \([0,1]\) che misura quanto è probabile l'evento \(A\)</td><td><a class="xref" href="#sec-1-1">§1.1</a></td></tr>
+<tr><td>\(\%\)</td><td>per cento</td><td>«su cento»: \(70\% = 0{,}70\)</td><td><a class="xref" href="#sec-1-1">§1.1</a></td></tr>
+<tr><td>\(\overline{A}\)</td><td>complemento</td><td>l'evento «\(A\) non accade»; \(P(\overline{A}) = 1 - P(A)\)</td><td><a class="xref" href="#sec-1-2">§1.2</a></td></tr>
+<tr><td>\(P(A\mid B)\), \(\mid\)</td><td>probabilità condizionata; barra «dato»</td><td>probabilità di \(A\) sapendo che \(B\) è accaduto</td><td><a class="xref" href="#sec-1-3">§1.3</a></td></tr>
+<tr><td>\(A \cap B\)</td><td>intersezione</td><td>«\(A\) e \(B\)»: accadono entrambi insieme</td><td><a class="xref" href="#sec-1-3">§1.3</a></td></tr>
+<tr><td>\(|B|\)</td><td>cardinalità</td><td>numero di elementi dell'insieme \(B\) (barre attorno a un <em>insieme</em>)</td><td><a class="xref" href="#sec-1-3">§1.3</a></td></tr>
+<tr><td>\(\approx\)</td><td>circa uguale</td><td>uguaglianza approssimata, dopo un arrotondamento</td><td><a class="xref" href="#sec-2-1">§2.1</a></td></tr>
+<tr><td>\(\Omega\), \(\omega\)</td><td>spazio campionario; esito</td><td>l'insieme di tutti gli esiti possibili; un singolo esito elementare</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\in\)</td><td>appartiene a</td><td>l'elemento a sinistra sta nell'insieme a destra</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\{\dots\}\)</td><td>insieme per elenco</td><td>le graffe elencano gli elementi: \(\{1,2,3\}\); i puntini \(\dots\) = «e così via»</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\mathcal{F}\)</td><td>\(\sigma\)-algebra degli eventi</td><td>la famiglia dei sottoinsiemi di \(\Omega\) a cui si assegna una probabilità</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\setminus\)</td><td>differenza tra insiemi</td><td>\(\Omega \setminus A\): gli elementi di \(\Omega\) che non stanno in \(A\)</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\bigcup\), \(\cup\)</td><td>unione</td><td>«oppure»: gli esiti che stanno in almeno uno degli insiemi</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\to\), \(\Longrightarrow\)</td><td>freccia</td><td>tre usi: tipo di funzione (\(P:\mathcal{F} \to [0,1]\), da–a); «quindi / da cui» nelle catene; «tende a» nei limiti (<a class="xref" href="#sec-4-4">§4.4</a>)</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\sum\)</td><td>sommatoria</td><td>somma di tutti i termini indicati dall'indice</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(:=\)</td><td>uguale per definizione</td><td>introduce un nome: il lato sinistro è definito come il lato destro; niente da verificare</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\arg\max\)</td><td>argomento del massimo</td><td>il valore dell'argomento che rende massima la funzione (non il massimo stesso)</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(S\), \(H\)</td><td>classi spam / ham</td><td>le due classi di email (ham = buone). Attenzione: in <a class="xref" href="#sec-5-6">§5.6</a> \(H\) e \(S\) cambiano ruolo (indicatori di Fisher)</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(w\)</td><td>parola (token)</td><td>una parola dell'email</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(b\), \(N_S\)</td><td>conteggi spam</td><td>spam contenenti la parola / totale spam (definiti in <a class="xref" href="#sec-3-2">§3.2</a>)</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(g\), \(N_H\)</td><td>conteggi ham</td><td>ham contenenti la parola / totale ham (definiti in <a class="xref" href="#sec-3-2">§3.2</a>)</td><td><a class="xref" href="#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(\Theta\)</td><td>spazio del parametro</td><td>l'elenco dei candidati per \(\theta\): tutti i valori che potrebbe assumere (es. una probabilità: \(\Theta = [0,1]\)); coppia maiuscola/minuscola come \(\Omega\)/\(\omega\)</td><td><a class="xref" href="#sec-2-2">§2.2</a> (opz.)</td></tr>
+<tr><td>\(\int\)</td><td>integrale</td><td>la «somma continua»; nel documento compare solo nel box sul caso continuo</td><td><a class="xref" href="#sec-2-2">§2.2</a> (opz.)</td></tr>
+<tr><td>\(\mathrm{LR}\)</td><td>rapporto di verosimiglianza</td><td>\(P(w\mid S)/P(w\mid H)\): quante volte la parola è più frequente nello spam</td><td><a class="xref" href="#sec-3-1">§3.1</a></td></tr>
+<tr><td>MLE</td><td>stima di massima verosimiglianza</td><td>il valore del parametro che rende massima \(L(\theta)\)</td><td><a class="xref" href="#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(\theta\), \(\hat\theta\)</td><td>parametro; sua stima</td><td>valore vero sconosciuto; il cappello \(\hat{\ }\) = «stimato»</td><td><a class="xref" href="#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(D\)</td><td>dati</td><td>i dati osservati (qui: i conteggi del campione)</td><td><a class="xref" href="#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(L(\theta)\)</td><td>verosimiglianza</td><td>probabilità dei dati osservati, come funzione di \(\theta\)</td><td><a class="xref" href="#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(\binom{n}{k}\)</td><td>coefficiente binomiale</td><td>in quanti modi si scelgono \(k\) oggetti tra \(n\)</td><td><a class="xref" href="#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(a^{b}\)</td><td>potenza</td><td>\(a\) moltiplicato per sé stesso \(b\) volte; copre \(\theta^{\,b}\), \(e^t\), \(2^{10}\)</td><td><a class="xref" href="#sec-3-2">§3.2</a></td></tr>
+<tr><td>\(p(w)\)</td><td>probabilità di spam per parola</td><td>la formula di Graham</td><td><a class="xref" href="#sec-3-3">§3.3</a></td></tr>
+<tr><td>\(\leftarrow\)</td><td>assegnazione</td><td>«assegna il nuovo valore»: aggiorna la variabile a sinistra</td><td><a class="xref" href="#sec-3-4">§3.4</a></td></tr>
+<tr><td>\(\min\), \(\max\)</td><td>minimo / massimo</td><td>il più piccolo / il più grande tra gli argomenti</td><td><a class="xref" href="#sec-3-4">§3.4</a></td></tr>
+<tr><td>\(f(w)\)</td><td>stima contratta</td><td>\(p(w)\) corretto da Robinson (shrinkage)</td><td><a class="xref" href="#sec-4-3">§4.3</a></td></tr>
+<tr><td>\(x\), \(s\), \(n\)</td><td>neutro; forza del prior; osservazioni</td><td>\(0{,}5\); numero di osservazioni virtuali; numero di osservazioni vere</td><td><a class="xref" href="#sec-4-3">§4.3</a></td></tr>
+<tr><td>\(\alpha\), \(\beta\), \(k\), \(\text{Beta}(\alpha,\beta)\)</td><td>parametri Beta; successi</td><td>conteggi virtuali del prior Beta; \(k\) = successi reali su \(n\) prove</td><td><a class="xref" href="#sec-4-5">§4.5</a> (opz.)</td></tr>
+<tr><td>\(\prod\)</td><td>produttoria</td><td>prodotto di tutti i termini indicati dall'indice</td><td><a class="xref" href="#sec-5-1">§5.1</a></td></tr>
+<tr><td>\(\sim\)</td><td>dell'ordine di</td><td>«si comporta circa come»: \(\sim p^{\,n}\)</td><td><a class="xref" href="#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(e\), \(\ln\)</td><td>numero di Nepero; logaritmo naturale</td><td>\(e \approx 2{,}718\); \(\ln\) è l'inverso di \(e^t\); \(\ln(ab)=\ln a + \ln b\); negativo su \((0,1)\)</td><td><a class="xref" href="#sec-5-2">§5.2</a></td></tr>
+<tr><td>odds, \(\mathrm{logit}\)</td><td>quota; log-odds</td><td>\(p/(1-p)\); il suo logaritmo (per esteso in <a class="xref" href="#app-a-2">A.2</a>)</td><td><a class="xref" href="#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(\mathrm{LLR}\)</td><td>log-likelihood ratio</td><td>il «peso di evidenza» in log-odds: positivo → spam, negativo → ham</td><td><a class="xref" href="#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(\sigma(\cdot)\)</td><td>sigmoide (logistica)</td><td>\(\sigma(t) = 1/(1+e^{-t})\), inversa del logit</td><td><a class="xref" href="#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(\mathbf{w}\)</td><td>email intera</td><td>in grassetto: tutte le parole dell'email insieme</td><td><a class="xref" href="#sec-5-2">§5.2</a></td></tr>
+<tr><td>\(H_0\)</td><td>ipotesi nulla</td><td>«nessun segnale, solo caso»: ciò che il test mette alla prova</td><td><a class="xref" href="#sec-5-4">§5.4</a></td></tr>
+<tr><td>\(u\)</td><td>p-value</td><td>probabilità, sotto \(H_0\), di un risultato almeno così estremo</td><td><a class="xref" href="#sec-5-4">§5.4</a></td></tr>
+<tr><td>\(F(t)\), CDF</td><td>funzione di ripartizione</td><td>\(P(X \le t)\); la sopravvivenza è \(1 - F(t) = P(X > t)\)</td><td><a class="xref" href="#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(\chi^2_\nu\), \(\nu\)</td><td>chi-quadro; gradi di libertà</td><td>famiglia di distribuzioni note e tabulate; \(\nu\) ne fissa la forma</td><td><a class="xref" href="#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(T\)</td><td>statistica di Fisher</td><td>\(-2\sum\ln(\cdot)\): la «sorpresa accumulata»</td><td><a class="xref" href="#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(C^{-1}(t,\nu)\)</td><td>sopravvivenza della chi-quadro</td><td>\(P(\chi^2_\nu > t)\); nonostante il «\(-1\)», non è una funzione inversa</td><td><a class="xref" href="#sec-5-5">§5.5</a></td></tr>
+<tr><td>\(H\), \(S\), \(I\)</td><td>indicatori di Fisher</td><td>bussola: \(H\)/\(S\) <em>piccolo</em> = evidenza forte di ham/spam; \(I = (1+H-S)/2\)</td><td><a class="xref" href="#sec-5-6">§5.6</a></td></tr>
+<tr><td>\(|x|\)</td><td>valore assoluto</td><td>distanza di \(x\) da zero (barre attorno a un <em>numero</em>)</td><td><a class="xref" href="#sec-5-6">§5.6</a></td></tr>
+<tr><td>\(\tau\)</td><td>soglia di decisione</td><td>il livello con cui si confronta \(I\)</td><td><a class="xref" href="#sec-5-6">§5.6</a></td></tr>
+<tr><td>\(\infty\)</td><td>infinito</td><td>oltre ogni numero; la scala del logit va da \(-\infty\) a \(+\infty\)</td><td><a class="xref" href="#app-a-2">A.2</a></td></tr>
+<tr><td>\(X\), \(\mathbb{E}[X]\)</td><td>variabile casuale; valore atteso</td><td>numero che dipende dall'esito (maiuscola = variabile, minuscola = valore); media pesata con le probabilità</td><td>App. D (opz.)</td></tr>
+<tr><td>\(\mathcal{G}\)</td><td>sotto-\(\sigma\)-algebra</td><td>famiglia di eventi più povera di \(\mathcal{F}\): informazione parziale</td><td>App. D (opz.)</td></tr>
+<tr><td>\(\mathbb{E}[X \mid \mathcal{G}]\)</td><td>aspettazione condizionata</td><td>la miglior stima di \(X\) usando solo l'informazione in \(\mathcal{G}\)</td><td>App. D (opz.)</td></tr>
+</tbody>
+</table>
+
+<hr/>
+
+<h2 id="app-c">Appendice C — Soluzioni degli esercizi</h2>
+
+<h3 id="sol-1">Soluzioni — §1</h3>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi di §1</a></p>
+<ol>
+<li>\(P(\text{buona}) = 1 - 0{,}7 = 0{,}3\) (regola del complemento, <a class="xref" href="#sec-1-2">§1.2</a>).</li>
+<li>\(P(\text{«offerta»} \mid \text{spam}) = 60/80 = 0{,}75\). Il denominatore è il mondo ristretto — le 80 spam — <strong>non</strong> le 200 totali: \(60/200 = 0{,}3\) è la trappola.</li>
+<li>Il mondo ristretto sono le \(80\) spam; le \(120\) email buone restano fuori gioco.</li>
+</ol>
+
+<h3 id="sol-2">Soluzioni — §2</h3>
+<p class="note"><a class="xref" href="#ex-2">↩ Torna agli esercizi di §2</a></p>
+<ol>
+<li>Su 1.000 persone: malati \(= 2\% = 20\), di cui positivi \(90\% = 18\) (veri positivi); sani \(= 980\), di cui positivi \(10\% = 98\) (falsi positivi). Positivi totali \(= 18 + 98 = 116\). Quindi \(P(\text{malato} \mid +) = 18/116 \approx 0{,}16\): anche qui i falsi positivi sommergono i veri, perché il prior (\(2\%\)) è basso.</li>
+<li>È una <strong>likelihood</strong>: la frequenza della parola <em>dentro</em> lo spam, funzione dell'ipotesi. Da sola non dice quanto l'email sia spam — quello è il posterior \(P(S \mid w)\), e per ottenerlo serve Bayes, prior compreso.</li>
+<li>Perché \(P(B)\) è un fattore <strong>comune a tutti i numeratori</strong> e non dipende dall'ipotesi \(k\): dividere tutti i candidati per la stessa costante non cambia quale vince.</li>
+</ol>
+
+<h3 id="sol-3">Soluzioni — §3</h3>
+<p class="note"><a class="xref" href="#ex-3">↩ Torna agli esercizi di §3</a></p>
+<ol>
+<li>\(P(w\mid S) = 30/100 = 0{,}3\); \(P(w\mid H) = 10/200 = 0{,}05\); \(\mathrm{LR} = 0{,}3/0{,}05 = 6\) (sei volte più frequente nello spam); \(p(w) = \dfrac{0{,}3}{0{,}3 + 0{,}05} = \dfrac{0{,}3}{0{,}35} \approx 0{,}86\).</li>
+<li>Il termine ham raddoppia: \(2 \cdot 0{,}05 = 0{,}1\), quindi \(p(w) = \dfrac{0{,}3}{0{,}3 + 0{,}1} = 0{,}75\). Il valore <strong>scende</strong>: il filtro diventa più restio a dire spam → <strong>meno falsi positivi</strong>, al prezzo di qualche falso negativo in più.</li>
+<li>Con \(P(w \mid H) = 0\) la formula dà \(p(w) = \dfrac{b/N_S}{b/N_S + 0} = 1\) esatto: certezza assoluta e potere di veto sul prodotto \(\prod(1-f)\) di <a class="xref" href="#sec-5">§5</a>. Ma \(g = 0\) significa solo «non ancora osservato», non «impossibile». Interviene il <strong>clamp</strong>, che riporta il valore a \(0{,}99\).</li>
+<li>La probabilità dei <strong>dati osservati</strong>, vista come funzione del parametro: \(\hat\theta = \arg\max_\theta L(\theta)\), il valore del parametro sotto cui ciò che hai visto era il più probabile.</li>
+</ol>
+
+<h3 id="sol-4">Soluzioni — §4</h3>
+<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi di §4</a></p>
+<ol>
+<li>\(f = \dfrac{1 \cdot 0{,}5 + 2 \cdot 0{,}9}{1 + 2} = \dfrac{0{,}5 + 1{,}8}{3} = \dfrac{2{,}3}{3} \approx 0{,}77\).</li>
+<li>\(n = 0\) → \(f = x = 0{,}5\): senza dati resta il puro neutro (comportamento agli estremi, <a class="xref" href="#sec-4-4">§4.4</a>).</li>
+<li>\(f = \dfrac{3 \cdot 0{,}5 + 2 \cdot 0{,}9}{3 + 2} = \dfrac{1{,}5 + 1{,}8}{5} = \dfrac{3{,}3}{5} = 0{,}66\). \(s\) è il peso del prior in "osservazioni virtuali": più \(s\) è grande, più dati reali servono per allontanarsi dal neutro (con \(s=3\) il tiro verso \(0{,}5\) è più forte che con \(s=1\): \(0{,}66\) contro \(0{,}77\)).</li>
+<li>Il clamp taglia gli estremi <strong>ignorando quanti dati ci sono</strong>; lo shrink dosa la correzione su \(n\): forte con pochi dati, quasi nulla con tanti.</li>
+</ol>
+
+<h3 id="sol-5">Soluzioni — §5</h3>
+<p class="note"><a class="xref" href="#ex-5">↩ Torna agli esercizi di §5</a></p>
+<ol>
+<li>\(T = -2 \ln 0{,}5 \approx -2 \cdot (-0{,}693) = 1{,}386\). Sopravvivenza a \(2\) gradi: \(e^{-T/2} = e^{-0{,}693} = 0{,}5\). Torna esattamente \(u\): con un solo ingrediente, Fisher restituisce l'ingrediente.</li>
+<li>\(I = \dfrac{1 + 0{,}9 - 0{,}1}{2} = \dfrac{1{,}8}{2} = 0{,}9\): forte pendenza verso spam. Se \(H = S\), i due termini si cancellano e \(I = 1/2 = 0{,}5\) sempre: indecisione, qualunque sia il valore comune.</li>
+<li><strong>Falso negativo</strong>: il filtro ha detto "ok, passa" (risposta negativa) e si è sbagliato — uno spam è finito in inbox. (Il falso positivo sarebbe stato l'opposto: bloccare posta buona.)</li>
+<li>(a) <strong>Stabilità numerica</strong>: la somma di logaritmi non va in underflow come il prodotto (<a class="xref" href="#sec-5-2">§5.2</a>); (b) il <strong>teorema di Fisher</strong> richiede proprio la forma \(-2\sum \ln u_i\) per dare una \(\chi^2\) esatta (<a class="xref" href="#sec-5-5">§5.5</a>) — non è solo un trucco di calcolo, è la porta d'ingresso del teorema.</li>
+</ol>
+
+<hr/>
+
+<h2 id="app-d">Appendice D — Approfondimenti opzionali (fuori dal perimetro del paper)</h2>
+<p class="note">Nulla di questa appendice serve per leggere la sezione 1.1 del paper. È la strada che parte dai due rimandi «fuori perimetro» di <a class="xref" href="#sec-2-2">§2.2</a> (l'interpretazione soggettiva; il caso continuo). Da studiare solo se e quando ne hai voglia.</p>
+
+<h3 id="app-d-1">D.1 Perché «credere» obbedisce alla probabilità: de Finetti e Cox</h3>
+<p>La domanda aperta in <a class="xref" href="#sec-2-2">§2.2</a>: se il posterior si <em>interpreta</em> come grado di credenza, che cosa obbliga i gradi di credenza a rispettare gli assiomi di Kolmogorov? Due risposte classiche, per strade diverse.</p>
+<p><strong>de Finetti — coerenza come «non perdere di sicuro».</strong> Ogni credenza si traduce in un prezzo: credere \(P(A) = 0{,}6\) significa considerare equo pagare \(0{,}60\) € per un biglietto che vale \(1\) € se \(A\) accade e \(0\) € altrimenti. Il teorema: se i prezzi <strong>violano</strong> gli assiomi, esiste una combinazione di scommesse — detta <strong>Dutch book</strong> — che accetteresti pezzo per pezzo e che produce una <strong>perdita certa</strong>, qualunque cosa accada. Coerente = non esposto a un Dutch book = obbediente agli assiomi.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — il Dutch book</span>
+<p>Qualcuno crede \(P(A) = 0{,}6\) e anche \(P(\overline{A}) = 0{,}6\): viola la regola del complemento (<a class="xref" href="#sec-1-2">§1.2</a>), perché \(0{,}6 + 0{,}6 = 1{,}2 > 1\).</p>
+<ul>
+<li>Gli vendo il biglietto su \(A\): paga \(0{,}60\) €.</li>
+<li>Gli vendo il biglietto su \(\overline{A}\): paga \(0{,}60\) €. Totale speso: \(1{,}20\) €.</li>
+<li>Uno e uno solo dei due eventi accade: incassa esattamente \(1\) €.</li>
+</ul>
+<p>Perdita garantita: \(1{,}20 - 1 = 0{,}20\) € — comunque vada il mondo. La credenza incoerente si punisce da sola.</p>
+</div>
+<p><strong>Cox — coerenza come buon senso formalizzato.</strong> Punto di partenza diverso: rappresenta la plausibilità delle affermazioni con numeri reali e imponi requisiti minimi di ragionevolezza (per esempio: la plausibilità di «\(A\) e \(B\)» deve dipendere solo da quella di \(A\) e da quella di \(B\) sapendo \(A\); più è plausibile un'affermazione, meno lo è il suo contrario). Il teorema di Cox: ogni sistema che rispetta quei requisiti è, a meno di un cambio di scala, <strong>la</strong> probabilità, con le sue regole del prodotto e della somma. Due strade, stessa conclusione: chi ragiona per gradi di credenza coerenti sta già facendo probabilità.</p>
+
+<h3 id="app-d-2">D.2 Mattone: il valore atteso \(\mathbb{E}[X]\)</h3>
+<p>Serve per <a class="xref" href="#app-d-4">D.4</a>. Una <strong>variabile casuale</strong> \(X\) è un numero che dipende dall'esito dell'esperimento — per esempio il punteggio del dado. (Convenzione: maiuscola \(X\) = la variabile; minuscola \(x\) = un suo valore possibile.) Il <strong>valore atteso</strong> \(\mathbb{E}[X]\) è la media dei valori possibili, <strong>pesata con le probabilità</strong>:</p>
+<div class="formula key">\[ \mathbb{E}[X] \;=\; \sum_{x} x \cdot P(X = x) \]</div>
+<div class="callout ex"><span class="tag">Esempio — il dado</span>
+<p>Dado equo: ogni faccia pesa \(1/6\), quindi \(\mathbb{E}[X] = (1+2+3+4+5+6) \cdot \dfrac{1}{6} = \dfrac{21}{6} = 3{,}5\). Non è un valore possibile (il dado non dà \(3{,}5\)): è il baricentro dei valori.</p>
+</div>
+
+<h3 id="app-d-3">D.3 Sotto-\(\sigma\)-algebra: l'informazione parziale</h3>
+<p>Una \(\sigma\)-algebra (<a class="xref" href="#sec-2-2">§2.2</a>) è l'elenco degli eventi di cui si può parlare. Una <strong>sotto-\(\sigma\)-algebra</strong> \(\mathcal{G}\) è un elenco <strong>più povero</strong>, contenuto in \(\mathcal{F}\), chiuso per le stesse tre proprietà: rappresenta <strong>sapere di meno</strong>.</p>
+<div class="callout ex"><span class="tag">Esempio — vedere solo la parità</span>
+<p>Dado: informazione completa = \(\mathcal{F}\) = tutti i sottoinsiemi di \(\{1,\dots,6\}\). Ora immagina di venire a sapere <strong>solo</strong> se è uscito pari o dispari. Gli eventi distinguibili sono quattro:</p>
+<div class="formula">\[ \mathcal{G} \;=\; \bigl\{\, \emptyset,\ \{2,4,6\},\ \{1,3,5\},\ \Omega \,\bigr\} \]</div>
+<p>Prova del nove sulle tre proprietà di chiusura (<a class="xref" href="#sec-2-2">§2.2</a>): \(\Omega\) c'è; il complemento di \(\{2,4,6\}\) è \(\{1,3,5\}\), presente; ogni unione di elementi dell'elenco resta nell'elenco. È una \(\sigma\)-algebra dentro \(\mathcal{F}\): una <strong>sotto</strong>-\(\sigma\)-algebra.</p>
+</div>
+
+<h3 id="app-d-4">D.4 L'aspettazione condizionata \(\mathbb{E}[X \mid \mathcal{G}]\)</h3>
+<p>L'idea: la <strong>miglior stima di \(X\)</strong> potendo usare <strong>solo</strong> l'informazione contenuta in \(\mathcal{G}\). Non è un numero fisso: è a sua volta una <strong>variabile</strong> — la risposta cambia a seconda di quale evento di \(\mathcal{G}\) si realizza.</p>
+<div class="callout ex"><span class="tag">Esempio — il dado con la sola parità</span>
+<ul>
+<li>se so «pari»: la stima è la media sui pari, \((2+4+6)/3 = 4\);</li>
+<li>se so «dispari»: la media sui dispari, \((1+3+5)/3 = 3\).</li>
+</ul>
+<p>Quindi \(\mathbb{E}[X \mid \mathcal{G}]\) vale \(4\) sugli esiti pari e \(3\) sui dispari.</p>
+</div>
+<p><strong>La proprietà che la definisce</strong>: su ogni evento di \(\mathcal{G}\), la stima deve avere <strong>la stessa media</strong> della variabile vera. Prova del nove sull'esempio: ristretta ai pari, la stima vale costantemente \(4\) e la media di \(X\) sui pari è \(4\) — coincidono; e la media globale della stima è \(4 \cdot \frac{1}{2} + 3 \cdot \frac{1}{2} = 3{,}5 = \mathbb{E}[X]\). I conti tornano.</p>
+
+<h3 id="app-d-5">D.5 Radon–Nikodym: la garanzia di esistenza</h3>
+<p>Nel discreto l'aspettazione condizionata l'abbiamo <strong>costruita a mano</strong>, contando. Nel continuo (box di <a class="xref" href="#sec-2-2">§2.2</a>) contare non si può: eventi come «\(X = 0{,}5\) esatto» hanno probabilità \(0\), e la definizione elementare \(P(A \mid B) = P(A \cap B)/P(B)\) non è applicabile — divisione per zero. Ma la <strong>proprietà che definisce</strong> \(\mathbb{E}[X \mid \mathcal{G}]\) (le medie coincidono su ogni evento di \(\mathcal{G}\)) ha senso anche lì. Il teorema di <strong>Radon–Nikodym</strong> è esattamente questa garanzia: un oggetto con quella proprietà <strong>esiste sempre ed è unico</strong>, a meno di differenze su eventi di probabilità \(0\). Non lo costruisce con una formula da calcolare: certifica che c'è. Nel mondo del paper — tutto discreto — la costruzione a mano di <a class="xref" href="#app-d-4">D.4</a> è già l'intera storia.</p>
+
+<hr/>
+<p class="note">Bella copia della sezione 1.1 · costruita un mattone alla volta. I prossimi capitoli del documento (PageRank/TrustRank, E-E-A-T, Safe Browsing) introdurranno nuovi mondi matematici: algebra lineare e autovettori, entropia, hashing. Ma le fondamenta — probabilità, Bayes, stima, calibrazione — tornano ovunque.</p>
+
+</body>
+</html>

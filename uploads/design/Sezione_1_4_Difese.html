@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>1.4 — Difese: spam distribuito · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Snowshoe</a><a href="#sec-2">§2 Clustering</a><a href="#sec-3">§3 Anomalie</a><a href="#sec-4">§4 Autenticazione</a><a href="#sec-5">§5 Contromisure</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="Sezione_1_3_Warmup.html">↩ 1.3</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">1.4 — Difese: spam distribuito ed elusivo <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki · paper §1.4. <strong>Bozza</strong>: schermo sì, carta no. La matematica pesante è nelle Fondamenta: qui la vedi combattere.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="F3_Teoria_informazione.html">F3</a> (entropia), <a class="xref" href="F5_Segnali_e_rilevamento.html">F5</a> (CUSUM, token bucket), <a class="xref" href="F6_Similarita_hashing_codifiche.html">F6</a> (shingling, MinHash, LSH), <a class="xref" href="Sezione_1_2_Score_reputazionali.html">1.2</a> (reputazione e soglie), e dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a> la logica di §1–§2.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Snowshoe: il carico distribuito</h2>
+<p>La racchetta da neve non sfonda perché <strong>distribuisce il peso</strong>. Lo <strong>snowshoe spamming</strong> fa lo stesso col volume: tanti IP e tanti domini <strong>freschi</strong>, ognuno sotto le soglie per-sorgente dei filtri della 1.2. Formalmente: se \(\theta^{*}\) è la soglia di volume per sorgente (l'asterisco-obiettivo della 1.3), lo spammer sceglie \(N\) sorgenti con volume \(v < \theta^{*}\) ciascuna, tali che</p>
+<div class="formula key">\[ N \cdot v \;=\; V_{\text{target}} \]</div>
+<p>Ogni sorgente, da sola, è invisibile («reputazione neutra»: nuova, non ancora in nessuna lista); il volume complessivo è intatto. La difesa per-IP è cieca <strong>per costruzione</strong>: bisogna vedere la campagna intera.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>Soglia \(\theta^{*} = 100\) email/giorno per IP, obiettivo \(V_{\text{target}} = 10.000\): bastano \(N = 200\) sorgenti a \(v = 50\) — metà soglia ciascuna, zero allarmi individuali, \(200 \cdot 50 = 10.000\) consegnate.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. La controffensiva: ricostruire la campagna</h2>
+<p>Se le sorgenti sono tante ma <strong>il messaggio è uno</strong>, la firma sta nel contenuto e nell'infrastruttura condivisa. Due reti da pesca, insieme:</p>
+<p><strong>(a) Contenuto quasi-duplicato</strong> — è F6 in azione, tutta in fila: shingling (testo → insieme), MinHash (insieme → firma corta), LSH (firme → secchi di candidati con la curva a S). Milioni di email, e i quasi-fotocopia si ritrovano nello stesso secchio senza confrontare tutte le coppie.</p>
+<p><strong>(b) Infrastruttura condivisa</strong> — si costruisce un <strong>grafo</strong>: un disegno fatto di <strong>nodi</strong> (i pallini: messaggi, IP, domini, URL di destinazione, registrar) ed <strong>archi</strong> (le linee: «questo messaggio è partito da questo IP», «punta a questa URL»). Una <strong>componente connessa</strong> è un'isola: l'insieme dei nodi raggiungibili l'uno dall'altro camminando sugli archi. La campagna snowshoe emerge come un'isola dalla forma tradita: <strong>molti IP diversi</strong>, ma <strong>pochi URL e registrar condivisi</strong>, e contenuto quasi-duplicato. (Il paper cita anche DBSCAN e community detection: algoritmi di raggruppamento più fini — nomi da riconoscere, non li serve smontare qui.)</p>
+
+<hr/>
+
+<h2 id="sec-3">3. Le anomalie in numeri: CUSUM ed entropia</h2>
+<p>Sul <strong>volume</strong> lavora la vasca CUSUM di F5 §2: accumula gli sforamenti e coglie i cambi di regime fatti di tanti piccoli eccessi. Sulla <strong>forma del traffico</strong> lavora l'entropia di F3, con un rapporto che è la firma numerica dello snowshoe:</p>
+<div class="formula key">\[ \text{indice snowshoe} \;\propto\; \frac{H_{\text{src}}}{H_{\text{content}} + \varepsilon} \]</div>
+<p>Due simboli di contorno: \(\propto\) si legge «<strong>proporzionale a</strong>» (cresce e cala insieme a, senza fissare la scala); \(\varepsilon\) (epsilon) è un numero <strong>piccolissimo</strong> messo al denominatore solo per non dividere per zero. La logica: lo snowshoe <strong>sparpaglia le sorgenti</strong> (\(H_{\text{src}}\) alta) ma <strong>fotocopia il contenuto</strong> (\(H_{\text{content}}\) bassa) → rapporto alto. Il mittente legittimo fa l'esatto contrario.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — coi numeri di F3</span>
+<p>Campagna: 4 IP a quote uguali (\(H_{\text{src}} = 2\) bit) e contenuto quasi-fotocopia (\(H_{\text{content}} = 0{,}24\)) → indice \(\approx 2/0{,}24 \approx 8{,}3\).</p>
+<p>Legittimo: un server dominante (\(H_{\text{src}} = 0{,}24\)) e contenuti vari (\(H_{\text{content}} = 2\)) → indice \(\approx 0{,}12\). Settanta volte di differenza: c'è margine per una soglia.</p>
+</div>
+
+<div class="callout ex" id="ex-3"><span class="tag">Esercizi — §1–§3</span>
+<ol>
+<li>Soglia \(\theta^{*} = 200\)/giorno, obiettivo \(30.000\): quante sorgenti servono a \(v = 150\)?</li>
+<li>\(H_{\text{src}} = 1{,}5\), \(H_{\text{content}} = 0{,}5\), \(\varepsilon\) trascurabile: indice? E se le due entropie si scambiano?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-3">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. L'autenticazione: SPF, DKIM, DMARC (la parte matematica)</h2>
+<p>Tre protocolli rispondono a «chi ha davvero inviato questa email?». Le carte d'identità in una riga ciascuna — il funzionamento fine è ingegneria, non matematica, e qui resta in superficie:</p>
+<ul>
+<li><strong>SPF</strong>: il dominio pubblica la lista degli IP autorizzati a inviare per lui. Esiti: pass, fail, e i grigi (softfail/neutral) che molti filtri non puniscono — e gli spammer lo sanno.</li>
+<li><strong>DKIM</strong>: una firma crittografica sul messaggio, verificata con la chiave pubblica del dominio firmatario \(d\!=\). (Anomalie note: chiavi corte, firme riusate, corpi firmati solo in parte.)</li>
+<li><strong>DMARC</strong>: lega tutto all'identità <strong>visibile</strong> nel campo From, chiedendo l'<strong>allineamento</strong> dei domini. La sua logica è algebra booleana pura:</li>
+</ul>
+<div class="formula key">\[ \text{DMARC pass} \;\Longleftrightarrow\; \bigl(\text{SPF pass} \wedge \text{align}_{\text{SPF}}\bigr) \;\vee\; \bigl(\text{DKIM pass} \wedge \text{align}_{\text{DKIM}}\bigr) \]</div>
+<p>Due simboli: \(\vee\) è la <strong>o logica</strong> (l'<code>or</code>: basta un lato vero), sorella della \(\wedge\) di 1.3; \(\Longleftrightarrow\) si legge «<strong>se e solo se</strong>»: i due lati sono veri esattamente negli stessi casi. Lettura: passi se <strong>almeno una</strong> delle due strade è completa — autenticata <em>e</em> allineata col From. Lo spoofing classico (SPF pass su un dominio di comodo, From falsificato) muore proprio sull'allineamento.</p>
+<p>Il paper condensa le anomalie in uno <strong>score a bandierine rosse</strong>: politica violata \(+w_1\), SPF grigio \(+w_2\), dominio più giovane di 30 giorni \(+w_3\), e così via. Struttura familiare: è un mini \(\boldsymbol\theta^{\top}\mathbf{x}\) di F4 — pesi per indizi — e il totale diventa una feature per la reputazione della 1.2.</p>
+
+<hr/>
+
+<h2 id="sec-5">5. Le contromisure, a strati</h2>
+<p>Quattro livelli, e la matematica la possiedi già tutta:</p>
+<ol>
+<li><strong>Rate limiting</strong> per sorgente: il token bucket di F5 §3 — raffiche fino a \(B\), regime a \(r\), secchio vuoto → 4xx.</li>
+<li><strong>Greylisting</strong>: al primo contatto mai visto (la tripletta IP + mittente + destinatario) si risponde «riprova più tardi». Un server vero ritenta con pazienza; molte botnet non hanno nemmeno la coda dei ritentativi.</li>
+<li><strong>Reputazione e blocklist</strong> (la 1.2) come cancello d'ingresso.</li>
+<li><strong>Clustering retroattivo</strong>: identificata la campagna (§2), il verdetto si propaga a <strong>tutte</strong> le sorgenti dell'isola. È il colpo che rompe l'economia dello snowshoe: aggiungere la sorgente numero 201 non compra più nessuna invisibilità, perché si blocca <strong>per cluster</strong>, non per IP.</li>
+</ol>
+
+<div class="callout ex" id="ex-5"><span class="tag">Esercizi — §4–§5</span>
+<ol>
+<li>SPF: pass ma <strong>non</strong> allineato; DKIM: pass <strong>e</strong> allineato. DMARC passa? Applica la formula.</li>
+<li>Perché il blocco per cluster azzera il vantaggio di aggiungere sorgenti? (Una frase, con la parola «marginale».)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-5">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<h3 id="sol-3">Soluzioni — §1–§3</h3>
+<p class="note"><a class="xref" href="#ex-3">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(N = 30.000 / 150 = 200\) sorgenti, ognuna a tre quarti della soglia: invisibili una per una.</li>
+<li>\(1{,}5 / 0{,}5 = 3\) (sospetto); scambiate: \(0{,}5 / 1{,}5 \approx 0{,}33\) (profilo legittimo).</li>
+</ol>
+<h3 id="sol-5">Soluzioni — §4–§5</h3>
+<p class="note"><a class="xref" href="#ex-5">↩ Torna agli esercizi</a></p>
+<ol>
+<li>Primo lato: \(\text{vero} \wedge \text{falso} = \text{falso}\). Secondo: \(\text{vero} \wedge \text{vero} = \text{vero}\). La \(\vee\) chiede un lato solo → <strong>DMARC pass</strong>.</li>
+<li>Perché il costo del difensore è per-campagna, non per-IP: il beneficio <strong>marginale</strong> di una sorgente in più diventa zero appena l'isola viene bloccata in blocco.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(\theta^{*}\), \(N\), \(v\), \(V_{\text{target}}\)</td><td>parametri snowshoe</td><td>soglia per sorgente; numero di sorgenti; volume per sorgente; obiettivo totale</td><td>1.4 §1</td></tr>
+<tr><td>grafo, nodo, arco</td><td>—</td><td>pallini e linee: oggetti e relazioni fra loro</td><td>1.4 §2</td></tr>
+<tr><td>componente connessa</td><td>—</td><td>l'«isola»: i nodi raggiungibili l'uno dall'altro sugli archi</td><td>1.4 §2</td></tr>
+<tr><td>\(\propto\)</td><td>proporzionale a</td><td>cresce e cala insieme a, senza fissare la scala</td><td>1.4 §3</td></tr>
+<tr><td>\(\varepsilon\)</td><td>epsilon</td><td>numero piccolissimo anti-divisione-per-zero</td><td>1.4 §3</td></tr>
+<tr><td>\(\vee\)</td><td>o logica</td><td>l'<code>or</code>: vera se almeno un lato è vero</td><td>1.4 §4</td></tr>
+<tr><td>\(\Longleftrightarrow\)</td><td>se e solo se</td><td>doppia implicazione: i due lati veri negli stessi casi</td><td>1.4 §4</td></tr>
+<tr><td>\(w_1, w_2, \dots\)</td><td>pesi delle bandierine</td><td>quanto pesa ogni indizio nello score di anomalia</td><td>1.4 §4</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">1.4 — Difese · stato: <strong>bozza</strong> · chiude la sezione 1 del paper. Prossime: F2 e la sezione 2 (PageRank/TrustRank).</p>
+</body>
+</html>

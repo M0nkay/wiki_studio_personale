@@ -1,0 +1,281 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/badge/**",
+              "components/callout/**",
+              "components/formula/**",
+              "components/navigation/**",
+              "components/page/**",
+              "components/pipeline/**",
+              "components/tables/**",
+              "ui_kits/wiki/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Trebuchet MS|DejaVu Sans Mono))/i]",
+        "message": "Font not provided by the design system. Available: Trebuchet MS, DejaVu Sans Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:stato|children|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: stato, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='stato'] > Literal[value!=/^(?:bozza|verificata|preparazione)$/]",
+        "message": "<Badge> stato must be one of 'bozza' | 'verificata' | 'preparazione'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Callout'] > JSXAttribute > JSXIdentifier[name!=/^(?:variante|tag|id|children|key|ref|className|style|children)$/]",
+        "message": "<Callout> doesn't accept that prop. Declared props: variante, tag, id, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Callout'] > JSXAttribute[name.name='variante'] > Literal[value!=/^(?:intu|warn|deep|ex|nb)$/]",
+        "message": "<Callout> variante must be one of 'intu' | 'warn' | 'deep' | 'ex' | 'nb'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CellaCM'] > JSXAttribute > JSXIdentifier[name!=/^(?:tipo|contenuto|key|ref|className|style|children)$/]",
+        "message": "<CellaCM> doesn't accept that prop. Declared props: tipo, contenuto."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CellaCM'] > JSXAttribute[name.name='tipo'] > Literal[value!=/^(?:ok|fn|fp)$/]",
+        "message": "<CellaCM> tipo must be one of 'ok' | 'fn' | 'fp'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DataTable'] > JSXAttribute > JSXIdentifier[name!=/^(?:caption|colonne|righe|key|ref|className|style|children)$/]",
+        "message": "<DataTable> doesn't accept that prop. Declared props: caption, colonne, righe."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Formula'] > JSXAttribute > JSXIdentifier[name!=/^(?:chiave|children|key|ref|className|style|children)$/]",
+        "message": "<Formula> doesn't accept that prop. Declared props: chiave, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='VoceGlossario'] > JSXAttribute > JSXIdentifier[name!=/^(?:simbolo|nome|definizione|occ|separatore|key|ref|className|style|children)$/]",
+        "message": "<VoceGlossario> doesn't accept that prop. Declared props: simbolo, nome, definizione, occ, separatore."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Nota'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|key|ref|className|style|children)$/]",
+        "message": "<Nota> doesn't accept that prop. Declared props: children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PageHeader'] > JSXAttribute > JSXIdentifier[name!=/^(?:titolo|sottotitolo|stato|id|key|ref|className|style|children)$/]",
+        "message": "<PageHeader> doesn't accept that prop. Declared props: titolo, sottotitolo, stato, id."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PageHeader'] > JSXAttribute[name.name='stato'] > Literal[value!=/^(?:bozza|verificata|preparazione)$/]",
+        "message": "<PageHeader> stato must be one of 'bozza' | 'verificata' | 'preparazione'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PipelineMap'] > JSXAttribute > JSXIdentifier[name!=/^(?:titolo|id|intro|passi|nota|children|key|ref|className|style|children)$/]",
+        "message": "<PipelineMap> doesn't accept that prop. Declared props: titolo, id, intro, passi, nota, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='QuickNav'] > JSXAttribute > JSXIdentifier[name!=/^(?:voci|ariaLabel|key|ref|className|style|children)$/]",
+        "message": "<QuickNav> doesn't accept that prop. Declared props: voci, ariaLabel."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='VoceToc'] > JSXAttribute > JSXIdentifier[name!=/^(?:href|label|figli|key|ref|className|style|children)$/]",
+        "message": "<VoceToc> doesn't accept that prop. Declared props: href, label, figli."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Xref'] > JSXAttribute > JSXIdentifier[name!=/^(?:href|children|key|ref|className|style|children)$/]",
+        "message": "<Xref> doesn't accept that prop. Declared props: href, children."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "Callout": {
+        "replaces": []
+      },
+      "CellaCM": {
+        "replaces": []
+      },
+      "DataTable": {
+        "replaces": []
+      },
+      "Formula": {
+        "replaces": []
+      },
+      "VoceGlossario": {
+        "replaces": []
+      },
+      "Nota": {
+        "replaces": []
+      },
+      "PageHeader": {
+        "replaces": []
+      },
+      "PipelineMap": {
+        "replaces": []
+      },
+      "QuickNav": {
+        "replaces": []
+      },
+      "VoceToc": {
+        "replaces": []
+      },
+      "Xref": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--badge-bozza-bd",
+      "--badge-bozza-bg",
+      "--badge-bozza-fg",
+      "--bg",
+      "--border",
+      "--box",
+      "--cm-fn",
+      "--cm-fp",
+      "--cm-ok",
+      "--deep-bd",
+      "--deep-bg",
+      "--ex-bd",
+      "--ex-bg",
+      "--ex-tag",
+      "--fg",
+      "--font-mono",
+      "--font-sans",
+      "--hover",
+      "--html-size",
+      "--html-size-mobile",
+      "--intu-bd",
+      "--intu-bg",
+      "--leading-body",
+      "--leading-chain",
+      "--leading-heading",
+      "--leg-bd",
+      "--leg-bg",
+      "--link",
+      "--measure",
+      "--navy",
+      "--navy2",
+      "--nb-bd",
+      "--nb-bg",
+      "--page-pad",
+      "--page-pad-mobile",
+      "--paper",
+      "--paper-bd",
+      "--quicknav-bd",
+      "--text-badge",
+      "--text-body",
+      "--text-code",
+      "--text-h1",
+      "--text-h2",
+      "--text-h3",
+      "--text-h4",
+      "--text-note",
+      "--text-subtitle",
+      "--text-table",
+      "--text-tag",
+      "--tracking-badge",
+      "--tracking-body",
+      "--tracking-tag",
+      "--warn-bd",
+      "--warn-bg",
+      "--word-spacing-body"
+    ],
+    "tokenKinds": {
+      "--bg": "color",
+      "--fg": "color",
+      "--navy": "color",
+      "--navy2": "color",
+      "--box": "color",
+      "--border": "color",
+      "--intu-bg": "color",
+      "--intu-bd": "color",
+      "--warn-bg": "color",
+      "--warn-bd": "color",
+      "--deep-bg": "color",
+      "--deep-bd": "color",
+      "--ex-bg": "color",
+      "--ex-bd": "color",
+      "--leg-bg": "color",
+      "--leg-bd": "color",
+      "--link": "color",
+      "--paper": "color",
+      "--paper-bd": "color",
+      "--hover": "color",
+      "--quicknav-bd": "color",
+      "--nb-bg": "color",
+      "--nb-bd": "color",
+      "--ex-tag": "color",
+      "--cm-ok": "color",
+      "--cm-fn": "color",
+      "--cm-fp": "color",
+      "--badge-bozza-bg": "color",
+      "--badge-bozza-bd": "color",
+      "--badge-bozza-fg": "color",
+      "--font-sans": "font",
+      "--font-mono": "font",
+      "--html-size": "spacing",
+      "--html-size-mobile": "spacing",
+      "--text-h1": "font",
+      "--text-h2": "font",
+      "--text-h3": "font",
+      "--text-h4": "font",
+      "--text-subtitle": "font",
+      "--text-body": "font",
+      "--text-table": "font",
+      "--text-note": "font",
+      "--text-code": "font",
+      "--text-tag": "font",
+      "--text-badge": "font",
+      "--leading-body": "font",
+      "--leading-heading": "font",
+      "--leading-chain": "font",
+      "--tracking-body": "font",
+      "--word-spacing-body": "spacing",
+      "--tracking-tag": "font",
+      "--tracking-badge": "font",
+      "--measure": "spacing",
+      "--page-pad": "spacing",
+      "--page-pad-mobile": "spacing"
+    },
+    "fontFamilies": [
+      "DejaVu Sans Mono",
+      "Trebuchet MS"
+    ]
+  }
+}

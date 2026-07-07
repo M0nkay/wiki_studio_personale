@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>1.2 — Score reputazionali · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Reputazione</a><a href="#sec-2">§2 Discriminativo</a><a href="#sec-3">§3 Beta</a><a href="#sec-4">§4 Wilson</a><a href="#sec-5">§5 Tempo</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F4_Statistica_e_ML.html">↩ F4</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">1.2 — Score reputazionali di IP e dominio <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Pagina Sezione della wiki «Sistemi di Fiducia» · paper §1.2. <strong>Bozza</strong>: si legge a schermo, si segnala ciò che non regge, non si trascrive.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="F4_Statistica_e_ML.html">F4</a> per intero (vettori, regressione logistica, discesa del gradiente, EWMA, Wilson) e dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: Bayes (§2), le osservazioni virtuali di Robinson (§4.3–4.5), il valore atteso (Appendice D.2).</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Che cos'è una «reputazione»</h2>
+<p>La 1.1 giudicava il <strong>contenuto</strong> di un'email. La 1.2 giudica la <strong>sorgente</strong>: un IP, un dominio, una rete. La definizione del paper è puro Bayes, un piano più in alto:</p>
+<p>La <strong>reputazione</strong> di un mittente è <strong>la probabilità a posteriori che il suo traffico futuro sia abusivo</strong>, dato tutto ciò che si è osservato di lui — raccolto in un vettore di feature \(\mathbf{x}\).</p>
+<p>È la stessa mossa mentale di §2 della 1.1: prior (che mittente è, prima di guardare i dati) + evidenza (il suo comportamento) → credenza aggiornata. Cambia solo l'oggetto: non «questa email è spam?» ma «questo mittente è un problema?».</p>
+
+<hr/>
+
+<h2 id="sec-2">2. Il modello discriminativo: la logistica al lavoro</h2>
+<p>La forma canonica industriale — il paper la marca <strong>[INF]</strong>: classe di modello ricostruita, pesi reali proprietari — è esattamente la regressione logistica di F4:</p>
+<div class="formula key">\[ r(\mathbf{x}) \;=\; \sigma\bigl(\boldsymbol\theta^{\top}\mathbf{x}\bigr) \]</div>
+<p>con la log-loss e la penale L2 che già conosci (F4 §2). Il lavoro vero qui è capire <strong>cosa c'è dentro \(\mathbf{x}\)</strong>. Le feature documentate (Gmail Postmaster Tools, M3AAWG):</p>
+<ul>
+<li><strong>Tasso di reclamo</strong> \(c = \dfrac{\#\text{reclami}}{\#\text{consegnate}}\) — il simbolo \(\#\) si legge «numero di». È il bottone «Segnala spam» degli utenti: il segnale più pesante.</li>
+<li><strong>Bounce</strong>: hard (caselle inesistenti → indizio di liste comprate) e soft (errori temporanei).</li>
+<li><strong>Spam-trap</strong>: indirizzi-esca mai esistiti; colpirne uno pesa moltissimo.</li>
+<li><strong>Autenticazione</strong>: frazione di posta che passa SPF/DKIM/DMARC (li studieremo nella 1.4).</li>
+<li><strong>Engagement</strong>: aperture, risposte, «non è spam» (positivi); cancellazioni senza lettura (negativo).</li>
+<li><strong>Anomalie di volume</strong>: variazioni brusche \(\Delta V\) (\(\Delta\) = «variazione di»), picchi, novità della sorgente.</li>
+</ul>
+<div class="callout warn"><span class="tag">Trappola delle percentuali piccole</span>
+<p>Gmail dichiara <strong>[DOC]</strong>: sopra \(c > 0{,}3\%\) niente clemenza, raccomandato \(c < 0{,}1\%\). Occhio alla conversione: \(0{,}3\% = 0{,}003\) e \(0{,}1\% = 0{,}001\) — <strong>non</strong> \(0{,}3\) e \(0{,}1\). Tre reclami ogni mille consegne bastano per essere fuori.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico — due feature, un verdetto</span>
+<p>Modello giocattolo: \(\mathbf{x} = (c;\ \text{auth})\), pesi \(\boldsymbol\theta = (500;\ -3)\) (i reclami spingono su, l'autenticazione spinge giù). Mittente: \(c = 0{,}004\) (0,4%), auth \(= 0{,}9\).</p>
+<div class="formula">\[ \boldsymbol\theta^{\top}\mathbf{x} = 500 \cdot 0{,}004 - 3 \cdot 0{,}9 = 2 - 2{,}7 = -0{,}7 \qquad r = \sigma(-0{,}7) \approx 0{,}33 \]</div>
+<p>Rischio stimato 33%: i reclami sono alti, ma l'autenticazione solida tiene il punteggio sotto la metà.</p>
+</div>
+
+<div class="callout ex" id="ex-2"><span class="tag">Esercizi — §2</span>
+<ol>
+<li>Stesso modello, mittente pulito: \(c = 0{,}001\), auth \(= 0{,}95\). Calcola punteggio e \(r\) (serve: \(e^{2{,}35} \approx 10{,}5\)).</li>
+<li>Un mittente ha 3 reclami su 2.000 consegne. Rispetta la raccomandazione \(c < 0{,}1\%\)?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-2">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. Il modello generativo: la Beta-Bernoulli da protagonista</h2>
+<p>Per un mittente con <strong>poca storia</strong>, la frequenza \(c = k/m\) è instabile — il fantasma dei conteggi piccoli, di nuovo. Qui il paper promuove a protagonista il modello che nella 1.1 era un box opzionale (§4.5): la <strong>Beta-Bernoulli</strong>.</p>
+<p>Ripasso in una riga: il prior \(\text{Beta}(\alpha_0, \beta_0)\) sono <strong>conteggi virtuali</strong> — \(\alpha_0\) eventi negativi e \(\beta_0\) invii puliti «già visti» in immaginazione (il pedice \(0\) si legge «di partenza»). Osservati \(k\) eventi negativi reali su \(m\) invii:</p>
+<div class="formula key">\[ \theta_{\text{spam}} \mid \text{dati} \;\sim\; \text{Beta}(\alpha_0 + k,\ \beta_0 + m - k) \qquad\Rightarrow\qquad \mathbb{E}[\theta_{\text{spam}} \mid \text{dati}] \;=\; \frac{\alpha_0 + k}{\alpha_0 + \beta_0 + m} \]</div>
+<p>(\(\sim\) qui si legge «si distribuisce come»; \(\mathbb{E}\) è il valore atteso dell'Appendice D.2 della 1.1.) Aggiornare = <strong>sommare i conteggi reali a quelli virtuali</strong>. Nessuna magia nuova: è la formula di Robinson con altri vestiti.</p>
+<p><strong>Da dove viene il prior? Dal vicinato.</strong> Un IP mai visto eredita \((\alpha_0, \beta_0)\) dalla reputazione del suo blocco /24, del suo fornitore di rete (ASN), del suo «quartiere» <strong>[INF]</strong>. Ecco perché un IP pulito dentro un blocco sporco <strong>parte penalizzato</strong>: il suo prior nasce già carico.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — il quartiere cattivo</span>
+<p>IP nuovo in un blocco con brutta fama: prior ereditato \(\text{Beta}(3, 7)\) → stima di partenza \(\mathbb{E} = 3/10 = 0{,}3\): il 30% di rischio <strong>prima ancora di inviare</strong>.</p>
+<p>Il mittente si comporta bene: \(m = 20\) invii, \(k = 0\) eventi negativi → posterior \(\text{Beta}(3, 27)\) → \(\mathbb{E} = 3/30 = 0{,}1\). La buona condotta erode il pregiudizio — ma non lo azzera in un giorno.</p>
+<p>Se invece \(k = 2\): \(\text{Beta}(5, 25)\) → \(\mathbb{E} = 5/30 \approx 0{,}17\).</p>
+</div>
+
+<div class="callout ex" id="ex-3"><span class="tag">Esercizi — §3</span>
+<ol>
+<li>Prior neutro \(\text{Beta}(1, 1)\), poi \(k = 4\) negativi su \(m = 10\). Calcola la media a posteriori.</li>
+<li>Con le parole di §4.3 della 1.1: che cosa sono \(\alpha_0\) e \(\beta_0\)?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-3">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Wilson: non premiare chi ha pochi dati</h2>
+<p>Il paper preferisce spesso, alla media a posteriori, il <strong>bordo prudente</strong> di F4 §5: il lower confidence bound di Wilson. Motivo identico a quello già visto: un mittente con 10 invii puliti non deve valere quanto uno con 10.000 invii puliti. Il richiamo numerico di F4 dice tutto: stessa frequenza \(0{,}1\), ma LCB \(\approx 0{,}017\) con \(m = 10\) e \(\approx 0{,}083\) con \(m = 1000\). Decide \(m\). Clamp → shrink → Beta → Wilson: <strong>quarta apparizione della stessa domanda</strong>, «quanto fidarsi di un conteggio piccolo?».</p>
+
+<hr/>
+
+<h2 id="sec-5">5. Il tempo: la ricetta completa dell'aggiornamento</h2>
+<p>La reputazione <strong>decade e si aggiorna in streaming</strong>. L'algoritmo del paper (<code>update_reputation</code>) fa quattro mosse a ogni evento — e le conosci tutte:</p>
+<ol>
+<li><strong>EWMA sulle feature</strong> (F4 §4): ogni statistica corrente \(\bar{x}\) insegue il presente e dimentica il passato, con memoria \(\tau\).</li>
+<li><strong>Aggiornamento Beta</strong> (§3 qui): evento negativo → \(\alpha \mathrel{+}= 1\), altrimenti \(\beta \mathrel{+}= 1\).</li>
+<li><strong>Score discriminativo</strong> (§2 qui): \(\sigma(\boldsymbol\theta^{\top}\bar{\mathbf{x}})\), con \(\boldsymbol\theta\) che può aggiornarsi online via SGD (F4 §3).</li>
+<li><strong>Cold start — miscela col vicinato</strong>: finché le osservazioni sono poche, lo score personale si mescola col prior del quartiere:</li>
+</ol>
+<div class="formula key">\[ \text{score} \;=\; w \cdot \text{score personale} \;+\; (1 - w) \cdot \text{prior del vicinato} \]</div>
+<p>dove \(w \in [0,1]\) è il <strong>peso della miscela</strong>: cresce man mano che il mittente accumula storia propria.</p>
+<div class="callout warn"><span class="tag">Trappola dei simboli</span>
+<p>Questo \(w\) è un <strong>peso</strong>, non la <strong>parola</strong> \(w\) della 1.1. E il \(\#\) di §2 è «numero di», non un commento di codice. Il paper ricicla le lettere: decide sempre il contesto.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico — la miscela</span>
+<p>Score personale \(0{,}4\) (poca storia, \(w = 0{,}7\)), vicinato malfamato con prior \(0{,}8\):</p>
+<div class="formula">\[ 0{,}7 \cdot 0{,}4 + 0{,}3 \cdot 0{,}8 = 0{,}28 + 0{,}24 = 0{,}52 \]</div>
+<p>Il quartiere ti costa: da \(0{,}4\) a \(0{,}52\) solo per l'indirizzo di casa.</p>
+</div>
+<p>L'uscita non è un verdetto binario: alimenta la <strong>politica di consegna</strong> — inbox, cartella spam, rallentamento, rifiuto — con soglie che dipendono da volume e contesto <strong>[PROP]</strong>: qui i numeri veri sono segreti industriali, il paper ricostruisce solo la struttura.</p>
+
+<div class="callout ex" id="ex-5"><span class="tag">Esercizi — §5</span>
+<ol>
+<li>Score personale \(0{,}2\), prior di vicinato \(0{,}6\), \(w = 0{,}5\). Calcola la miscela.</li>
+<li>Perché il passo 1 usa la EWMA e non la media di tutta la storia? (Una frase, con la parola «dimenticare».)</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#sol-5">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+
+<h3 id="sol-2">Soluzioni — §2</h3>
+<p class="note"><a class="xref" href="#ex-2">↩ Torna agli esercizi di §2</a></p>
+<ol>
+<li>\(500 \cdot 0{,}001 - 3 \cdot 0{,}95 = 0{,}5 - 2{,}85 = -2{,}35\) → \(r = \dfrac{1}{1 + e^{2{,}35}} \approx \dfrac{1}{11{,}5} \approx 0{,}09\): rischio basso.</li>
+<li>\(c = 3/2000 = 0{,}0015 = 0{,}15\%\) → <strong>no</strong>: supera lo \(0{,}1\%\) raccomandato (pur restando sotto lo \(0{,}3\%\) della squalifica).</li>
+</ol>
+
+<h3 id="sol-3">Soluzioni — §3</h3>
+<p class="note"><a class="xref" href="#ex-3">↩ Torna agli esercizi di §3</a></p>
+<ol>
+<li>\(\text{Beta}(1+4,\ 1+6) = \text{Beta}(5, 7)\) → \(\mathbb{E} = 5/12 \approx 0{,}42\).</li>
+<li>Sono le <strong>email-fantasma</strong>: \(\alpha_0\) eventi cattivi e \(\beta_0\) invii puliti immaginari, messi sul piatto prima dei dati veri.</li>
+</ol>
+
+<h3 id="sol-5">Soluzioni — §5</h3>
+<p class="note"><a class="xref" href="#ex-5">↩ Torna agli esercizi di §5</a></p>
+<ol>
+<li>\(0{,}5 \cdot 0{,}2 + 0{,}5 \cdot 0{,}6 = 0{,}1 + 0{,}3 = 0{,}4\).</li>
+<li>Perché la reputazione deve <strong>dimenticare</strong>: un mittente non è inchiodato per sempre a ciò che faceva un anno fa — conta il comportamento recente.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale. Valgono il pavimento della 1.1 e la tabella di F4.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(c\)</td><td>tasso di reclamo</td><td>\(\#\text{reclami}/\#\text{consegnate}\): il segnale «Segnala spam»</td><td>1.2 §2</td></tr>
+<tr><td>\(\#\)</td><td>numero di</td><td>cancelletto di conteggio: \(\#\text{reclami}\) = quanti reclami</td><td>1.2 §2</td></tr>
+<tr><td>\(\Delta V\)</td><td>variazione di volume</td><td>\(\Delta\) = «variazione di»: quanto è cambiato \(V\)</td><td>1.2 §2</td></tr>
+<tr><td>\(\alpha_0\), \(\beta_0\)</td><td>prior Beta (di partenza)</td><td>conteggi virtuali ereditati dal vicinato; pedice \(0\) = di partenza</td><td>1.2 §3</td></tr>
+<tr><td>\(\sim\)</td><td>si distribuisce come</td><td>secondo uso di \(\sim\) (in F4 era «dell'ordine di»): decide il contesto</td><td>1.2 §3</td></tr>
+<tr><td>ASN, /24</td><td>vicinato di rete</td><td>fornitore di rete; blocco di 256 indirizzi IP contigui</td><td>1.2 §3</td></tr>
+<tr><td>\(w\)</td><td>peso della miscela</td><td>quanto pesa lo score personale contro il prior del vicinato (≠ parola \(w\) della 1.1)</td><td>1.2 §5</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">1.2 — Score reputazionali · stato: <strong>bozza</strong> · usa F4 e la 1.1 · prossima nel percorso: 1.3 (Warmup), con F5.</p>
+</body>
+</html>
