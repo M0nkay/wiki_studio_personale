@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F0.4 — Somme e produttorie · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Sommatoria</a><a href="#sec-2">§2 Leggere Σ</a><a href="#sec-3">§3 Produttoria</a><a href="#sec-4">§4 Legame col log</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_3_Logaritmi.html">↩ F0.3</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F0.4 — Somme Σ e produttorie Π <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Quarto gradino dei prerequisiti. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>La moltiplicazione e le <a class="xref" href="F0_2_Potenze_e_radici.html">potenze</a> (F0.2); il <a class="xref" href="F0_3_Logaritmi.html">logaritmo</a> (F0.3) serve solo al §4.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. La sommatoria: «somma tutti questi»</h2>
+<p><strong>Intuizione.</strong> Quando devi sommare tanti pezzi — \(x_1 + x_2 + x_3 + \dots\) — scriverli tutti è lungo. La <strong>sommatoria</strong> è l'abbreviazione: una lettera che dice «somma tutto». Da programmatore è un <strong>ciclo che accumula</strong>: <code>totale = 0; for i ...: totale += x[i]</code>.</p>
+<p><strong>Il simbolo.</strong> È la lettera greca sigma maiuscola, \(\sum\). Sotto e sopra ci scrivi <em>da dove</em> a <em>dove</em> contare.</p>
+<div class="formula key">\[ \sum_{i=1}^{n} x_i \;=\; x_1 + x_2 + x_3 + \dots + x_n \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>Con tre numeri \(x_1 = 2\), \(x_2 = 5\), \(x_3 = 3\):</p>
+<div class="formula">\[ \sum_{i=1}^{3} x_i = 2 + 5 + 3 = 10 \]</div>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Come si legge Σ, pezzo per pezzo</h2>
+<p>Ogni parte del simbolo ha un ruolo. Smontiamolo:</p>
+<ul>
+<li>\(i\) è l'<strong>indice</strong>: un contatore che avanza (come la variabile di un ciclo).</li>
+<li>\(i = 1\) sotto: <strong>da dove parte</strong> il contatore.</li>
+<li>\(n\) sopra: <strong>dove arriva</strong> (l'ultimo valore).</li>
+<li>\(x_i\) a destra: <strong>cosa sommare</strong> a ogni giro; il pedice \(i\) dice «l'elemento numero \(i\)».</li>
+</ul>
+<div class="callout intu"><span class="tag">Traduzione in parole</span>
+<p>\(\sum_{i=1}^{n} x_i\) si legge: «fai partire \(i\) da 1, arriva fino a \(n\), e a ogni passo aggiungi \(x_i\) al totale». Tutto qui.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico — quando l'elemento è una formula</span>
+<p>A destra può esserci un'espressione, non solo \(x_i\). \(\sum_{i=1}^{3} i^2\) = somma dei quadrati da 1 a 3:</p>
+<div class="formula">\[ \sum_{i=1}^{3} i^2 = 1^2 + 2^2 + 3^2 = 1 + 4 + 9 = 14 \]</div>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. La produttoria: come Σ, ma moltiplica</h2>
+<p><strong>Intuizione.</strong> Identica alla sommatoria, con una sola differenza: invece di <strong>sommare</strong> i pezzi, li <strong>moltiplica</strong>. Il ciclo accumula con \(\cdot\) invece che con \(+\).</p>
+<p><strong>Il simbolo.</strong> La lettera greca pi maiuscola, \(\prod\) (la stessa «P» di «prodotto»).</p>
+<div class="formula key">\[ \prod_{i=1}^{n} x_i \;=\; x_1 \cdot x_2 \cdot x_3 \cdots x_n \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>Con gli stessi \(x_1 = 2\), \(x_2 = 5\), \(x_3 = 3\):</p>
+<div class="formula">\[ \prod_{i=1}^{3} x_i = 2 \cdot 5 \cdot 3 = 30 \]</div>
+<p>Stessi numeri della sommatoria (§1), ma moltiplicati: \(30\) invece di \(10\).</p>
+</div>
+<div class="callout warn"><span class="tag">Non confondere le due lettere</span>
+<p>\(\sum\) (sigma) = <strong>somma</strong>. \(\prod\) (pi) = <strong>prodotto</strong>. Si somigliano ma la pi ha le due «gambe» dritte. Trucco: <strong>P</strong>i → <strong>P</strong>rodotto.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Il legame che vedrai ovunque: il log unisce le due</h2>
+<p>Ricordi la regola d'oro dei logaritmi (F0.3 §4)? Il log trasforma un prodotto in una somma. Con i simboli nuovi, quella regola diventa il ponte tra \(\prod\) e \(\sum\):</p>
+<div class="formula key">\[ \log\!\left( \prod_{i=1}^{n} x_i \right) = \sum_{i=1}^{n} \log x_i \]</div>
+<p><strong>A parole.</strong> «Il logaritmo di un prodotto di tanti fattori = la somma dei loro logaritmi.» È esattamente il trucco della 1.1: una produttoria di probabilità (numeri piccoli, pericolosa per il computer) diventa una sommatoria di logaritmi (stabile). Non devi calcolarlo: devi <strong>riconoscerlo</strong> quando appare.</p>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<ol>
+<li>Calcola \(\sum_{i=1}^{4} i\) (somma i numeri da 1 a 4).</li>
+<li>Calcola \(\prod_{i=1}^{4} i\) (moltiplicali).</li>
+<li>Con \(x_1 = 10\), \(x_2 = 1\), \(x_3 = 4\): quanto vale \(\sum_{i=1}^{3} x_i\)?</li>
+<li>Quale simbolo somma e quale moltiplica: \(\sum\) o \(\prod\)?</li>
+<li>A parole, cosa dice \(\log(\prod_i x_i) = \sum_i \log x_i\)?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(\sum_{i=1}^{4} i = 1+2+3+4 = 10\).</li>
+<li>\(\prod_{i=1}^{4} i = 1 \cdot 2 \cdot 3 \cdot 4 = 24\) (questo è il fattoriale — lo incontri in F0.5).</li>
+<li>\(10 + 1 + 4 = 15\).</li>
+<li>\(\sum\) somma, \(\prod\) moltiplica.</li>
+<li>Che il logaritmo di un prodotto è la somma dei logaritmi dei fattori.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(\sum\)</td><td>sommatoria (sigma)</td><td>somma tutti gli elementi indicati dall'indice</td><td>F0.4 §1</td></tr>
+<tr><td>\(i\), pedice \(x_i\)</td><td>indice; elemento i-esimo</td><td>il contatore del ciclo; \(x_i\) = l'elemento numero \(i\)</td><td>F0.4 §2</td></tr>
+<tr><td>\(\prod\)</td><td>produttoria (pi)</td><td>moltiplica tutti gli elementi indicati; P → Prodotto</td><td>F0.4 §3</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F0.4 — Somme e produttorie · <strong>bozza</strong> · prossima: F0.5 Notazione (incluso il fattoriale, che è una produttoria).</p>
+</body>
+</html>

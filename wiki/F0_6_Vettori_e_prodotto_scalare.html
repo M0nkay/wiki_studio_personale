@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F0.6 — Vettori e prodotto scalare · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Vettore</a><a href="#sec-2">§2 Prodotto scalare</a><a href="#sec-3">§3 Norma</a><a href="#sec-4">§4 Nella wiki</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_5_Notazione_di_base.html">↩ F0.5</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F0.6 — Vettori e prodotto scalare <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Sesto gradino: il mattone che apre F4, la 1.2 e tutta l'algebra lineare. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>La <a class="xref" href="F0_4_Somme_e_produttorie.html">sommatoria \(\sum\)</a> (F0.4) e la <a class="xref" href="F0_2_Potenze_e_radici.html">radice quadrata</a> (F0.2, per la norma al §3).</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Il vettore: una lista ordinata di numeri</h2>
+<p><strong>Intuizione.</strong> A volte un oggetto non si descrive con <em>un</em> numero, ma con <strong>più numeri insieme</strong>. Un punto su una mappa ha due numeri (est, nord); un mittente email ne ha tanti (reclami, bounce, autenticazione). Un <strong>vettore</strong> è semplicemente questa <strong>lista ordinata di numeri</strong>.</p>
+<p><strong>Definizione.</strong> Si scrive in grassetto e tra parentesi: \(\mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n)\). Ogni numero è una <strong>componente</strong>; l'ordine conta (la prima posizione ha un significato diverso dalla seconda). Da programmatore: un array.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(\mathbf{x} = (3;\ 4)\) è un vettore a due componenti: prima componente 3, seconda 4. Puoi immaginarlo come un punto: «3 passi a destra, 4 in su».</p>
+</div>
+<div class="callout warn"><span class="tag">Convenzione — il grassetto</span>
+<p>Il <strong>grassetto</strong> segnala «questo è un oggetto a più componenti»: \(\mathbf{x}\) è un vettore, \(x\) da solo è un numero singolo. Nella wiki lo vedi per i dati \(\mathbf{x}\), i pesi \(\boldsymbol\theta\), le distribuzioni \(\mathbf{p}\).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Il prodotto scalare: da due liste, un solo numero</h2>
+<p><strong>Intuizione.</strong> Spesso hai due liste della stessa lunghezza — i dati e la loro <strong>importanza</strong> (i pesi) — e vuoi combinarle in un unico punteggio. Il <strong>prodotto scalare</strong> fa proprio questo: <strong>moltiplica le componenti a coppie, poi somma tutto</strong>.</p>
+<p><strong>Definizione.</strong> Per due vettori \(\boldsymbol\theta\) e \(\mathbf{x}\) della stessa lunghezza (qui uso la sommatoria di F0.4):</p>
+<div class="formula key">\[ \boldsymbol\theta^{\top}\mathbf{x} \;=\; \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n \;=\; \sum_{i=1}^{n} \theta_i x_i \]</div>
+<p>Il simbolo \(\top\) in alto si legge «trasposto»: è una convenzione di scrittura che segnala «sto per fare il prodotto scalare». Per te, in pratica, significa solo «<strong>moltiplica a coppie e somma</strong>». Da programmatore: <code>sum(t*x for t, x in zip(theta, xs))</code>.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — passo per passo</span>
+<p>\(\boldsymbol\theta = (2;\ -1)\) (i pesi), \(\mathbf{x} = (3;\ 4)\) (i dati):</p>
+<ol>
+<li>Moltiplica le prime componenti: \(2 \cdot 3 = 6\).</li>
+<li>Moltiplica le seconde: \(-1 \cdot 4 = -4\).</li>
+<li>Somma: \(6 + (-4) = 2\).</li>
+</ol>
+<p>Quindi \(\boldsymbol\theta^{\top}\mathbf{x} = 2\). Un peso positivo spinge il punteggio in su, uno negativo lo tira in giù.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. La norma: la «lunghezza» di un vettore</h2>
+<p><strong>Intuizione.</strong> Se il vettore è un punto, la <strong>norma</strong> è la sua <strong>distanza dall'origine</strong> — quanto è «lungo» se lo disegni come una freccia dallo zero. È il teorema di Pitagora esteso.</p>
+<p><strong>Definizione.</strong> Si scrive tra doppie barre, \(\lVert \mathbf{x} \rVert\): eleva al quadrato ogni componente, somma, e fai la radice (F0.2).</p>
+<div class="formula key">\[ \lVert \mathbf{x} \rVert \;=\; \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \;=\; \sqrt{\sum_{i=1}^{n} x_i^2} \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico — il classico 3-4-5</span>
+<p>\(\mathbf{x} = (3;\ 4)\): \(\lVert \mathbf{x} \rVert = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5\). La freccia da (0,0) a (3,4) è lunga 5.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Dove li ritrovi nella wiki</h2>
+<p>Questi tre oggetti sono il motore di mezza wiki:</p>
+<ul>
+<li><strong>Prodotto scalare</strong> \(\boldsymbol\theta^{\top}\mathbf{x}\): è il cuore della <strong>regressione logistica</strong> (F4, 1.2) — il punteggio grezzo di un mittente, prima della sigmoide. E di ogni punteggio del ranking (3.1).</li>
+<li><strong>Norma</strong> \(\lVert\boldsymbol\theta\rVert\): misura «quanto sono grossi i pesi», usata nella <strong>regolarizzazione L2</strong> (F4) per tenerli sotto controllo.</li>
+<li><strong>Vettori</strong>: le distribuzioni di probabilità di <strong>PageRank</strong> (F2, 2.1) sono vettori che una matrice trasforma passo dopo passo.</li>
+</ul>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<ol>
+<li>Nel vettore \(\mathbf{x} = (7;\ 2;\ 5)\), qual è la seconda componente?</li>
+<li>Calcola il prodotto scalare di \(\boldsymbol\theta = (1;\ 2)\) e \(\mathbf{x} = (4;\ 3)\).</li>
+<li>Calcola il prodotto scalare di \(\boldsymbol\theta = (2;\ -1)\) e \(\mathbf{x} = (1;\ 5)\).</li>
+<li>Calcola la norma di \(\mathbf{x} = (6;\ 8)\).</li>
+<li>A parole: cosa fa il prodotto scalare, in due mosse?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<ol>
+<li>La seconda componente è \(2\).</li>
+<li>\(1 \cdot 4 + 2 \cdot 3 = 4 + 6 = 10\).</li>
+<li>\(2 \cdot 1 + (-1) \cdot 5 = 2 - 5 = -3\).</li>
+<li>\(\sqrt{6^2 + 8^2} = \sqrt{36 + 64} = \sqrt{100} = 10\).</li>
+<li>Moltiplica le componenti a coppie, poi somma i risultati.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(\mathbf{x}\)</td><td>vettore</td><td>lista ordinata di numeri; grassetto = più componenti</td><td>F0.6 §1</td></tr>
+<tr><td>\(x_i\)</td><td>componente</td><td>il numero in posizione \(i\) del vettore</td><td>F0.6 §1</td></tr>
+<tr><td>\(\boldsymbol\theta^{\top}\mathbf{x}\), \(\top\)</td><td>prodotto scalare; trasposto</td><td>«moltiplica a coppie e somma»; \(\top\) segnala l'operazione</td><td>F0.6 §2</td></tr>
+<tr><td>\(\lVert \mathbf{x} \rVert\)</td><td>norma</td><td>lunghezza del vettore: \(\sqrt{\sum_i x_i^2}\) (Pitagora esteso)</td><td>F0.6 §3</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F0.6 — Vettori e prodotto scalare · <strong>bozza</strong> · prossima trance (l'ultima): F0.7 Derivata, F0.8 Integrale.</p>
+</body>
+</html>

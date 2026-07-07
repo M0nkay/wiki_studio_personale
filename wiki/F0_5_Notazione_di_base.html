@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F0.5 — Notazione di base · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Valore assoluto</a><a href="#sec-2">§2 Floor</a><a href="#sec-3">§3 min e max</a><a href="#sec-4">§4 Fattoriale</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_4_Somme_e_produttorie.html">↩ F0.4</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F0.5 — Notazione di base: |x|, ⌊·⌋, min/max, fattoriale <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Quinto gradino: una raccolta di piccoli simboli che compaiono ovunque. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>La <a class="xref" href="F0_4_Somme_e_produttorie.html">produttoria \(\prod\)</a> (F0.4), che serve per il fattoriale al §4. Il resto parte da zero.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Il valore assoluto |x|: «quanto lontano da zero»</h2>
+<p><strong>Intuizione.</strong> Il <strong>valore assoluto</strong> è la <strong>distanza da zero</strong>, e una distanza non è mai negativa. Sia \(+5\) che \(-5\) distano 5 passi dallo zero: il valore assoluto di entrambi è \(5\). In pratica: <strong>togli il segno meno</strong>.</p>
+<p><strong>Definizione.</strong> Si scrive tra due barre verticali: \(|x|\). Se \(x\) è positivo resta com'è; se è negativo diventa positivo.</p>
+<div class="formula key">\[ |5| = 5 \qquad |-5| = 5 \qquad |0| = 0 \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico — a cosa serve</span>
+<p>Per misurare quanto due numeri <strong>differiscono</strong>, senza che conti chi è più grande: \(|3 - 7| = |-4| = 4\), e \(|7 - 3| = |4| = 4\). Stessa distanza, nei due versi. (Nella 1.1 serve per scegliere le parole «più lontane da \(0{,}5\)»: \(|p - 0{,}5|\).)</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Il floor ⌊·⌋: «arrotonda in giù»</h2>
+<p><strong>Intuizione.</strong> Il <strong>floor</strong> (in italiano «parte intera inferiore») butta via i decimali e tiene solo l'intero <strong>sotto</strong>. È come contare quante persone <em>intere</em> stanno in un ascensore: 2,75 persone non esistono, sono 2.</p>
+<p><strong>Definizione.</strong> Le parentesi a squadra basse, \(\lfloor x \rfloor\), danno il più grande intero non superiore a \(x\). Da programmatore: la divisione intera, il tuo <code>//</code> o <code>floor()</code>.</p>
+<div class="formula key">\[ \lfloor 2{,}75 \rfloor = 2 \qquad \lfloor 5 \rfloor = 5 \qquad \lfloor 0{,}9 \rfloor = 0 \]</div>
+<div class="callout warn"><span class="tag">Sempre in giù, non «al più vicino»</span>
+<p>Attenzione: il floor va <strong>sempre verso il basso</strong>, non arrotonda al più vicino. \(\lfloor 2{,}9 \rfloor = 2\), non 3. Taglia e basta. (Serve nella codifica Rice della sezione 4: \(\lfloor \delta / 2^k \rfloor\).)</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. min e max: il più piccolo e il più grande</h2>
+<p><strong>Intuizione.</strong> Esattamente ciò che sembrano: \(\min\) sceglie il <strong>più piccolo</strong> di un gruppo di numeri, \(\max\) il <strong>più grande</strong>.</p>
+<div class="formula key">\[ \min(3,\ 8,\ 5) = 3 \qquad\qquad \max(3,\ 8,\ 5) = 8 \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico — a cosa servono nella wiki</span>
+<p>Spesso fanno da <strong>tetto</strong> o <strong>pavimento</strong>. Nel warmup (1.3): \(\min(V_{\max},\ \text{volume calcolato})\) impedisce di superare il tetto \(V_{\max}\) — se il calcolo dà di più, vince il tetto. E \(\max(0,\ \dots)\) nel CUSUM (F5) impedisce di scendere sotto zero.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Il fattoriale n!: il prodotto dei primi n numeri</h2>
+<p><strong>Intuizione.</strong> Il <strong>fattoriale</strong> di un numero moltiplica tutti gli interi da 1 fino a lui. È una <strong>produttoria</strong> (F0.4) travestita da punto esclamativo.</p>
+<p><strong>Definizione.</strong> Si scrive col punto esclamativo, \(n!\), e si legge «\(n\) fattoriale»:</p>
+<div class="formula key">\[ n! \;=\; 1 \cdot 2 \cdot 3 \cdots n \;=\; \prod_{i=1}^{n} i \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(3! = 1 \cdot 2 \cdot 3 = 6\). \(4! = 1 \cdot 2 \cdot 3 \cdot 4 = 24\). \(5! = 120\). Cresce in fretta.</p>
+<p>Convenzione: \(0! = 1\) (un prodotto «vuoto», per definizione, vale 1). Il fattoriale conta <strong>in quanti modi</strong> puoi ordinare \(n\) oggetti: 3 libri si mettono in fila in \(3! = 6\) modi diversi.</p>
+</div>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<ol>
+<li>Quanto vale \(|-8|\)? E \(|8 - 2|\)?</li>
+<li>Calcola \(\lfloor 3{,}99 \rfloor\).</li>
+<li>Quanto fa \(\min(7,\ 2,\ 9)\)? E \(\max(7,\ 2,\ 9)\)?</li>
+<li>Calcola \(4!\).</li>
+<li>Nel warmup, \(\min(1000,\ 1139)\) quanto vale, e cosa significa a parole?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(|-8| = 8\); \(|8 - 2| = |6| = 6\).</li>
+<li>\(\lfloor 3{,}99 \rfloor = 3\) (in giù, sempre).</li>
+<li>\(\min = 2\); \(\max = 9\).</li>
+<li>\(4! = 1\cdot2\cdot3\cdot4 = 24\).</li>
+<li>\(\min(1000,\ 1139) = 1000\): significa «hai raggiunto il tetto, non sali oltre 1000».</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(|x|\)</td><td>valore assoluto</td><td>distanza da zero: toglie il segno meno; \(|-5|=5\)</td><td>F0.5 §1</td></tr>
+<tr><td>\(\lfloor x \rfloor\)</td><td>floor (parte intera inferiore)</td><td>arrotonda sempre in giù all'intero: \(\lfloor 2{,}75 \rfloor = 2\)</td><td>F0.5 §2</td></tr>
+<tr><td>\(\min\), \(\max\)</td><td>minimo, massimo</td><td>il più piccolo / il più grande di un gruppo; spesso tetto o pavimento</td><td>F0.5 §3</td></tr>
+<tr><td>\(n!\)</td><td>fattoriale</td><td>\(1\cdot2\cdots n\): il prodotto dei primi \(n\) interi; \(0!=1\)</td><td>F0.5 §4</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F0.5 — Notazione di base · <strong>bozza</strong> · prossima: F0.6 Vettori e prodotto scalare.</p>
+</body>
+</html>

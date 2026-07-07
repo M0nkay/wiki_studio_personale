@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F0.2 — Potenze e radici · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Potenza</a><a href="#sec-2">§2 Regole</a><a href="#sec-3">§3 Esponenti speciali</a><a href="#sec-4">§4 Radice</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_1_Frazioni_e_percentuali.html">↩ F0.1</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F0.2 — Potenze e radici <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Secondo gradino dei prerequisiti. Serve solo la moltiplicazione. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="F0_1_Frazioni_e_percentuali.html">F0.1</a> (frazioni e decimali). Nient'altro.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. Che cos'è una potenza</h2>
+<p><strong>Intuizione.</strong> Una <strong>potenza</strong> è una moltiplicazione ripetuta, scritta corta. Invece di \(2 \cdot 2 \cdot 2\) scrivi \(2^3\): «due elevato a tre», cioè «due moltiplicato per sé stesso tre volte».</p>
+<p><strong>Definizione.</strong> In \(a^b\): il numero grande \(a\) è la <strong>base</strong> (cosa moltiplichi), il numero piccolo in alto \(b\) è l'<strong>esponente</strong> (quante volte). Da programmatore lo scrivi <code>a**b</code> o <code>pow(a,b)</code>.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(2^3 = 2 \cdot 2 \cdot 2 = 8\). \(10^2 = 10 \cdot 10 = 100\). \(5^1 = 5\) (una volta sola). \(3^4 = 3 \cdot 3 \cdot 3 \cdot 3 = 81\).</p>
+</div>
+<div class="callout intu"><span class="tag">Le potenze di 10 sono facilissime</span>
+<p>L'esponente conta gli zeri: \(10^2 = 100\) (due zeri), \(10^3 = 1000\) (tre zeri), \(10^6 = 1\,000\,000\) (un milione). Le userai spesso per i numeri grandi.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Le due regole che servono</h2>
+<p>Non serve impararle a memoria come formule: bastano se capisci <em>perché</em>.</p>
+<div class="formula key">\[ a^m \cdot a^n = a^{m+n} \qquad\qquad \frac{a^m}{a^n} = a^{m-n} \]</div>
+<p><strong>Perché la prima.</strong> \(2^2 \cdot 2^3 = (2 \cdot 2) \cdot (2 \cdot 2 \cdot 2)\): in tutto cinque «2» moltiplicati, cioè \(2^5\). Moltiplicare potenze con la stessa base = <strong>sommare</strong> gli esponenti. La seconda è il gemello con la sottrazione (dividere ne toglie).</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(10^2 \cdot 10^3 = 10^{5} = 100\,000\). Verifica: \(100 \cdot 1000 = 100\,000\). ✓ E \(\dfrac{10^5}{10^2} = 10^{3} = 1000\).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. Esponenti speciali: zero e negativi</h2>
+<p>Due casi che sembrano strani ma seguono dalla regola di sopra.</p>
+<p><strong>Esponente 0.</strong> Qualsiasi numero (tranne 0) elevato a 0 fa <strong>1</strong>: \(a^0 = 1\). Perché? \(\dfrac{a^3}{a^3} = a^{3-3} = a^0\), ma una cosa divisa per sé stessa fa 1. Quindi \(a^0 = 1\).</p>
+<p><strong>Esponente negativo.</strong> Significa «uno diviso»: \(a^{-b} = \dfrac{1}{a^b}\). Il segno meno ti manda <strong>sotto</strong> la frazione.</p>
+<div class="formula key">\[ a^0 = 1 \qquad\qquad a^{-b} = \frac{1}{a^b} \]</div>
+<div class="callout ex"><span class="tag">Esempio numerico — molto usato nella wiki</span>
+<p>\(10^{-6} = \dfrac{1}{10^6} = \dfrac{1}{1\,000\,000} = 0{,}000001\): un milionesimo. Quando nella 2.3 e nella sezione 4 vedi \(10^{-6}\), leggi «uno su un milione». \(2^{-1} = \dfrac{1}{2} = 0{,}5\).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. La radice quadrata: la potenza al contrario</h2>
+<p><strong>Intuizione.</strong> La <strong>radice quadrata</strong> fa la domanda inversa del quadrato: «quale numero, moltiplicato per sé stesso, dà questo?». Il quadrato va avanti (\(5 \to 25\)), la radice torna indietro (\(25 \to 5\)).</p>
+<p><strong>Definizione.</strong> \(\sqrt{c}\) è quel numero che elevato al quadrato dà \(c\). \(\sqrt{25} = 5\) perché \(5^2 = 25\). Il simbolo \(\sqrt{\phantom{x}}\) si chiama <strong>segno di radice</strong>.</p>
+<div class="callout ex"><span class="tag">Esempi da riconoscere a colpo d'occhio</span>
+<p>\(\sqrt{1} = 1\) · \(\sqrt{4} = 2\) · \(\sqrt{9} = 3\) · \(\sqrt{16} = 4\) · \(\sqrt{25} = 5\) · \(\sqrt{100} = 10\). (Numeri come \(\sqrt{2} \approx 1{,}41\) non vengono «tondi»: si lasciano così o si stima con la calcolatrice.)</p>
+</div>
+<div class="callout intu"><span class="tag">Perché «quadrata»</span>
+<p>Un quadrato di lato 5 ha area \(5^2 = 25\). Se conosci l'area (25) e vuoi il lato, fai la radice: \(\sqrt{25} = 5\). La radice quadrata trova il <strong>lato</strong> dato il quadrato — da lì il nome. Ti servirà nella norma dei vettori (F0.6) e nella deviazione standard (F5).</p>
+</div>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<ol>
+<li>Calcola \(2^4\) e \(10^3\).</li>
+<li>Semplifica \(3^2 \cdot 3^2\) usando la regola (somma gli esponenti), poi verifica.</li>
+<li>Quanto vale \(7^0\)?</li>
+<li>Scrivi \(10^{-3}\) come numero decimale.</li>
+<li>Calcola \(\sqrt{36}\) e \(\sqrt{81}\).</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(2^4 = 2\cdot2\cdot2\cdot2 = 16\); \(10^3 = 1000\).</li>
+<li>\(3^2 \cdot 3^2 = 3^{2+2} = 3^4 = 81\). Verifica: \(9 \cdot 9 = 81\). ✓</li>
+<li>\(7^0 = 1\) (qualsiasi base tranne 0).</li>
+<li>\(10^{-3} = \dfrac{1}{1000} = 0{,}001\).</li>
+<li>\(\sqrt{36} = 6\) (perché \(6^2 = 36\)); \(\sqrt{81} = 9\).</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(a^b\)</td><td>potenza</td><td>\(a\) base, \(b\) esponente: \(a\) moltiplicato per sé stesso \(b\) volte</td><td>F0.2 §1</td></tr>
+<tr><td>\(a^0\)</td><td>esponente zero</td><td>vale sempre \(1\) (per base diversa da 0)</td><td>F0.2 §3</td></tr>
+<tr><td>\(a^{-b}\)</td><td>esponente negativo</td><td>\(= 1/a^b\): il meno manda sotto la frazione</td><td>F0.2 §3</td></tr>
+<tr><td>\(\sqrt{c}\)</td><td>radice quadrata</td><td>il numero che al quadrato dà \(c\): \(\sqrt{25}=5\)</td><td>F0.2 §4</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F0.2 — Potenze e radici · <strong>bozza</strong> · prossima: F0.3 Logaritmi (che sono le potenze «al contrario»).</p>
+</body>
+</html>

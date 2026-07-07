@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F0.7 — La derivata · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 La pendenza</a><a href="#sec-2">§2 Definizione</a><a href="#sec-3">§3 Segno</a><a href="#sec-4">§4 Nella wiki</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_6_Vettori_e_prodotto_scalare.html">↩ F0.6</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F0.7 — La derivata: la pendenza <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Settimo gradino. Qui impari <strong>l'idea</strong> di derivata, non la tecnica per calcolarle: nella wiki serve a capire «quanto ripido», non a fare conti. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p>Le <a class="xref" href="F0_1_Frazioni_e_percentuali.html">frazioni</a> (F0.1): la pendenza è un rapporto. Nient'altro di nuovo.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. L'intuizione: quanto è ripida la salita</h2>
+<p><strong>Intuizione.</strong> Immagina di camminare su una collina. In ogni punto puoi chiederti: «quanto è <strong>ripido</strong> qui?». Su un tratto piano, zero. Su una salita dolce, poco. Su un muro, tanto. La <strong>derivata</strong> è esattamente questo: la <strong>ripidità (pendenza) di una curva in un punto</strong>.</p>
+<p>Il concetto lo conosci già dalla strada: un cartello «pendenza 10%» dice che ogni 100 metri in avanti sali di 10. Pendenza = <strong>quanto sali</strong> diviso <strong>quanto avanzi</strong>.</p>
+<div class="callout intu"><span class="tag">La formula della pendenza è una frazione</span>
+<p>Pendenza \(= \dfrac{\text{quanto sali}}{\text{quanto avanzi}} = \dfrac{\text{variazione in verticale}}{\text{variazione in orizzontale}}\). Nient'altro che una divisione (F0.1): su/avanti.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Dalla pendenza di una retta alla derivata</h2>
+<p>Per una <strong>retta</strong>, la pendenza è la stessa dappertutto: prendi due punti e fai su/avanti.</p>
+<div class="callout ex"><span class="tag">Esempio numerico — la retta</span>
+<p>Da (orizzontale 2, verticale 3) a (orizzontale 6, verticale 11): sali \(11 - 3 = 8\), avanzi \(6 - 2 = 4\). Pendenza \(= \dfrac{8}{4} = 2\). Ogni passo in avanti, due in su.</p>
+</div>
+<p><strong>Il problema.</strong> Una <strong>curva</strong> non ha una pendenza sola: è più ripida in certi punti, meno in altri. La <strong>derivata</strong> risolve così: misura la pendenza <strong>in un singolo punto</strong>, guardando un tratto <strong>talmente piccolo</strong> che lì la curva sembra una retta. È la pendenza della retta che «sfiora» la curva in quel punto (i matematici la chiamano <strong>tangente</strong>).</p>
+<div class="callout warn"><span class="tag">Cosa ti serve davvero</span>
+<p>Non ti serve <strong>calcolare</strong> derivate a mano (ci sono regole che qui non servono). Ti serve capire che «derivata» = <strong>pendenza in un punto</strong> = «quanto sta cambiando la cosa proprio qui». Quando nella wiki leggi «la derivata è zero», traduci: «qui è piatto, non cambia».</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. Il segno della derivata dice la direzione</h2>
+<p>La cosa più utile della derivata è il suo <strong>segno</strong>:</p>
+<ul>
+<li>derivata <strong>positiva</strong> → la curva <strong>sale</strong> (più avanzi, più cresce);</li>
+<li>derivata <strong>negativa</strong> → la curva <strong>scende</strong>;</li>
+<li>derivata <strong>zero</strong> → punto <strong>piatto</strong>: una cima, un fondo, o un pianoro.</li>
+</ul>
+<div class="callout intu"><span class="tag">Perché lo zero è speciale</span>
+<p>In cima a una collina, per un istante non stai né salendo né scendendo: pendenza zero. Lo stesso nel punto più basso di una valle. Ecco perché «trovare dove la derivata è zero» = <strong>trovare i punti più alti o più bassi</strong>. È il trucco dietro la ricerca del massimo (la MLE della 1.1) e del minimo (la discesa del gradiente di F4).</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. Dove la ritrovi nella wiki</h2>
+<ul>
+<li><strong>Discesa del gradiente</strong> (F4): «scendere la collina dell'errore» significa seguire la pendenza verso il basso. Il gradiente è la derivata che indica <strong>da che parte si scende</strong>.</li>
+<li><strong>MLE</strong> (1.1, §3.2): trovare il valore che <strong>massimizza</strong> la verosimiglianza = trovare la cima = cercare dove la pendenza è zero.</li>
+<li>Ogni volta che un box dice «qui la funzione è massima/minima», sotto c'è l'idea di pendenza zero.</li>
+</ul>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<ol>
+<li>Una retta va da (orizzontale 1, verticale 2) a (orizzontale 4, verticale 8). Qual è la pendenza?</li>
+<li>Se la derivata di una curva in un punto è negativa, la curva lì sale o scende?</li>
+<li>Cosa significa, a parole, «la derivata è zero in quel punto»?</li>
+<li>Perché per trovare la cima di una collina si cerca dove la pendenza è zero?</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<ol>
+<li>Sali \(8 - 2 = 6\), avanzi \(4 - 1 = 3\): pendenza \(= \dfrac{6}{3} = 2\).</li>
+<li><strong>Scende</strong>: derivata negativa = curva in discesa.</li>
+<li>Che in quel punto la curva è <strong>piatta</strong>: non sta né salendo né scendendo (una cima, un fondo o un pianoro).</li>
+<li>Perché in cima, per un istante, non sali più e non scendi ancora: la pendenza vale zero proprio lì.</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli e termini introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo/termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>derivata</td><td>pendenza in un punto</td><td>quanto è ripida una curva lì; «quanto sta cambiando proprio qui»</td><td>F0.7 §1</td></tr>
+<tr><td>pendenza</td><td>—</td><td>\(\dfrac{\text{quanto sali}}{\text{quanto avanzi}}\): una frazione</td><td>F0.7 §1</td></tr>
+<tr><td>tangente</td><td>—</td><td>la retta che «sfiora» la curva in un punto; la sua pendenza è la derivata</td><td>F0.7 §2</td></tr>
+<tr><td>derivata = 0</td><td>punto piatto</td><td>cima, fondo o pianoro: né sale né scende</td><td>F0.7 §3</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F0.7 — La derivata · <strong>bozza</strong> · prossima: F0.8 Integrale, l'ultimo prerequisito.</p>
+</body>
+</html>

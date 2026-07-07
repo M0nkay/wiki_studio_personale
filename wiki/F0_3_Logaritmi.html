@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F0.3 — Logaritmi · Wiki Sistemi di Fiducia</title>
+<style>
+:root{
+  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
+  --box:#F1E9DA; --border:#e2d6bf;
+  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
+  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
+  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
+  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
+  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
+}
+html{font-size:118%;-webkit-text-size-adjust:100%;}
+body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
+  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
+  letter-spacing:.012em;word-spacing:.03em;}
+p{margin:.7em 0 1em;}
+h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
+h1{font-size:1.7rem;margin:.2em 0 .2em;}
+.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
+h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
+h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
+h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
+strong{font-weight:700;}
+ul,ol{padding-left:1.35em;}
+li{margin:.4em 0;}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
+code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
+  padding:.05em .35em;border-radius:4px;font-size:.9em;}
+
+/* callout boxes */
+.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
+.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
+.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
+.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.35em;}
+.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
+.intu .tag{color:var(--intu-bd);}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
+.warn .tag{color:var(--warn-bd);}
+.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
+.deep .tag{color:var(--deep-bd);}
+.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
+.ex .tag{color:#5f594d;}
+
+/* the orienting pipeline / index box */
+.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
+  padding:1em 1.2em;margin:1.4em 0 2em;}
+.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
+.chain{font-weight:700;color:var(--navy);line-height:1.9;}
+.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:.12em .5em;display:inline-block;margin:.15em 0;}
+.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
+
+/* formula highlight */
+.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
+  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
+.formula.key{border-left:5px solid var(--navy);}
+
+/* tables */
+table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
+caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
+th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
+th{background:#fff8ec;color:var(--navy);}
+.cm td{text-align:center;font-size:.92rem;}
+.ok{background:#EAF3EE;}
+.fn{background:#FBF3DC;}
+.fp{background:#F8E3DC;}
+.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
+
+.note{font-size:.9rem;color:var(--navy2);}
+mjx-container{overflow-x:auto;overflow-y:hidden;}
+@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+
+<style>
+/* navigazione — solo schermo, deriva dai colori del documento */
+html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+[id]{scroll-margin-top:3.6rem;}
+.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
+ background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
+ padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
+.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
+ font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
+ border-radius:999px;padding:.18rem .62rem;}
+.quicknav a:hover{background:#fff2c4;}
+.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
+ outline:2px solid var(--navy);outline-offset:2px;}
+details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
+ padding:.75rem 1.1rem;margin:0 0 2rem;}
+details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
+details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
+details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
+details.toc li{margin:.28rem 0;}
+details.toc a{text-decoration:none;}
+details.toc a:hover{text-decoration:underline;}
+a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
+a.xref:hover{background:#fff2c4;}
+@media print{.quicknav,details.toc{display:none;}}
+</style>
+
+<style>
+.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+ padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
+.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
+</style>
+</head>
+<body>
+<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 L'idea</a><a href="#sec-2">§2 Definizione</a><a href="#sec-3">§3 Le basi</a><a href="#sec-4">§4 La regola d'oro</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_2_Potenze_e_radici.html">↩ F0.2</a><a href="#top">↑ inizio</a></nav>
+
+<h1 id="top">F0.3 — Logaritmi <span class="badge bozza">BOZZA</span></h1>
+<p class="note">Terzo gradino dei prerequisiti. <strong>Bozza</strong>: schermo sì, carta no.</p>
+
+<h2 id="prerequisiti">Prerequisiti</h2>
+<p><a class="xref" href="F0_2_Potenze_e_radici.html">F0.2</a> (le potenze) — perché il logaritmo <strong>è</strong> la potenza al contrario.</p>
+
+<hr/>
+
+<h2 id="sec-1">1. L'idea: la domanda inversa della potenza</h2>
+<p><strong>Intuizione.</strong> La potenza chiede: «\(2\) elevato a \(3\), quanto fa?» → \(8\). Il <strong>logaritmo</strong> chiede l'opposto: «\(2\) elevato a <em>quanto</em> fa \(8\)?» → \(3\). Non cerca il risultato, cerca <strong>l'esponente</strong>.</p>
+<p>Coppia da tenere insieme:</p>
+<div class="formula key">\[ 2^3 = 8 \qquad\Longleftrightarrow\qquad \log_2 8 = 3 \]</div>
+<p>(\(\Longleftrightarrow\) si legge «è la stessa cosa di»: le due scritture dicono lo stesso fatto, da due lati.)</p>
+<div class="callout intu"><span class="tag">Una frase che risolve tutto</span>
+<p>Il logaritmo è <strong>«a quale esponente devo elevare la base?»</strong>. Ogni volta che vedi \(\log\), traduci in questa domanda e sei a posto.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-2">2. Definizione e simboli</h2>
+<p><strong>Definizione.</strong> \(\log_b c\) è l'esponente da dare a \(b\) per ottenere \(c\). Il numero piccolo in basso, \(b\), è la <strong>base</strong> (la stessa idea di base della potenza); \(c\) è l'<strong>argomento</strong> (il risultato che vuoi raggiungere).</p>
+<div class="callout ex"><span class="tag">Esempio numerico — passo per passo</span>
+<p>Quanto vale \(\log_{10} 1000\)? La domanda: «10 elevato a quanto fa 1000?». Poiché \(10^3 = 1000\), la risposta è \(3\). Quindi \(\log_{10} 1000 = 3\).</p>
+<p>Altri: \(\log_2 4 = 2\) (perché \(2^2 = 4\)); \(\log_2 8 = 3\); \(\log_{10} 100 = 2\).</p>
+</div>
+<div class="callout ex"><span class="tag">Due valori speciali</span>
+<p>\(\log_b 1 = 0\) sempre: perché \(b^0 = 1\) (F0.2) — per ottenere 1 non elevo a niente. E \(\log_b b = 1\): per ottenere la base basta l'esponente 1.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-3">3. Le due basi che vedrai nella wiki</h2>
+<p>La base può essere qualsiasi numero, ma nella wiki compaiono solo due, con abbreviazioni proprie:</p>
+<ul>
+<li><strong>Base 2</strong> → \(\log_2\). È «in quanti dimezzamenti / raddoppi». Vive nella teoria dell'informazione (F3): i bit.</li>
+<li><strong>Base \(e\)</strong> → si scrive \(\ln\) (elle-enne), detto <strong>logaritmo naturale</strong>. Qui \(e \approx 2{,}718\) è un numero speciale della matematica (come \(\pi\)). Vive nella regressione logistica e nel metodo di Fisher.</li>
+</ul>
+<div class="callout warn"><span class="tag">Attenzione alla scrittura</span>
+<p>\(\ln x\) è solo un <strong>nome corto</strong> per \(\log_e x\): stessa identica idea, base \(e\). E \(\log\) senza base scritta, in questa wiki, va sempre letto guardando il contesto (di solito \(\ln\) o \(\log_2\)). Non ti serve calcolare \(\ln\) a mano: si legge dalla calcolatrice. Ti serve <strong>capire cosa chiede</strong>.</p>
+</div>
+
+<hr/>
+
+<h2 id="sec-4">4. La regola d'oro: il log trasforma il prodotto in somma</h2>
+<p>Questa è <strong>la</strong> ragione per cui i logaritmi sono ovunque nella wiki.</p>
+<div class="formula key">\[ \log(a \cdot b) = \log a + \log b \]</div>
+<p><strong>Intuizione.</strong> Il logaritmo <strong>smonta le moltiplicazioni in addizioni</strong>. E perché è utile? Perché moltiplicare tanti numeri piccoli (tante probabilità, nella 1.1) porta a numeri minuscoli che il computer non gestisce bene; sommare i loro logaritmi, invece, è stabile. È il trucco che nella 1.1 (§5.2) evita la «degenerazione numerica».</p>
+<div class="callout ex"><span class="tag">Esempio numerico — la regola in azione</span>
+<p>Verifichiamo con numeri tondi in base 10. \(\log_{10}(100 \cdot 1000)\):</p>
+<ol>
+<li>A sinistra: \(100 \cdot 1000 = 100\,000 = 10^5\) → \(\log_{10} 100\,000 = 5\).</li>
+<li>A destra: \(\log_{10} 100 + \log_{10} 1000 = 2 + 3 = 5\).</li>
+</ol>
+<p>Uguali. ✓ Il prodotto (a sinistra) è diventato somma (a destra).</p>
+</div>
+<div class="callout deep"><span class="tag">Più a fondo (opzionale) — la regola gemella</span>
+<p>Come le potenze avevano il gemello con la divisione, anche il log: \(\log\dfrac{a}{b} = \log a - \log b\) (la divisione diventa sottrazione). E \(\log(a^n) = n \cdot \log a\) (l'esponente «scende» a moltiplicare). Tutte figlie della stessa idea: il log abbassa di un livello — potenza→prodotto, prodotto→somma.</p>
+</div>
+
+<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<ol>
+<li>Quanto vale \(\log_2 16\)? (Domanda: 2 elevato a quanto fa 16?)</li>
+<li>Quanto vale \(\log_{10} 10\,000\)?</li>
+<li>Quanto vale \(\log_5 1\)?</li>
+<li>Cosa significa la scrittura \(\ln x\)? (A parole.)</li>
+<li>Usa la regola d'oro per riscrivere \(\log(7 \cdot 3)\) come una somma (non calcolare il valore).</li>
+</ol>
+<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
+</div>
+
+<hr/>
+
+<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<ol>
+<li>\(\log_2 16 = 4\), perché \(2^4 = 16\).</li>
+<li>\(\log_{10} 10\,000 = 4\), perché \(10^4 = 10\,000\) (quattro zeri).</li>
+<li>\(\log_5 1 = 0\): per ottenere 1 non elevo a niente (\(5^0 = 1\)).</li>
+<li>È il logaritmo in <strong>base \(e\)</strong> (\(e \approx 2{,}718\)), detto naturale: «\(e\) elevato a quanto fa \(x\)?».</li>
+<li>\(\log(7 \cdot 3) = \log 7 + \log 3\).</li>
+</ol>
+
+<hr/>
+
+<h2 id="simboli">Simboli introdotti in questa pagina</h2>
+<p class="note">Da fondere nel Glossario globale.</p>
+<table class="gl">
+<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+<tbody>
+<tr><td>\(\log_b c\)</td><td>logaritmo</td><td>l'esponente da dare a \(b\) per ottenere \(c\); la potenza al contrario</td><td>F0.3 §2</td></tr>
+<tr><td>\(\log_2\)</td><td>logaritmo in base 2</td><td>«in quanti raddoppi»; vive nella teoria dell'informazione</td><td>F0.3 §3</td></tr>
+<tr><td>\(\ln\), \(e\)</td><td>logaritmo naturale; numero di Eulero</td><td>\(\ln = \log_e\), con \(e \approx 2{,}718\) (una costante come \(\pi\))</td><td>F0.3 §3</td></tr>
+<tr><td>\(\log(ab)=\log a+\log b\)</td><td>regola d'oro</td><td>il logaritmo trasforma il prodotto in somma</td><td>F0.3 §4</td></tr>
+</tbody>
+</table>
+
+<hr/>
+<p class="note">F0.3 — Logaritmi · <strong>bozza</strong> · prossima trance: F0.4 (Σ e Π), F0.5 (notazione), F0.6 (vettori).</p>
+</body>
+</html>
