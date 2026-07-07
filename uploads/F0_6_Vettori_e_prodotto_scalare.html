@@ -116,28 +116,6 @@ a.xref:hover{background:#fff2c4;}
  padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
 .badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
 </style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
 </head>
 <body>
 <nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Vettore</a><a href="#sec-2">§2 Prodotto scalare</a><a href="#sec-3">§3 Norma</a><a href="#sec-4">§4 Nella wiki</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_5_Notazione_di_base.html">↩ F0.5</a><a href="#top">↑ inizio</a></nav>
@@ -236,21 +214,5 @@ a{color:var(--navy);}
 
 <hr/>
 <p class="note">F0.6 — Vettori e prodotto scalare · <strong>bozza</strong> · prossima trance (l'ultima): F0.7 Derivata, F0.8 Integrale.</p>
-
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Gradino 0 — prerequisiti">
-<div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<span class="wk-pos">Gradino 0</span>
-<a rel="prev" href="F0_5_Notazione_di_base.html" aria-label="Precedente: F0.5 — Notazione di base (|x|, floor, min/max, fattoriale)" title="Precedente: F0.5 — Notazione di base (|x|, floor, min/max, fattoriale)">← F0.5</a>
-<span class="wk-pos">6 di 8</span>
-<a rel="next" href="F0_7_Derivata.html" aria-label="Successivo: F0.7 — La derivata (la pendenza)" title="Successivo: F0.7 — La derivata (la pendenza)">F0.7 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
-<script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
-try{localStorage.setItem('wiki-tappa','F0.6|F0_6_Vettori_e_prodotto_scalare.html');}catch(e){}</script>
 </body>
 </html>
