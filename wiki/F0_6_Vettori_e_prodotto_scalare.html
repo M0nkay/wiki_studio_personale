@@ -152,7 +152,7 @@ a{color:var(--navy);}
 
 <h2 id="sec-1">1. Il vettore: una lista ordinata di numeri</h2>
 <p><strong>Intuizione.</strong> A volte un oggetto non si descrive con <em>un</em> numero, ma con <strong>più numeri insieme</strong>. Un punto su una mappa ha due numeri (est, nord); un mittente email ne ha tanti (reclami, bounce, autenticazione). Un <strong>vettore</strong> è semplicemente questa <strong>lista ordinata di numeri</strong>.</p>
-<p><strong>Definizione.</strong> Si scrive in grassetto e tra parentesi: \(\mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n)\). Ogni numero è una <strong>componente</strong>; l'ordine conta (la prima posizione ha un significato diverso dalla seconda). Da programmatore: un array.</p>
+<p><strong>Definizione.</strong> Un <strong>vettore</strong> è una <strong>lista ordinata di numeri</strong>, trattata come un oggetto unico. Ogni numero della lista è una <strong>componente</strong>, e <strong>l'ordine conta</strong>: la prima posizione ha un significato diverso dalla seconda. <strong>Il simbolo.</strong> Si scrive in grassetto e tra parentesi: \(\mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n)\). Da programmatore: un array.</p>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(\mathbf{x} = (3;\ 4)\) è un vettore a due componenti: prima componente 3, seconda 4. Puoi immaginarlo come un punto: «3 passi a destra, 4 in su».</p>
 </div>
@@ -164,7 +164,7 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. Il prodotto scalare: da due liste, un solo numero</h2>
 <p><strong>Intuizione.</strong> Spesso hai due liste della stessa lunghezza — i dati e la loro <strong>importanza</strong> (i pesi) — e vuoi combinarle in un unico punteggio. Il <strong>prodotto scalare</strong> fa proprio questo: <strong>moltiplica le componenti a coppie, poi somma tutto</strong>.</p>
-<p><strong>Definizione.</strong> Per due vettori \(\boldsymbol\theta\) e \(\mathbf{x}\) della stessa lunghezza (qui uso la sommatoria di F0.4):</p>
+<p><strong>Definizione.</strong> Il <strong>prodotto scalare</strong> di due vettori della stessa lunghezza è un <strong>numero</strong>: il <strong>punteggio complessivo</strong> che ottieni pesando ogni dato con la sua importanza. <strong>Come si calcola.</strong> Moltiplichi le componenti a coppie e sommi tutto (la sommatoria di F0.4):</p>
 <div class="formula key">\[ \boldsymbol\theta^{\top}\mathbf{x} \;=\; \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n \;=\; \sum_{i=1}^{n} \theta_i x_i \]</div>
 <p>Il simbolo \(\top\) in alto si legge «trasposto»: è una convenzione di scrittura che segnala «sto per fare il prodotto scalare». Per te, in pratica, significa solo «<strong>moltiplica a coppie e somma</strong>». Da programmatore: <code>sum(t*x for t, x in zip(theta, xs))</code>.</p>
 <div class="callout ex"><span class="tag">Esempio numerico — passo per passo</span>
@@ -181,10 +181,13 @@ a{color:var(--navy);}
 
 <h2 id="sec-3">3. La norma: la «lunghezza» di un vettore</h2>
 <p><strong>Intuizione.</strong> Se il vettore è un punto, la <strong>norma</strong> è la sua <strong>distanza dall'origine</strong> — quanto è «lungo» se lo disegni come una freccia dallo zero. È il teorema di Pitagora esteso.</p>
-<p><strong>Definizione.</strong> Si scrive tra doppie barre, \(\lVert \mathbf{x} \rVert\): eleva al quadrato ogni componente, somma, e fai la radice (F0.2).</p>
+<p><strong>Definizione.</strong> La <strong>norma</strong> è una <strong>funzione</strong>: prende in ingresso un <strong>vettore</strong> e restituisce un <strong>numero mai negativo</strong> — la <strong>lunghezza</strong> del vettore, cioè quanto dista dall'origine il punto che il vettore descrive. La norma <strong>euclidea</strong> (l'unica usata nel paper) misura questa lunghezza <strong>in linea d'aria</strong>, col teorema di Pitagora. <strong>Il simbolo.</strong> Doppie barre attorno al vettore: \(\lVert \mathbf{x} \rVert\). <strong>Come si calcola.</strong> Eleva al quadrato ogni componente, somma, e fai la radice (F0.2):</p>
 <div class="formula key">\[ \lVert \mathbf{x} \rVert \;=\; \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \;=\; \sqrt{\sum_{i=1}^{n} x_i^2} \]</div>
 <div class="callout ex"><span class="tag">Esempio numerico — il classico 3-4-5</span>
 <p>\(\mathbf{x} = (3;\ 4)\): \(\lVert \mathbf{x} \rVert = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5\). La freccia da (0,0) a (3,4) è lunga 5.</p>
+</div>
+<div class="callout deep"><span class="tag">Più a fondo (opzionale) — il collaudo delle lunghezze</span>
+<p>In matematica «norma» è il nome di una <strong>specie</strong>: qualunque funzione che si comporti da lunghezza. Il collaudo ha quattro prove, tutte di buon senso: (1) mai negativa; (2) vale zero <strong>solo</strong> per il vettore nullo; (3) raddoppi il vettore → raddoppia la lunghezza; (4) la linea d'aria non supera mai la deviazione (la «disuguaglianza triangolare»). La Pitagora di questa pagina è l'esemplare più famoso della specie, non l'unico.</p>
 </div>
 
 <hr/>

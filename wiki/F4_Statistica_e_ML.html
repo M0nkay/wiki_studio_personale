@@ -196,6 +196,7 @@ a{color:var(--navy);}
 <p>Il prodotto scalare \(\boldsymbol\theta^{\top}\mathbf{x}\) è un <strong>punteggio</strong>: può essere qualsiasi numero, positivo o negativo. Ma la 1.2 vuole una <strong>probabilità</strong> («quanto è probabile che questo mittente sia abusivo?»), cioè un numero in \((0,1)\). Il traduttore lo conosci già: è la <strong>sigmoide</strong> \(\sigma\) della 1.1 (§5.2), la funzione che comprime tutta la retta reale in \((0,1)\).</p>
 
 <h3 id="sec-2-2">2.2 Definizione</h3>
+<p>La <strong>regressione logistica</strong> è una <strong>funzione</strong>: prende il vettore dei dati \(\mathbf{x}\) e restituisce una <strong>probabilità</strong> in \((0,1)\) — la stima di quanto è probabile che l'etichetta valga 1. Due mosse: punteggio lineare, poi sigmoide.</p>
 <div class="formula key">\[ r(\mathbf{x}) \;=\; \sigma\bigl(\boldsymbol\theta^{\top}\mathbf{x}\bigr) \;=\; \frac{1}{1 + e^{-\boldsymbol\theta^{\top}\mathbf{x}}} \]</div>
 <p>Questo è tutto il modello: <strong>punteggio lineare, poi sigmoide</strong>. \(r(\mathbf{x})\) è la probabilità stimata che l'etichetta valga 1. L'<strong>etichetta</strong> \(y \in \{0, 1\}\) è la verità osservata: nel mondo della 1.2, \(y = 1\) = mittente abusivo, \(y = 0\) = legittimo.</p>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
