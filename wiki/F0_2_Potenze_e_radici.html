@@ -151,8 +151,12 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. Che cos'è una potenza</h2>
-<p><strong>Intuizione.</strong> Una <strong>potenza</strong> è una moltiplicazione ripetuta, scritta corta. Invece di \(2 \cdot 2 \cdot 2\) scrivi \(2^3\): «due elevato a tre», cioè «due moltiplicato per sé stesso tre volte».</p>
-<p><strong>Definizione.</strong> La <strong>potenza</strong> \(a^b\) è un <strong>numero</strong>: il risultato di moltiplicare \(a\) per sé stesso \(b\) volte. <strong>Il simbolo.</strong> Il numero grande \(a\) è la <strong>base</strong> (cosa moltiplichi), quello piccolo in alto \(b\) è l'<strong>esponente</strong> (quante volte). Da programmatore lo scrivi <code>a**b</code> o <code>pow(a,b)</code>.</p>
+<p><strong>Intuizione.</strong> Una <strong>potenza</strong> è una moltiplicazione ripetuta, scritta corta. Invece di \(2 \cdot 2 \cdot 2\) scrivi \(2^3\): «due elevato a tre», cioè il prodotto di tre fattori uguali a 2. E moltiplicare zero volte, o un numero negativo di volte? Non si può contare a mano: allora si sceglie il valore che tiene in piedi la stessa regola di sempre.</p>
+<p><strong>Definizione.</strong> Dati un numero \(a\) (la <strong>base</strong>) e un intero \(b\) (l'<strong>esponente</strong>), la <strong>potenza</strong> \(a^b\) è un <strong>numero</strong>. Se \(b\) è un intero <strong>positivo</strong>, \(a^b\) è il <strong>prodotto di \(b\) fattori tutti uguali ad \(a\)</strong> (con \(b = 1\) il fattore è uno solo: \(a^1 = a\)). Se \(b\) è <strong>zero</strong> o <strong>negativo</strong> (e \(a \ne 0\)), il valore è quello che prolunga il caso positivo <strong>mantenendo vera una sola regola</strong>, \(a^m \cdot a^n = a^{m+n}\) (con \(m, n\) esponenti interi, §2): questa <strong>obbliga</strong> \(a^0 = 1\) e \(a^{-n} = \dfrac{1}{a^n}\) (con \(n\) intero positivo, §3). Non convenzioni, ma conseguenze.</p>
+<p><strong>Il simbolo.</strong> In \(a^b\): il numero grande \(a\) è la <strong>base</strong> (cosa moltiplichi), quello piccolo in alto \(b\) è l'<strong>esponente</strong> (quanti fattori). Da programmatore lo scrivi <code>a**b</code> o <code>pow(a,b)</code>.</p>
+<div class="callout deep"><span class="tag">Il confine — dove la regola si ferma</span>
+<p>Con base \(a = 0\) la regola non forza alcun valore per l'esponente 0: \(0^0\) resta <strong>indefinito</strong>. E gli esponenti non interi (come \(a^{1/2}\)) sono un altro oggetto — le radici (§4) — non coperto da questa definizione.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(2^3 = 2 \cdot 2 \cdot 2 = 8\). \(10^2 = 10 \cdot 10 = 100\). \(5^1 = 5\) (una volta sola). \(3^4 = 3 \cdot 3 \cdot 3 \cdot 3 = 81\).</p>
 </div>

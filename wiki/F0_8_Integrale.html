@@ -173,7 +173,8 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. Il simbolo (per riconoscerlo, non per calcolarlo)</h2>
-<p><strong>Definizione.</strong> L'<strong>integrale</strong> di una funzione tra due bordi \(a\) e \(b\) è un <strong>numero</strong>: l'<strong>area</strong> racchiusa tra la curva e la linea di terra su quel tratto — la somma di infinite fettine sottilissime (§2). <strong>Il simbolo.</strong> Una <strong>S allungata</strong> — sta per «Somma»: \(\displaystyle\int\). Nella forma completa:</p>
+<p><strong>Definizione.</strong> L'<strong>integrale definito</strong> di una funzione \(f\) tra due estremi \(a\) e \(b\) (con \(a < b\)) è un <strong>numero</strong>: l'<strong>area con segno</strong> tra il grafico di \(f\) e l'asse orizzontale su quel tratto. <strong>Con segno</strong> vuol dire che l'area sopra l'asse conta positiva e quella sotto conta negativa: l'integrale è il <strong>saldo</strong> fra le due. Il numero esiste <strong>se e solo se</strong> \(f\) è <strong>limitata</strong> (i suoi valori non arrivano a infinito) e le somme di fettine (§2), rese sempre più sottili, si avvicinano a un <strong>unico valore</strong> — lo stesso comunque tagli il tratto e in qualunque punto leggi l'altezza: allora \(f\) si dice <strong>integrabile</strong>. Non tutte lo sono.</p>
+<p><strong>Il simbolo.</strong> Una <strong>S allungata</strong> — sta per «Somma»: \(\displaystyle\int\). Nella forma completa:</p>
 <div class="formula key">\[ \int_{a}^{b} f(x)\,dx \]</div>
 <p>Leggiamo i pezzi, come abbiamo fatto per Σ:</p>
 <ul>
@@ -183,6 +184,12 @@ a{color:var(--navy);}
 <li>\(dx\) = la <strong>larghezza</strong> di una fettina infinitamente sottile.</li>
 </ul>
 <p>Messo insieme: «somma, da \(a\) a \(b\), di (altezza × larghezza di ogni fettina)». È l'area, fettina per fettina. Non ti serve risolverlo: ti serve <strong>vedere</strong> che è una somma di aree.</p>
+<div class="callout warn"><span class="tag">Attenzione — sotto l'asse conta in negativo</span>
+<p>Se un tratto di grafico sta <strong>sotto</strong> l'asse orizzontale, la sua area viene <strong>sottratta</strong>. Un integrale può quindi risultare <strong>negativo</strong> o <strong>zero</strong>, non solo positivo. Negli esempi di questa pagina (curve sopra lo zero) il saldo è tutto positivo: è un caso particolare.</p>
+</div>
+<div class="callout deep"><span class="tag">Il confine (opzionale)</span>
+<p>Se \(f\) non è limitata, o il tratto si allunga all'infinito, si esce da questo integrale e si entra negli integrali <strong>impropri</strong> (definiti come limite, a volte senza un valore finito). E da non confondere: l'integrale definito è <strong>un numero</strong>, la <strong>primitiva</strong> è <strong>una funzione</strong> — le lega il teorema fondamentale (§4).</p>
+</div>
 <div class="callout warn"><span class="tag">Il gemello discreto che userai davvero</span>
 <p>Quasi ovunque nella wiki, al posto di \(\int f(x)\,dx\) trovi \(\sum_i x_i\): la <strong>stessa idea</strong> con fettine di larghezza 1 invece che infinitesime. Se hai capito la sommatoria (F0.4), hai già il 90% dell'integrale. La S allunga la somma dal discreto al continuo.</p>
 </div>
@@ -226,7 +233,7 @@ a{color:var(--navy);}
 <table class="gl">
 <thead><tr><th>simbolo/termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
-<tr><td>integrale</td><td>area sotto la curva</td><td>lo spazio racchiuso tra curva e linea di terra; una «somma continua» di fettine</td><td>F0.8 §1</td></tr>
+<tr><td>integrale</td><td>area con segno sotto la curva</td><td>saldo tra l'area sopra (positiva) e sotto (negativa) l'asse; esiste se \(f\) è limitata e integrabile</td><td>F0.8 §1</td></tr>
 <tr><td>\(\displaystyle\int\)</td><td>segno di integrale</td><td>una S allungata = «Somma»; \(\int_a^b f(x)\,dx\)</td><td>F0.8 §3</td></tr>
 <tr><td>\(f(x)\)</td><td>funzione (altezza)</td><td>il valore/altezza della curva nel punto \(x\)</td><td>F0.8 §3</td></tr>
 <tr><td>\(dx\)</td><td>larghezza infinitesima</td><td>la larghezza di una fettina sottilissima</td><td>F0.8 §3</td></tr>

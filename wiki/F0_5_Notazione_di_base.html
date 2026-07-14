@@ -152,10 +152,15 @@ a{color:var(--navy);}
 
 <h2 id="sec-1">1. Il valore assoluto |x|: «quanto lontano da zero»</h2>
 <p><strong>Intuizione.</strong> Il <strong>valore assoluto</strong> è la <strong>distanza da zero</strong>, e una distanza non è mai negativa. Sia \(+5\) che \(-5\) distano 5 passi dallo zero: il valore assoluto di entrambi è \(5\). In pratica: <strong>togli il segno meno</strong>.</p>
-<p><strong>Definizione.</strong> Il <strong>valore assoluto</strong> di un numero \(x\) è un <strong>numero mai negativo</strong>: la <strong>distanza di \(x\) da zero</strong> sulla linea dei numeri. <strong>Il simbolo.</strong> Due barre verticali attorno al numero: \(|x|\). <strong>Come si calcola.</strong> Se \(x\) è positivo o zero resta com'è; se è negativo, togli il segno.</p>
+<p><strong>Definizione.</strong> Il <strong>valore assoluto</strong> è una <strong>funzione</strong>: a ogni numero reale associa la sua <strong>grandezza</strong>, cioè, dei <strong>due</strong> numeri — quello di partenza e il suo <strong>opposto</strong> (lo stesso col segno cambiato) — quello <strong>non negativo</strong>. Vale <strong>zero soltanto</strong> per il numero \(0\); per ogni altro numero, positivo o negativo, è <strong>positivo</strong>. Numeri opposti hanno sempre lo stesso valore assoluto. Il dominio è l'insieme dei numeri reali \(\mathbb{R}\) (tutti i numeri sulla linea); il codominio è \([0,+\infty)\), i reali non negativi.</p>
+<p><strong>Il simbolo.</strong> Due barre verticali attorno al numero: \(|x|\), dove \(x\) è un numero reale qualsiasi.</p>
+<p><strong>Come si calcola.</strong> Sia \(x\) un numero reale. Se \(x \ge 0\), resta com'è: \(|x| = x\). Se \(x < 0\), cambia segno: \(|x| = -x\).</p>
 <div class="formula key">\[ |5| = 5 \qquad |-5| = 5 \qquad |0| = 0 \]</div>
 <div class="callout ex"><span class="tag">Esempio numerico — a cosa serve</span>
 <p>Per misurare quanto due numeri <strong>differiscono</strong>, senza che conti chi è più grande: \(|3 - 7| = |-4| = 4\), e \(|7 - 3| = |4| = 4\). Stessa distanza, nei due versi. (Nella 1.1 serve per scegliere le parole «più lontane da \(0{,}5\)»: \(|p - 0{,}5|\).)</p>
+</div>
+<div class="callout deep"><span class="tag">Il confine — cosa lo distingue</span>
+<p>Il valore assoluto tiene la <strong>grandezza</strong> e butta via il <strong>segno</strong>. Non è la stessa cosa di «elevare al quadrato»: anche \(x^2\) è mai negativo e vale zero solo in \(0\), ma \((-3)^2 = 9\), mentre \(|-3| = 3\). E da qui nasce la <strong>distanza fra due numeri</strong>: quanto distano \(a\) e \(b\) è \(|a - b|\), lo stesso in qualunque ordine li scrivi.</p>
 </div>
 
 <hr/>
@@ -180,12 +185,22 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-4">4. Il fattoriale n!: il prodotto dei primi n numeri</h2>
-<p><strong>Intuizione.</strong> Il <strong>fattoriale</strong> di un numero moltiplica tutti gli interi da 1 fino a lui. È una <strong>produttoria</strong> (F0.4) travestita da punto esclamativo.</p>
-<p><strong>Definizione.</strong> Il <strong>fattoriale</strong> di \(n\) è un <strong>numero</strong>: il <strong>prodotto di tutti gli interi da 1 a \(n\)</strong>. Misura in quanti modi puoi mettere in fila \(n\) oggetti diversi. <strong>Il simbolo.</strong> Si scrive col punto esclamativo, \(n!\), e si legge «\(n\) fattoriale»:</p>
+<p><strong>Intuizione.</strong> Il <strong>fattoriale</strong> di \(n\) conta in quanti modi diversi puoi mettere in fila \(n\) oggetti. Tre libri sullo scaffale: \(3! = 6\) ordini possibili. Ogni oggetto in più apre \(n\) posizioni nuove dove infilarlo: ecco perché i modi si moltiplicano per \(n\) a ogni passo, partendo dall'unico modo di ordinare la fila vuota.</p>
+<p><strong>Definizione.</strong> Il <strong>fattoriale</strong> è la <strong>funzione</strong> che a ogni intero \(n \ge 0\) associa un <strong>intero positivo</strong>: il numero di modi diversi in cui puoi ordinare in fila \(n\) oggetti distinti. Il dominio sono i numeri naturali (0 incluso); il codominio gli interi positivi (il valore è sempre almeno 1). È fissato in modo <strong>necessario e sufficiente</strong> da due condizioni:</p>
+<ul>
+<li>ordinare <strong>zero</strong> oggetti si può in <strong>un solo modo</strong> (la fila vuota);</li>
+<li>passando da \(n-1\) a \(n\) oggetti (per ogni \(n \ge 1\)), il numero di ordinamenti si <strong>moltiplica per \(n\)</strong>.</li>
+</ul>
+<p>Nessuna delle due condizioni, da sola, basta.</p>
+<p><strong>Il simbolo.</strong> Si scrive col punto esclamativo, \(n!\), e si legge «\(n\) fattoriale»; il caso di zero oggetti si scrive \(0!\).</p>
+<p><strong>Come si calcola.</strong> Per \(n \ge 1\), moltiplichi tutti gli interi da 1 fino a \(n\):</p>
 <div class="formula key">\[ n! \;=\; 1 \cdot 2 \cdot 3 \cdots n \;=\; \prod_{i=1}^{n} i \]</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
-<p>\(3! = 1 \cdot 2 \cdot 3 = 6\). \(4! = 1 \cdot 2 \cdot 3 \cdot 4 = 24\). \(5! = 120\). Cresce in fretta.</p>
-<p>Convenzione: \(0! = 1\) (un prodotto «vuoto», per definizione, vale 1). Il fattoriale conta <strong>in quanti modi</strong> puoi ordinare \(n\) oggetti: 3 libri si mettono in fila in \(3! = 6\) modi diversi.</p>
+<p>\(3! = 1 \cdot 2 \cdot 3 = 6\). \(4! = 1 \cdot 2 \cdot 3 \cdot 4 = 24\). \(5! = 120\). Cresce in fretta. In forma ricorsiva: \(0! = 1\) e \(n! = n \cdot (n-1)!\).</p>
+<p>E \(0! = 1\) <strong>non è una convenzione arbitraria</strong>: c'è un solo modo di ordinare zero oggetti — la fila vuota — quindi \(0!\) deve valere 1. Lo conferma la regola stessa: \(1! = 1 \cdot 0!\) impone \(0! = 1\).</p>
+</div>
+<div class="callout deep"><span class="tag">Il confine</span>
+<p>Servono <strong>entrambe</strong> le condizioni: senza il caso base (la fila vuota) infinite funzioni rispetterebbero il passo «moltiplica per \(n\)». Sugli interi <strong>negativi</strong> il fattoriale non è definito.</p>
 </div>
 
 <div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
