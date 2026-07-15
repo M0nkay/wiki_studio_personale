@@ -166,9 +166,9 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-2">2. Il floor ⌊·⌋: «arrotonda in giù»</h2>
-<p><strong>Intuizione.</strong> Il <strong>floor</strong> (in italiano «parte intera inferiore») butta via i decimali e tiene solo l'intero <strong>sotto</strong>. È come contare quante persone <em>intere</em> stanno in un ascensore: 2,75 persone non esistono, sono 2.</p>
-<p><strong>Definizione.</strong> Le parentesi a squadra basse, \(\lfloor x \rfloor\), danno il più grande intero non superiore a \(x\). Da programmatore: la divisione intera, il tuo <code>//</code> o <code>floor()</code>.</p>
-<div class="formula key">\[ \lfloor 2{,}75 \rfloor = 2 \qquad \lfloor 5 \rfloor = 5 \qquad \lfloor 0{,}9 \rfloor = 0 \]</div>
+<p><strong>Intuizione.</strong> Il <strong>floor</strong> (in italiano «parte intera inferiore») scende all'intero immediatamente <strong>a sinistra</strong> sulla retta: verso il basso, mai al più vicino. È come contare quante persone <em>intere</em> stanno in un ascensore: 2,75 persone non esistono, sono 2.</p>
+<p><strong>Definizione.</strong> Le parentesi a squadra basse, \(\lfloor x \rfloor\), danno il più grande intero non superiore a \(x\). Floor verso \(-\infty\): <code>math.floor</code>, l'operatore <code>//</code> di Python — <strong>non</strong> il troncamento <code>int()</code> / <code>(int)</code> del C.</p>
+<div class="formula key">\[ \lfloor 2{,}75 \rfloor = 2 \qquad \lfloor 5 \rfloor = 5 \qquad \lfloor 0{,}9 \rfloor = 0 \qquad \lfloor -2{,}9 \rfloor = -3 \]</div>
 <div class="callout warn"><span class="tag">Sempre in giù, non «al più vicino»</span>
 <p>Attenzione: il floor va <strong>sempre verso il basso</strong>, non arrotonda al più vicino. \(\lfloor 2{,}9 \rfloor = 2\), non 3. Taglia e basta. (Serve nella codifica Rice della sezione 4: \(\lfloor \delta / 2^k \rfloor\).)</p>
 </div>
@@ -177,9 +177,9 @@ a{color:var(--navy);}
 
 <h2 id="sec-3">3. min e max: il più piccolo e il più grande</h2>
 <p><strong>Intuizione.</strong> Esattamente ciò che sembrano: \(\min\) sceglie il <strong>più piccolo</strong> di un gruppo di numeri, \(\max\) il <strong>più grande</strong>.</p>
-<div class="formula key">\[ \min(3,\ 8,\ 5) = 3 \qquad\qquad \max(3,\ 8,\ 5) = 8 \]</div>
+<div class="formula key">\[ \min(3; 8; 5) = 3 \qquad\qquad \max(3; 8; 5) = 8 \]</div>
 <div class="callout ex"><span class="tag">Esempio numerico — a cosa servono nella wiki</span>
-<p>Spesso fanno da <strong>tetto</strong> o <strong>pavimento</strong>. Nel warmup (1.3): \(\min(V_{\max},\ \text{volume calcolato})\) impedisce di superare il tetto \(V_{\max}\) — se il calcolo dà di più, vince il tetto. E \(\max(0,\ \dots)\) nel CUSUM (F5) impedisce di scendere sotto zero.</p>
+<p>Spesso fanno da <strong>tetto</strong> o <strong>pavimento</strong>. Nel warmup (1.3): \(\min(V_{\max}; \text{volume calcolato})\) impedisce di superare il tetto \(V_{\max}\) — se il calcolo dà di più, vince il tetto. E \(\max(0; \dots)\) nel CUSUM (F5) impedisce di scendere sotto zero.</p>
 </div>
 
 <hr/>
@@ -207,9 +207,9 @@ a{color:var(--navy);}
 <ol>
 <li>Quanto vale \(|-8|\)? E \(|8 - 2|\)?</li>
 <li>Calcola \(\lfloor 3{,}99 \rfloor\).</li>
-<li>Quanto fa \(\min(7,\ 2,\ 9)\)? E \(\max(7,\ 2,\ 9)\)?</li>
+<li>Quanto fa \(\min(7; 2; 9)\)? E \(\max(7; 2; 9)\)?</li>
 <li>Calcola \(4!\).</li>
-<li>Nel warmup, \(\min(1000,\ 1139)\) quanto vale, e cosa significa a parole?</li>
+<li>Nel warmup, \(\min(1000; 1139)\) quanto vale, e cosa significa a parole?</li>
 </ol>
 <p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
 </div>
@@ -223,7 +223,7 @@ a{color:var(--navy);}
 <li>\(\lfloor 3{,}99 \rfloor = 3\) (in giù, sempre).</li>
 <li>\(\min = 2\); \(\max = 9\).</li>
 <li>\(4! = 1\cdot2\cdot3\cdot4 = 24\).</li>
-<li>\(\min(1000,\ 1139) = 1000\): significa «hai raggiunto il tetto, non sali oltre 1000».</li>
+<li>\(\min(1000; 1139) = 1000\): significa «hai raggiunto il tetto, non sali oltre 1000».</li>
 </ol>
 
 <hr/>
