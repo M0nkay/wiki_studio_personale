@@ -84,7 +84,7 @@
       "\\sqrt{c}"
      ],
      "nome": "radice quadrata",
-     "def": "il numero che al quadrato dà \\(c\\): \\(\\sqrt{25}=5\\)",
+     "def": "per \\(c \\ge 0\\), l'unico numero \\(\\ge 0\\) che al quadrato dà \\(c\\): \\(\\sqrt{25}=5\\)",
      "prima_occ_txt": "F0.2 §4",
      "prima_occ_sigla": null
     }
@@ -93,6 +93,16 @@
   "F0.3": {
    "stem": "F0_3_Logaritmi",
    "symbols": [
+    {
+     "raw": "\\(\\Longleftrightarrow\\)",
+     "norm_list": [
+      "\\Longleftrightarrow"
+     ],
+     "nome": "se e solo se",
+     "def": "le due scritture dicono lo stesso fatto, da due lati",
+     "prima_occ_txt": "F0.3 §1",
+     "prima_occ_sigla": null
+    },
     {
      "raw": "\\(\\log_b c\\)",
      "norm_list": [
@@ -1276,8 +1286,8 @@
      ],
      "nome": "z-score",
      "def": "\\((x-\\mu)/\\sigma\\): distanza dalla media in unità di \\(\\sigma\\)",
-     "prima_occ_txt": "F5 §1.2",
-     "prima_occ_sigla": "F5"
+     "prima_occ_txt": "F4 §5.2 (riciclato)",
+     "prima_occ_sigla": "F4"
     },
     {
      "raw": "\\(S_t\\), pedice \\(t\\)",
@@ -1407,6 +1417,17 @@
      ],
      "nome": "valori obiettivo",
      "def": "l'asterisco in alto marca la soglia da rispettare",
+     "prima_occ_txt": "1.3 §3",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(\\rho_{\\max}\\), \\(\\rho_{\\text{hold}}\\)",
+     "norm_list": [
+      "\\rho_{\\max}",
+      "\\rho_{\\text{hold}}"
+     ],
+     "nome": "fattori di crescita in retroazione",
+     "def": "\\(\\rho_{\\max} \\geq 1\\) crescita massima; \\(\\rho_{\\text{hold}}\\) fattore in attesa (\\(=1\\) mantiene, \\(<1\\) arretra)",
      "prima_occ_txt": "1.3 §3",
      "prima_occ_sigla": "1.3"
     },
@@ -1550,6 +1571,16 @@
      "prima_occ_sigla": "F6"
     },
     {
+     "raw": "\\(N\\)",
+     "norm_list": [
+      "N"
+     ],
+     "nome": "uscite dell'hash",
+     "def": "numero di uscite possibili dell'hash (questo \\(N\\) ≠ numero di pagine di 2.1, ≠ numero di sorgenti di 1.4)",
+     "prima_occ_txt": "F6 §1",
+     "prima_occ_sigla": "F6"
+    },
+    {
      "raw": "k-anonimità",
      "norm_list": [
       "k-anonimità"
@@ -1571,9 +1602,9 @@
      "prima_occ_sigla": "F6"
     },
     {
-     "raw": "\\(J(A,B)\\)",
+     "raw": "\\(J(A;B)\\)",
      "norm_list": [
-      "J(A,B)"
+      "J(A;B)"
      ],
      "nome": "similarità di Jaccard",
      "def": "\\(|A \\cap B| / |A \\cup B|\\): quota condivisa sul totale distinto",
@@ -1863,6 +1894,16 @@
      "prima_occ_sigla": "F2"
     },
     {
+     "raw": "\\(\\alpha\\)",
+     "norm_list": [
+      "\\alpha"
+     ],
+     "nome": "fattore di smorzamento",
+     "def": "fattore di smorzamento della serie di Neumann, \\(0 < \\alpha < 1\\) (≠ conteggio virtuale del prior Beta di 1.1/1.2; stesso ruolo del damping di 2.2)",
+     "prima_occ_txt": "F2 §6",
+     "prima_occ_sigla": "F2"
+    },
+    {
      "raw": "serie di Neumann",
      "norm_list": [
       "seriediNeumann"
@@ -1903,7 +1944,7 @@
       "N"
      ],
      "nome": "numero di pagine",
-     "def": "la taglia del web in esame",
+     "def": "la taglia del web in esame (≠ numero di sorgenti della 1.4)",
      "prima_occ_txt": "2.1 §2",
      "prima_occ_sigla": "2.1"
     },
@@ -1934,7 +1975,7 @@
       "\\mathbf{v}"
      ],
      "nome": "vettore di uni; teletrasporto",
-     "def": "tutti 1; \\(\\mathbf{v} = \\frac{1}{N}\\mathbf{1}\\) = uniforme (personalizzabile, §4)",
+     "def": "tutti 1; \\(\\mathbf{v} = \\frac{1}{N}\\mathbf{1}\\) = uniforme (personalizzabile, §4); \\(\\mathbf{v}\\) ≠ autovettore generico di F2",
      "prima_occ_txt": "2.1 §3",
      "prima_occ_sigla": "2.1"
     },

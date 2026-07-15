@@ -163,7 +163,10 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-2">2. L'entropia di Shannon: la sorpresa media</h2>
-<p>Una sorgente casuale produce esiti con probabilità \(p_1, \dots, p_n\). La sua <strong>entropia</strong> è la <strong>sorpresa media</strong> che ti riserva:</p>
+<p>Una sorgente casuale produce esiti con probabilità \(p_1, \dots, p_n\). La sua <strong>entropia</strong> è la <strong>sorpresa media</strong> che ti riserva.</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Sia \((p_1, \dots, p_n)\) una <strong>distribuzione di probabilità</strong>: \(p_i \ge 0\) per ogni \(i\) e \(\sum_i p_i = 1\). L'entropia di Shannon è \(H = -\sum_i p_i \log_2 p_i \in [0,\, \log_2 n]\) (convenzione \(0 \cdot \log_2 0 := 0\)), in bit. È la sorpresa media, cioè il valore atteso di \(-\log_2 p_i\).</p>
+</div>
 <div class="formula key">\[ H \;=\; -\sum_i p_i \log_2 p_i \]</div>
 <p>Ogni esito porta la sua sorpresa \(-\log_2 p_i\), pesata per quanto spesso capita (\(p_i\)): è un valore atteso (Appendice D.2 della 1.1). Lettura: \(H\) alta = sorgente <strong>imprevedibile</strong>; \(H = 0\) = tutto già scritto. Convenzione: \(0 \cdot \log_2 0 := 0\) (un esito impossibile non contribuisce).</p>
 <div class="callout ex"><span class="tag">Esempi numerici</span>
@@ -178,7 +181,10 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. L'entropia di una distribuzione di sorgenti</h2>
-<p>Il ponte verso la 1.4: prendi il traffico email e chiediti «<strong>da quali IP arriva?</strong>». Le quote di volume \(p_i = v_i / \sum_j v_j\) (volume dell'IP \(i\) diviso il totale) sono una distribuzione, e la sua entropia misura quanto il traffico è <strong>concentrato o sparpagliato</strong>.</p>
+<p>Il ponte verso la 1.4: prendi il traffico email e chiediti «<strong>da quali IP arriva?</strong>». L'entropia delle quote di volume degli IP misura quanto il traffico è <strong>concentrato o sparpagliato</strong>.</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Sia \(v_i \ge 0\) il volume dell'IP \(i\) e \(V = \sum_j v_j\) il volume totale nella finestra. Se \(V > 0\), le quote \(p_i = v_i / V\) formano una distribuzione (\(p_i \ge 0\), \(\sum_i p_i = 1\)) e \(H_{\text{src}} = -\sum_i p_i \log_2 p_i\) (convenzione \(0 \cdot \log_2 0 := 0\)). Se \(V = 0\) (nessun traffico) \(H_{\text{src}}\) non è definita: la finestra va esclusa a monte.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — concentrato contro sparpagliato</span>
 <ol>
 <li><strong>Sparpagliato</strong>: 4 IP con quote uguali \((0{,}25 \times 4)\) → \(H_{\text{src}} = 2\) bit.</li>
@@ -198,8 +204,11 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-4">4. PMI: insieme più del caso?</h2>
-<p>Domanda della 3.2: due entità che compaiono <strong>insieme</strong> nei documenti sono legate, o è caso? Il metro è il confronto con l'indipendenza (Appendice A.3 della 1.1): se \(a\) e \(b\) fossero indipendenti, \(P(a,b) = P(a)\,P(b)\). La <strong>PMI</strong> (pointwise mutual information) misura di quanto la realtà scarta da lì:</p>
-<div class="formula key">\[ \text{PMI}(a,b) \;=\; \log_2 \frac{P(a,b)}{P(a)\,P(b)} \]</div>
+<p>Domanda della 3.2: due entità che compaiono <strong>insieme</strong> nei documenti sono legate, o è caso? Il metro è il confronto con l'indipendenza (Appendice A.3 della 1.1): se \(a\) e \(b\) fossero indipendenti, \(P(a,b) = P(a)\,P(b)\). La <strong>PMI</strong> (pointwise mutual information) misura di quanto la realtà scarta da lì.</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Siano \(P(a), P(b) \in (0,1]\) le probabilità marginali e \(P(a,b) \in [0,1]\) la congiunta, con \(P(a,b) \le \min(P(a), P(b))\). Per \(P(a,b) > 0\) si pone \(\text{PMI}(a;b) = \log_2\!\left[\dfrac{P(a,b)}{P(a)\,P(b)}\right] \in \mathbb{R}\). Caso \(P(a,b) = 0\) (mai insieme): \(\text{PMI} := -\infty\) per convenzione. Un evento mai osservato (\(P = 0\)) non ha PMI. È per questo che a valle si usa \(\text{PMI}^{+} = \max(0, \text{PMI})\), sempre finita e \(\ge 0\).</p>
+</div>
+<div class="formula key">\[ \text{PMI}(a;b) \;=\; \log_2 \frac{P(a,b)}{P(a)\,P(b)} \]</div>
 <p>Lettura: PMI \(= 0\) → esattamente come il caso; <strong>positiva</strong> → compaiono insieme più del caso (legame); <strong>negativa</strong> → si evitano. Nella 3.2 si usa la \(\text{PMI}^{+} = \max(0, \text{PMI})\): i legami negativi vengono azzerati.</p>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(P(a) = 0{,}1\), \(P(b) = 0{,}1\) → caso puro: \(P(a)\,P(b) = 0{,}01\).</p>

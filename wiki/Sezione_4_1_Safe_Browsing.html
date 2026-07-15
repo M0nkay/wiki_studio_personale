@@ -168,7 +168,7 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. La matematica in gioco (richiami F6, coi numeri)</h2>
-<p>Dal §2 di F6, già tuoi: la probabilità che una URL <strong>sicura</strong> becchi per caso un prefisso in lista è \(\approx P/2^{32}\); con \(P = 4{,}3\) milioni di prefissi fa \(\approx 0{,}1\%\) — una navigazione su mille attiva il passo 4 <strong>per puro rumore</strong>. Ed è proprio quel rumore a comprare la privacy: dietro ogni prefisso ci sono innumerevoli URL possibili (<strong>k-anonimità</strong>), quindi il server, vedendo il prefisso, non sa quale ti interessava. Il match di prefisso è un campanello, mai un verdetto.</p>
+<p>Dal §2 di F6, già tuoi: la probabilità che una URL <strong>sicura</strong> becchi per caso un prefisso in lista è \(\approx P/2^{32}\); con \(P = 4{,}3\) milioni di prefissi fa \(\approx 0{,}1\%\) — una navigazione su mille attiva il passo 4 <strong>per puro rumore</strong>. Ed è proprio quel rumore a comprare la privacy: Dietro ogni prefisso ricade un numero enorme di URL possibili: il server vede il prefisso, non la URL. La protezione è una <strong>k-anonimità [INF]</strong> — nasconde la URL in un gruppo di indistinguibili <em>nella misura in cui</em> il traffico reale verso quel prefisso non è dominato da un'unica pagina. Non è segretezza assoluta: il match di prefisso è un campanello, mai un verdetto.</p>
 
 <hr/>
 

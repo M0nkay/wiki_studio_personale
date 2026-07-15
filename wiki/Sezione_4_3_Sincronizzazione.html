@@ -157,6 +157,7 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. La compressione delle aggiunte: Rice–Golomb al lavoro</h2>
 <p>Le aggiunte sono prefissi: numeri a 32 bit. La catena di F6 §6, esattamente: <strong>ordina → delta → Rice</strong>. E qui i conti spiegano perché funziona così bene:</p>
+<p>Il primo prefisso della lista ordinata (il <strong>valore base</strong>) è trasmesso grezzo; solo i \(P-1\) delta tra consecutivi sono Rice-codificati.</p>
 <div class="callout ex"><span class="tag">Esempio numerico — quanto si comprime</span>
 <ol>
 <li>I prefissi sono hash: <strong>quasi uniformi</strong> su \(2^{32}\) valori. Con \(P = 4{,}3\) milioni di voci, il <strong>delta medio</strong> tra consecutivi (ordinati) è \(\approx 2^{32}/P \approx 1.000\).</li>
@@ -169,7 +170,7 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. Rimozioni e integrità</h2>
-<p>Le <strong>rimozioni</strong> non spediscono i prefissi: spediscono gli <strong>indici</strong> — le posizioni da cancellare nella lista ordinata che il client già possiede (numeri molto più piccoli dei prefissi stessi). Applicato il diff, il client calcola il <strong>checksum</strong> del proprio database — un hash (F6 §1) dell'intero contenuto — e lo confronta con quello dichiarato dal server: se non tornano, la copia locale è corrotta e si <strong>ri-sincronizza da zero</strong>. L'hash come sigillo, stavolta.</p>
+<p>Le <strong>rimozioni</strong> non spediscono i prefissi: spediscono gli <strong>indici</strong> — le posizioni, <strong>riferite alla lista ordinata prima di qualunque cancellazione</strong>, da rimuovere (numeri molto più piccoli dei prefissi stessi). Il client le applica <strong>in ordine di indice decrescente</strong> (o le risolve tutte contro le posizioni originali), perché ogni rimozione sposta le successive. Applicato il diff, il client calcola il <strong>checksum</strong> del proprio database — un hash (F6 §1) dell'intero contenuto — e lo confronta con quello dichiarato dal server: se non tornano, la copia locale è corrotta e si <strong>ri-sincronizza da zero</strong>. L'hash come sigillo, stavolta.</p>
 
 <hr/>
 
@@ -195,7 +196,7 @@ a{color:var(--navy);}
 <h2 id="soluzioni">Soluzioni degli esercizi</h2>
 <p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
 <ol>
-<li>Delta: \(4\) e \(12\). Con \(2^k = 4\): \(\delta = 4\) → \(q = 1\), \(r = 0\) → «10»+«00» = <strong>1000</strong>; \(\delta = 12\) → \(q = 3\), \(r = 0\) → «1110»+«00» = <strong>111000</strong>.</li>
+<li>Valore base \(100\), trasmesso grezzo. Delta: \(4\) e \(12\). Con \(2^k = 4\): \(\delta = 4\) → \(q = 1\), \(r = 0\) → «10»+«00» = <strong>1000</strong>; \(\delta = 12\) → \(q = 3\), \(r = 0\) → «1110»+«00» = <strong>111000</strong>. Ricostruzione: \(100\), \(100+4=104\), \(104+12=116\).</li>
 <li>Perché gli indici sono numeri piccoli (al più la lunghezza della lista), molto più economici dei prefissi a 32 bit — e il client la lista ordinata ce l'ha già.</li>
 <li>Perché il costo di un errore lì è <strong>bollare un innocente</strong>: un sito ripulito deve tornare pulito in fretta.</li>
 </ol>

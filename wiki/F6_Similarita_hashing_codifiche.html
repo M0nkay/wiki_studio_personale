@@ -149,7 +149,7 @@ a{color:var(--navy);}
 <p>Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: cardinalità e intersezione (§1.3), unione (§2.2), probabilità (§1). Da <a class="xref" href="F4_Statistica_e_ML.html">F4</a>: le potenze \(a^b\).</p>
 
 <div class="callout warn"><span class="tag">Trappola dei simboli — lettere affollate in questa pagina</span>
-<p>(1) \(s\) qui è la <strong>similarità</strong> tra due documenti, non la forza del prior della 1.1. (2) \(r\) fa <strong>due lavori qui dentro</strong>: righe per banda (§5) e resto della divisione (§6) — oltre ai lavori delle altre pagine. (3) \(k\) pure: numero di funzioni hash (§4) e parametro di Rice (§6). Il contesto della formula decide sempre.</p>
+<p>(1) \(s\) qui è la <strong>similarità</strong> tra due documenti, non la forza del prior della 1.1. (2) \(r\) fa <strong>due lavori qui dentro</strong>: righe per banda (§5) e resto della divisione (§6) — oltre ai lavori delle altre pagine. (3) \(k\) pure: numero di funzioni hash (§4) e parametro di Rice (§6). (4) \(N\) è il <strong>numero di uscite possibili dell'hash</strong> (§1): questo \(N\) ≠ numero di pagine (2.1), ≠ numero di sorgenti (1.4). Il contesto della formula decide sempre.</p>
 </div>
 
 <hr/>
@@ -157,6 +157,9 @@ a{color:var(--navy);}
 <h2 id="sec-1">1. Funzioni di hash e collisioni</h2>
 <p>Da programmatore la conosci: una <strong>funzione di hash</strong> prende un input qualsiasi (una URL, un documento) e restituisce un numero di <strong>lunghezza fissa</strong>, in modo deterministico ma «ben mescolato»: output indistinguibili dal caso, e input simili finiscono lontani. SHA-256, usata dal paper, produce \(32\) <strong>byte</strong> (un byte = 8 <strong>bit</strong>, quindi \(256\) bit).</p>
 <p>Una <strong>collisione</strong> è quando due input diversi ricevono lo stesso output. Per un hash ben mescolato con \(N\) uscite possibili, una coppia fissata collide con probabilità \(1/N\): con \(N\) astronomico, quasi mai — ed è un fatto che il paper userà <strong>in entrambe le direzioni</strong>: evitare le collisioni (verifica finale) e <em>cercarle</em> apposta (privacy, §2; MinHash, §4).</p>
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>La probabilità \(1/N\) assume uscite <strong>uniformi e indipendenti</strong> per la coppia fissata <strong>[INF]</strong>.</p>
+</div>
 
 <hr/>
 
@@ -165,6 +168,9 @@ a{color:var(--navy);}
 <p>La privacy sta nella <strong>k-anonimità</strong>: nasconderti in un gruppo di almeno \(k\) indistinguibili. Siccome <strong>innumerevoli URL diverse</strong> condividono lo stesso prefisso corto, il server non può dedurre quale stavi visitando. Due conti del paper, ora leggibili:</p>
 <div class="formula key">\[ \mathbb{E}[\#\text{collisioni}] \approx \frac{D}{2^{32}} \qquad\quad \Pr[\text{match} \mid \text{URL sicura}] \approx \frac{P}{2^{32}} \]</div>
 <p>dove \(D\) = hash completi nel database e \(P\) = prefissi in lista. Con \(P = 4{,}3\) milioni: \(4{,}3 \cdot 10^6 / 4{,}3 \cdot 10^9 = 0{,}001\) — una navigazione sicura su mille fa scattare (per puro caso) la verifica completa. Il match di prefisso <strong>non è un verdetto</strong>: è solo un campanello.</p>
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>Le due formule ereditano la stessa idealizzazione del \(1/N\) di §1: assumono uscite <strong>uniformi e indipendenti</strong> dell'hash <strong>[INF]</strong>.</p>
+</div>
 
 <div class="callout ex" id="ex-2"><span class="tag">Esercizi — §1–§2</span>
 <ol>
@@ -178,7 +184,11 @@ a{color:var(--navy);}
 
 <h2 id="sec-3">3. Similarità di Jaccard e shingling</h2>
 <p>Quanto si somigliano due <strong>insiemi</strong>? La misura di Jaccard: quota di elementi condivisi sul totale distinto.</p>
-<div class="formula key">\[ J(A, B) \;=\; \frac{|A \cap B|}{|A \cup B|} \;\in\; [0, 1] \]</div>
+<p>Siano \(A, B\) due insiemi finiti con \(A \cup B \neq \varnothing\). La <strong>similarità di Jaccard</strong> \(J(A; B)\) è un numero in \([0, 1]\):</p>
+<div class="formula key">\[ J(A; B) \;=\; \frac{|A \cap B|}{|A \cup B|} \;\in\; [0, 1] \]</div>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Il denominatore è nullo se e solo se \(A = B = \varnothing\) (nessuno shingle: documento più corto della finestra); per quel caso degenere si adotta la convenzione \(J(\varnothing; \varnothing) := 1\) <strong>[DA VERIFICARE la convenzione preferita dalla wiki]</strong>, oppure lo si esclude a monte.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(A = \{a, b, c, d\}\), \(B = \{c, d, e\}\): intersezione \(\{c, d\}\) → \(2\); unione \(\{a,b,c,d,e\}\) → \(5\); \(J = 2/5 = 0{,}4\).</p>
 </div>
@@ -187,9 +197,13 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-4">4. MinHash: stimare Jaccard senza confrontare tutto</h2>
-<p><strong>Problema</strong>: confrontare milioni di email a coppie, insieme contro insieme, è impossibile. <strong>Trucco</strong>: per una funzione di hash, il <strong>min-hash</strong> di un insieme è il minimo degli hash dei suoi elementi. Vale un fatto esatto:</p>
-<div class="formula key">\[ \Pr\bigl[\,h_{\min}(A) = h_{\min}(B)\,\bigr] \;=\; J(A, B) \]</div>
-<p><strong>Perché</strong> (ed è una dimostrazione vera, non un'analogia): hashare = mettere tutti gli elementi di \(A \cup B\) in un ordine casuale. I due minimi coincidono esattamente quando il <strong>primo</strong> elemento dell'unione, in quell'ordine, appartiene <strong>a entrambi</strong> — cioè all'intersezione. Ogni elemento dell'unione ha la stessa probabilità di essere il primo, quindi la probabilità è \(|A \cap B| / |A \cup B| = J\).</p>
+<p><strong>Problema</strong>: confrontare milioni di email a coppie, insieme contro insieme, è impossibile. <strong>Trucco</strong>: per una funzione di hash, il <strong>min-hash</strong> di un insieme è il minimo degli hash dei suoi elementi.</p>
+<p>Sia \(\pi\) una permutazione casuale uniforme dell'universo degli elementi (equivale a una funzione di hash <strong>iniettiva</strong>, senza pareggi su \(A \cup B\)). Per \(A, B\) <strong>entrambi non vuoti</strong>, posto \(h_{\min}(X) = \min_{x \in X} \pi(x)\), vale:</p>
+<div class="formula key">\[ \Pr\bigl[\,h_{\min}(A) = h_{\min}(B)\,\bigr] \;=\; J(A; B) \]</div>
+<p><strong>Perché</strong>: hashare = mettere tutti gli elementi di \(A \cup B\) in un ordine casuale. I due minimi coincidono esattamente quando il <strong>primo</strong> elemento dell'unione, in quell'ordine, appartiene <strong>a entrambi</strong> — cioè all'intersezione. Ogni elemento dell'unione ha la stessa probabilità di essere il primo, quindi la probabilità è \(|A \cap B| / |A \cup B| = J\).</p>
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>Con la funzione di hash <strong>collidente</strong> del §1 l'uguaglianza vale solo in modo approssimato <strong>[INF]</strong>.</p>
+</div>
 <p>Una moneta sola dice poco: si usano tante funzioni hash indipendenti (il paper: 128) → la <strong>firma</strong> del documento è la lista dei minimi, e la frazione di posizioni uguali <strong>stima</strong> \(J\). Con \(J = 0{,}4\) e 100 hash: attese \(\approx 40\) coincidenze.</p>
 
 <hr/>
@@ -268,9 +282,10 @@ a{color:var(--navy);}
 <tr><td>hash, SHA-256</td><td>funzione di hash</td><td>input qualsiasi → numero fisso «ben mescolato»; SHA-256 = 32 byte</td><td>F6 §1</td></tr>
 <tr><td>byte</td><td>otto bit</td><td>4 byte = 32 bit → \(2^{32}\) valori possibili</td><td>F6 §1</td></tr>
 <tr><td>collisione</td><td>—</td><td>input diversi, stesso output; per coppia fissata: prob. \(1/N\)</td><td>F6 §1</td></tr>
+<tr><td>\(N\)</td><td>uscite dell'hash</td><td>numero di uscite possibili dell'hash (questo \(N\) ≠ numero di pagine di 2.1, ≠ numero di sorgenti di 1.4)</td><td>F6 §1</td></tr>
 <tr><td>k-anonimità</td><td>—</td><td>nascondersi in un gruppo di almeno \(k\) indistinguibili</td><td>F6 §2</td></tr>
 <tr><td>\(D\), \(P\)</td><td>conteggi del database</td><td>hash completi in DB; prefissi in lista (questo \(D\) ≠ dati di §3.2)</td><td>F6 §2</td></tr>
-<tr><td>\(J(A,B)\)</td><td>similarità di Jaccard</td><td>\(|A \cap B| / |A \cup B|\): quota condivisa sul totale distinto</td><td>F6 §3</td></tr>
+<tr><td>\(J(A;B)\)</td><td>similarità di Jaccard</td><td>\(|A \cap B| / |A \cup B|\): quota condivisa sul totale distinto</td><td>F6 §3</td></tr>
 <tr><td>shingle</td><td>finestra scorrevole</td><td>frammento di parole consecutive; trasforma un testo in un insieme</td><td>F6 §3</td></tr>
 <tr><td>\(h_{\min}\)</td><td>min-hash</td><td>il minimo degli hash degli elementi; coincide con prob. \(= J\)</td><td>F6 §4</td></tr>
 <tr><td>\(s\), \(r\), \(b\)</td><td>similarità; righe; bande</td><td>parametri LSH (questo \(s\) ≠ forza del prior; questo \(r\) ≠ resto, ≠ tasso)</td><td>F6 §5</td></tr>

@@ -156,14 +156,17 @@ a{color:var(--navy);}
 <li>con probabilità \(d\) clicca <strong>un link uscente a caso</strong>;</li>
 <li>con probabilità \(1 - d\) si <strong>teletrasporta</strong> su una pagina qualunque, a caso.</li>
 </ul>
-<p>\(d \approx 0{,}85\) è il <strong>damping factor</strong> (fattore di smorzamento). Il <strong>PageRank</strong> di una pagina è la frazione di tempo che il navigatore, alla lunga, ci passa sopra — cioè la <strong>distribuzione stazionaria</strong> (F2 §3) della catena di Markov appena descritta. L'intera sezione 2 del paper è F2 travestita da web.</p>
+<p>\(d \approx 0{,}85\) è il <strong>damping factor</strong> (fattore di smorzamento). Il <strong>PageRank</strong> è il vettore \(PR:V\to[0,1]\) con \(\sum_v PR(v)=1\). Interpretazione: frazione di tempo di lungo periodo del navigatore = <strong>distribuzione stazionaria</strong>. La definizione è ben posta solo dopo la costruzione di \(G\) (§3), che rende la catena <strong>irriducibile e aperiodica</strong>: allora la stazionaria esiste ed è unica per Perron–Frobenius (F2 §5). L'intera sezione 2 del paper è F2 travestita da web.</p>
 <div class="callout warn"><span class="tag">Trappola dei simboli</span>
-<p>Questo \(d\) è il damping, non il «giorno» della 1.3. E attenzione doppia in §2: \(M(p_i)\) con l'argomento tra parentesi è un <strong>insieme di pagine</strong>, non la matrice \(M\) di F2; \(L(p_j)\) è un <strong>conteggio di link</strong>, non la verosimiglianza \(L(\theta)\).</p>
+<p>Questo \(d\) è il damping, non il «giorno» della 1.3. E attenzione doppia in §2: \(M(p_i)\) con l'argomento tra parentesi è un <strong>insieme di pagine</strong>, non la matrice \(M\) di F2; \(L(p_j)\) è un <strong>conteggio di link</strong>, non la verosimiglianza \(L(\theta)\). \(N\) qui è il numero di pagine, non il numero di sorgenti della 1.4; \(\mathbf{v}\) (grassetto) è il vettore di teletrasporto, non l'autovettore generico di F2.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-2">2. La formula scalare</h2>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Ipotesi (valida finché §3 non introduce \(G\)): ogni pagina ha almeno un link uscente. Il PageRank è un vettore \(PR:V\to[0,1]\) con \(\sum_v PR(v)=1\). In presenza di nodi dangling la loro massa va ridistribuita (§3); solo allora \(\sum_i PR(p_i)=1\), coerente con l'interpretazione di §1.</p>
+</div>
 <div class="formula key">\[ PR(p_i) \;=\; \frac{1-d}{N} \;+\; d \sum_{p_j \in M(p_i)} \frac{PR(p_j)}{L(p_j)} \]</div>
 <p>I pezzi: \(N\) = numero totale di pagine; \(M(p_i)\) = l'insieme delle pagine che <strong>puntano a</strong> \(p_i\); \(L(p_j)\) = numero di link <strong>uscenti</strong> da \(p_j\). Lettura in due tempi:</p>
 <ul>
@@ -198,6 +201,9 @@ a{color:var(--navy);}
 
 <h2 id="sec-4">4. Il teletrasporto personalizzato: la porta verso TrustRank</h2>
 <p>La generalizzazione decisiva: nel teletrasporto, al posto della distribuzione uniforme \(\mathbf{v}\), metti una distribuzione <strong>concentrata su un sottoinsieme</strong> di pagine. Il navigatore, quando si teletrasporta, riparte sempre da lì. Questo è il <strong>Personalized PageRank</strong> — e <strong>TrustRank</strong> (pagina 2.2) è l'istanza in cui il sottoinsieme sono i <strong>semi fidati</strong>.</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Con teletrasporto concentrato \(G\) non è più irriducibile e \(PR\) può annullarsi sui nodi irraggiungibili dai semi. La buona posizione si conserva ugualmente perché \(I-dM\) è invertibile per \(d<1\) (serie di Neumann, F2 §6): \(\mathbf{p}=(1-d)(I-dM)^{-1}\mathbf{v}\) è l'unica soluzione.</p>
+</div>
 
 <div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
 <ol>
@@ -227,10 +233,10 @@ a{color:var(--navy);}
 <tbody>
 <tr><td>\(PR(p_i)\)</td><td>PageRank della pagina \(p_i\)</td><td>frazione di tempo del navigatore casuale = componente della stazionaria</td><td>2.1 §1</td></tr>
 <tr><td>\(d\)</td><td>damping factor</td><td>probabilità di seguire un link (≈ 0,85); \(1-d\) = teletrasporto (≠ giorno della 1.3)</td><td>2.1 §1</td></tr>
-<tr><td>\(N\)</td><td>numero di pagine</td><td>la taglia del web in esame</td><td>2.1 §2</td></tr>
+<tr><td>\(N\)</td><td>numero di pagine</td><td>la taglia del web in esame (≠ numero di sorgenti della 1.4)</td><td>2.1 §2</td></tr>
 <tr><td>\(M(p_i)\)</td><td>insieme dei predecessori</td><td>le pagine che puntano a \(p_i\) — con argomento: insieme, ≠ matrice \(M\)</td><td>2.1 §2</td></tr>
 <tr><td>\(L(p_j)\)</td><td>grado uscente</td><td>numero di link in uscita da \(p_j\) (≠ verosimiglianza \(L(\theta)\))</td><td>2.1 §2</td></tr>
-<tr><td>\(\mathbf{1}\), \(\mathbf{v}\)</td><td>vettore di uni; teletrasporto</td><td>tutti 1; \(\mathbf{v} = \frac{1}{N}\mathbf{1}\) = uniforme (personalizzabile, §4)</td><td>2.1 §3</td></tr>
+<tr><td>\(\mathbf{1}\), \(\mathbf{v}\)</td><td>vettore di uni; teletrasporto</td><td>tutti 1; \(\mathbf{v} = \frac{1}{N}\mathbf{1}\) = uniforme (personalizzabile, §4); \(\mathbf{v}\) ≠ autovettore generico di F2</td><td>2.1 §3</td></tr>
 <tr><td>dangling, \(\mathbf{a}\)</td><td>nodo senza uscite; suo indicatore</td><td>pagina senza link uscenti; \(\mathbf{a}\) segna quali (questo \(\mathbf{a}\) ≠ peso di 1.3)</td><td>2.1 §3</td></tr>
 <tr><td>\(G\)</td><td>matrice di Google</td><td>link + dangling + teletrasporto in un'unica matrice stocastica</td><td>2.1 §3</td></tr>
 </tbody>

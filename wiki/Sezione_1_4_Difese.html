@@ -163,14 +163,20 @@ a{color:var(--navy);}
 <h2 id="sec-2">2. La controffensiva: ricostruire la campagna</h2>
 <p>Se le sorgenti sono tante ma <strong>il messaggio è uno</strong>, la firma sta nel contenuto e nell'infrastruttura condivisa. Due reti da pesca, insieme:</p>
 <p><strong>(a) Contenuto quasi-duplicato</strong> — è F6 in azione, tutta in fila: shingling (testo → insieme), MinHash (insieme → firma corta), LSH (firme → secchi di candidati con la curva a S). Milioni di email, e i quasi-fotocopia si ritrovano nello stesso secchio senza confrontare tutte le coppie.</p>
-<p><strong>(b) Infrastruttura condivisa</strong> — si costruisce un <strong>grafo</strong>: un disegno fatto di <strong>nodi</strong> (i pallini: messaggi, IP, domini, URL di destinazione, registrar) ed <strong>archi</strong> (le linee: «questo messaggio è partito da questo IP», «punta a questa URL»). Una <strong>componente connessa</strong> è un'isola: l'insieme dei nodi raggiungibili l'uno dall'altro camminando sugli archi. La campagna snowshoe emerge come un'isola dalla forma tradita: <strong>molti IP diversi</strong>, ma <strong>pochi URL e registrar condivisi</strong>, e contenuto quasi-duplicato. (Il paper cita anche DBSCAN e community detection: algoritmi di raggruppamento più fini — nomi da riconoscere, non li serve smontare qui.)</p>
+<p><strong>(b) Infrastruttura condivisa</strong> — Costruiamo un <strong>grafo non orientato</strong>: i <strong>nodi</strong> (messaggi, IP, domini, URL, registrar) sono uniti da un <strong>arco</strong> quando condividono una relazione osservata (un messaggio e il suo IP; un messaggio e la sua URL). Una <strong>componente connessa</strong> è un insieme <strong>massimale</strong> di nodi collegati da un cammino di archi (classe della relazione di equivalenza «esiste un cammino»). La campagna emerge come una componente con molti IP ma pochi URL/registrar condivisi. (Il paper cita anche DBSCAN e community detection: algoritmi di raggruppamento più fini — nomi da riconoscere, non li serve smontare qui.)</p>
 
 <hr/>
 
 <h2 id="sec-3">3. Le anomalie in numeri: CUSUM ed entropia</h2>
 <p>Sul <strong>volume</strong> lavora la vasca CUSUM di F5 §2: accumula gli sforamenti e coglie i cambi di regime fatti di tanti piccoli eccessi. Sulla <strong>forma del traffico</strong> lavora l'entropia di F3, con un rapporto che è la firma numerica dello snowshoe:</p>
 <div class="formula key">\[ \text{indice snowshoe} \;\propto\; \frac{H_{\text{src}}}{H_{\text{content}} + \varepsilon} \]</div>
-<p>Due simboli di contorno: \(\propto\) si legge «<strong>proporzionale a</strong>» (cresce e cala insieme a, senza fissare la scala); \(\varepsilon\) (epsilon) è un numero <strong>piccolissimo</strong> messo al denominatore solo per non dividere per zero. La logica: lo snowshoe <strong>sparpaglia le sorgenti</strong> (\(H_{\text{src}}\) alta) ma <strong>fotocopia il contenuto</strong> (\(H_{\text{content}}\) bassa) → rapporto alto. Il mittente legittimo fa l'esatto contrario.</p>
+<p>Due simboli di contorno: \(\propto\) si legge «<strong>proporzionale a</strong>» (cresce e cala insieme a, senza fissare la scala); \(\varepsilon\) (epsilon) è un numero <strong>piccolissimo</strong> messo al denominatore solo per non dividere per zero.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Lo snowshoe tende a sorgenti disperse (\(H_{\text{src}}\) alta) con contenuto quasi identico (\(H_{\text{content}}\) bassa), quindi rapporto alto; un mittente con un solo server e contenuti vari sta all'estremo opposto.</p>
+</div>
+<div class="callout warn"><span class="tag">Attenzione</span>
+<p>[INF] Anche un invio legittimo di massa (un template da molti IP) produce rapporto alto: l'indice è <strong>un segnale, non una prova</strong>, e va combinato con reputazione e infrastruttura (§2), non usato da solo.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — coi numeri di F3</span>
 <p>Campagna: 4 IP a quote uguali (\(H_{\text{src}} = 2\) bit) e contenuto quasi-fotocopia (\(H_{\text{content}} = 0{,}24\)) → indice \(\approx 2/0{,}24 \approx 8{,}3\).</p>
 <p>Legittimo: un server dominante (\(H_{\text{src}} = 0{,}24\)) e contenuti vari (\(H_{\text{content}} = 2\)) → indice \(\approx 0{,}12\). Settanta volte di differenza: c'è margine per una soglia.</p>

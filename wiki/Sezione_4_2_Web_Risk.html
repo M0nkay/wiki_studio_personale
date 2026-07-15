@@ -157,7 +157,7 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. Due modalità, un trade-off</h2>
 <ul>
-<li><strong>Update API</strong> — il modello di 4.1, identico: database locale di prefissi, campanello, richiesta per prefisso, verdetto in casa. Privacy piena (<strong>k-anonimità</strong>), al prezzo della complessità: mantenere il DB sincronizzato (→ 4.3).</li>
+<li><strong>Update API</strong> — il modello di 4.1, identico: database locale di prefissi, campanello, richiesta del solo prefisso, verdetto in casa. La privacy è quella della <strong>k-anonimità</strong> (F6 §2): al server arriva il prefisso — non la URL né il full hash — e dietro un prefisso si nascondono innumerevoli URL possibili, così il server non sa quale sia il tuo. <strong>Non è privacy totale</strong> (il prefisso, e il fatto stesso della richiesta su match, restano visibili al server), ma è la protezione massima ottenibile senza infrastruttura server-side; il prezzo è tenere il DB sincronizzato (→ 4.3).</li>
 <li><strong>Lookup API</strong> — la scorciatoia: mandi la URL al server, ricevi il verdetto. Zero infrastruttura, ma il server <strong>vede che cosa controlli</strong>: la k-anonimità è sacrificata per progetto.</li>
 </ul>
 <p>Non c'è modalità «giusta»: c'è la manopola <strong>privacy contro semplicità</strong>, dichiarata nel prezzo.</p>

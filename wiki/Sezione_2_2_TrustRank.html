@@ -162,7 +162,7 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. Scegliere i semi: PageRank all'incontrario</h2>
 <p>Quali \(L\) pagine mostrare all'oracolo? Le più <strong>utili a propagare</strong>: quelle da cui si <strong>raggiunge</strong> tanto web. Il trucco del paper è elegante: calcola PageRank sul <strong>grafo trasposto</strong> \(G^{\top}\) — tutti gli archi <strong>girati al contrario</strong>. Nel grafo girato, «ricevere tanti link» significa, nel grafo vero, «<strong>puntare</strong> verso tante pagine importanti»: è l'<strong>inverse PageRank</strong>, un punteggio di copertura.</p>
-<p>Procedura: ordina per inverse PageRank, chiama l'oracolo sui primi \(L\), tieni i promossi: l'insieme dei <strong>semi buoni</strong> \(S^{+}\). La distribuzione dei semi è l'uniforme su di loro:</p>
+<p>Procedura: ordina per inverse PageRank, chiama l'oracolo sui primi \(L\), tieni i promossi: l'insieme dei <strong>semi buoni</strong> \(S^{+}\) (un sottoinsieme delle pagine mostrate all'oracolo), con <strong>\(|S^{+}| \ge 1\)</strong> (se l'oracolo non promuove nulla, TrustRank non è definito: ripetere la selezione allargando il budget \(L\)). La distribuzione dei semi è l'uniforme su \(S^{+}\):</p>
 <div class="formula key">\[ \mathbf{d}_i \;=\; \begin{cases} 1 / |S^{+}| & \text{se la pagina } i \text{ è un seme} \\ 0 & \text{altrimenti} \end{cases} \]</div>
 <p>(La graffa è una <strong>definizione per casi</strong>: la prima riga vale nel primo caso, la seconda altrimenti.)</p>
 

@@ -179,7 +179,7 @@ a{color:var(--navy);}
 <li><strong>segnali di entità e autore</strong>: chi firma è un'entità riconosciuta e reputata? (il ponte verso la 3.2);</li>
 <li><strong>segnali di comportamento</strong>: come gli utenti interagiscono coi risultati.</li>
 </ul>
-<p>Struttura ormai familiare: un grande \(\boldsymbol\theta^{\top}\mathbf{x}\) — solo che i pesi non li fissa nessuno a mano: li impara il ranker dalle etichette dei valutatori. E-E-A-T vive qui: non come numero, ma come <strong>criterio che genera le etichette</strong> su cui tutto si calibra.</p>
+<p>Struttura familiare dalla 1.2/F4: un punteggio \(s\) costruito dalle feature \(\mathbf{x}\). Nei modelli lineari (la logistica di F4 §2) è \(s=\boldsymbol\theta^{\top}\mathbf{x}\); nel motore industriale qui citato (LambdaMART, un ensemble di alberi — F4 §6.4) \(s\) è invece una funzione <strong>non lineare</strong> delle feature, priva di un vettore di pesi \(\boldsymbol\theta\). Il tratto comune: i parametri non li fissa nessuno a mano, li apprende il ranker dalle etichette dei rater. <strong>[INF]</strong> E-E-A-T vive qui: non come numero, ma come <strong>criterio che genera le etichette</strong> su cui tutto si calibra.</p>
 
 <hr/>
 

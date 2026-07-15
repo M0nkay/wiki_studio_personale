@@ -152,16 +152,7 @@ a{color:var(--navy);}
 
 <h2 id="sec-1">1. Il vettore: più numeri come un oggetto unico</h2>
 <p><strong>Intuizione.</strong> A volte un oggetto non si descrive con <strong>un solo</strong> numero, ma con <strong>più numeri insieme</strong>. Un punto su una mappa ha due numeri (est, nord); un mittente email ne ha tanti (reclami, bounce, autenticazione). Tienili come un blocco unico e hai l'immagine intuitiva di un vettore. Attenzione però: ciò che rende quel blocco un vettore non è l'essere fatto di numeri, ma il fatto che due di essi si possono <strong>sommare</strong> e uno si può <strong>ingrandire o rimpicciolire</strong> restando sempre nella stessa famiglia.</p>
-<p><strong>Definizione.</strong> Un <strong>vettore</strong> è un elemento di uno <strong>spazio vettoriale</strong>: un insieme di oggetti su cui sono definite due operazioni — <strong>sommare</strong> due vettori, e <strong>moltiplicare</strong> un vettore per un numero (uno <strong>scalare</strong>, per noi un numero reale) — che rispettano queste regole:</p>
-<ul>
-<li>il risultato resta sempre nell'insieme: sommando due vettori ottieni un vettore, scalando un vettore ottieni un vettore;</li>
-<li>la somma è <strong>associativa</strong> e <strong>commutativa</strong>; c'è un <strong>vettore nullo</strong> (sommato a chiunque non cambia nulla) e ogni vettore ha un <strong>opposto</strong>;</li>
-<li>moltiplicare per 1 non cambia nulla, e scalare due volte di fila equivale a scalare una volta per il prodotto dei due numeri: \(\lambda(\mu\mathbf{x}) = (\lambda\mu)\mathbf{x}\);</li>
-<li>il prodotto per scalare si <strong>distribuisce</strong> sulle somme (di vettori e di numeri).</li>
-</ul>
-<p>È il rispetto di queste regole, non l'aspetto dell'oggetto, a fare di qualcosa un vettore.</p>
-<p><strong>L'esempio che userai sempre.</strong> In questa wiki il vettore è quasi sempre una <strong>lista ordinata di numeri</strong> (l'insieme \(\mathbb{R}^n\)): sommi due liste componente per componente, le scali moltiplicando ogni componente. È un <strong>caso particolare</strong>, il più concreto — non la definizione: anche polinomi, funzioni e matrici sono vettori a pieno titolo. Ogni numero della lista è una <strong>componente</strong>, e <strong>l'ordine conta</strong>: la prima posizione ha un significato diverso dalla seconda.</p>
-<p><strong>Il simbolo.</strong> Per il vettore-lista si scrive in grassetto e tra parentesi: \(\mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n)\); ogni \(x_i\) è una componente.</p>
+<p><strong>Definizione.</strong> Un <strong>vettore</strong> è una <strong>lista ordinata di numeri</strong>, trattata come un oggetto unico. Ogni numero della lista è una <strong>componente</strong>, e <strong>l'ordine conta</strong>: la prima posizione ha un significato diverso dalla seconda. <strong>Il simbolo.</strong> Si scrive in grassetto e tra parentesi: \(\mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n)\). Da programmatore: un array.</p>
 <div class="callout deep"><span class="tag">Il confine — cosa non è un vettore</span>
 <p>Togli una condizione e non hai più un vettore. I numeri naturali \(0, 1, 2, \dots\) si sommano e restano naturali, ma manca l'<strong>opposto</strong> (\(-3\) non è naturale): non sono uno spazio vettoriale. Da non confondere col vettore: lo <strong>scalare</strong> (un semplice numero) e il <strong>punto</strong> di una mappa (diventa un vettore solo dopo aver fissato un'origine). E la <strong>lunghezza</strong> (§3) non fa parte della definizione di vettore: è una struttura in più.</p>
 </div>
@@ -176,9 +167,7 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. Il prodotto scalare: da due liste, un solo numero</h2>
 <p><strong>Intuizione.</strong> Immagina due frecce che partono dall'origine. Il <strong>prodotto scalare</strong> misura <strong>quanto puntano nella stessa direzione</strong>: grande e positivo se vanno d'accordo, <strong>zero</strong> se sono perpendicolari, negativo se puntano in versi opposti — il tutto amplificato dalle loro <strong>lunghezze</strong> (frecce più lunghe → numeri più grandi).</p>
-<p><strong>Definizione.</strong> Il <strong>prodotto scalare</strong> è una <strong>funzione</strong>: prende <strong>due vettori con lo stesso numero di componenti</strong> e restituisce <strong>un solo numero</strong> (uno <strong>scalare</strong>: da qui il nome). Nel caso standard — i vettori come frecce nello spazio — quel numero misura <strong>quanto i due vettori sono allineati</strong>, moltiplicato per le loro <strong>lunghezze</strong>: a parità di lunghezza è massimo quando puntano nello stesso verso, <strong>zero</strong> quando sono <strong>perpendicolari</strong>, negativo quando formano un angolo maggiore di 90°. Questa è la lettura geometrica del caso standard; la caratterizzazione generale, valida per <strong>ogni</strong> prodotto scalare, è nelle tre condizioni del box «Più a fondo».</p>
-<p><strong>Il simbolo.</strong> In generale si scrive \(\langle \mathbf{v},\mathbf{w}\rangle\) oppure \(\mathbf{v}\cdot\mathbf{w}\). Nella wiki i due vettori sono i <strong>pesi</strong> \(\boldsymbol\theta\) e i <strong>dati</strong> \(\mathbf{x}\), e il prodotto si scrive \(\boldsymbol\theta^{\top}\mathbf{x}\): il segno \(\top\) si legge «trasposto» e segnala solo «sto per fare il prodotto scalare».</p>
-<p><strong>Come si calcola.</strong> Moltiplichi le componenti a coppie e sommi tutto (la sommatoria di F0.4):</p>
+<p><strong>Definizione.</strong> Il <strong>prodotto scalare</strong> di due vettori della stessa lunghezza è un <strong>numero</strong>: il <strong>punteggio complessivo</strong> che ottieni pesando ogni dato con la sua importanza. <strong>Come si calcola.</strong> Moltiplichi le componenti a coppie e sommi tutto (la sommatoria di F0.4):</p>
 <div class="formula key">\[ \boldsymbol\theta^{\top}\mathbf{x} \;=\; \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n \;=\; \sum_{i=1}^{n} \theta_i x_i \]</div>
 <p>Da programmatore: <code>sum(t*x for t, x in zip(theta, xs))</code>.</p>
 <div class="callout ex"><span class="tag">Esempio numerico — passo per passo</span>
@@ -194,7 +183,7 @@ a{color:var(--navy);}
 <div class="callout warn"><span class="tag">Il caso della wiki — punteggio pesato</span>
 <p>Quando un vettore sono <strong>pesi</strong> (importanze) e l'altro <strong>dati</strong>, il prodotto scalare diventa il <strong>punteggio totale</strong>: ogni dato contato secondo la sua importanza. È il cuore della regressione logistica (F4). Ma è un <strong>caso particolare</strong> del significato geometrico, non il significato in sé.</p>
 </div>
-<div class="callout deep"><span class="tag">Più a fondo (opzionale) — la definizione rigorosa</span>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Per un matematico il prodotto scalare non si definisce con la geometria (sarebbe circolare: angolo e lunghezza nascono da lui), ma con tre condizioni: è <strong>lineare</strong> in ciascuno dei due vettori, <strong>simmetrico</strong> (\(\mathbf{v}\cdot\mathbf{w} = \mathbf{w}\cdot\mathbf{v}\)) e <strong>definito positivo</strong> (\(\mathbf{v}\cdot\mathbf{v} > 0\) per ogni \(\mathbf{v}\) non nullo). Da queste tre discende la formula geometrica: per due vettori non nulli, \(\boldsymbol\theta^{\top}\mathbf{x} = \lVert\boldsymbol\theta\rVert\,\lVert\mathbf{x}\rVert\cos\varphi\), dove \(\varphi\) è l'angolo tra loro (\(\cos\varphi = 1\) se allineati, \(0\) se perpendicolari, \(-1\) se opposti). Togli la <strong>definita positività</strong> e resta una forma che può valere \(0\) anche su vettori non nulli: non è più un prodotto scalare.</p>
 </div>
 
@@ -202,19 +191,13 @@ a{color:var(--navy);}
 
 <h2 id="sec-3">3. La norma: la «lunghezza» di un vettore</h2>
 <p><strong>Intuizione.</strong> Se il vettore è una freccia dall'origine, la <strong>norma</strong> è la sua <strong>lunghezza</strong>. Raddoppi la freccia e la lunghezza raddoppia; la capovolgi e la lunghezza non cambia; e la via diretta da un punto a un altro non è mai più lunga di un percorso con una tappa in mezzo.</p>
-<p><strong>Definizione.</strong> Una <strong>norma</strong> è una <strong>funzione</strong> che, su uno <strong>spazio vettoriale</strong> \(V\), a ogni vettore \(\mathbf{x}\) associa un <strong>numero reale</strong> \(\lVert \mathbf{x} \rVert\), la sua lunghezza. Perché sia una norma, deve soddisfare — per ogni coppia di vettori \(\mathbf{x}, \mathbf{y}\) e per ogni numero reale \(\lambda\) — <strong>quattro condizioni</strong>, tutte insieme:</p>
-<ul>
-<li><strong>non-negatività</strong>: \(\lVert \mathbf{x} \rVert \ge 0\);</li>
-<li><strong>definitezza</strong>: \(\lVert \mathbf{x} \rVert = 0\) soltanto per il <strong>vettore nullo</strong> (l'unico che, sommato a qualsiasi vettore, lo lascia invariato);</li>
-<li><strong>omogeneità</strong>: \(\lVert \lambda\mathbf{x} \rVert = |\lambda|\,\lVert \mathbf{x} \rVert\), dove \(|\lambda|\) è il <strong>modulo</strong> di \(\lambda\), il suo valore senza segno (\(|-3| = |3| = 3\));</li>
-<li><strong>disuguaglianza triangolare</strong>: \(\lVert \mathbf{x}+\mathbf{y} \rVert \le \lVert \mathbf{x} \rVert + \lVert \mathbf{y} \rVert\).</li>
-</ul>
-<p>Queste quattro condizioni sono <strong>necessarie e sufficienti</strong>: chi le rispetta è una norma, ogni norma le rispetta.</p>
-<p><strong>Il simbolo.</strong> Doppie barre attorno al vettore: \(\lVert \mathbf{x} \rVert\). In forma compatta la firma è \(\lVert \cdot \rVert : V \to [0,+\infty)\): prende un vettore, restituisce sempre un reale non negativo.</p>
-<p><strong>Come si calcola (la norma euclidea).</strong> Il paper usa <strong>una</strong> norma precisa, la <strong>euclidea</strong>: la lunghezza in linea d'aria, dal teorema di Pitagora esteso. Elevi al quadrato ogni componente, sommi, fai la radice (F0.2):</p>
+<p><strong>Definizione.</strong> La <strong>norma</strong> è una <strong>funzione</strong>: prende in ingresso un <strong>vettore</strong> e restituisce un <strong>numero mai negativo</strong> — la <strong>lunghezza</strong> del vettore, cioè quanto dista dall'origine il punto che il vettore descrive. La norma <strong>euclidea</strong> (l'unica usata nel paper) misura questa lunghezza <strong>in linea d'aria</strong>, col teorema di Pitagora. <strong>Il simbolo.</strong> Doppie barre attorno al vettore: \(\lVert \mathbf{x} \rVert\). <strong>Come si calcola.</strong> Eleva al quadrato ogni componente, somma, e fai la radice (F0.2):</p>
 <div class="formula key">\[ \lVert \mathbf{x} \rVert \;=\; \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \;=\; \sqrt{\sum_{i=1}^{n} x_i^2} \]</div>
 <div class="callout ex"><span class="tag">Esempio numerico — il classico 3-4-5</span>
 <p>\(\mathbf{x} = (3;\ 4)\): \(\lVert \mathbf{x} \rVert = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5\). La freccia da (0,0) a (3,4) è lunga 5.</p>
+</div>
+<div class="callout deep"><span class="tag">Più a fondo (opzionale) — il collaudo delle lunghezze</span>
+<p>In matematica «norma» è il nome di una <strong>specie</strong>: qualunque funzione che si comporti da lunghezza. Il collaudo ha quattro prove, tutte di buon senso: (1) mai negativa; (2) vale zero <strong>solo</strong> per il vettore nullo; (3) raddoppi il vettore → raddoppia la lunghezza; (4) la linea d'aria non supera mai la deviazione (la «disuguaglianza triangolare»). La Pitagora di questa pagina è l'esemplare più famoso della specie, non l'unico.</p>
 </div>
 <div class="callout deep"><span class="tag">Il confine (opzionale) — la seminorma</span>
 <p>Le quattro condizioni non sono decorative: togline una e ottieni un altro oggetto. Se lasci cadere la <strong>definitezza</strong> (zero solo per il vettore nullo), resta una <strong>seminorma</strong>: una quasi-lunghezza che può valere zero anche per vettori non nulli. E ogni norma genera una <strong>distanza</strong>, \(d(\mathbf{x},\mathbf{y}) = \lVert \mathbf{x}-\mathbf{y} \rVert\), ma non ogni distanza nasce da una norma. La norma euclidea è l'esemplare più famoso, ma la <strong>specie</strong> «norma» è definita dalle quattro condizioni, non da Pitagora.</p>

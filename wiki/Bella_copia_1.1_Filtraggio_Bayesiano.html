@@ -597,6 +597,9 @@ a{color:var(--navy);}
 <p>Da qui in poi \(H\) e \(S\) <strong>non</strong> indicano le classi ham/spam: sono i <strong>due indicatori</strong> di Robinson–Fisher, così chiamati dal paper. Le classi, in questo paragrafo, le scrivo per esteso.</p>
 </div>
 <p>Per un'email con \(n\) parole selezionate abbiamo i punteggi \(f(w_1), \dots, f(w_n)\). Robinson esegue <strong>due test di Fisher speculari</strong>, trattando i punteggi come p-value (mossa euristica: il box in fondo dice dove il rigore si perde).</p>
+<div class="callout warn"><span class="tag">Attenzione — dominio (n ≥ 1)</span>
+<p>Si assume che l'email selezionata abbia \(n \ge 1\) token (sommatoria non vuota, \(2n \ge 2\)). Per \(n = 0\) (nessun token informativo) le formule non si applicano — la \(\chi^2\) è definita per \(\nu \ge 1\) — e si pone per convenzione \(I := 0{,}5\) (indecisione), <strong>assegnata, non calcolata</strong>.</p>
+</div>
 <p><strong>Test in direzione ham</strong> — usa direttamente le \(f\). Se l'email è piena di parole da ham, le \(f_i\) sono tutte <strong>piccole</strong> → sorpresa \(T\) grande → sopravvivenza piccola:</p>
 <div class="formula key">\[ H \;=\; C^{-1}\!\Bigl(-2 \sum_{i=1}^{n} \ln f(w_i),\ 2n\Bigr) \]</div>
 <p><strong>Lettura: \(H\) piccolo = forte evidenza di ham.</strong></p>

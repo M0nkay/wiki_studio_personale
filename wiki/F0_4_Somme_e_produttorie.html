@@ -191,12 +191,16 @@ a{color:var(--navy);}
 <div class="callout warn"><span class="tag">Non confondere le due lettere</span>
 <p>\(\sum\) (sigma) = <strong>somma</strong>. \(\prod\) (pi) = <strong>prodotto</strong>. Si somigliano ma la pi ha le due «gambe» dritte. Trucco: <strong>P</strong>i → <strong>P</strong>rodotto.</p>
 </div>
+<div class="callout nb"><span class="tag">N.B. — Estremi e caso vuoto</span>
+<p>In \(\sum_{i=1}^{n} x_i\) e \(\prod_{i=1}^{n} x_i\) l'indice \(i\) è un intero che parte da 1 e cresce di 1 fino a \(n\), con \(n\) intero \(\ge 0\). Se \(n=1\) la somma (o il prodotto) vale il solo \(x_1\). Se \(n=0\) non c'è alcun indice: per convenzione la <strong>somma vuota vale 0</strong> (elemento neutro di \(+\)) e il <strong>prodotto vuoto vale 1</strong> (elemento neutro di \(\cdot\)). È questa convenzione che in F0.5 rende \(0! = 1\).</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-4">4. Il legame che vedrai ovunque: il log unisce le due</h2>
 <p>Ricordi la regola d'oro dei logaritmi (F0.3 §4)? Il log trasforma un prodotto in una somma. Con i simboli nuovi, quella regola diventa il ponte tra \(\prod\) e \(\sum\):</p>
 <div class="formula key">\[ \log\!\left( \prod_{i=1}^{n} x_i \right) = \sum_{i=1}^{n} \log x_i \]</div>
+<p>L'uguaglianza \(\log\!\left(\prod x_i\right) = \sum \log x_i\) vale <strong>a condizione che ogni fattore sia \(x_i > 0\)</strong> (il logaritmo esiste solo su argomenti positivi). Applicandola a probabilità, i fattori devono essere strettamente positivi: una probabilità pari a 0 manda il prodotto a 0 e \(\log 0\) non è definito.</p>
 <p><strong>A parole.</strong> «Il logaritmo di un prodotto di tanti fattori = la somma dei loro logaritmi.» È esattamente il trucco della 1.1: una produttoria di probabilità (numeri piccoli, pericolosa per il computer) diventa una sommatoria di logaritmi (stabile). Non devi calcolarlo: devi <strong>riconoscerlo</strong> quando appare.</p>
 
 <div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
