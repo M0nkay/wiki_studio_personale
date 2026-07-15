@@ -167,13 +167,18 @@ a{color:var(--navy);}
 <p>L'idea di Gyöngyi e colleghi: confronta <strong>due mondi</strong>.</p>
 <ul>
 <li>\(PR(p)\): il PageRank normale — tutti contribuiscono, pioggia compresa.</li>
-<li>\(PR^{+}(p)\): il rank che \(p\) riceverebbe se la massa partisse <strong>solo dal nucleo buono</strong> — in pratica, la propagazione dai semi fidati di 2.2.</li>
 </ul>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Siano \(V^{+}\) il nucleo fidato e \(v^{+}\) il teletrasporto ristretto <strong>non</strong> rinormalizzato: \(v^{+}_p = 1/N\) se \(p\in V^{+}\), \(0\) altrimenti (quindi \(\sum_p v^{+}_p = |V^{+}|/N < 1\)). <strong>\(PR^{+}\) è il vettore PageRank calcolato con \(v^{+}\) al posto di \(v=(1/N)\mathbf{1}\):</strong> \(PR^{+} = (1-d)\,v^{+} + d\,G\,PR^{+}\). Poiché \(v^{+}\le v\) componente per componente e \((I-dG)^{-1}\) ha entrate ≥ 0, vale \(0 \le PR^{+}(p) \le PR(p)\) per ogni \(p\); quindi \(M(p)\ge 0\) e \(m(p)\in[0,1]\). Questo \(PR^{+}\) <strong>non</strong> coincide col TrustRank normalizzato di 2.2 (che somma a 1): il TrustRank ne è solo una <strong>stima</strong> (vedi Onestà).</p>
+</div>
 <p>La differenza è la parte di rank che il web fidato <strong>non giustifica</strong>:</p>
 <div class="formula key">\[ M(p) \;=\; PR(p) - PR^{+}(p) \qquad\qquad m(p) \;=\; \frac{PR(p) - PR^{+}(p)}{PR(p)} \]</div>
 <p>\(M(p)\) è la <strong>spam mass assoluta</strong>; \(m(p)\), la <strong>relativa</strong>, è la <strong>frazione</strong> del rank non giustificata: vicino a \(1\) = quasi tutto il tuo peso arriva da fonti che i fidati non conoscono. Sopra una soglia: demozione o revisione.</p>
 <div class="callout warn"><span class="tag">Trappola dei simboli — quarto mestiere della M</span>
-<p>\(M(p)\) qui è la massa assoluta: non la matrice \(M\), non l'insieme \(M(p_i)\) di 2.1. Onestà in più: nella scomposizione ideale \(m \in [0,1]\); usando il TrustRank come <strong>stima</strong> di \(PR^{+}\) può sforare leggermente — è una stima, non un'identità.</p>
+<p>\(M(p)\) qui è la massa assoluta: non la matrice \(M\), non l'insieme \(M(p_i)\) di 2.1.</p>
+</div>
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>Con la decomposizione a teletrasporto ristretto <strong>non</strong> rinormalizzato (definizione di \(PR^{+}\)) vale \(m(p)\in[0,1]\) esattamente; il limite superiore \(m\le 1\) vale comunque <strong>sempre</strong>, perché \(PR^{+}\ge 0\). Se invece si <strong>stima</strong> \(PR^{+}\) col TrustRank normalizzato (somma 1, come \(PR\)), allora \(\sum_p M(p)=0\): le pagine vicine ai semi hanno massa <strong>negativa</strong>, \(m(p)<0\) — anche molto (per un seme impopolare fino a valori come \(-4\)) — e vanno lette come «certamente buone». Non è un errore di arrotondamento ma una conseguenza della normalizzazione: la soglia va tarata sapendo che \(m\) può scendere sotto \(0\), mai sopra \(1\).</p>
 </div>
 
 <hr/>
