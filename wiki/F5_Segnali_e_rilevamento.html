@@ -148,8 +148,8 @@ a{color:var(--navy);}
 <h2 id="prerequisiti">Prerequisiti</h2>
 <p>Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: la media (Appendice D.2). Da <a class="xref" href="F4_Statistica_e_ML.html">F4</a>: il ruolo di \(z\) (§5.2) — qui lo vedrai dall'altro lato.</p>
 
-<div class="callout warn"><span class="tag">Trappola dei simboli — tre lettere riciclate in questa pagina</span>
-<p>(1) \(\sigma\) qui è la <strong>deviazione standard</strong>, non la sigmoide \(\sigma(\cdot)\): la sigmoide ha sempre le parentesi con un argomento dentro. (2) \(S_t\) è l'<strong>accumulatore CUSUM</strong>, non la classe spam né la spamminess: il pedice \(t\) = tempo lo distingue. (3) \(r\) qui è un <strong>tasso di ricarica</strong>, non l'uscita \(r(\mathbf{x})\) della logistica.</p>
+<div class="callout warn"><span class="tag">Trappola dei simboli — quattro lettere riciclate in questa pagina</span>
+<p>(1) \(\sigma\) qui è la <strong>deviazione standard</strong>, non la sigmoide \(\sigma(\cdot)\): la sigmoide ha sempre le parentesi con un argomento dentro. (2) \(S_t\) è l'<strong>accumulatore CUSUM</strong>, non la classe spam né la spamminess: il pedice \(t\) = tempo lo distingue. (3) \(r\) qui è un <strong>tasso di ricarica</strong>, non l'uscita \(r(\mathbf{x})\) della logistica. (4) \(z\) qui è lo z-score <strong>misurato dai dati</strong>, non il quantile \(z\) <strong>scelto a tavolino</strong> di F4 §5.2.</p>
 </div>
 
 <hr/>
@@ -171,6 +171,9 @@ a{color:var(--navy);}
 
 <h3 id="sec-1-2">1.2 Lo z-score</h3>
 <p>Lo <strong>z-score</strong> di un valore \(x\) risponde a: «quante deviazioni standard disti dalla media?»</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Siano \(n \ge 1\) e i dati non tutti uguali, così che \(\sigma > 0\). Se \(\sigma = 0\) (storico costante) lo z-score non è definito: ogni scostamento è o nullo o infinitamente anomalo, e va trattato a parte.</p>
+</div>
 <div class="formula key">\[ z \;=\; \frac{x - \mu}{\sigma} \]</div>
 <p>È un numero <strong>puro</strong> (senza unità): \(z = 0\) = perfettamente nella media; \(z = 2\) = due righelli sopra; \(z\) negativo = sotto. Regola spannometrica: oltre \(|z| = 2\)–\(3\) sei ufficialmente «strano». Nell'esempio: \(x = 9\) → \(z = (9-5)/2 = 2\).</p>
 <p class="note">Legame con F4 §5.2: là \(z\) era un valore <strong>scelto a tavolino</strong> (quanta prudenza voglio); qui è <strong>misurato dai dati</strong> (quanto è anomalo ciò che vedo). Stessa scala, direzioni opposte.</p>
@@ -268,7 +271,7 @@ a{color:var(--navy);}
 <tbody>
 <tr><td>\(\mu\)</td><td>media</td><td>somma dei dati diviso il loro numero</td><td>F5 §1.1</td></tr>
 <tr><td>\(\sigma\)</td><td>deviazione standard</td><td>righello della dispersione: \(\sqrt{\text{media dei quadrati degli scarti}}\) — senza parentesi-argomento, ≠ sigmoide \(\sigma(\cdot)\)</td><td>F5 §1.1</td></tr>
-<tr><td>\(z\)</td><td>z-score</td><td>\((x-\mu)/\sigma\): distanza dalla media in unità di \(\sigma\)</td><td>F5 §1.2</td></tr>
+<tr><td>\(z\)</td><td>z-score</td><td>\((x-\mu)/\sigma\): distanza dalla media in unità di \(\sigma\)</td><td>F4 §5.2 (riciclato)</td></tr>
 <tr><td>\(S_t\), pedice \(t\)</td><td>accumulatore CUSUM; tempo</td><td>la «vasca» degli sforamenti al passo \(t\) (≠ classe S, ≠ spamminess)</td><td>F5 §2</td></tr>
 <tr><td>\(\mu_0\)</td><td>livello di riferimento</td><td>il valore atteso in condizioni normali</td><td>F5 §2</td></tr>
 <tr><td>\(\kappa\)</td><td>kappa, margine</td><td>lo sforamento tollerato che non accumula</td><td>F5 §2</td></tr>
