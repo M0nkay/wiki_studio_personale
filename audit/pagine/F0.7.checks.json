@@ -1,0 +1,18 @@
+[
+  {"dove": "§2 esempio retta — pendenza (11-3)/(6-2)", "atteso": 2, "formula": "(11-3)/(6-2)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§2 esempio retta — sali 11-3", "atteso": 8, "formula": "11-3", "tol": 0, "esito": "OK"},
+  {"dove": "§2 esempio retta — avanzi 6-2", "atteso": 4, "formula": "6-2", "tol": 0, "esito": "OK"},
+  {"dove": "Soluzioni es.1 — pendenza (8-2)/(4-1)", "atteso": 2, "formula": "(8-2)/(4-1)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "Soluzioni es.1 — sali 8-2", "atteso": 6, "formula": "8-2", "tol": 0, "esito": "OK"},
+  {"dove": "Soluzioni es.1 — avanzi 4-1", "atteso": 3, "formula": "4-1", "tol": 0, "esito": "OK"},
+  {"dove": "§1 cartello 'pendenza 10%' = 10 ogni 100", "atteso": 0.10, "formula": "10/100", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.7-01 controesempio x^3 in 0 — derivata 3*0**2 (nulla ma flesso)", "atteso": 0, "formula": "3*0**2", "tol": 0, "esito": "OK"},
+  {"dove": "F0.7-01 MLE k=0,n=5 — derivata L'(0)=-5*(1-0)**4 (non nulla al bordo)", "atteso": -5, "formula": "-5*(1-0)**4", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.7-01 MLE k=0,n=5 — argmax su griglia di (1-t)^5 (MLE al bordo)", "atteso": 0.0, "formula": "max((i/1000 for i in range(1001)), key=lambda t:(1-t)**5)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.7-01 MLE — dove L'=0 (t=1) il valore L(1) e' il minimo", "atteso": 0.0, "formula": "(1-1.0)**5", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.7-02 |x| in 0 — pendenza destra", "atteso": 1, "formula": "(abs(1e-6)-abs(0))/(1e-6)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.7-02 |x| in 0 — pendenza sinistra", "atteso": -1, "formula": "(abs(-1e-6)-abs(0))/(-1e-6)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.7-06 gradiente — f(x)=x^2 in x=1, derivata f'(1) positiva => gradiente indica la salita, non la discesa", "atteso": 2, "formula": "2*1", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.7-04 muro/tangente verticale — pendenza 1/0 indefinita (ZeroDivisionError, non 'tanto')", "atteso": null, "formula": "1/0", "tol": 0, "esito": "manuale"},
+  {"dove": "F0.7-01 x^3 flesso — la curva sale attraversando lo zero: (-1e-6)**3 < 0 < (1e-6)**3", "atteso": null, "formula": "((-1e-6)**3 < 0**3) and (0**3 < (1e-6)**3)", "tol": 0, "esito": "manuale"}
+]

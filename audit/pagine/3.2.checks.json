@@ -1,0 +1,16 @@
+[
+  {"dove": "§2 esempio — P(a)P(b) sotto puro caso", "atteso": 0.001, "formula": "0.02*0.05", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§2 esempio 1 — log2(10) (arco forte)", "atteso": 3.32, "formula": "__import__('math').log2(0.01/(0.02*0.05))", "tol": 0.005, "esito": "OK"},
+  {"dove": "§2 esempio 2 — log2(1) (nessun arco)", "atteso": 0.0, "formula": "__import__('math').log2(0.001/(0.02*0.05))", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 esempio — media pesata dei vicini (aritmetica corretta; caratterizzazione falsa, S2)", "atteso": 0.625, "formula": "0.75*0.8 + 0.25*0.1", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 controesempio S2 — riga di W (nodo E) da PMI simmetrica col-normalizzata: somma 1.25 != 1", "atteso": 1.25, "formula": "float((lambda R: R/R.sum(0))(__import__('numpy').array([[0.,1.,3.],[1.,0.,1.],[3.,1.,0.]]))[0].sum())", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 controesempio S2 — (W@rep)_E con vicini entrambi 0.8: 1.0 > 0.8 (non e' media pesata)", "atteso": 1.0, "formula": "float(((lambda R: R/R.sum(0))(__import__('numpy').array([[0.,1.,3.],[1.,0.,1.],[3.,1.,0.]]))@__import__('numpy').array([0.8,0.8,0.8]))[0])", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§4 esercizio 1 / soluzione 1 — P(a)P(b)", "atteso": 0.002, "formula": "0.04*0.05", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§4 esercizio 1 / soluzione 1 — log2(5)", "atteso": 2.32, "formula": "__import__('math').log2(0.01/(0.04*0.05))", "tol": 0.005, "esito": "OK"},
+  {"dove": "§4 esercizio 2 / soluzione 2 — arriva a E prima dello smorzamento", "atteso": 0.6, "formula": "0.5*0.9 + 0.5*0.3", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S3 — rep e' una distribuzione? seed somma 1, W col-stocastica -> rep somma 1", "atteso": 1.0, "formula": "float(((1-0.85)*__import__('numpy').linalg.solve(__import__('numpy').eye(3)-0.85*(lambda R: R/R.sum(0))(__import__('numpy').array([[0.,1.,3.],[1.,0.,1.],[3.,1.,0.]])), __import__('numpy').array([0.5,0.3,0.2]))).sum())", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S6 — self-loop PMI+(a,a)=-log2 P(a) con P(a)=0.02: voce massima (>3.32)", "atteso": 5.643856189774724, "formula": "__import__('math').log2(0.02/(0.02**2))", "tol": 1e-6, "esito": "OK"},
+  {"dove": "S3/casi estremi — alpha=1: det(I-W)=0 -> (I-W) singolare, rep non unica", "atteso": 0.0, "formula": "float(__import__('numpy').linalg.det(__import__('numpy').eye(3)-(lambda R: R/R.sum(0))(__import__('numpy').array([[0.,1.,3.],[1.,0.,1.],[3.,1.,0.]]))))", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S1 — entita' isolata: colonna nulla -> divisione 0/0 = nan (W non stocastica). Atteso: nan", "atteso": null, "formula": "__import__('numpy').float64(0.0)/__import__('numpy').float64(0.0)", "tol": 0.0, "esito": "manuale"},
+  {"dove": "S5 — P(a,b)=0: log2(0) indefinito, solleva ValueError (formula presa alla lettera)", "atteso": null, "formula": "__import__('math').log2(0.0)", "tol": 0.0, "esito": "manuale"}
+]

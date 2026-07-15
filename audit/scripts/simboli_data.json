@@ -1,0 +1,4507 @@
+{
+ "pages": {
+  "F0.1": {
+   "stem": "F0_1_Frazioni_e_percentuali",
+   "symbols": [
+    {
+     "raw": "\\(\\dfrac{a}{b}\\)",
+     "norm_list": [
+      "\\dfrac{a}{b}"
+     ],
+     "nome": "frazione",
+     "def": "\\(a\\) numeratore (quante parti), \\(b\\) denominatore (in quante taglio); la barra = «diviso»",
+     "prima_occ_txt": "F0.1 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(:\\) oppure \\(\\div\\)",
+     "norm_list": [
+      ":oppure\\div"
+     ],
+     "nome": "diviso",
+     "def": "l'operazione di divisione",
+     "prima_occ_txt": "F0.1 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "virgola \\(0{,}5\\)",
+     "norm_list": [
+      "virgola0{,}5"
+     ],
+     "nome": "separatore decimale",
+     "def": "convenzione italiana (l'inglese usa il punto)",
+     "prima_occ_txt": "F0.1 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\%\\)",
+     "norm_list": [
+      "\\%"
+     ],
+     "nome": "per cento",
+     "def": "significa «\\(\\div 100\\)»: \\(70\\% = 0{,}70\\)",
+     "prima_occ_txt": "F0.1 §4",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F0.2": {
+   "stem": "F0_2_Potenze_e_radici",
+   "symbols": [
+    {
+     "raw": "\\(a^b\\)",
+     "norm_list": [
+      "a^b"
+     ],
+     "nome": "potenza",
+     "def": "\\(a\\) base, \\(b\\) esponente: \\(a\\) moltiplicato per sé stesso \\(b\\) volte",
+     "prima_occ_txt": "F0.2 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(a^0\\)",
+     "norm_list": [
+      "a^0"
+     ],
+     "nome": "esponente zero",
+     "def": "vale sempre \\(1\\) (per base diversa da 0)",
+     "prima_occ_txt": "F0.2 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(a^{-b}\\)",
+     "norm_list": [
+      "a^{-b}"
+     ],
+     "nome": "esponente negativo",
+     "def": "\\(= 1/a^b\\): il meno manda sotto la frazione",
+     "prima_occ_txt": "F0.2 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\sqrt{c}\\)",
+     "norm_list": [
+      "\\sqrt{c}"
+     ],
+     "nome": "radice quadrata",
+     "def": "il numero che al quadrato dà \\(c\\): \\(\\sqrt{25}=5\\)",
+     "prima_occ_txt": "F0.2 §4",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F0.3": {
+   "stem": "F0_3_Logaritmi",
+   "symbols": [
+    {
+     "raw": "\\(\\log_b c\\)",
+     "norm_list": [
+      "\\log_bc"
+     ],
+     "nome": "logaritmo",
+     "def": "l'esponente da dare a \\(b\\) per ottenere \\(c\\); la potenza al contrario",
+     "prima_occ_txt": "F0.3 §2",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\log_2\\)",
+     "norm_list": [
+      "\\log_2"
+     ],
+     "nome": "logaritmo in base 2",
+     "def": "«in quanti raddoppi»; vive nella teoria dell'informazione",
+     "prima_occ_txt": "F0.3 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\ln\\), \\(e\\)",
+     "norm_list": [
+      "\\ln",
+      "e"
+     ],
+     "nome": "logaritmo naturale; numero di Eulero",
+     "def": "\\(\\ln = \\log_e\\), con \\(e \\approx 2{,}718\\) (una costante come \\(\\pi\\))",
+     "prima_occ_txt": "F0.3 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\log(ab)=\\log a+\\log b\\)",
+     "norm_list": [
+      "\\log(ab)=\\loga+\\logb"
+     ],
+     "nome": "regola d'oro",
+     "def": "il logaritmo trasforma il prodotto in somma",
+     "prima_occ_txt": "F0.3 §4",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F0.4": {
+   "stem": "F0_4_Somme_e_produttorie",
+   "symbols": [
+    {
+     "raw": "\\(\\sum\\)",
+     "norm_list": [
+      "\\sum"
+     ],
+     "nome": "sommatoria (sigma)",
+     "def": "somma tutti gli elementi indicati dall'indice",
+     "prima_occ_txt": "F0.4 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(i\\), pedice \\(x_i\\)",
+     "norm_list": [
+      "i",
+      "pedicex_i"
+     ],
+     "nome": "indice; elemento i-esimo",
+     "def": "il contatore del ciclo; \\(x_i\\) = l'elemento numero \\(i\\)",
+     "prima_occ_txt": "F0.4 §2",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\prod\\)",
+     "norm_list": [
+      "\\prod"
+     ],
+     "nome": "produttoria (pi)",
+     "def": "moltiplica tutti gli elementi indicati; P → Prodotto",
+     "prima_occ_txt": "F0.4 §3",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F0.5": {
+   "stem": "F0_5_Notazione_di_base",
+   "symbols": [
+    {
+     "raw": "\\(|x|\\)",
+     "norm_list": [
+      "|x|"
+     ],
+     "nome": "valore assoluto",
+     "def": "distanza da zero: toglie il segno meno; \\(|-5|=5\\)",
+     "prima_occ_txt": "F0.5 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\lfloor x \\rfloor\\)",
+     "norm_list": [
+      "\\lfloorx\\rfloor"
+     ],
+     "nome": "floor (parte intera inferiore)",
+     "def": "arrotonda sempre in giù all'intero: \\(\\lfloor 2{,}75 \\rfloor = 2\\)",
+     "prima_occ_txt": "F0.5 §2",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\min\\), \\(\\max\\)",
+     "norm_list": [
+      "\\min",
+      "\\max"
+     ],
+     "nome": "minimo, massimo",
+     "def": "il più piccolo / il più grande di un gruppo; spesso tetto o pavimento",
+     "prima_occ_txt": "F0.5 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(n!\\)",
+     "norm_list": [
+      "n!"
+     ],
+     "nome": "fattoriale",
+     "def": "\\(1\\cdot2\\cdots n\\): il prodotto dei primi \\(n\\) interi; \\(0!=1\\)",
+     "prima_occ_txt": "F0.5 §4",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F0.6": {
+   "stem": "F0_6_Vettori_e_prodotto_scalare",
+   "symbols": [
+    {
+     "raw": "\\(\\mathbf{x}\\)",
+     "norm_list": [
+      "\\mathbf{x}"
+     ],
+     "nome": "vettore",
+     "def": "elemento di uno spazio vettoriale (si somma e si scala); esempio: lista ordinata di numeri (\\(\\mathbb{R}^n\\))",
+     "prima_occ_txt": "F0.6 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(x_i\\)",
+     "norm_list": [
+      "x_i"
+     ],
+     "nome": "componente",
+     "def": "il numero in posizione \\(i\\) del vettore-lista",
+     "prima_occ_txt": "F0.6 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\boldsymbol\\theta^{\\top}\\mathbf{x}\\), \\(\\top\\)",
+     "norm_list": [
+      "\\boldsymbol\\theta^{\\top}\\mathbf{x}",
+      "\\top"
+     ],
+     "nome": "prodotto scalare; trasposto",
+     "def": "quanto due vettori sono allineati × lunghezze; si calcola «a coppie e somma»",
+     "prima_occ_txt": "F0.6 §2",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\lVert \\mathbf{x} \\rVert\\)",
+     "norm_list": [
+      "\\lVert\\mathbf{x}\\rVert"
+     ],
+     "nome": "norma",
+     "def": "lunghezza (funzione, 4 condizioni); euclidea: \\(\\sqrt{\\sum_i x_i^2}\\)",
+     "prima_occ_txt": "F0.6 §3",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F0.7": {
+   "stem": "F0_7_Derivata",
+   "symbols": [
+    {
+     "raw": "derivata",
+     "norm_list": [
+      "derivata"
+     ],
+     "nome": "pendenza in un punto",
+     "def": "quanto è ripida una curva lì; «quanto sta cambiando proprio qui»",
+     "prima_occ_txt": "F0.7 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "pendenza",
+     "norm_list": [
+      "pendenza"
+     ],
+     "nome": "—",
+     "def": "\\(\\dfrac{\\text{quanto sali}}{\\text{quanto avanzi}}\\): una frazione",
+     "prima_occ_txt": "F0.7 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "tangente",
+     "norm_list": [
+      "tangente"
+     ],
+     "nome": "—",
+     "def": "la retta che «sfiora» la curva in un punto; la sua pendenza è la derivata",
+     "prima_occ_txt": "F0.7 §2",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "derivata = 0",
+     "norm_list": [
+      "derivata=0"
+     ],
+     "nome": "punto piatto",
+     "def": "cima, fondo o pianoro: né sale né scende",
+     "prima_occ_txt": "F0.7 §3",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F0.8": {
+   "stem": "F0_8_Integrale",
+   "symbols": [
+    {
+     "raw": "integrale",
+     "norm_list": [
+      "integrale"
+     ],
+     "nome": "area con segno sotto la curva",
+     "def": "saldo tra l'area sopra (positiva) e sotto (negativa) l'asse; esiste se \\(f\\) è limitata e integrabile",
+     "prima_occ_txt": "F0.8 §1",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\displaystyle\\int\\)",
+     "norm_list": [
+      "\\displaystyle\\int"
+     ],
+     "nome": "segno di integrale",
+     "def": "una S allungata = «Somma»; \\(\\int_a^b f(x)\\,dx\\)",
+     "prima_occ_txt": "F0.8 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(f(x)\\)",
+     "norm_list": [
+      "f(x)"
+     ],
+     "nome": "funzione (altezza)",
+     "def": "il valore/altezza della curva nel punto \\(x\\)",
+     "prima_occ_txt": "F0.8 §3",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(dx\\)",
+     "norm_list": [
+      "dx"
+     ],
+     "nome": "larghezza infinitesima",
+     "def": "la larghezza di una fettina sottilissima",
+     "prima_occ_txt": "F0.8 §3",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "1.1": {
+   "stem": "Bella_copia_1.1_Filtraggio_Bayesiano",
+   "symbols": [
+    {
+     "raw": "\\([a,b]\\), \\((a,b)\\)",
+     "norm_list": [
+      "[a,b]",
+      "(a,b)"
+     ],
+     "nome": "intervallo chiuso / aperto",
+     "def": "tutti i numeri tra \\(a\\) e \\(b\\): quadre = estremi inclusi, tonde = estremi esclusi",
+     "prima_occ_txt": "§1.1 / §5.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(P(A)\\)",
+     "norm_list": [
+      "P(A)"
+     ],
+     "nome": "probabilità di \\(A\\)",
+     "def": "numero in \\([0,1]\\) che misura quanto è probabile l'evento \\(A\\)",
+     "prima_occ_txt": "§1.1",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\%\\)",
+     "norm_list": [
+      "\\%"
+     ],
+     "nome": "per cento",
+     "def": "«su cento»: \\(70\\% = 0{,}70\\)",
+     "prima_occ_txt": "§1.1",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\overline{A}\\)",
+     "norm_list": [
+      "\\overline{A}"
+     ],
+     "nome": "complemento",
+     "def": "l'evento «\\(A\\) non accade»; \\(P(\\overline{A}) = 1 - P(A)\\)",
+     "prima_occ_txt": "§1.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(P(A\\mid B)\\), \\(\\mid\\)",
+     "norm_list": [
+      "P(A\\midB)",
+      "\\mid"
+     ],
+     "nome": "probabilità condizionata; barra «dato»",
+     "def": "probabilità di \\(A\\) sapendo che \\(B\\) è accaduto",
+     "prima_occ_txt": "§1.3",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(A \\cap B\\)",
+     "norm_list": [
+      "A\\capB"
+     ],
+     "nome": "intersezione",
+     "def": "«\\(A\\) e \\(B\\)»: accadono entrambi insieme",
+     "prima_occ_txt": "§1.3",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(|B|\\)",
+     "norm_list": [
+      "|B|"
+     ],
+     "nome": "cardinalità",
+     "def": "numero di elementi dell'insieme \\(B\\) (barre attorno a un insieme)",
+     "prima_occ_txt": "§1.3",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\approx\\)",
+     "norm_list": [
+      "\\approx"
+     ],
+     "nome": "circa uguale",
+     "def": "uguaglianza approssimata, dopo un arrotondamento",
+     "prima_occ_txt": "§2.1",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\Omega\\), \\(\\omega\\)",
+     "norm_list": [
+      "\\Omega",
+      "\\omega"
+     ],
+     "nome": "spazio campionario; esito",
+     "def": "l'insieme di tutti gli esiti possibili; un singolo esito elementare",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\in\\)",
+     "norm_list": [
+      "\\in"
+     ],
+     "nome": "appartiene a",
+     "def": "l'elemento a sinistra sta nell'insieme a destra",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\{\\dots\\}\\)",
+     "norm_list": [
+      "\\{\\dots\\}"
+     ],
+     "nome": "insieme per elenco",
+     "def": "le graffe elencano gli elementi: \\(\\{1,2,3\\}\\); i puntini \\(\\dots\\) = «e così via»",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\mathcal{F}\\)",
+     "norm_list": [
+      "\\mathcal{F}"
+     ],
+     "nome": "\\(\\sigma\\)-algebra degli eventi",
+     "def": "la famiglia dei sottoinsiemi di \\(\\Omega\\) a cui si assegna una probabilità",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\setminus\\)",
+     "norm_list": [
+      "\\setminus"
+     ],
+     "nome": "differenza tra insiemi",
+     "def": "\\(\\Omega \\setminus A\\): gli elementi di \\(\\Omega\\) che non stanno in \\(A\\)",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\bigcup\\), \\(\\cup\\)",
+     "norm_list": [
+      "\\bigcup",
+      "\\cup"
+     ],
+     "nome": "unione",
+     "def": "«oppure»: gli esiti che stanno in almeno uno degli insiemi",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\to\\), \\(\\Longrightarrow\\)",
+     "norm_list": [
+      "\\to",
+      "\\Longrightarrow"
+     ],
+     "nome": "freccia",
+     "def": "tre usi: tipo di funzione (\\(P:\\mathcal{F} \\to [0,1]\\), da–a); «quindi / da cui» nelle catene; «tende a» nei limiti (§4.4)",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\sum\\)",
+     "norm_list": [
+      "\\sum"
+     ],
+     "nome": "sommatoria",
+     "def": "somma di tutti i termini indicati dall'indice",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(:=\\)",
+     "norm_list": [
+      ":="
+     ],
+     "nome": "uguale per definizione",
+     "def": "introduce un nome: il lato sinistro è definito come il lato destro; niente da verificare",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\arg\\max\\)",
+     "norm_list": [
+      "\\arg\\max"
+     ],
+     "nome": "argomento del massimo",
+     "def": "il valore dell'argomento che rende massima la funzione (non il massimo stesso)",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(S\\), \\(H\\)",
+     "norm_list": [
+      "S",
+      "H"
+     ],
+     "nome": "classi spam / ham",
+     "def": "le due classi di email (ham = buone). Attenzione: in §5.6 \\(H\\) e \\(S\\) cambiano ruolo (indicatori di Fisher)",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(w\\)",
+     "norm_list": [
+      "w"
+     ],
+     "nome": "parola (token)",
+     "def": "una parola dell'email",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(b\\), \\(N_S\\)",
+     "norm_list": [
+      "b",
+      "N_S"
+     ],
+     "nome": "conteggi spam",
+     "def": "spam contenenti la parola / totale spam (definiti in §3.2)",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(g\\), \\(N_H\\)",
+     "norm_list": [
+      "g",
+      "N_H"
+     ],
+     "nome": "conteggi ham",
+     "def": "ham contenenti la parola / totale ham (definiti in §3.2)",
+     "prima_occ_txt": "§2.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\Theta\\)",
+     "norm_list": [
+      "\\Theta"
+     ],
+     "nome": "spazio del parametro",
+     "def": "l'elenco dei candidati per \\(\\theta\\): tutti i valori che potrebbe assumere (es. una probabilità: \\(\\Theta = [0,1]\\)); coppia maiuscola/minuscola come \\(\\Omega\\)/\\(\\omega\\)",
+     "prima_occ_txt": "§2.2 (opz.)",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\int\\)",
+     "norm_list": [
+      "\\int"
+     ],
+     "nome": "integrale",
+     "def": "la «somma continua»; nel documento compare solo nel box sul caso continuo",
+     "prima_occ_txt": "§2.2 (opz.)",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\mathrm{LR}\\)",
+     "norm_list": [
+      "\\mathrm{LR}"
+     ],
+     "nome": "rapporto di verosimiglianza",
+     "def": "\\(P(w\\mid S)/P(w\\mid H)\\): quante volte la parola è più frequente nello spam",
+     "prima_occ_txt": "§3.1",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "MLE",
+     "norm_list": [
+      "MLE"
+     ],
+     "nome": "stima di massima verosimiglianza",
+     "def": "il valore del parametro che rende massima \\(L(\\theta)\\)",
+     "prima_occ_txt": "§3.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\theta\\), \\(\\hat\\theta\\)",
+     "norm_list": [
+      "\\theta",
+      "\\hat\\theta"
+     ],
+     "nome": "parametro; sua stima",
+     "def": "valore vero sconosciuto; il cappello \\(\\hat{\\ }\\) = «stimato»",
+     "prima_occ_txt": "§3.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(D\\)",
+     "norm_list": [
+      "D"
+     ],
+     "nome": "dati",
+     "def": "i dati osservati (qui: i conteggi del campione)",
+     "prima_occ_txt": "§3.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(L(\\theta)\\)",
+     "norm_list": [
+      "L(\\theta)"
+     ],
+     "nome": "verosimiglianza",
+     "def": "probabilità dei dati osservati, come funzione di \\(\\theta\\)",
+     "prima_occ_txt": "§3.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\binom{n}{k}\\)",
+     "norm_list": [
+      "\\binom{n}{k}"
+     ],
+     "nome": "coefficiente binomiale",
+     "def": "in quanti modi si scelgono \\(k\\) oggetti tra \\(n\\)",
+     "prima_occ_txt": "§3.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(a^{b}\\)",
+     "norm_list": [
+      "a^{b}"
+     ],
+     "nome": "potenza",
+     "def": "\\(a\\) moltiplicato per sé stesso \\(b\\) volte; copre \\(\\theta^{\\,b}\\), \\(e^t\\), \\(2^{10}\\)",
+     "prima_occ_txt": "§3.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(p(w)\\)",
+     "norm_list": [
+      "p(w)"
+     ],
+     "nome": "probabilità di spam per parola",
+     "def": "la formula di Graham",
+     "prima_occ_txt": "§3.3",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\leftarrow\\)",
+     "norm_list": [
+      "\\leftarrow"
+     ],
+     "nome": "assegnazione",
+     "def": "«assegna il nuovo valore»: aggiorna la variabile a sinistra",
+     "prima_occ_txt": "§3.4",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\min\\), \\(\\max\\)",
+     "norm_list": [
+      "\\min",
+      "\\max"
+     ],
+     "nome": "minimo / massimo",
+     "def": "il più piccolo / il più grande tra gli argomenti",
+     "prima_occ_txt": "§3.4",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(f(w)\\)",
+     "norm_list": [
+      "f(w)"
+     ],
+     "nome": "stima contratta",
+     "def": "\\(p(w)\\) corretto da Robinson (shrinkage)",
+     "prima_occ_txt": "§4.3",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(x\\), \\(s\\), \\(n\\)",
+     "norm_list": [
+      "x",
+      "s",
+      "n"
+     ],
+     "nome": "neutro; forza del prior; osservazioni",
+     "def": "\\(0{,}5\\); numero di osservazioni virtuali; numero di osservazioni vere",
+     "prima_occ_txt": "§4.3",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\alpha\\), \\(\\beta\\), \\(k\\), \\(\\text{Beta}(\\alpha,\\beta)\\)",
+     "norm_list": [
+      "\\alpha",
+      "\\beta",
+      "k",
+      "\\text{Beta}(\\alpha,\\beta)"
+     ],
+     "nome": "parametri Beta; successi",
+     "def": "conteggi virtuali del prior Beta; \\(k\\) = successi reali su \\(n\\) prove",
+     "prima_occ_txt": "§4.5 (opz.)",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\prod\\)",
+     "norm_list": [
+      "\\prod"
+     ],
+     "nome": "produttoria",
+     "def": "prodotto di tutti i termini indicati dall'indice",
+     "prima_occ_txt": "§5.1",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\sim\\)",
+     "norm_list": [
+      "\\sim"
+     ],
+     "nome": "dell'ordine di",
+     "def": "«si comporta circa come»: \\(\\sim p^{\\,n}\\)",
+     "prima_occ_txt": "§5.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(e\\), \\(\\ln\\)",
+     "norm_list": [
+      "e",
+      "\\ln"
+     ],
+     "nome": "numero di Nepero; logaritmo naturale",
+     "def": "\\(e \\approx 2{,}718\\); \\(\\ln\\) è l'inverso di \\(e^t\\); \\(\\ln(ab)=\\ln a + \\ln b\\); negativo su \\((0,1)\\)",
+     "prima_occ_txt": "§5.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "odds, \\(\\mathrm{logit}\\)",
+     "norm_list": [
+      "odds",
+      "\\mathrm{logit}"
+     ],
+     "nome": "quota; log-odds",
+     "def": "\\(p/(1-p)\\); il suo logaritmo (per esteso in A.2)",
+     "prima_occ_txt": "§5.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\mathrm{LLR}\\)",
+     "norm_list": [
+      "\\mathrm{LLR}"
+     ],
+     "nome": "log-likelihood ratio",
+     "def": "il «peso di evidenza» in log-odds: positivo → spam, negativo → ham",
+     "prima_occ_txt": "§5.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\sigma(\\cdot)\\)",
+     "norm_list": [
+      "\\sigma(\\cdot)"
+     ],
+     "nome": "sigmoide (logistica)",
+     "def": "\\(\\sigma(t) = 1/(1+e^{-t})\\), inversa del logit",
+     "prima_occ_txt": "§5.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\mathbf{w}\\)",
+     "norm_list": [
+      "\\mathbf{w}"
+     ],
+     "nome": "email intera",
+     "def": "in grassetto: tutte le parole dell'email insieme",
+     "prima_occ_txt": "§5.2",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(H_0\\)",
+     "norm_list": [
+      "H_0"
+     ],
+     "nome": "ipotesi nulla",
+     "def": "«nessun segnale, solo caso»: ciò che il test mette alla prova",
+     "prima_occ_txt": "§5.4",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(u\\)",
+     "norm_list": [
+      "u"
+     ],
+     "nome": "p-value",
+     "def": "probabilità, sotto \\(H_0\\), di un risultato almeno così estremo",
+     "prima_occ_txt": "§5.4",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(F(t)\\), CDF",
+     "norm_list": [
+      "F(t)",
+      "CDF"
+     ],
+     "nome": "funzione di ripartizione",
+     "def": "\\(P(X \\le t)\\); la sopravvivenza è \\(1 - F(t) = P(X > t)\\)",
+     "prima_occ_txt": "§5.5",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\chi^2_\\nu\\), \\(\\nu\\)",
+     "norm_list": [
+      "\\chi^2_\\nu",
+      "\\nu"
+     ],
+     "nome": "chi-quadro; gradi di libertà",
+     "def": "famiglia di distribuzioni note e tabulate; \\(\\nu\\) ne fissa la forma",
+     "prima_occ_txt": "§5.5",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(T\\)",
+     "norm_list": [
+      "T"
+     ],
+     "nome": "statistica di Fisher",
+     "def": "\\(-2\\sum\\ln(\\cdot)\\): la «sorpresa accumulata»",
+     "prima_occ_txt": "§5.5",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(C^{-1}(t,\\nu)\\)",
+     "norm_list": [
+      "C^{-1}(t,\\nu)"
+     ],
+     "nome": "sopravvivenza della chi-quadro",
+     "def": "\\(P(\\chi^2_\\nu > t)\\); nonostante il «\\(-1\\)», non è una funzione inversa",
+     "prima_occ_txt": "§5.5",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(H\\), \\(S\\), \\(I\\)",
+     "norm_list": [
+      "H",
+      "S",
+      "I"
+     ],
+     "nome": "indicatori di Fisher",
+     "def": "bussola: \\(H\\)/\\(S\\) piccolo = evidenza forte di ham/spam; \\(I = (1+H-S)/2\\)",
+     "prima_occ_txt": "§5.6",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(|x|\\)",
+     "norm_list": [
+      "|x|"
+     ],
+     "nome": "valore assoluto",
+     "def": "distanza di \\(x\\) da zero (barre attorno a un numero)",
+     "prima_occ_txt": "§5.6",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\tau\\)",
+     "norm_list": [
+      "\\tau"
+     ],
+     "nome": "soglia di decisione",
+     "def": "il livello con cui si confronta \\(I\\)",
+     "prima_occ_txt": "§5.6",
+     "prima_occ_sigla": "1.1"
+    },
+    {
+     "raw": "\\(\\infty\\)",
+     "norm_list": [
+      "\\infty"
+     ],
+     "nome": "infinito",
+     "def": "oltre ogni numero; la scala del logit va da \\(-\\infty\\) a \\(+\\infty\\)",
+     "prima_occ_txt": "A.2",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(X\\), \\(\\mathbb{E}[X]\\)",
+     "norm_list": [
+      "X",
+      "\\mathbb{E}[X]"
+     ],
+     "nome": "variabile casuale; valore atteso",
+     "def": "numero che dipende dall'esito (maiuscola = variabile, minuscola = valore); media pesata con le probabilità",
+     "prima_occ_txt": "App. D (opz.)",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\mathcal{G}\\)",
+     "norm_list": [
+      "\\mathcal{G}"
+     ],
+     "nome": "sotto-\\(\\sigma\\)-algebra",
+     "def": "famiglia di eventi più povera di \\(\\mathcal{F}\\): informazione parziale",
+     "prima_occ_txt": "App. D (opz.)",
+     "prima_occ_sigla": null
+    },
+    {
+     "raw": "\\(\\mathbb{E}[X \\mid \\mathcal{G}]\\)",
+     "norm_list": [
+      "\\mathbb{E}[X\\mid\\mathcal{G}]"
+     ],
+     "nome": "aspettazione condizionata",
+     "def": "la miglior stima di \\(X\\) usando solo l'informazione in \\(\\mathcal{G}\\)",
+     "prima_occ_txt": "App. D (opz.)",
+     "prima_occ_sigla": null
+    }
+   ]
+  },
+  "F4": {
+   "stem": "F4_Statistica_e_ML",
+   "symbols": [
+    {
+     "raw": "\\(\\mathbf{x}\\), \\(\\boldsymbol\\theta\\)",
+     "norm_list": [
+      "\\mathbf{x}",
+      "\\boldsymbol\\theta"
+     ],
+     "nome": "vettori (dati; pesi)",
+     "def": "liste ordinate di numeri; grassetto = più componenti",
+     "prima_occ_txt": "F4 §1.1",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\top\\), \\(\\boldsymbol\\theta^{\\top}\\mathbf{x}\\)",
+     "norm_list": [
+      "\\top",
+      "\\boldsymbol\\theta^{\\top}\\mathbf{x}"
+     ],
+     "nome": "trasposto; prodotto scalare",
+     "def": "«moltiplica componente per componente e somma»",
+     "prima_occ_txt": "F4 §1.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\sqrt{\\ }\\)",
+     "norm_list": [
+      "\\sqrt{\\}"
+     ],
+     "nome": "radice quadrata",
+     "def": "il numero che al quadrato dà l'argomento",
+     "prima_occ_txt": "F4 §1.3",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\lVert\\boldsymbol\\theta\\rVert\\)",
+     "norm_list": [
+      "\\lVert\\boldsymbol\\theta\\rVert"
+     ],
+     "nome": "norma",
+     "def": "lunghezza del vettore: \\(\\sqrt{\\sum_j \\theta_j^2}\\)",
+     "prima_occ_txt": "F4 §1.3",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(r(\\mathbf{x})\\)",
+     "norm_list": [
+      "r(\\mathbf{x})"
+     ],
+     "nome": "uscita della logistica",
+     "def": "\\(\\sigma(\\boldsymbol\\theta^{\\top}\\mathbf{x})\\): probabilità stimata che \\(y=1\\)",
+     "prima_occ_txt": "F4 §2.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(y\\)",
+     "norm_list": [
+      "y"
+     ],
+     "nome": "etichetta",
+     "def": "la verità osservata, \\(0\\) oppure \\(1\\)",
+     "prima_occ_txt": "F4 §2.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\ell\\), \\(\\mathcal{L}(\\boldsymbol\\theta)\\)",
+     "norm_list": [
+      "\\ell",
+      "\\mathcal{L}(\\boldsymbol\\theta)"
+     ],
+     "nome": "log-loss (perdita)",
+     "def": "costo dell'errore; \\(\\mathcal{L} = -\\ln L\\): non confondere con la verosimiglianza \\(L\\)",
+     "prima_occ_txt": "F4 §2.3",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\lambda\\)",
+     "norm_list": [
+      "\\lambda"
+     ],
+     "nome": "due mestieri",
+     "def": "forza della penale L2 (§2.4) e fattore EWMA (§4.1): decide il contesto",
+     "prima_occ_txt": "F4 §2.4",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\eta\\)",
+     "norm_list": [
+      "\\eta"
+     ],
+     "nome": "learning rate",
+     "def": "lunghezza del passo nella discesa del gradiente",
+     "prima_occ_txt": "F4 §3.1",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "SGD, FTRL",
+     "norm_list": [
+      "SGD",
+      "FTRL"
+     ],
+     "nome": "sigle",
+     "def": "discesa del gradiente un esempio alla volta; sua variante online industriale",
+     "prima_occ_txt": "F4 §3.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\bar{x}\\)",
+     "norm_list": [
+      "\\bar{x}"
+     ],
+     "nome": "media EWMA",
+     "def": "la barra = media; qui la media mobile che dimentica",
+     "prima_occ_txt": "F4 §4.1",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\Delta t\\), \\(\\tau\\)",
+     "norm_list": [
+      "\\Deltat",
+      "\\tau"
+     ],
+     "nome": "intervallo; costante di tempo",
+     "def": "tempo dall'ultimo aggiornamento; scala della memoria (questo \\(\\tau\\) ≠ soglia della 1.1)",
+     "prima_occ_txt": "F4 §4.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(\\hat{p}\\), \\(k\\), \\(m\\)",
+     "norm_list": [
+      "\\hat{p}",
+      "k",
+      "m"
+     ],
+     "nome": "stima campionaria; conteggi",
+     "def": "\\(\\hat{p} = k/m\\): eventi osservati su prove totali",
+     "prima_occ_txt": "F4 §5.1",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(z\\)",
+     "norm_list": [
+      "z"
+     ],
+     "nome": "quantile normale",
+     "def": "numero dalla curva a campana: \\(1{,}96\\) ↔ 95%; regola la prudenza",
+     "prima_occ_txt": "F4 §5.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "IC, LCB",
+     "norm_list": [
+      "IC",
+      "LCB"
+     ],
+     "nome": "intervallo di confidenza; bordo inferiore",
+     "def": "forchetta di valori plausibili; il suo estremo prudente",
+     "prima_occ_txt": "F4 §5.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(rel_i\\)",
+     "norm_list": [
+      "rel_i"
+     ],
+     "nome": "voto di rilevanza",
+     "def": "etichetta graduata (0–3) del documento in posizione \\(i\\)",
+     "prima_occ_txt": "F4 §6.1",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(@k\\)",
+     "norm_list": [
+      "@k"
+     ],
+     "nome": "cutoff",
+     "def": "«considerando solo le prime \\(k\\) posizioni»",
+     "prima_occ_txt": "F4 §6.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "DCG, IDCG, NDCG",
+     "norm_list": [
+      "DCG",
+      "IDCG",
+      "NDCG"
+     ],
+     "nome": "pagelle di ranking",
+     "def": "guadagno scontato per posizione; la sua versione ideale; il rapporto in \\([0,1]\\)",
+     "prima_occ_txt": "F4 §6.2",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "\\(s_i\\), \\(P_{ij}\\)",
+     "norm_list": [
+      "s_i",
+      "P_{ij}"
+     ],
+     "nome": "punteggio; prob. di coppia",
+     "def": "score di ranking; \\(\\sigma(s_i - s_j)\\) = prob. che \\(i\\) stia sopra \\(j\\)",
+     "prima_occ_txt": "F4 §6.3",
+     "prima_occ_sigla": "F4"
+    },
+    {
+     "raw": "GBDT, RankNet, LambdaMART",
+     "norm_list": [
+      "GBDT",
+      "RankNet",
+      "LambdaMART"
+     ],
+     "nome": "sigle",
+     "def": "alberi in sequenza; il modello a coppie; il ranker industriale guidato dall'NDCG",
+     "prima_occ_txt": "F4 §6",
+     "prima_occ_sigla": "F4"
+    }
+   ]
+  },
+  "1.2": {
+   "stem": "Sezione_1_2_Score_reputazionali",
+   "symbols": [
+    {
+     "raw": "\\(c\\)",
+     "norm_list": [
+      "c"
+     ],
+     "nome": "tasso di reclamo",
+     "def": "\\(\\#\\text{reclami}/\\#\\text{consegnate}\\): il segnale «Segnala spam»",
+     "prima_occ_txt": "1.2 §2",
+     "prima_occ_sigla": "1.2"
+    },
+    {
+     "raw": "\\(\\#\\)",
+     "norm_list": [
+      "\\#"
+     ],
+     "nome": "numero di",
+     "def": "cancelletto di conteggio: \\(\\#\\text{reclami}\\) = quanti reclami",
+     "prima_occ_txt": "1.2 §2",
+     "prima_occ_sigla": "1.2"
+    },
+    {
+     "raw": "\\(\\Delta V\\)",
+     "norm_list": [
+      "\\DeltaV"
+     ],
+     "nome": "variazione di volume",
+     "def": "\\(\\Delta\\) = «variazione di»: quanto è cambiato \\(V\\)",
+     "prima_occ_txt": "1.2 §2",
+     "prima_occ_sigla": "1.2"
+    },
+    {
+     "raw": "\\(\\alpha_0\\), \\(\\beta_0\\)",
+     "norm_list": [
+      "\\alpha_0",
+      "\\beta_0"
+     ],
+     "nome": "prior Beta (di partenza)",
+     "def": "conteggi virtuali ereditati dal vicinato; pedice \\(0\\) = di partenza",
+     "prima_occ_txt": "1.2 §3",
+     "prima_occ_sigla": "1.2"
+    },
+    {
+     "raw": "\\(\\sim\\)",
+     "norm_list": [
+      "\\sim"
+     ],
+     "nome": "si distribuisce come",
+     "def": "secondo uso di \\(\\sim\\) (in F4 era «dell'ordine di»): decide il contesto",
+     "prima_occ_txt": "1.2 §3",
+     "prima_occ_sigla": "1.2"
+    },
+    {
+     "raw": "ASN, /24",
+     "norm_list": [
+      "ASN",
+      "/24"
+     ],
+     "nome": "vicinato di rete",
+     "def": "fornitore di rete; blocco di 256 indirizzi IP contigui",
+     "prima_occ_txt": "1.2 §3",
+     "prima_occ_sigla": "1.2"
+    },
+    {
+     "raw": "\\(w\\)",
+     "norm_list": [
+      "w"
+     ],
+     "nome": "peso della miscela",
+     "def": "quanto pesa lo score personale contro il prior del vicinato (≠ parola \\(w\\) della 1.1)",
+     "prima_occ_txt": "1.2 §5",
+     "prima_occ_sigla": "1.2"
+    }
+   ]
+  },
+  "F5": {
+   "stem": "F5_Segnali_e_rilevamento",
+   "symbols": [
+    {
+     "raw": "\\(\\mu\\)",
+     "norm_list": [
+      "\\mu"
+     ],
+     "nome": "media",
+     "def": "somma dei dati diviso il loro numero",
+     "prima_occ_txt": "F5 §1.1",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(\\sigma\\)",
+     "norm_list": [
+      "\\sigma"
+     ],
+     "nome": "deviazione standard",
+     "def": "righello della dispersione: \\(\\sqrt{\\text{media dei quadrati degli scarti}}\\) — senza parentesi-argomento, ≠ sigmoide \\(\\sigma(\\cdot)\\)",
+     "prima_occ_txt": "F5 §1.1",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(z\\)",
+     "norm_list": [
+      "z"
+     ],
+     "nome": "z-score",
+     "def": "\\((x-\\mu)/\\sigma\\): distanza dalla media in unità di \\(\\sigma\\)",
+     "prima_occ_txt": "F5 §1.2",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(S_t\\), pedice \\(t\\)",
+     "norm_list": [
+      "S_t",
+      "pedicet"
+     ],
+     "nome": "accumulatore CUSUM; tempo",
+     "def": "la «vasca» degli sforamenti al passo \\(t\\) (≠ classe S, ≠ spamminess)",
+     "prima_occ_txt": "F5 §2",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(\\mu_0\\)",
+     "norm_list": [
+      "\\mu_0"
+     ],
+     "nome": "livello di riferimento",
+     "def": "il valore atteso in condizioni normali",
+     "prima_occ_txt": "F5 §2",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(\\kappa\\)",
+     "norm_list": [
+      "\\kappa"
+     ],
+     "nome": "kappa, margine",
+     "def": "lo sforamento tollerato che non accumula",
+     "prima_occ_txt": "F5 §2",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(h\\)",
+     "norm_list": [
+      "h"
+     ],
+     "nome": "soglia d'allarme",
+     "def": "livello della vasca oltre cui scatta il rilevamento",
+     "prima_occ_txt": "F5 §2",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(B\\), \\(r\\)",
+     "norm_list": [
+      "B",
+      "r"
+     ],
+     "nome": "capacità; tasso di ricarica",
+     "def": "burst massimo del secchio; gettoni per unità di tempo (questo \\(r\\) ≠ \\(r(\\mathbf{x})\\))",
+     "prima_occ_txt": "F5 §3",
+     "prima_occ_sigla": "F5"
+    },
+    {
+     "raw": "\\(t^-\\)",
+     "norm_list": [
+      "t^-"
+     ],
+     "nome": "istante precedente",
+     "def": "il momento dell'ultimo aggiornamento del secchio",
+     "prima_occ_txt": "F5 §3",
+     "prima_occ_sigla": "F5"
+    }
+   ]
+  },
+  "1.3": {
+   "stem": "Sezione_1_3_Warmup",
+   "symbols": [
+    {
+     "raw": "\\(V_d\\), \\(V_0\\), \\(V_{\\max}\\)",
+     "norm_list": [
+      "V_d",
+      "V_0",
+      "V_{\\max}"
+     ],
+     "nome": "volumi",
+     "def": "email del giorno \\(d\\); volume iniziale; tetto",
+     "prima_occ_txt": "1.3 §2",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(\\rho\\)",
+     "norm_list": [
+      "\\rho"
+     ],
+     "nome": "rho, fattore di crescita",
+     "def": "moltiplicatore giornaliero del volume (≠ \\(p\\) di probabilità)",
+     "prima_occ_txt": "1.3 §2",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(d\\)",
+     "norm_list": [
+      "d"
+     ],
+     "nome": "giorno",
+     "def": "l'indice dei giorni di warmup",
+     "prima_occ_txt": "1.3 §2",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(\\mathbb{1}[\\cdot]\\)",
+     "norm_list": [
+      "\\mathbb{1}[\\cdot]"
+     ],
+     "nome": "funzione indicatrice",
+     "def": "vale \\(1\\) se la condizione è vera, \\(0\\) altrimenti",
+     "prima_occ_txt": "1.3 §3",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(\\wedge\\)",
+     "norm_list": [
+      "\\wedge"
+     ],
+     "nome": "e logica",
+     "def": "l'and: vera solo se tutte le condizioni sono vere",
+     "prima_occ_txt": "1.3 §3",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(c^{*}\\), \\(b^{*}\\), \\(\\beta^{*}\\)",
+     "norm_list": [
+      "c^{*}",
+      "b^{*}",
+      "\\beta^{*}"
+     ],
+     "nome": "valori obiettivo",
+     "def": "l'asterisco in alto marca la soglia da rispettare",
+     "prima_occ_txt": "1.3 §3",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "KPI, ESP",
+     "norm_list": [
+      "KPI",
+      "ESP"
+     ],
+     "nome": "sigle",
+     "def": "indicatori chiave di prestazione; il fornitore email che riceve e giudica",
+     "prima_occ_txt": "1.3 §3–§4",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(z_V\\), \\(\\mu_V\\), \\(\\sigma_V\\)",
+     "norm_list": [
+      "z_V",
+      "\\mu_V",
+      "\\sigma_V"
+     ],
+     "nome": "z-score del volume",
+     "def": "anomalia del volume di oggi rispetto allo storico; pedice \\(V\\) = «del volume»",
+     "prima_occ_txt": "1.3 §4",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "\\(a\\), \\(b\\)",
+     "norm_list": [
+      "a",
+      "b"
+     ],
+     "nome": "pesi",
+     "def": "importanza di reputazione e anomalia (questo \\(b\\) ≠ conteggio spam della 1.1)",
+     "prima_occ_txt": "1.3 §4",
+     "prima_occ_sigla": "1.3"
+    },
+    {
+     "raw": "4xx, deferral",
+     "norm_list": [
+      "4xx",
+      "deferral"
+     ],
+     "nome": "rifiuto temporaneo",
+     "def": "«riprova più tardi»: il freno gentile del ricevente",
+     "prima_occ_txt": "1.3 §4",
+     "prima_occ_sigla": "1.3"
+    }
+   ]
+  },
+  "F3": {
+   "stem": "F3_Teoria_informazione",
+   "symbols": [
+    {
+     "raw": "\\(\\log_2\\)",
+     "norm_list": [
+      "\\log_2"
+     ],
+     "nome": "logaritmo in base 2",
+     "def": "l'esponente da dare a \\(2\\); cugino di \\(\\ln\\), cambia solo l'unità",
+     "prima_occ_txt": "F3 §1",
+     "prima_occ_sigla": "F3"
+    },
+    {
+     "raw": "bit",
+     "norm_list": [
+      "bit"
+     ],
+     "nome": "unità di sorpresa",
+     "def": "la sorpresa di una moneta equa; una domanda sì/no",
+     "prima_occ_txt": "F3 §1",
+     "prima_occ_sigla": "F3"
+    },
+    {
+     "raw": "\\(H\\), \\(H_{\\text{src}}\\), \\(H_{\\text{content}}\\)",
+     "norm_list": [
+      "H",
+      "H_{\\text{src}}",
+      "H_{\\text{content}}"
+     ],
+     "nome": "entropia",
+     "def": "sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera H)",
+     "prima_occ_txt": "F3 §2",
+     "prima_occ_sigla": "F3"
+    },
+    {
+     "raw": "\\(0 \\cdot \\log_2 0 := 0\\)",
+     "norm_list": [
+      "0\\cdot\\log_20:=0"
+     ],
+     "nome": "convenzione",
+     "def": "gli esiti impossibili non contribuiscono all'entropia",
+     "prima_occ_txt": "F3 §2",
+     "prima_occ_sigla": "F3"
+    },
+    {
+     "raw": "PMI, \\(\\text{PMI}^{+}\\)",
+     "norm_list": [
+      "PMI",
+      "\\text{PMI}^{+}"
+     ],
+     "nome": "pointwise mutual information",
+     "def": "\\(\\log_2\\) del rapporto tra co-occorrenza reale e caso puro; la versione \\(^{+}\\) azzera i negativi",
+     "prima_occ_txt": "F3 §4",
+     "prima_occ_sigla": "F3"
+    }
+   ]
+  },
+  "F6": {
+   "stem": "F6_Similarita_hashing_codifiche",
+   "symbols": [
+    {
+     "raw": "hash, SHA-256",
+     "norm_list": [
+      "hash",
+      "SHA-256"
+     ],
+     "nome": "funzione di hash",
+     "def": "input qualsiasi → numero fisso «ben mescolato»; SHA-256 = 32 byte",
+     "prima_occ_txt": "F6 §1",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "byte",
+     "norm_list": [
+      "byte"
+     ],
+     "nome": "otto bit",
+     "def": "4 byte = 32 bit → \\(2^{32}\\) valori possibili",
+     "prima_occ_txt": "F6 §1",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "collisione",
+     "norm_list": [
+      "collisione"
+     ],
+     "nome": "—",
+     "def": "input diversi, stesso output; per coppia fissata: prob. \\(1/N\\)",
+     "prima_occ_txt": "F6 §1",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "k-anonimità",
+     "norm_list": [
+      "k-anonimità"
+     ],
+     "nome": "—",
+     "def": "nascondersi in un gruppo di almeno \\(k\\) indistinguibili",
+     "prima_occ_txt": "F6 §2",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "\\(D\\), \\(P\\)",
+     "norm_list": [
+      "D",
+      "P"
+     ],
+     "nome": "conteggi del database",
+     "def": "hash completi in DB; prefissi in lista (questo \\(D\\) ≠ dati di §3.2)",
+     "prima_occ_txt": "F6 §2",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "\\(J(A,B)\\)",
+     "norm_list": [
+      "J(A,B)"
+     ],
+     "nome": "similarità di Jaccard",
+     "def": "\\(|A \\cap B| / |A \\cup B|\\): quota condivisa sul totale distinto",
+     "prima_occ_txt": "F6 §3",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "shingle",
+     "norm_list": [
+      "shingle"
+     ],
+     "nome": "finestra scorrevole",
+     "def": "frammento di parole consecutive; trasforma un testo in un insieme",
+     "prima_occ_txt": "F6 §3",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "\\(h_{\\min}\\)",
+     "norm_list": [
+      "h_{\\min}"
+     ],
+     "nome": "min-hash",
+     "def": "il minimo degli hash degli elementi; coincide con prob. \\(= J\\)",
+     "prima_occ_txt": "F6 §4",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "\\(s\\), \\(r\\), \\(b\\)",
+     "norm_list": [
+      "s",
+      "r",
+      "b"
+     ],
+     "nome": "similarità; righe; bande",
+     "def": "parametri LSH (questo \\(s\\) ≠ forza del prior; questo \\(r\\) ≠ resto, ≠ tasso)",
+     "prima_occ_txt": "F6 §5",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "\\(\\lfloor \\cdot \\rfloor\\)",
+     "norm_list": [
+      "\\lfloor\\cdot\\rfloor"
+     ],
+     "nome": "floor",
+     "def": "arrotonda in giù all'intero: \\(\\lfloor 2{,}75 \\rfloor = 2\\)",
+     "prima_occ_txt": "F6 §6",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "\\(\\bmod\\)",
+     "norm_list": [
+      "\\bmod"
+     ],
+     "nome": "modulo",
+     "def": "resto della divisione intera (il %)",
+     "prima_occ_txt": "F6 §6",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "\\(\\delta\\), \\(q\\), \\(k\\) (Rice)",
+     "norm_list": [
+      "\\delta",
+      "q",
+      "k(Rice)"
+     ],
+     "nome": "delta; quoziente; parametro",
+     "def": "differenza tra consecutivi; \\(\\lfloor \\delta/2^k \\rfloor\\) in unario; taglia del resto",
+     "prima_occ_txt": "F6 §6",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "unario",
+     "norm_list": [
+      "unario"
+     ],
+     "nome": "—",
+     "def": "contare coi segni: \\(q\\) bit a 1 chiusi da uno 0",
+     "prima_occ_txt": "F6 §6",
+     "prima_occ_sigla": "F6"
+    },
+    {
+     "raw": "somma prefissa",
+     "norm_list": [
+      "sommaprefissa"
+     ],
+     "nome": "—",
+     "def": "ricostruire la lista sommando i delta in cascata dal primo valore",
+     "prima_occ_txt": "F6 §6",
+     "prima_occ_sigla": "F6"
+    }
+   ]
+  },
+  "1.4": {
+   "stem": "Sezione_1_4_Difese",
+   "symbols": [
+    {
+     "raw": "\\(\\theta^{*}\\), \\(N\\), \\(v\\), \\(V_{\\text{target}}\\)",
+     "norm_list": [
+      "\\theta^{*}",
+      "N",
+      "v",
+      "V_{\\text{target}}"
+     ],
+     "nome": "parametri snowshoe",
+     "def": "soglia per sorgente; numero di sorgenti; volume per sorgente; obiettivo totale",
+     "prima_occ_txt": "1.4 §1",
+     "prima_occ_sigla": "1.4"
+    },
+    {
+     "raw": "grafo, nodo, arco",
+     "norm_list": [
+      "grafo",
+      "nodo",
+      "arco"
+     ],
+     "nome": "—",
+     "def": "pallini e linee: oggetti e relazioni fra loro",
+     "prima_occ_txt": "1.4 §2",
+     "prima_occ_sigla": "1.4"
+    },
+    {
+     "raw": "componente connessa",
+     "norm_list": [
+      "componenteconnessa"
+     ],
+     "nome": "—",
+     "def": "l'«isola»: i nodi raggiungibili l'uno dall'altro sugli archi",
+     "prima_occ_txt": "1.4 §2",
+     "prima_occ_sigla": "1.4"
+    },
+    {
+     "raw": "\\(\\propto\\)",
+     "norm_list": [
+      "\\propto"
+     ],
+     "nome": "proporzionale a",
+     "def": "cresce e cala insieme a, senza fissare la scala",
+     "prima_occ_txt": "1.4 §3",
+     "prima_occ_sigla": "1.4"
+    },
+    {
+     "raw": "\\(\\varepsilon\\)",
+     "norm_list": [
+      "\\varepsilon"
+     ],
+     "nome": "epsilon",
+     "def": "numero piccolissimo anti-divisione-per-zero",
+     "prima_occ_txt": "1.4 §3",
+     "prima_occ_sigla": "1.4"
+    },
+    {
+     "raw": "\\(\\vee\\)",
+     "norm_list": [
+      "\\vee"
+     ],
+     "nome": "o logica",
+     "def": "l'or: vera se almeno un lato è vero",
+     "prima_occ_txt": "1.4 §4",
+     "prima_occ_sigla": "1.4"
+    },
+    {
+     "raw": "\\(\\Longleftrightarrow\\)",
+     "norm_list": [
+      "\\Longleftrightarrow"
+     ],
+     "nome": "se e solo se",
+     "def": "doppia implicazione: i due lati veri negli stessi casi",
+     "prima_occ_txt": "1.4 §4",
+     "prima_occ_sigla": "1.4"
+    },
+    {
+     "raw": "\\(w_1, w_2, \\dots\\)",
+     "norm_list": [
+      "w_1,w_2,\\dots"
+     ],
+     "nome": "pesi delle bandierine",
+     "def": "quanto pesa ogni indizio nello score di anomalia",
+     "prima_occ_txt": "1.4 §4",
+     "prima_occ_sigla": "1.4"
+    }
+   ]
+  },
+  "F2": {
+   "stem": "F2_Algebra_lineare_Markov",
+   "symbols": [
+    {
+     "raw": "\\(M\\), \\(M_{ij}\\)",
+     "norm_list": [
+      "M",
+      "M_{ij}"
+     ],
+     "nome": "matrice; sua voce",
+     "def": "tabella di numeri; \\(M_{ij}\\) = riga \\(i\\), colonna \\(j\\) (qui: prob. di andare da \\(j\\) a \\(i\\))",
+     "prima_occ_txt": "F2 §1",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "\\(M\\mathbf{p}\\)",
+     "norm_list": [
+      "M\\mathbf{p}"
+     ],
+     "nome": "prodotto matrice·vettore",
+     "def": "pila di prodotti scalari riga-per-vettore: un passo della catena",
+     "prima_occ_txt": "F2 §1",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "colonna-stocastica",
+     "norm_list": [
+      "colonna-stocastica"
+     ],
+     "nome": "—",
+     "def": "ogni colonna somma a \\(1\\): probabilità in uscita da uno stato",
+     "prima_occ_txt": "F2 §2",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "catena di Markov",
+     "norm_list": [
+      "catenadiMarkov"
+     ],
+     "nome": "—",
+     "def": "sistema senza memoria: il futuro dipende solo dal presente",
+     "prima_occ_txt": "F2 §2",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "\\(\\mathbf{p}^{*}\\)",
+     "norm_list": [
+      "\\mathbf{p}^{*}"
+     ],
+     "nome": "distribuzione stazionaria",
+     "def": "il punto fermo: \\(M\\mathbf{p}^{*} = \\mathbf{p}^{*}\\)",
+     "prima_occ_txt": "F2 §3",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "\\(\\mathbf{v}\\), \\(\\lambda\\)",
+     "norm_list": [
+      "\\mathbf{v}",
+      "\\lambda"
+     ],
+     "nome": "autovettore; autovalore",
+     "def": "direzione non deviata; suo fattore di scala (terzo mestiere di \\(\\lambda\\))",
+     "prima_occ_txt": "F2 §4",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "irriducibile, aperiodica",
+     "norm_list": [
+      "irriducibile",
+      "aperiodica"
+     ],
+     "nome": "—",
+     "def": "tutto raggiungibile da tutto; niente ritorni a passi fissi obbligati",
+     "prima_occ_txt": "F2 §5",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "\\(I\\)",
+     "norm_list": [
+      "I"
+     ],
+     "nome": "matrice identità",
+     "def": "la macchina «non fare niente»: \\(I\\mathbf{v} = \\mathbf{v}\\)",
+     "prima_occ_txt": "F2 §6",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "\\(A^{-1}\\)",
+     "norm_list": [
+      "A^{-1}"
+     ],
+     "nome": "matrice inversa",
+     "def": "annulla l'effetto di \\(A\\) (stavolta il \\(-1\\) è un'inversa vera)",
+     "prima_occ_txt": "F2 §6",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "\\(M^{k}\\)",
+     "norm_list": [
+      "M^{k}"
+     ],
+     "nome": "potenza di matrice",
+     "def": "\\(M\\) applicata \\(k\\) volte: \\(k\\) passi della catena",
+     "prima_occ_txt": "F2 §6",
+     "prima_occ_sigla": "F2"
+    },
+    {
+     "raw": "serie di Neumann",
+     "norm_list": [
+      "seriediNeumann"
+     ],
+     "nome": "—",
+     "def": "\\((I-\\alpha M)^{-1} = \\sum_k \\alpha^k M^k\\): l'inversa come somma di cammini smorzati",
+     "prima_occ_txt": "F2 §6",
+     "prima_occ_sigla": "F2"
+    }
+   ]
+  },
+  "2.1": {
+   "stem": "Sezione_2_1_PageRank",
+   "symbols": [
+    {
+     "raw": "\\(PR(p_i)\\)",
+     "norm_list": [
+      "PR(p_i)"
+     ],
+     "nome": "PageRank della pagina \\(p_i\\)",
+     "def": "frazione di tempo del navigatore casuale = componente della stazionaria",
+     "prima_occ_txt": "2.1 §1",
+     "prima_occ_sigla": "2.1"
+    },
+    {
+     "raw": "\\(d\\)",
+     "norm_list": [
+      "d"
+     ],
+     "nome": "damping factor",
+     "def": "probabilità di seguire un link (≈ 0,85); \\(1-d\\) = teletrasporto (≠ giorno della 1.3)",
+     "prima_occ_txt": "2.1 §1",
+     "prima_occ_sigla": "2.1"
+    },
+    {
+     "raw": "\\(N\\)",
+     "norm_list": [
+      "N"
+     ],
+     "nome": "numero di pagine",
+     "def": "la taglia del web in esame",
+     "prima_occ_txt": "2.1 §2",
+     "prima_occ_sigla": "2.1"
+    },
+    {
+     "raw": "\\(M(p_i)\\)",
+     "norm_list": [
+      "M(p_i)"
+     ],
+     "nome": "insieme dei predecessori",
+     "def": "le pagine che puntano a \\(p_i\\) — con argomento: insieme, ≠ matrice \\(M\\)",
+     "prima_occ_txt": "2.1 §2",
+     "prima_occ_sigla": "2.1"
+    },
+    {
+     "raw": "\\(L(p_j)\\)",
+     "norm_list": [
+      "L(p_j)"
+     ],
+     "nome": "grado uscente",
+     "def": "numero di link in uscita da \\(p_j\\) (≠ verosimiglianza \\(L(\\theta)\\))",
+     "prima_occ_txt": "2.1 §2",
+     "prima_occ_sigla": "2.1"
+    },
+    {
+     "raw": "\\(\\mathbf{1}\\), \\(\\mathbf{v}\\)",
+     "norm_list": [
+      "\\mathbf{1}",
+      "\\mathbf{v}"
+     ],
+     "nome": "vettore di uni; teletrasporto",
+     "def": "tutti 1; \\(\\mathbf{v} = \\frac{1}{N}\\mathbf{1}\\) = uniforme (personalizzabile, §4)",
+     "prima_occ_txt": "2.1 §3",
+     "prima_occ_sigla": "2.1"
+    },
+    {
+     "raw": "dangling, \\(\\mathbf{a}\\)",
+     "norm_list": [
+      "dangling",
+      "\\mathbf{a}"
+     ],
+     "nome": "nodo senza uscite; suo indicatore",
+     "def": "pagina senza link uscenti; \\(\\mathbf{a}\\) segna quali (questo \\(\\mathbf{a}\\) ≠ peso di 1.3)",
+     "prima_occ_txt": "2.1 §3",
+     "prima_occ_sigla": "2.1"
+    },
+    {
+     "raw": "\\(G\\)",
+     "norm_list": [
+      "G"
+     ],
+     "nome": "matrice di Google",
+     "def": "link + dangling + teletrasporto in un'unica matrice stocastica",
+     "prima_occ_txt": "2.1 §3",
+     "prima_occ_sigla": "2.1"
+    }
+   ]
+  },
+  "2.2": {
+   "stem": "Sezione_2_2_TrustRank",
+   "symbols": [
+    {
+     "raw": "\\(O(p)\\)",
+     "norm_list": [
+      "O(p)"
+     ],
+     "nome": "oracolo",
+     "def": "giudizio umano certo, \\(0\\) o \\(1\\): costoso, budget di \\(L\\) chiamate",
+     "prima_occ_txt": "2.2 §1",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "\\(T(p)\\), \\(\\mathbf{t}\\)",
+     "norm_list": [
+      "T(p)",
+      "\\mathbf{t}"
+     ],
+     "nome": "funzione di trust; suo vettore",
+     "def": "fiducia in \\([0,1]\\) calcolabile per tutte le pagine",
+     "prima_occ_txt": "2.2 §1",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "\\(L\\)",
+     "norm_list": [
+      "L"
+     ],
+     "nome": "budget dell'oracolo",
+     "def": "quante valutazioni umane puoi permetterti (terzo mestiere della lettera)",
+     "prima_occ_txt": "2.2 §1",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "\\(G^{\\top}\\)",
+     "norm_list": [
+      "G^{\\top}"
+     ],
+     "nome": "grafo trasposto",
+     "def": "tutti gli archi girati al contrario",
+     "prima_occ_txt": "2.2 §2",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "\\(S^{+}\\)",
+     "norm_list": [
+      "S^{+}"
+     ],
+     "nome": "semi buoni",
+     "def": "le pagine promosse dall'oracolo",
+     "prima_occ_txt": "2.2 §2",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "\\(\\mathbf{d}\\)",
+     "norm_list": [
+      "\\mathbf{d}"
+     ],
+     "nome": "distribuzione dei semi",
+     "def": "uniforme su \\(S^{+}\\), zero altrove (in grassetto: vettore, ≠ damping \\(d\\))",
+     "prima_occ_txt": "2.2 §2",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "\\(\\begin{cases}\\cdot\\end{cases}\\)",
+     "norm_list": [
+      "\\begin{cases}\\cdot\\end{cases}"
+     ],
+     "nome": "definizione per casi",
+     "def": "la graffa: ogni riga vale nel suo caso",
+     "prima_occ_txt": "2.2 §2",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "\\(\\alpha\\)",
+     "norm_list": [
+      "\\alpha"
+     ],
+     "nome": "damping del trust",
+     "def": "\\(\\approx 0{,}85\\); terzo mestiere di \\(\\alpha\\) (era conteggio virtuale nella 1.2)",
+     "prima_occ_txt": "2.2 §3",
+     "prima_occ_sigla": "2.2"
+    },
+    {
+     "raw": "hop",
+     "norm_list": [
+      "hop"
+     ],
+     "nome": "passo di grafo",
+     "def": "un passo lungo un arco",
+     "prima_occ_txt": "2.2 §3",
+     "prima_occ_sigla": "2.2"
+    }
+   ]
+  },
+  "2.3": {
+   "stem": "Sezione_2_3_Spam_mass",
+   "symbols": [
+    {
+     "raw": "link farm",
+     "norm_list": [
+      "linkfarm"
+     ],
+     "nome": "—",
+     "def": "pagine fantasma interconnesse per gonfiare il rank di un bersaglio",
+     "prima_occ_txt": "2.3 §1",
+     "prima_occ_sigla": "2.3"
+    },
+    {
+     "raw": "\\(10^{-k}\\)",
+     "norm_list": [
+      "10^{-k}"
+     ],
+     "nome": "esponente negativo",
+     "def": "dividere per la potenza: \\(10^{-6} = 1/1.000.000\\)",
+     "prima_occ_txt": "2.3 §1",
+     "prima_occ_sigla": "2.3"
+    },
+    {
+     "raw": "\\(PR^{+}(p)\\)",
+     "norm_list": [
+      "PR^{+}(p)"
+     ],
+     "nome": "rank giustificato",
+     "def": "il PageRank che arriva propagando solo dal nucleo fidato (2.2)",
+     "prima_occ_txt": "2.3 §2",
+     "prima_occ_sigla": "2.3"
+    },
+    {
+     "raw": "\\(M(p)\\), \\(m(p)\\)",
+     "norm_list": [
+      "M(p)",
+      "m(p)"
+     ],
+     "nome": "spam mass assoluta; relativa",
+     "def": "\\(PR - PR^{+}\\); la sua frazione su \\(PR\\) (quarto mestiere della lettera M)",
+     "prima_occ_txt": "2.3 §2",
+     "prima_occ_sigla": "2.3"
+    }
+   ]
+  },
+  "3.1": {
+   "stem": "Sezione_3_1_EEAT_ranking",
+   "symbols": [
+    {
+     "raw": "E-E-A-T",
+     "norm_list": [
+      "E-E-A-T"
+     ],
+     "nome": "sigla",
+     "def": "Experience, Expertise, Authoritativeness, Trust: i criteri dei valutatori",
+     "prima_occ_txt": "3.1 §1",
+     "prima_occ_sigla": "3.1"
+    },
+    {
+     "raw": "rater",
+     "norm_list": [
+      "rater"
+     ],
+     "nome": "valutatore di qualità",
+     "def": "l'oracolo umano che produce le etichette di addestramento",
+     "prima_occ_txt": "3.1 §2",
+     "prima_occ_sigla": "3.1"
+    },
+    {
+     "raw": "\\(q\\)",
+     "norm_list": [
+      "q"
+     ],
+     "nome": "query",
+     "def": "la ricerca dell'utente (≠ quoziente di Rice, F6 §6)",
+     "prima_occ_txt": "3.1 §2",
+     "prima_occ_sigla": "3.1"
+    },
+    {
+     "raw": "\\((q, \\text{doc}, rel)\\)",
+     "norm_list": [
+      "(q,\\text{doc},rel)"
+     ],
+     "nome": "tripla di addestramento",
+     "def": "query, documento e voto: una riga del dataset",
+     "prima_occ_txt": "3.1 §2",
+     "prima_occ_sigla": "3.1"
+    }
+   ]
+  },
+  "3.2": {
+   "stem": "Sezione_3_2_Knowledge_Graph",
+   "symbols": [
+    {
+     "raw": "entità, Knowledge Graph",
+     "norm_list": [
+      "entità",
+      "KnowledgeGraph"
+     ],
+     "nome": "—",
+     "def": "persone/organizzazioni/opere come nodi; il grafo delle loro relazioni",
+     "prima_occ_txt": "3.2 §1",
+     "prima_occ_sigla": "3.2"
+    },
+    {
+     "raw": "co-citazione",
+     "norm_list": [
+      "co-citazione"
+     ],
+     "nome": "—",
+     "def": "due entità che compaiono insieme in un documento",
+     "prima_occ_txt": "3.2 §2",
+     "prima_occ_sigla": "3.2"
+    },
+    {
+     "raw": "\\(W\\)",
+     "norm_list": [
+      "W"
+     ],
+     "nome": "matrice dei pesi",
+     "def": "pesi \\(\\text{PMI}^{+}\\) normalizzati per colonna (maiuscola: matrice, ≠ \\(w\\))",
+     "prima_occ_txt": "3.2 §3",
+     "prima_occ_sigla": "3.2"
+    },
+    {
+     "raw": "\\(\\mathbf{rep}\\), \\(\\mathbf{seed}\\)",
+     "norm_list": [
+      "\\mathbf{rep}",
+      "\\mathbf{seed}"
+     ],
+     "nome": "reputazione; semi di entità",
+     "def": "vettore di reputazione; entità di autorevolezza accertata",
+     "prima_occ_txt": "3.2 §3",
+     "prima_occ_sigla": "3.2"
+    }
+   ]
+  },
+  "4.1": {
+   "stem": "Sezione_4_1_Safe_Browsing",
+   "symbols": [
+    {
+     "raw": "canonicalizzazione",
+     "norm_list": [
+      "canonicalizzazione"
+     ],
+     "nome": "—",
+     "def": "riscrittura della URL in forma standard: una pagina, un solo hash",
+     "prima_occ_txt": "4.1 §2",
+     "prima_occ_sigla": "4.1"
+    },
+    {
+     "raw": "full hash",
+     "norm_list": [
+      "fullhash"
+     ],
+     "nome": "hash completo",
+     "def": "l'intero SHA-256, contro cui avviene il verdetto finale (in locale)",
+     "prima_occ_txt": "4.1 §2",
+     "prima_occ_sigla": "4.1"
+    }
+   ]
+  },
+  "4.2": {
+   "stem": "Sezione_4_2_Web_Risk",
+   "symbols": [
+    {
+     "raw": "Update API, Lookup API",
+     "norm_list": [
+      "UpdateAPI",
+      "LookupAPI"
+     ],
+     "nome": "le due modalità",
+     "def": "DB locale a prefissi (privato) contro interrogazione diretta (semplice)",
+     "prima_occ_txt": "4.2 §2",
+     "prima_occ_sigla": "4.2"
+    }
+   ]
+  },
+  "4.3": {
+   "stem": "Sezione_4_3_Sincronizzazione",
+   "symbols": [
+    {
+     "raw": "diff",
+     "norm_list": [
+      "diff"
+     ],
+     "nome": "differenza tra versioni",
+     "def": "solo aggiunte e rimozioni rispetto alla copia locale",
+     "prima_occ_txt": "4.3 §1",
+     "prima_occ_sigla": "4.3"
+    },
+    {
+     "raw": "indice di rimozione",
+     "norm_list": [
+      "indicedirimozione"
+     ],
+     "nome": "—",
+     "def": "la posizione da cancellare nella lista ordinata locale",
+     "prima_occ_txt": "4.3 §3",
+     "prima_occ_sigla": "4.3"
+    },
+    {
+     "raw": "checksum",
+     "norm_list": [
+      "checksum"
+     ],
+     "nome": "sigillo di integrità",
+     "def": "hash dell'intero database: se non torna, ri-sincronizzi",
+     "prima_occ_txt": "4.3 §3",
+     "prima_occ_sigla": "4.3"
+    },
+    {
+     "raw": "TTL, cache pos./neg.",
+     "norm_list": [
+      "TTL",
+      "cachepos./neg."
+     ],
+     "nome": "scadenza; memorie di risposta",
+     "def": "time-to-live; ricordare i verdetti (corto per i positivi)",
+     "prima_occ_txt": "4.3 §4",
+     "prima_occ_sigla": "4.3"
+    }
+   ]
+  }
+ },
+ "glossary": {
+  "rows": [
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\([a,b]\\), \\((a,b)\\)",
+    "norm_list": [
+     "[a,b]",
+     "(a,b)"
+    ],
+    "nome": "intervallo chiuso / aperto",
+    "def": "tutti i numeri tra \\(a\\) e \\(b\\): quadre = estremi inclusi, tonde = estremi esclusi",
+    "prima_occ_txt": "§1.1 / §5.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(P(A)\\)",
+    "norm_list": [
+     "P(A)"
+    ],
+    "nome": "probabilità di \\(A\\)",
+    "def": "numero in \\([0,1]\\) che misura quanto è probabile l'evento \\(A\\)",
+    "prima_occ_txt": "§1.1",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\%\\)",
+    "norm_list": [
+     "\\%"
+    ],
+    "nome": "per cento",
+    "def": "«su cento»: \\(70\\% = 0{,}70\\)",
+    "prima_occ_txt": "§1.1",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\overline{A}\\)",
+    "norm_list": [
+     "\\overline{A}"
+    ],
+    "nome": "complemento",
+    "def": "l'evento «\\(A\\) non accade»; \\(P(\\overline{A}) = 1 - P(A)\\)",
+    "prima_occ_txt": "§1.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(P(A\\mid B)\\), \\(\\mid\\)",
+    "norm_list": [
+     "P(A\\midB)",
+     "\\mid"
+    ],
+    "nome": "probabilità condizionata; barra «dato»",
+    "def": "probabilità di \\(A\\) sapendo che \\(B\\) è accaduto",
+    "prima_occ_txt": "§1.3",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(A \\cap B\\)",
+    "norm_list": [
+     "A\\capB"
+    ],
+    "nome": "intersezione",
+    "def": "«\\(A\\) e \\(B\\)»: accadono entrambi insieme",
+    "prima_occ_txt": "§1.3",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(|B|\\)",
+    "norm_list": [
+     "|B|"
+    ],
+    "nome": "cardinalità",
+    "def": "numero di elementi dell'insieme \\(B\\) (barre attorno a un insieme)",
+    "prima_occ_txt": "§1.3",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\approx\\)",
+    "norm_list": [
+     "\\approx"
+    ],
+    "nome": "circa uguale",
+    "def": "uguaglianza approssimata, dopo un arrotondamento",
+    "prima_occ_txt": "§2.1",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\Omega\\), \\(\\omega\\)",
+    "norm_list": [
+     "\\Omega",
+     "\\omega"
+    ],
+    "nome": "spazio campionario; esito",
+    "def": "l'insieme di tutti gli esiti possibili; un singolo esito elementare",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\in\\)",
+    "norm_list": [
+     "\\in"
+    ],
+    "nome": "appartiene a",
+    "def": "l'elemento a sinistra sta nell'insieme a destra",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\{\\dots\\}\\)",
+    "norm_list": [
+     "\\{\\dots\\}"
+    ],
+    "nome": "insieme per elenco",
+    "def": "le graffe elencano gli elementi: \\(\\{1,2,3\\}\\); i puntini \\(\\dots\\) = «e così via»",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\mathcal{F}\\)",
+    "norm_list": [
+     "\\mathcal{F}"
+    ],
+    "nome": "\\(\\sigma\\)-algebra degli eventi",
+    "def": "la famiglia dei sottoinsiemi di \\(\\Omega\\) a cui si assegna una probabilità",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\setminus\\)",
+    "norm_list": [
+     "\\setminus"
+    ],
+    "nome": "differenza tra insiemi",
+    "def": "\\(\\Omega \\setminus A\\): gli elementi di \\(\\Omega\\) che non stanno in \\(A\\)",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\bigcup\\), \\(\\cup\\)",
+    "norm_list": [
+     "\\bigcup",
+     "\\cup"
+    ],
+    "nome": "unione",
+    "def": "«oppure»: gli esiti che stanno in almeno uno degli insiemi",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\to\\), \\(\\Longrightarrow\\)",
+    "norm_list": [
+     "\\to",
+     "\\Longrightarrow"
+    ],
+    "nome": "freccia",
+    "def": "tre usi: tipo di funzione (\\(P:\\mathcal{F} \\to [0,1]\\), da–a); «quindi / da cui» nelle catene; «tende a» nei limiti (§4.4)",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\sum\\)",
+    "norm_list": [
+     "\\sum"
+    ],
+    "nome": "sommatoria",
+    "def": "somma di tutti i termini indicati dall'indice",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(:=\\)",
+    "norm_list": [
+     ":="
+    ],
+    "nome": "uguale per definizione",
+    "def": "introduce un nome: il lato sinistro è definito come il lato destro; niente da verificare",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\arg\\max\\)",
+    "norm_list": [
+     "\\arg\\max"
+    ],
+    "nome": "argomento del massimo",
+    "def": "il valore dell'argomento che rende massima la funzione (non il massimo stesso)",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(S\\), \\(H\\)",
+    "norm_list": [
+     "S",
+     "H"
+    ],
+    "nome": "classi spam / ham",
+    "def": "le due classi di email (ham = buone). Attenzione: in §5.6 \\(H\\) e \\(S\\) cambiano ruolo (indicatori di Fisher)",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(w\\)",
+    "norm_list": [
+     "w"
+    ],
+    "nome": "parola (token)",
+    "def": "una parola dell'email",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(b\\), \\(N_S\\)",
+    "norm_list": [
+     "b",
+     "N_S"
+    ],
+    "nome": "conteggi spam",
+    "def": "spam contenenti la parola / totale spam (definiti in §3.2)",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(g\\), \\(N_H\\)",
+    "norm_list": [
+     "g",
+     "N_H"
+    ],
+    "nome": "conteggi ham",
+    "def": "ham contenenti la parola / totale ham (definiti in §3.2)",
+    "prima_occ_txt": "§2.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\Theta\\)",
+    "norm_list": [
+     "\\Theta"
+    ],
+    "nome": "spazio del parametro",
+    "def": "l'elenco dei candidati per \\(\\theta\\): tutti i valori che potrebbe assumere (es. una probabilità: \\(\\Theta = [0,1]\\)); coppia maiuscola/minuscola come \\(\\Omega\\)/\\(\\omega\\)",
+    "prima_occ_txt": "§2.2 (opz.)",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\int\\)",
+    "norm_list": [
+     "\\int"
+    ],
+    "nome": "integrale",
+    "def": "la «somma continua»; nel documento compare solo nel box sul caso continuo",
+    "prima_occ_txt": "§2.2 (opz.)",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\mathrm{LR}\\)",
+    "norm_list": [
+     "\\mathrm{LR}"
+    ],
+    "nome": "rapporto di verosimiglianza",
+    "def": "\\(P(w\\mid S)/P(w\\mid H)\\): quante volte la parola è più frequente nello spam",
+    "prima_occ_txt": "§3.1",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "MLE",
+    "norm_list": [
+     "MLE"
+    ],
+    "nome": "stima di massima verosimiglianza",
+    "def": "il valore del parametro che rende massima \\(L(\\theta)\\)",
+    "prima_occ_txt": "§3.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\theta\\), \\(\\hat\\theta\\)",
+    "norm_list": [
+     "\\theta",
+     "\\hat\\theta"
+    ],
+    "nome": "parametro; sua stima",
+    "def": "valore vero sconosciuto; il cappello \\(\\hat{\\ }\\) = «stimato»",
+    "prima_occ_txt": "§3.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(D\\)",
+    "norm_list": [
+     "D"
+    ],
+    "nome": "dati",
+    "def": "i dati osservati (qui: i conteggi del campione)",
+    "prima_occ_txt": "§3.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(L(\\theta)\\)",
+    "norm_list": [
+     "L(\\theta)"
+    ],
+    "nome": "verosimiglianza",
+    "def": "probabilità dei dati osservati, come funzione di \\(\\theta\\)",
+    "prima_occ_txt": "§3.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\binom{n}{k}\\)",
+    "norm_list": [
+     "\\binom{n}{k}"
+    ],
+    "nome": "coefficiente binomiale",
+    "def": "in quanti modi si scelgono \\(k\\) oggetti tra \\(n\\)",
+    "prima_occ_txt": "§3.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(a^{b}\\)",
+    "norm_list": [
+     "a^{b}"
+    ],
+    "nome": "potenza",
+    "def": "\\(a\\) moltiplicato per sé stesso \\(b\\) volte; copre \\(\\theta^{\\,b}\\), \\(e^t\\), \\(2^{10}\\)",
+    "prima_occ_txt": "§3.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(p(w)\\)",
+    "norm_list": [
+     "p(w)"
+    ],
+    "nome": "probabilità di spam per parola",
+    "def": "la formula di Graham",
+    "prima_occ_txt": "§3.3",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\leftarrow\\)",
+    "norm_list": [
+     "\\leftarrow"
+    ],
+    "nome": "assegnazione",
+    "def": "«assegna il nuovo valore»: aggiorna la variabile a sinistra",
+    "prima_occ_txt": "§3.4",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\min\\), \\(\\max\\)",
+    "norm_list": [
+     "\\min",
+     "\\max"
+    ],
+    "nome": "minimo / massimo",
+    "def": "il più piccolo / il più grande tra gli argomenti",
+    "prima_occ_txt": "§3.4",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(f(w)\\)",
+    "norm_list": [
+     "f(w)"
+    ],
+    "nome": "stima contratta",
+    "def": "\\(p(w)\\) corretto da Robinson (shrinkage)",
+    "prima_occ_txt": "§4.3",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(x\\), \\(s\\), \\(n\\)",
+    "norm_list": [
+     "x",
+     "s",
+     "n"
+    ],
+    "nome": "neutro; forza del prior; osservazioni",
+    "def": "\\(0{,}5\\); numero di osservazioni virtuali; numero di osservazioni vere",
+    "prima_occ_txt": "§4.3",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\alpha\\), \\(\\beta\\), \\(k\\), \\(\\text{Beta}(\\alpha,\\beta)\\)",
+    "norm_list": [
+     "\\alpha",
+     "\\beta",
+     "k",
+     "\\text{Beta}(\\alpha,\\beta)"
+    ],
+    "nome": "parametri Beta; successi",
+    "def": "conteggi virtuali del prior Beta; \\(k\\) = successi reali su \\(n\\) prove",
+    "prima_occ_txt": "§4.5 (opz.)",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\prod\\)",
+    "norm_list": [
+     "\\prod"
+    ],
+    "nome": "produttoria",
+    "def": "prodotto di tutti i termini indicati dall'indice",
+    "prima_occ_txt": "§5.1",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\sim\\)",
+    "norm_list": [
+     "\\sim"
+    ],
+    "nome": "dell'ordine di",
+    "def": "«si comporta circa come»: \\(\\sim p^{\\,n}\\)",
+    "prima_occ_txt": "§5.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(e\\), \\(\\ln\\)",
+    "norm_list": [
+     "e",
+     "\\ln"
+    ],
+    "nome": "numero di Nepero; logaritmo naturale",
+    "def": "\\(e \\approx 2{,}718\\); \\(\\ln\\) è l'inverso di \\(e^t\\); \\(\\ln(ab)=\\ln a + \\ln b\\); negativo su \\((0,1)\\)",
+    "prima_occ_txt": "§5.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "odds, \\(\\mathrm{logit}\\)",
+    "norm_list": [
+     "odds",
+     "\\mathrm{logit}"
+    ],
+    "nome": "quota; log-odds",
+    "def": "\\(p/(1-p)\\); il suo logaritmo (per esteso in A.2)",
+    "prima_occ_txt": "§5.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\mathrm{LLR}\\)",
+    "norm_list": [
+     "\\mathrm{LLR}"
+    ],
+    "nome": "log-likelihood ratio",
+    "def": "il «peso di evidenza» in log-odds: positivo → spam, negativo → ham",
+    "prima_occ_txt": "§5.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\sigma(\\cdot)\\)",
+    "norm_list": [
+     "\\sigma(\\cdot)"
+    ],
+    "nome": "sigmoide (logistica)",
+    "def": "\\(\\sigma(t) = 1/(1+e^{-t})\\), inversa del logit",
+    "prima_occ_txt": "§5.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\mathbf{w}\\)",
+    "norm_list": [
+     "\\mathbf{w}"
+    ],
+    "nome": "email intera",
+    "def": "in grassetto: tutte le parole dell'email insieme",
+    "prima_occ_txt": "§5.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(H_0\\)",
+    "norm_list": [
+     "H_0"
+    ],
+    "nome": "ipotesi nulla",
+    "def": "«nessun segnale, solo caso»: ciò che il test mette alla prova",
+    "prima_occ_txt": "§5.4",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(u\\)",
+    "norm_list": [
+     "u"
+    ],
+    "nome": "p-value",
+    "def": "probabilità, sotto \\(H_0\\), di un risultato almeno così estremo",
+    "prima_occ_txt": "§5.4",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(F(t)\\), CDF",
+    "norm_list": [
+     "F(t)",
+     "CDF"
+    ],
+    "nome": "funzione di ripartizione",
+    "def": "\\(P(X \\le t)\\); la sopravvivenza è \\(1 - F(t) = P(X > t)\\)",
+    "prima_occ_txt": "§5.5",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\chi^2_\\nu\\), \\(\\nu\\)",
+    "norm_list": [
+     "\\chi^2_\\nu",
+     "\\nu"
+    ],
+    "nome": "chi-quadro; gradi di libertà",
+    "def": "famiglia di distribuzioni note e tabulate; \\(\\nu\\) ne fissa la forma",
+    "prima_occ_txt": "§5.5",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(T\\)",
+    "norm_list": [
+     "T"
+    ],
+    "nome": "statistica di Fisher",
+    "def": "\\(-2\\sum\\ln(\\cdot)\\): la «sorpresa accumulata»",
+    "prima_occ_txt": "§5.5",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(C^{-1}(t,\\nu)\\)",
+    "norm_list": [
+     "C^{-1}(t,\\nu)"
+    ],
+    "nome": "sopravvivenza della chi-quadro",
+    "def": "\\(P(\\chi^2_\\nu > t)\\); nonostante il «\\(-1\\)», non è una funzione inversa",
+    "prima_occ_txt": "§5.5",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(H\\), \\(S\\), \\(I\\)",
+    "norm_list": [
+     "H",
+     "S",
+     "I"
+    ],
+    "nome": "indicatori di Fisher",
+    "def": "bussola: \\(H\\)/\\(S\\) piccolo = evidenza forte di ham/spam; \\(I = (1+H-S)/2\\)",
+    "prima_occ_txt": "§5.6",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(|x|\\)",
+    "norm_list": [
+     "|x|"
+    ],
+    "nome": "valore assoluto",
+    "def": "distanza di \\(x\\) da zero (barre attorno a un numero)",
+    "prima_occ_txt": "§5.6",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\tau\\)",
+    "norm_list": [
+     "\\tau"
+    ],
+    "nome": "soglia di decisione",
+    "def": "il livello con cui si confronta \\(I\\)",
+    "prima_occ_txt": "§5.6",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\infty\\)",
+    "norm_list": [
+     "\\infty"
+    ],
+    "nome": "infinito",
+    "def": "oltre ogni numero; la scala del logit va da \\(-\\infty\\) a \\(+\\infty\\)",
+    "prima_occ_txt": "A.2",
+    "prima_occ_sigla": "1.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(X\\), \\(\\mathbb{E}[X]\\)",
+    "norm_list": [
+     "X",
+     "\\mathbb{E}[X]"
+    ],
+    "nome": "variabile casuale; valore atteso",
+    "def": "numero che dipende dall'esito (maiuscola = variabile, minuscola = valore); media pesata con le probabilità",
+    "prima_occ_txt": "App. D (opz.)",
+    "prima_occ_sigla": null,
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\mathcal{G}\\)",
+    "norm_list": [
+     "\\mathcal{G}"
+    ],
+    "nome": "sotto-\\(\\sigma\\)-algebra",
+    "def": "famiglia di eventi più povera di \\(\\mathcal{F}\\): informazione parziale",
+    "prima_occ_txt": "App. D (opz.)",
+    "prima_occ_sigla": null,
+    "has_neq": false
+   },
+   {
+    "section": "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+    "raw": "\\(\\mathbb{E}[X \\mid \\mathcal{G}]\\)",
+    "norm_list": [
+     "\\mathbb{E}[X\\mid\\mathcal{G}]"
+    ],
+    "nome": "aspettazione condizionata",
+    "def": "la miglior stima di \\(X\\) usando solo l'informazione in \\(\\mathcal{G}\\)",
+    "prima_occ_txt": "App. D (opz.)",
+    "prima_occ_sigla": null,
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\mathbf{x}\\), \\(\\boldsymbol\\theta\\)",
+    "norm_list": [
+     "\\mathbf{x}",
+     "\\boldsymbol\\theta"
+    ],
+    "nome": "vettori (dati; pesi)",
+    "def": "liste ordinate di numeri; grassetto = più componenti",
+    "prima_occ_txt": "F4 §1.1",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\top\\), \\(\\boldsymbol\\theta^{\\top}\\mathbf{x}\\)",
+    "norm_list": [
+     "\\top",
+     "\\boldsymbol\\theta^{\\top}\\mathbf{x}"
+    ],
+    "nome": "trasposto; prodotto scalare",
+    "def": "«moltiplica componente per componente e somma»",
+    "prima_occ_txt": "F4 §1.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\sqrt{\\ }\\)",
+    "norm_list": [
+     "\\sqrt{\\}"
+    ],
+    "nome": "radice quadrata",
+    "def": "il numero che al quadrato dà l'argomento",
+    "prima_occ_txt": "F4 §1.3",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\lVert\\boldsymbol\\theta\\rVert\\)",
+    "norm_list": [
+     "\\lVert\\boldsymbol\\theta\\rVert"
+    ],
+    "nome": "norma",
+    "def": "lunghezza del vettore: \\(\\sqrt{\\sum_j \\theta_j^2}\\)",
+    "prima_occ_txt": "F4 §1.3",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(r(\\mathbf{x})\\)",
+    "norm_list": [
+     "r(\\mathbf{x})"
+    ],
+    "nome": "uscita della logistica",
+    "def": "\\(\\sigma(\\boldsymbol\\theta^{\\top}\\mathbf{x})\\): probabilità stimata che \\(y=1\\)",
+    "prima_occ_txt": "F4 §2.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(y\\)",
+    "norm_list": [
+     "y"
+    ],
+    "nome": "etichetta",
+    "def": "la verità osservata, \\(0\\) oppure \\(1\\)",
+    "prima_occ_txt": "F4 §2.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\ell\\), \\(\\mathcal{L}(\\boldsymbol\\theta)\\)",
+    "norm_list": [
+     "\\ell",
+     "\\mathcal{L}(\\boldsymbol\\theta)"
+    ],
+    "nome": "log-loss (perdita)",
+    "def": "costo dell'errore; \\(\\mathcal{L} = -\\ln L\\): non confondere con la verosimiglianza \\(L\\)",
+    "prima_occ_txt": "F4 §2.3",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\lambda\\)",
+    "norm_list": [
+     "\\lambda"
+    ],
+    "nome": "due mestieri",
+    "def": "forza della penale L2 (§2.4) e fattore EWMA (§4.1): decide il contesto",
+    "prima_occ_txt": "F4 §2.4",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\eta\\)",
+    "norm_list": [
+     "\\eta"
+    ],
+    "nome": "learning rate",
+    "def": "lunghezza del passo nella discesa del gradiente",
+    "prima_occ_txt": "F4 §3.1",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "SGD, FTRL",
+    "norm_list": [
+     "SGD",
+     "FTRL"
+    ],
+    "nome": "sigle",
+    "def": "discesa del gradiente un esempio alla volta; sua variante online industriale",
+    "prima_occ_txt": "F4 §3.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\bar{x}\\)",
+    "norm_list": [
+     "\\bar{x}"
+    ],
+    "nome": "media EWMA",
+    "def": "la barra = media; qui la media mobile che dimentica",
+    "prima_occ_txt": "F4 §4.1",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\Delta t\\), \\(\\tau\\)",
+    "norm_list": [
+     "\\Deltat",
+     "\\tau"
+    ],
+    "nome": "intervallo; costante di tempo",
+    "def": "tempo dall'ultimo aggiornamento; scala della memoria (questo \\(\\tau\\) ≠ soglia della 1.1)",
+    "prima_occ_txt": "F4 §4.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": true
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(\\hat{p}\\), \\(k\\), \\(m\\)",
+    "norm_list": [
+     "\\hat{p}",
+     "k",
+     "m"
+    ],
+    "nome": "stima campionaria; conteggi",
+    "def": "\\(\\hat{p} = k/m\\): eventi osservati su prove totali",
+    "prima_occ_txt": "F4 §5.1",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(z\\)",
+    "norm_list": [
+     "z"
+    ],
+    "nome": "quantile normale",
+    "def": "numero dalla curva a campana: \\(1{,}96\\) ↔ 95%; regola la prudenza",
+    "prima_occ_txt": "F4 §5.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "IC, LCB",
+    "norm_list": [
+     "IC",
+     "LCB"
+    ],
+    "nome": "intervallo di confidenza; bordo inferiore",
+    "def": "forchetta di valori plausibili; il suo estremo prudente",
+    "prima_occ_txt": "F4 §5.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(rel_i\\)",
+    "norm_list": [
+     "rel_i"
+    ],
+    "nome": "voto di rilevanza",
+    "def": "etichetta graduata (0–3) del documento in posizione \\(i\\)",
+    "prima_occ_txt": "F4 §6.1",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(@k\\)",
+    "norm_list": [
+     "@k"
+    ],
+    "nome": "cutoff",
+    "def": "«considerando solo le prime \\(k\\) posizioni»",
+    "prima_occ_txt": "F4 §6.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "DCG, IDCG, NDCG",
+    "norm_list": [
+     "DCG",
+     "IDCG",
+     "NDCG"
+    ],
+    "nome": "pagelle di ranking",
+    "def": "guadagno scontato per posizione; la sua versione ideale; il rapporto in \\([0,1]\\)",
+    "prima_occ_txt": "F4 §6.2",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "\\(s_i\\), \\(P_{ij}\\)",
+    "norm_list": [
+     "s_i",
+     "P_{ij}"
+    ],
+    "nome": "punteggio; prob. di coppia",
+    "def": "score di ranking; \\(\\sigma(s_i - s_j)\\) = prob. che \\(i\\) stia sopra \\(j\\)",
+    "prima_occ_txt": "F4 §6.3",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— F4 — Statistica e machine learning —",
+    "raw": "GBDT, RankNet, LambdaMART",
+    "norm_list": [
+     "GBDT",
+     "RankNet",
+     "LambdaMART"
+    ],
+    "nome": "sigle",
+    "def": "alberi in sequenza; il modello a coppie; il ranker industriale guidato dall'NDCG",
+    "prima_occ_txt": "F4 §6",
+    "prima_occ_sigla": "F4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.2 — Score reputazionali —",
+    "raw": "\\(c\\)",
+    "norm_list": [
+     "c"
+    ],
+    "nome": "tasso di reclamo",
+    "def": "\\(\\#\\text{reclami}/\\#\\text{consegnate}\\): il segnale «Segnala spam»",
+    "prima_occ_txt": "1.2 §2",
+    "prima_occ_sigla": "1.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.2 — Score reputazionali —",
+    "raw": "\\(\\#\\)",
+    "norm_list": [
+     "\\#"
+    ],
+    "nome": "numero di",
+    "def": "cancelletto di conteggio: \\(\\#\\text{reclami}\\) = quanti reclami",
+    "prima_occ_txt": "1.2 §2",
+    "prima_occ_sigla": "1.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.2 — Score reputazionali —",
+    "raw": "\\(\\Delta V\\)",
+    "norm_list": [
+     "\\DeltaV"
+    ],
+    "nome": "variazione di volume",
+    "def": "\\(\\Delta\\) = «variazione di»: quanto è cambiato \\(V\\)",
+    "prima_occ_txt": "1.2 §2",
+    "prima_occ_sigla": "1.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.2 — Score reputazionali —",
+    "raw": "\\(\\alpha_0\\), \\(\\beta_0\\)",
+    "norm_list": [
+     "\\alpha_0",
+     "\\beta_0"
+    ],
+    "nome": "prior Beta (di partenza)",
+    "def": "conteggi virtuali ereditati dal vicinato; pedice \\(0\\) = di partenza",
+    "prima_occ_txt": "1.2 §3",
+    "prima_occ_sigla": "1.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.2 — Score reputazionali —",
+    "raw": "\\(\\sim\\)",
+    "norm_list": [
+     "\\sim"
+    ],
+    "nome": "si distribuisce come",
+    "def": "secondo uso di \\(\\sim\\) (in F4 era «dell'ordine di»): decide il contesto",
+    "prima_occ_txt": "1.2 §3",
+    "prima_occ_sigla": "1.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.2 — Score reputazionali —",
+    "raw": "ASN, /24",
+    "norm_list": [
+     "ASN",
+     "/24"
+    ],
+    "nome": "vicinato di rete",
+    "def": "fornitore di rete; blocco di 256 indirizzi IP contigui",
+    "prima_occ_txt": "1.2 §3",
+    "prima_occ_sigla": "1.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.2 — Score reputazionali —",
+    "raw": "\\(w\\)",
+    "norm_list": [
+     "w"
+    ],
+    "nome": "peso della miscela",
+    "def": "quanto pesa lo score personale contro il prior del vicinato (≠ parola \\(w\\) della 1.1)",
+    "prima_occ_txt": "1.2 §5",
+    "prima_occ_sigla": "1.2",
+    "has_neq": true
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(\\mu\\)",
+    "norm_list": [
+     "\\mu"
+    ],
+    "nome": "media",
+    "def": "somma dei dati diviso il loro numero",
+    "prima_occ_txt": "F5 §1.1",
+    "prima_occ_sigla": "F5",
+    "has_neq": false
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(\\sigma\\)",
+    "norm_list": [
+     "\\sigma"
+    ],
+    "nome": "deviazione standard",
+    "def": "righello della dispersione: \\(\\sqrt{\\text{media dei quadrati degli scarti}}\\) — senza parentesi-argomento, ≠ sigmoide \\(\\sigma(\\cdot)\\)",
+    "prima_occ_txt": "F5 §1.1",
+    "prima_occ_sigla": "F5",
+    "has_neq": true
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(z\\)",
+    "norm_list": [
+     "z"
+    ],
+    "nome": "z-score",
+    "def": "\\((x-\\mu)/\\sigma\\): distanza dalla media in unità di \\(\\sigma\\)",
+    "prima_occ_txt": "F5 §1.2",
+    "prima_occ_sigla": "F5",
+    "has_neq": false
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(S_t\\), pedice \\(t\\)",
+    "norm_list": [
+     "S_t",
+     "pedicet"
+    ],
+    "nome": "accumulatore CUSUM; tempo",
+    "def": "la «vasca» degli sforamenti al passo \\(t\\) (≠ classe S, ≠ spamminess)",
+    "prima_occ_txt": "F5 §2",
+    "prima_occ_sigla": "F5",
+    "has_neq": true
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(\\mu_0\\)",
+    "norm_list": [
+     "\\mu_0"
+    ],
+    "nome": "livello di riferimento",
+    "def": "il valore atteso in condizioni normali",
+    "prima_occ_txt": "F5 §2",
+    "prima_occ_sigla": "F5",
+    "has_neq": false
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(\\kappa\\)",
+    "norm_list": [
+     "\\kappa"
+    ],
+    "nome": "kappa, margine",
+    "def": "lo sforamento tollerato che non accumula",
+    "prima_occ_txt": "F5 §2",
+    "prima_occ_sigla": "F5",
+    "has_neq": false
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(h\\)",
+    "norm_list": [
+     "h"
+    ],
+    "nome": "soglia d'allarme",
+    "def": "livello della vasca oltre cui scatta il rilevamento",
+    "prima_occ_txt": "F5 §2",
+    "prima_occ_sigla": "F5",
+    "has_neq": false
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(B\\), \\(r\\)",
+    "norm_list": [
+     "B",
+     "r"
+    ],
+    "nome": "capacità; tasso di ricarica",
+    "def": "burst massimo del secchio; gettoni per unità di tempo (questo \\(r\\) ≠ \\(r(\\mathbf{x})\\))",
+    "prima_occ_txt": "F5 §3",
+    "prima_occ_sigla": "F5",
+    "has_neq": true
+   },
+   {
+    "section": "— F5 — Segnali e rilevamento —",
+    "raw": "\\(t^-\\)",
+    "norm_list": [
+     "t^-"
+    ],
+    "nome": "istante precedente",
+    "def": "il momento dell'ultimo aggiornamento del secchio",
+    "prima_occ_txt": "F5 §3",
+    "prima_occ_sigla": "F5",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(V_d\\), \\(V_0\\), \\(V_{\\max}\\)",
+    "norm_list": [
+     "V_d",
+     "V_0",
+     "V_{\\max}"
+    ],
+    "nome": "volumi",
+    "def": "email del giorno \\(d\\); volume iniziale; tetto",
+    "prima_occ_txt": "1.3 §2",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(\\rho\\)",
+    "norm_list": [
+     "\\rho"
+    ],
+    "nome": "rho, fattore di crescita",
+    "def": "moltiplicatore giornaliero del volume (≠ \\(p\\) di probabilità)",
+    "prima_occ_txt": "1.3 §2",
+    "prima_occ_sigla": "1.3",
+    "has_neq": true
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(d\\)",
+    "norm_list": [
+     "d"
+    ],
+    "nome": "giorno",
+    "def": "l'indice dei giorni di warmup",
+    "prima_occ_txt": "1.3 §2",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(\\mathbb{1}[\\cdot]\\)",
+    "norm_list": [
+     "\\mathbb{1}[\\cdot]"
+    ],
+    "nome": "funzione indicatrice",
+    "def": "vale \\(1\\) se la condizione è vera, \\(0\\) altrimenti",
+    "prima_occ_txt": "1.3 §3",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(\\wedge\\)",
+    "norm_list": [
+     "\\wedge"
+    ],
+    "nome": "e logica",
+    "def": "l'and: vera solo se tutte le condizioni sono vere",
+    "prima_occ_txt": "1.3 §3",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(c^{*}\\), \\(b^{*}\\), \\(\\beta^{*}\\)",
+    "norm_list": [
+     "c^{*}",
+     "b^{*}",
+     "\\beta^{*}"
+    ],
+    "nome": "valori obiettivo",
+    "def": "l'asterisco in alto marca la soglia da rispettare",
+    "prima_occ_txt": "1.3 §3",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "KPI, ESP",
+    "norm_list": [
+     "KPI",
+     "ESP"
+    ],
+    "nome": "sigle",
+    "def": "indicatori chiave di prestazione; il fornitore email che riceve e giudica",
+    "prima_occ_txt": "1.3 §3–§4",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(z_V\\), \\(\\mu_V\\), \\(\\sigma_V\\)",
+    "norm_list": [
+     "z_V",
+     "\\mu_V",
+     "\\sigma_V"
+    ],
+    "nome": "z-score del volume",
+    "def": "anomalia del volume di oggi rispetto allo storico; pedice \\(V\\) = «del volume»",
+    "prima_occ_txt": "1.3 §4",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "\\(a\\), \\(b\\)",
+    "norm_list": [
+     "a",
+     "b"
+    ],
+    "nome": "pesi",
+    "def": "importanza di reputazione e anomalia (questo \\(b\\) ≠ conteggio spam della 1.1)",
+    "prima_occ_txt": "1.3 §4",
+    "prima_occ_sigla": "1.3",
+    "has_neq": true
+   },
+   {
+    "section": "— 1.3 — Warmup —",
+    "raw": "4xx, deferral",
+    "norm_list": [
+     "4xx",
+     "deferral"
+    ],
+    "nome": "rifiuto temporaneo",
+    "def": "«riprova più tardi»: il freno gentile del ricevente",
+    "prima_occ_txt": "1.3 §4",
+    "prima_occ_sigla": "1.3",
+    "has_neq": false
+   },
+   {
+    "section": "— F3 — Teoria dell'informazione —",
+    "raw": "\\(\\log_2\\)",
+    "norm_list": [
+     "\\log_2"
+    ],
+    "nome": "logaritmo in base 2",
+    "def": "l'esponente da dare a \\(2\\); cugino di \\(\\ln\\), cambia solo l'unità",
+    "prima_occ_txt": "F3 §1",
+    "prima_occ_sigla": "F3",
+    "has_neq": false
+   },
+   {
+    "section": "— F3 — Teoria dell'informazione —",
+    "raw": "bit",
+    "norm_list": [
+     "bit"
+    ],
+    "nome": "unità di sorpresa",
+    "def": "la sorpresa di una moneta equa; una domanda sì/no",
+    "prima_occ_txt": "F3 §1",
+    "prima_occ_sigla": "F3",
+    "has_neq": false
+   },
+   {
+    "section": "— F3 — Teoria dell'informazione —",
+    "raw": "\\(H\\), \\(H_{\\text{src}}\\), \\(H_{\\text{content}}\\)",
+    "norm_list": [
+     "H",
+     "H_{\\text{src}}",
+     "H_{\\text{content}}"
+    ],
+    "nome": "entropia",
+    "def": "sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera H)",
+    "prima_occ_txt": "F3 §2",
+    "prima_occ_sigla": "F3",
+    "has_neq": false
+   },
+   {
+    "section": "— F3 — Teoria dell'informazione —",
+    "raw": "\\(0 \\cdot \\log_2 0 := 0\\)",
+    "norm_list": [
+     "0\\cdot\\log_20:=0"
+    ],
+    "nome": "convenzione",
+    "def": "gli esiti impossibili non contribuiscono all'entropia",
+    "prima_occ_txt": "F3 §2",
+    "prima_occ_sigla": "F3",
+    "has_neq": false
+   },
+   {
+    "section": "— F3 — Teoria dell'informazione —",
+    "raw": "PMI, \\(\\text{PMI}^{+}\\)",
+    "norm_list": [
+     "PMI",
+     "\\text{PMI}^{+}"
+    ],
+    "nome": "pointwise mutual information",
+    "def": "\\(\\log_2\\) del rapporto tra co-occorrenza reale e caso puro; la versione \\(^{+}\\) azzera i negativi",
+    "prima_occ_txt": "F3 §4",
+    "prima_occ_sigla": "F3",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "hash, SHA-256",
+    "norm_list": [
+     "hash",
+     "SHA-256"
+    ],
+    "nome": "funzione di hash",
+    "def": "input qualsiasi → numero fisso «ben mescolato»; SHA-256 = 32 byte",
+    "prima_occ_txt": "F6 §1",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "byte",
+    "norm_list": [
+     "byte"
+    ],
+    "nome": "otto bit",
+    "def": "4 byte = 32 bit → \\(2^{32}\\) valori possibili",
+    "prima_occ_txt": "F6 §1",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "collisione",
+    "norm_list": [
+     "collisione"
+    ],
+    "nome": "—",
+    "def": "input diversi, stesso output; per coppia fissata: prob. \\(1/N\\)",
+    "prima_occ_txt": "F6 §1",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "k-anonimità",
+    "norm_list": [
+     "k-anonimità"
+    ],
+    "nome": "—",
+    "def": "nascondersi in un gruppo di almeno \\(k\\) indistinguibili",
+    "prima_occ_txt": "F6 §2",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "\\(D\\), \\(P\\)",
+    "norm_list": [
+     "D",
+     "P"
+    ],
+    "nome": "conteggi del database",
+    "def": "hash completi in DB; prefissi in lista (questo \\(D\\) ≠ dati di §3.2)",
+    "prima_occ_txt": "F6 §2",
+    "prima_occ_sigla": "F6",
+    "has_neq": true
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "\\(J(A,B)\\)",
+    "norm_list": [
+     "J(A,B)"
+    ],
+    "nome": "similarità di Jaccard",
+    "def": "\\(|A \\cap B| / |A \\cup B|\\): quota condivisa sul totale distinto",
+    "prima_occ_txt": "F6 §3",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "shingle",
+    "norm_list": [
+     "shingle"
+    ],
+    "nome": "finestra scorrevole",
+    "def": "frammento di parole consecutive; trasforma un testo in un insieme",
+    "prima_occ_txt": "F6 §3",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "\\(h_{\\min}\\)",
+    "norm_list": [
+     "h_{\\min}"
+    ],
+    "nome": "min-hash",
+    "def": "il minimo degli hash degli elementi; coincide con prob. \\(= J\\)",
+    "prima_occ_txt": "F6 §4",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "\\(s\\), \\(r\\), \\(b\\)",
+    "norm_list": [
+     "s",
+     "r",
+     "b"
+    ],
+    "nome": "similarità; righe; bande",
+    "def": "parametri LSH (questo \\(s\\) ≠ forza del prior; questo \\(r\\) ≠ resto, ≠ tasso)",
+    "prima_occ_txt": "F6 §5",
+    "prima_occ_sigla": "F6",
+    "has_neq": true
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "\\(\\lfloor \\cdot \\rfloor\\)",
+    "norm_list": [
+     "\\lfloor\\cdot\\rfloor"
+    ],
+    "nome": "floor",
+    "def": "arrotonda in giù all'intero: \\(\\lfloor 2{,}75 \\rfloor = 2\\)",
+    "prima_occ_txt": "F6 §6",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "\\(\\bmod\\)",
+    "norm_list": [
+     "\\bmod"
+    ],
+    "nome": "modulo",
+    "def": "resto della divisione intera (il %)",
+    "prima_occ_txt": "F6 §6",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "\\(\\delta\\), \\(q\\), \\(k\\) (Rice)",
+    "norm_list": [
+     "\\delta",
+     "q",
+     "k(Rice)"
+    ],
+    "nome": "delta; quoziente; parametro",
+    "def": "differenza tra consecutivi; \\(\\lfloor \\delta/2^k \\rfloor\\) in unario; taglia del resto",
+    "prima_occ_txt": "F6 §6",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "unario",
+    "norm_list": [
+     "unario"
+    ],
+    "nome": "—",
+    "def": "contare coi segni: \\(q\\) bit a 1 chiusi da uno 0",
+    "prima_occ_txt": "F6 §6",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— F6 — Similarità, hashing e codifiche —",
+    "raw": "somma prefissa",
+    "norm_list": [
+     "sommaprefissa"
+    ],
+    "nome": "—",
+    "def": "ricostruire la lista sommando i delta in cascata dal primo valore",
+    "prima_occ_txt": "F6 §6",
+    "prima_occ_sigla": "F6",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "\\(\\theta^{*}\\), \\(N\\), \\(v\\), \\(V_{\\text{target}}\\)",
+    "norm_list": [
+     "\\theta^{*}",
+     "N",
+     "v",
+     "V_{\\text{target}}"
+    ],
+    "nome": "parametri snowshoe",
+    "def": "soglia per sorgente; numero di sorgenti; volume per sorgente; obiettivo totale",
+    "prima_occ_txt": "1.4 §1",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "grafo, nodo, arco",
+    "norm_list": [
+     "grafo",
+     "nodo",
+     "arco"
+    ],
+    "nome": "—",
+    "def": "pallini e linee: oggetti e relazioni fra loro",
+    "prima_occ_txt": "1.4 §2",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "componente connessa",
+    "norm_list": [
+     "componenteconnessa"
+    ],
+    "nome": "—",
+    "def": "l'«isola»: i nodi raggiungibili l'uno dall'altro sugli archi",
+    "prima_occ_txt": "1.4 §2",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "\\(\\propto\\)",
+    "norm_list": [
+     "\\propto"
+    ],
+    "nome": "proporzionale a",
+    "def": "cresce e cala insieme a, senza fissare la scala",
+    "prima_occ_txt": "1.4 §3",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "\\(\\varepsilon\\)",
+    "norm_list": [
+     "\\varepsilon"
+    ],
+    "nome": "epsilon",
+    "def": "numero piccolissimo anti-divisione-per-zero",
+    "prima_occ_txt": "1.4 §3",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "\\(\\vee\\)",
+    "norm_list": [
+     "\\vee"
+    ],
+    "nome": "o logica",
+    "def": "l'or: vera se almeno un lato è vero",
+    "prima_occ_txt": "1.4 §4",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "\\(\\Longleftrightarrow\\)",
+    "norm_list": [
+     "\\Longleftrightarrow"
+    ],
+    "nome": "se e solo se",
+    "def": "doppia implicazione: i due lati veri negli stessi casi",
+    "prima_occ_txt": "1.4 §4",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— 1.4 — Difese —",
+    "raw": "\\(w_1, w_2, \\dots\\)",
+    "norm_list": [
+     "w_1,w_2,\\dots"
+    ],
+    "nome": "pesi delle bandierine",
+    "def": "quanto pesa ogni indizio nello score di anomalia",
+    "prima_occ_txt": "1.4 §4",
+    "prima_occ_sigla": "1.4",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "\\(M\\), \\(M_{ij}\\)",
+    "norm_list": [
+     "M",
+     "M_{ij}"
+    ],
+    "nome": "matrice; sua voce",
+    "def": "tabella di numeri; \\(M_{ij}\\) = riga \\(i\\), colonna \\(j\\) (qui: prob. di andare da \\(j\\) a \\(i\\))",
+    "prima_occ_txt": "F2 §1",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "\\(M\\mathbf{p}\\)",
+    "norm_list": [
+     "M\\mathbf{p}"
+    ],
+    "nome": "prodotto matrice·vettore",
+    "def": "pila di prodotti scalari riga-per-vettore: un passo della catena",
+    "prima_occ_txt": "F2 §1",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "colonna-stocastica",
+    "norm_list": [
+     "colonna-stocastica"
+    ],
+    "nome": "—",
+    "def": "ogni colonna somma a \\(1\\): probabilità in uscita da uno stato",
+    "prima_occ_txt": "F2 §2",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "catena di Markov",
+    "norm_list": [
+     "catenadiMarkov"
+    ],
+    "nome": "—",
+    "def": "sistema senza memoria: il futuro dipende solo dal presente",
+    "prima_occ_txt": "F2 §2",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "\\(\\mathbf{p}^{*}\\)",
+    "norm_list": [
+     "\\mathbf{p}^{*}"
+    ],
+    "nome": "distribuzione stazionaria",
+    "def": "il punto fermo: \\(M\\mathbf{p}^{*} = \\mathbf{p}^{*}\\)",
+    "prima_occ_txt": "F2 §3",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "\\(\\mathbf{v}\\), \\(\\lambda\\)",
+    "norm_list": [
+     "\\mathbf{v}",
+     "\\lambda"
+    ],
+    "nome": "autovettore; autovalore",
+    "def": "direzione non deviata; suo fattore di scala (terzo mestiere di \\(\\lambda\\))",
+    "prima_occ_txt": "F2 §4",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "irriducibile, aperiodica",
+    "norm_list": [
+     "irriducibile",
+     "aperiodica"
+    ],
+    "nome": "—",
+    "def": "tutto raggiungibile da tutto; niente ritorni a passi fissi obbligati",
+    "prima_occ_txt": "F2 §5",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "\\(I\\)",
+    "norm_list": [
+     "I"
+    ],
+    "nome": "matrice identità",
+    "def": "la macchina «non fare niente»: \\(I\\mathbf{v} = \\mathbf{v}\\)",
+    "prima_occ_txt": "F2 §6",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "\\(A^{-1}\\)",
+    "norm_list": [
+     "A^{-1}"
+    ],
+    "nome": "matrice inversa",
+    "def": "annulla l'effetto di \\(A\\) (stavolta il \\(-1\\) è un'inversa vera)",
+    "prima_occ_txt": "F2 §6",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "\\(M^{k}\\)",
+    "norm_list": [
+     "M^{k}"
+    ],
+    "nome": "potenza di matrice",
+    "def": "\\(M\\) applicata \\(k\\) volte: \\(k\\) passi della catena",
+    "prima_occ_txt": "F2 §6",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— F2 — Algebra lineare e Markov —",
+    "raw": "serie di Neumann",
+    "norm_list": [
+     "seriediNeumann"
+    ],
+    "nome": "—",
+    "def": "\\((I-\\alpha M)^{-1} = \\sum_k \\alpha^k M^k\\): l'inversa come somma di cammini smorzati",
+    "prima_occ_txt": "F2 §6",
+    "prima_occ_sigla": "F2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "\\(PR(p_i)\\)",
+    "norm_list": [
+     "PR(p_i)"
+    ],
+    "nome": "PageRank della pagina \\(p_i\\)",
+    "def": "frazione di tempo del navigatore casuale = componente della stazionaria",
+    "prima_occ_txt": "2.1 §1",
+    "prima_occ_sigla": "2.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "\\(d\\)",
+    "norm_list": [
+     "d"
+    ],
+    "nome": "damping factor",
+    "def": "probabilità di seguire un link (≈ 0,85); \\(1-d\\) = teletrasporto (≠ giorno della 1.3)",
+    "prima_occ_txt": "2.1 §1",
+    "prima_occ_sigla": "2.1",
+    "has_neq": true
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "\\(N\\)",
+    "norm_list": [
+     "N"
+    ],
+    "nome": "numero di pagine",
+    "def": "la taglia del web in esame",
+    "prima_occ_txt": "2.1 §2",
+    "prima_occ_sigla": "2.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "\\(M(p_i)\\)",
+    "norm_list": [
+     "M(p_i)"
+    ],
+    "nome": "insieme dei predecessori",
+    "def": "le pagine che puntano a \\(p_i\\) — con argomento: insieme, ≠ matrice \\(M\\)",
+    "prima_occ_txt": "2.1 §2",
+    "prima_occ_sigla": "2.1",
+    "has_neq": true
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "\\(L(p_j)\\)",
+    "norm_list": [
+     "L(p_j)"
+    ],
+    "nome": "grado uscente",
+    "def": "numero di link in uscita da \\(p_j\\) (≠ verosimiglianza \\(L(\\theta)\\))",
+    "prima_occ_txt": "2.1 §2",
+    "prima_occ_sigla": "2.1",
+    "has_neq": true
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "\\(\\mathbf{1}\\), \\(\\mathbf{v}\\)",
+    "norm_list": [
+     "\\mathbf{1}",
+     "\\mathbf{v}"
+    ],
+    "nome": "vettore di uni; teletrasporto",
+    "def": "tutti 1; \\(\\mathbf{v} = \\frac{1}{N}\\mathbf{1}\\) = uniforme (personalizzabile, §4)",
+    "prima_occ_txt": "2.1 §3",
+    "prima_occ_sigla": "2.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "dangling, \\(\\mathbf{a}\\)",
+    "norm_list": [
+     "dangling",
+     "\\mathbf{a}"
+    ],
+    "nome": "nodo senza uscite; suo indicatore",
+    "def": "pagina senza link uscenti; \\(\\mathbf{a}\\) segna quali (questo \\(\\mathbf{a}\\) ≠ peso di 1.3)",
+    "prima_occ_txt": "2.1 §3",
+    "prima_occ_sigla": "2.1",
+    "has_neq": true
+   },
+   {
+    "section": "— 2.1 — PageRank —",
+    "raw": "\\(G\\)",
+    "norm_list": [
+     "G"
+    ],
+    "nome": "matrice di Google",
+    "def": "link + dangling + teletrasporto in un'unica matrice stocastica",
+    "prima_occ_txt": "2.1 §3",
+    "prima_occ_sigla": "2.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(O(p)\\)",
+    "norm_list": [
+     "O(p)"
+    ],
+    "nome": "oracolo",
+    "def": "giudizio umano certo, \\(0\\) o \\(1\\): costoso, budget di \\(L\\) chiamate",
+    "prima_occ_txt": "2.2 §1",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(T(p)\\), \\(\\mathbf{t}\\)",
+    "norm_list": [
+     "T(p)",
+     "\\mathbf{t}"
+    ],
+    "nome": "funzione di trust; suo vettore",
+    "def": "fiducia in \\([0,1]\\) calcolabile per tutte le pagine",
+    "prima_occ_txt": "2.2 §1",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(L\\)",
+    "norm_list": [
+     "L"
+    ],
+    "nome": "budget dell'oracolo",
+    "def": "quante valutazioni umane puoi permetterti (terzo mestiere della lettera)",
+    "prima_occ_txt": "2.2 §1",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(G^{\\top}\\)",
+    "norm_list": [
+     "G^{\\top}"
+    ],
+    "nome": "grafo trasposto",
+    "def": "tutti gli archi girati al contrario",
+    "prima_occ_txt": "2.2 §2",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(S^{+}\\)",
+    "norm_list": [
+     "S^{+}"
+    ],
+    "nome": "semi buoni",
+    "def": "le pagine promosse dall'oracolo",
+    "prima_occ_txt": "2.2 §2",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(\\mathbf{d}\\)",
+    "norm_list": [
+     "\\mathbf{d}"
+    ],
+    "nome": "distribuzione dei semi",
+    "def": "uniforme su \\(S^{+}\\), zero altrove (in grassetto: vettore, ≠ damping \\(d\\))",
+    "prima_occ_txt": "2.2 §2",
+    "prima_occ_sigla": "2.2",
+    "has_neq": true
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(\\begin{cases}\\cdot\\end{cases}\\)",
+    "norm_list": [
+     "\\begin{cases}\\cdot\\end{cases}"
+    ],
+    "nome": "definizione per casi",
+    "def": "la graffa: ogni riga vale nel suo caso",
+    "prima_occ_txt": "2.2 §2",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "\\(\\alpha\\)",
+    "norm_list": [
+     "\\alpha"
+    ],
+    "nome": "damping del trust",
+    "def": "\\(\\approx 0{,}85\\); terzo mestiere di \\(\\alpha\\) (era conteggio virtuale nella 1.2)",
+    "prima_occ_txt": "2.2 §3",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.2 — TrustRank —",
+    "raw": "hop",
+    "norm_list": [
+     "hop"
+    ],
+    "nome": "passo di grafo",
+    "def": "un passo lungo un arco",
+    "prima_occ_txt": "2.2 §3",
+    "prima_occ_sigla": "2.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.3 — Spam mass —",
+    "raw": "link farm",
+    "norm_list": [
+     "linkfarm"
+    ],
+    "nome": "—",
+    "def": "pagine fantasma interconnesse per gonfiare il rank di un bersaglio",
+    "prima_occ_txt": "2.3 §1",
+    "prima_occ_sigla": "2.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.3 — Spam mass —",
+    "raw": "\\(10^{-k}\\)",
+    "norm_list": [
+     "10^{-k}"
+    ],
+    "nome": "esponente negativo",
+    "def": "dividere per la potenza: \\(10^{-6} = 1/1.000.000\\)",
+    "prima_occ_txt": "2.3 §1",
+    "prima_occ_sigla": "2.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.3 — Spam mass —",
+    "raw": "\\(PR^{+}(p)\\)",
+    "norm_list": [
+     "PR^{+}(p)"
+    ],
+    "nome": "rank giustificato",
+    "def": "il PageRank che arriva propagando solo dal nucleo fidato (2.2)",
+    "prima_occ_txt": "2.3 §2",
+    "prima_occ_sigla": "2.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 2.3 — Spam mass —",
+    "raw": "\\(M(p)\\), \\(m(p)\\)",
+    "norm_list": [
+     "M(p)",
+     "m(p)"
+    ],
+    "nome": "spam mass assoluta; relativa",
+    "def": "\\(PR - PR^{+}\\); la sua frazione su \\(PR\\) (quarto mestiere della lettera M)",
+    "prima_occ_txt": "2.3 §2",
+    "prima_occ_sigla": "2.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 3.1 — E-E-A-T e learning-to-rank —",
+    "raw": "E-E-A-T",
+    "norm_list": [
+     "E-E-A-T"
+    ],
+    "nome": "sigla",
+    "def": "Experience, Expertise, Authoritativeness, Trust: i criteri dei valutatori",
+    "prima_occ_txt": "3.1 §1",
+    "prima_occ_sigla": "3.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 3.1 — E-E-A-T e learning-to-rank —",
+    "raw": "rater",
+    "norm_list": [
+     "rater"
+    ],
+    "nome": "valutatore di qualità",
+    "def": "l'oracolo umano che produce le etichette di addestramento",
+    "prima_occ_txt": "3.1 §2",
+    "prima_occ_sigla": "3.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 3.1 — E-E-A-T e learning-to-rank —",
+    "raw": "\\(q\\)",
+    "norm_list": [
+     "q"
+    ],
+    "nome": "query",
+    "def": "la ricerca dell'utente (≠ quoziente di Rice, F6 §6)",
+    "prima_occ_txt": "3.1 §2",
+    "prima_occ_sigla": "3.1",
+    "has_neq": true
+   },
+   {
+    "section": "— 3.1 — E-E-A-T e learning-to-rank —",
+    "raw": "\\((q, \\text{doc}, rel)\\)",
+    "norm_list": [
+     "(q,\\text{doc},rel)"
+    ],
+    "nome": "tripla di addestramento",
+    "def": "query, documento e voto: una riga del dataset",
+    "prima_occ_txt": "3.1 §2",
+    "prima_occ_sigla": "3.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 3.2 — Knowledge Graph —",
+    "raw": "entità, Knowledge Graph",
+    "norm_list": [
+     "entità",
+     "KnowledgeGraph"
+    ],
+    "nome": "—",
+    "def": "persone/organizzazioni/opere come nodi; il grafo delle loro relazioni",
+    "prima_occ_txt": "3.2 §1",
+    "prima_occ_sigla": "3.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 3.2 — Knowledge Graph —",
+    "raw": "co-citazione",
+    "norm_list": [
+     "co-citazione"
+    ],
+    "nome": "—",
+    "def": "due entità che compaiono insieme in un documento",
+    "prima_occ_txt": "3.2 §2",
+    "prima_occ_sigla": "3.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 3.2 — Knowledge Graph —",
+    "raw": "\\(W\\)",
+    "norm_list": [
+     "W"
+    ],
+    "nome": "matrice dei pesi",
+    "def": "pesi \\(\\text{PMI}^{+}\\) normalizzati per colonna (maiuscola: matrice, ≠ \\(w\\))",
+    "prima_occ_txt": "3.2 §3",
+    "prima_occ_sigla": "3.2",
+    "has_neq": true
+   },
+   {
+    "section": "— 3.2 — Knowledge Graph —",
+    "raw": "\\(\\mathbf{rep}\\), \\(\\mathbf{seed}\\)",
+    "norm_list": [
+     "\\mathbf{rep}",
+     "\\mathbf{seed}"
+    ],
+    "nome": "reputazione; semi di entità",
+    "def": "vettore di reputazione; entità di autorevolezza accertata",
+    "prima_occ_txt": "3.2 §3",
+    "prima_occ_sigla": "3.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 4.1 — Safe Browsing —",
+    "raw": "canonicalizzazione",
+    "norm_list": [
+     "canonicalizzazione"
+    ],
+    "nome": "—",
+    "def": "riscrittura della URL in forma standard: una pagina, un solo hash",
+    "prima_occ_txt": "4.1 §2",
+    "prima_occ_sigla": "4.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 4.1 — Safe Browsing —",
+    "raw": "full hash",
+    "norm_list": [
+     "fullhash"
+    ],
+    "nome": "hash completo",
+    "def": "l'intero SHA-256, contro cui avviene il verdetto finale (in locale)",
+    "prima_occ_txt": "4.1 §2",
+    "prima_occ_sigla": "4.1",
+    "has_neq": false
+   },
+   {
+    "section": "— 4.2 — Web Risk —",
+    "raw": "Update API, Lookup API",
+    "norm_list": [
+     "UpdateAPI",
+     "LookupAPI"
+    ],
+    "nome": "le due modalità",
+    "def": "DB locale a prefissi (privato) contro interrogazione diretta (semplice)",
+    "prima_occ_txt": "4.2 §2",
+    "prima_occ_sigla": "4.2",
+    "has_neq": false
+   },
+   {
+    "section": "— 4.3 — Sincronizzazione —",
+    "raw": "diff",
+    "norm_list": [
+     "diff"
+    ],
+    "nome": "differenza tra versioni",
+    "def": "solo aggiunte e rimozioni rispetto alla copia locale",
+    "prima_occ_txt": "4.3 §1",
+    "prima_occ_sigla": "4.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 4.3 — Sincronizzazione —",
+    "raw": "indice di rimozione",
+    "norm_list": [
+     "indicedirimozione"
+    ],
+    "nome": "—",
+    "def": "la posizione da cancellare nella lista ordinata locale",
+    "prima_occ_txt": "4.3 §3",
+    "prima_occ_sigla": "4.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 4.3 — Sincronizzazione —",
+    "raw": "checksum",
+    "norm_list": [
+     "checksum"
+    ],
+    "nome": "sigillo di integrità",
+    "def": "hash dell'intero database: se non torna, ri-sincronizzi",
+    "prima_occ_txt": "4.3 §3",
+    "prima_occ_sigla": "4.3",
+    "has_neq": false
+   },
+   {
+    "section": "— 4.3 — Sincronizzazione —",
+    "raw": "TTL, cache pos./neg.",
+    "norm_list": [
+     "TTL",
+     "cachepos./neg."
+    ],
+    "nome": "scadenza; memorie di risposta",
+    "def": "time-to-live; ricordare i verdetti (corto per i positivi)",
+    "prima_occ_txt": "4.3 §4",
+    "prima_occ_sigla": "4.3",
+    "has_neq": false
+   }
+  ],
+  "sections": [
+   "— 1.1 — Filtraggio bayesiano (Appendice B) —",
+   "— F4 — Statistica e machine learning —",
+   "— 1.2 — Score reputazionali —",
+   "— F5 — Segnali e rilevamento —",
+   "— 1.3 — Warmup —",
+   "— F3 — Teoria dell'informazione —",
+   "— F6 — Similarità, hashing e codifiche —",
+   "— 1.4 — Difese —",
+   "— F2 — Algebra lineare e Markov —",
+   "— 2.1 — PageRank —",
+   "— 2.2 — TrustRank —",
+   "— 2.3 — Spam mass —",
+   "— 3.1 — E-E-A-T e learning-to-rank —",
+   "— 3.2 — Knowledge Graph —",
+   "— 4.1 — Safe Browsing —",
+   "— 4.2 — Web Risk —",
+   "— 4.3 — Sincronizzazione —"
+  ],
+  "claimed_total": 177
+ }
+}

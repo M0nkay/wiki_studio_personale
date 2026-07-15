@@ -1,0 +1,15 @@
+[
+  {"dove": "§3: P/2^32 con P=4,3·10^6 → «≈0,1%», «una navigazione su mille»", "atteso": 0.001, "formula": "4_300_000/2**32", "tol": 5e-5, "esito": "OK"},
+  {"dove": "§3: forma esatta 1-(1-2^-32)^P (non sulla pagina; conferma che ≈P/2^32 è lecita)", "atteso": 0.001, "formula": "1-(1-1/2**32)**4_300_000", "tol": 5e-5, "esito": "OK"},
+  {"dove": "Sol. 2: 8,6·10^6/2^32 → «≈0,002 = 0,2%»", "atteso": 0.002, "formula": "8_600_000/2**32", "tol": 5e-5, "esito": "OK"},
+  {"dove": "Sol. 2: «raddoppia la lista, raddoppia il rumore» (rapporto approx)", "atteso": 2.0, "formula": "(8_600_000/2**32)/(4_300_000/2**32)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "estremo P=0 (blacklist vuota): nessun match", "atteso": 0.0, "formula": "0/2**32", "tol": 0, "esito": "OK"},
+  {"dove": "estremo P=2^32 (ogni prefisso in lista): ogni URL matcha", "atteso": 1.0, "formula": "(2**32)/2**32", "tol": 0, "esito": "OK"},
+  {"dove": "estremo P=2^32+1 (formula alla lettera) → prob>1 ASSURDO; dimostra ipotesi tacita S4, NON errore della pagina", "atteso": 1.0, "formula": "(2**32+1)/2**32", "tol": 0, "esito": "KO"},
+  {"dove": "§4 prefisso 3 byte (correzione della cifra 22,6% comparsa in fase A → 25,6%)", "atteso": 0.2563, "formula": "4_300_000/2**24", "tol": 1e-3, "esito": "OK"},
+  {"dove": "§4 prefisso 5 byte → ~0,0004%", "atteso": 3.91e-6, "formula": "4_300_000/2**40", "tol": 1e-7, "esito": "OK"},
+  {"dove": "§4 prefisso 2 byte → satura a 100% (P>2^16)", "atteso": 1.0, "formula": "min(4_300_000/2**16, 1.0)", "tol": 0, "esito": "OK"},
+  {"dove": "full hash 32 byte → P/2^256 ~ 0 (anonimato k=1)", "atteso": 0.0, "formula": "4_300_000/2**256", "tol": 1e-60, "esito": "OK"},
+  {"dove": "correzione collisioni tra prefissi a P=4,3·10^6 (perdita % dei distinti; <0,1% → «≈» d'obbligo)", "atteso": 0.05, "formula": "100*(4_300_000 - 2**32*(1-(1-1/2**32)**4_300_000))/4_300_000", "tol": 1e-3, "esito": "OK"},
+  {"dove": "S1 k-anonimità: controesempio (traffico dominato da 1 URL → inferenza ~1) — logico, non numerico", "atteso": null, "formula": "None  # verifica logica: k-anonimita' sullo spazio combinatorio != privacy sulla distribuzione realizzata", "tol": 0, "esito": "manuale"}
+]

@@ -1,0 +1,275 @@
+[
+ {
+  "dove": "§2.1 P(malato|+) via Bayes",
+  "atteso": 0.16,
+  "formula": "(0.95*0.01)/(0.95*0.01+0.05*0.99)",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§2.1 conteggi 95/590",
+  "atteso": 0.16,
+  "formula": "95/590",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§3.1 LR «viagra» 0.10/0.001",
+  "atteso": 100,
+  "formula": "0.10/0.001",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "§3.3 prova del nove p(w)",
+  "atteso": 0.8,
+  "formula": "0.4/(0.4+0.1)",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "§3.3 identita p=LR/(LR+1)",
+  "atteso": 0.0,
+  "formula": "abs((100/(100+1))-(0.10/(0.10+0.001)))",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "§4.5 Robinson n=2 (p=0.99)",
+  "atteso": 0.83,
+  "formula": "(1*0.5+2*0.99)/(1+2)",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§4.5 Robinson n=200 (p=0.99)",
+  "atteso": 0.99,
+  "formula": "(1*0.5+200*0.99)/(1+200)",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.2 sigmoide σ(2)",
+  "atteso": 0.88,
+  "formula": "1/(1+__import__('math').exp(-2))",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.2 sigmoide σ(-2)",
+  "atteso": 0.12,
+  "formula": "1/(1+__import__('math').exp(2))",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.4 p-value moneta 9-10 teste/10",
+  "atteso": 0.011,
+  "formula": "(10+1)/1024",
+  "tol": 0.001,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.5 -2 ln 0.5",
+  "atteso": 1.386,
+  "formula": "-2*__import__('math').log(0.5)",
+  "tol": 0.001,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.5 -2 ln 0.1",
+  "atteso": 4.61,
+  "formula": "-2*__import__('math').log(0.1)",
+  "tol": 0.01,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.5 -2 ln 0.01",
+  "atteso": 9.21,
+  "formula": "-2*__import__('math').log(0.01)",
+  "tol": 0.01,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.5 bonus e^{-T/2}=u per u=0.5",
+  "atteso": 0.5,
+  "formula": "__import__('math').exp(-(-2*__import__('math').log(0.5))/2)",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.6 es.1 H=P(χ²_6>0.63)",
+  "atteso": 0.996,
+  "formula": "(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*3*__import__('math').log(0.9))",
+  "tol": 0.002,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.6 es.1 S=P(χ²_6>13.82)",
+  "atteso": 0.032,
+  "formula": "(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*3*__import__('math').log(0.1))",
+  "tol": 0.003,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.6 es.1 I",
+  "atteso": 0.98,
+  "formula": "(1+(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*3*__import__('math').log(0.9))-(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*3*__import__('math').log(0.1)))/2",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.6 es.2 naive P (conflitto)",
+  "atteso": 0.99,
+  "formula": "(0.99*0.99*0.01)/((0.99*0.99*0.01)+(0.01*0.01*0.99))",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.6 es.2 H=P(χ²_6>9.25)",
+  "atteso": 0.16,
+  "formula": "(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*(2*__import__('math').log(0.99)+__import__('math').log(0.01)))",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.6 es.2 S=P(χ²_6>18.44)",
+  "atteso": 0.005,
+  "formula": "(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*(2*__import__('math').log(0.01)+__import__('math').log(0.99)))",
+  "tol": 0.002,
+  "esito": "OK"
+ },
+ {
+  "dove": "§5.6 es.2 I (Fisher non satura)",
+  "atteso": 0.58,
+  "formula": "(1+(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*(2*__import__('math').log(0.99)+__import__('math').log(0.01)))-(lambda T: __import__('math').exp(-T/2)*sum((T/2)**k/__import__('math').factorial(k) for k in range(3)))(-2*(2*__import__('math').log(0.01)+__import__('math').log(0.99))))/2",
+  "tol": 0.01,
+  "esito": "OK"
+ },
+ {
+  "dove": "A.2 logit(0.8)=ln4",
+  "atteso": 1.39,
+  "formula": "__import__('math').log(0.8/0.2)",
+  "tol": 0.01,
+  "esito": "OK"
+ },
+ {
+  "dove": "A.2 logit(0.2)",
+  "atteso": -1.39,
+  "formula": "__import__('math').log(0.2/0.8)",
+  "tol": 0.01,
+  "esito": "OK"
+ },
+ {
+  "dove": "sol §2 es.1 18/116",
+  "atteso": 0.16,
+  "formula": "18/116",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "sol §3 es.1 p(w)=0.3/0.35",
+  "atteso": 0.86,
+  "formula": "0.3/0.35",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "sol §3 es.1 LR=0.3/0.05",
+  "atteso": 6,
+  "formula": "0.3/0.05",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "sol §3 es.2 2g p=0.3/0.4",
+  "atteso": 0.75,
+  "formula": "0.3/0.4",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "sol §4 es.1 f (s=1,n=2,p=0.9)",
+  "atteso": 0.77,
+  "formula": "(1*0.5+2*0.9)/(1+2)",
+  "tol": 0.005,
+  "esito": "OK"
+ },
+ {
+  "dove": "sol §4 es.3 f (s=3,n=2,p=0.9)",
+  "atteso": 0.66,
+  "formula": "(3*0.5+2*0.9)/(3+2)",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "sol §5 es.2 I (H=0.9,S=0.1)",
+  "atteso": 0.9,
+  "formula": "(1+0.9-0.1)/2",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "App.D E[X] dado equo",
+  "atteso": 3.5,
+  "formula": "(1+2+3+4+5+6)/6",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "App.D E[X|G] media globale",
+  "atteso": 3.5,
+  "formula": "4*0.5+3*0.5",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "App.D D.4 media pari",
+  "atteso": 4,
+  "formula": "(2+4+6)/3",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "App.D D.4 media dispari",
+  "atteso": 3,
+  "formula": "(1+3+5)/3",
+  "tol": 1e-09,
+  "esito": "OK"
+ },
+ {
+  "dove": "[ESTREMO] §5.6 Fisher con n=0 (nessun token selezionato): Σ vuota→T=0, dof=2n=0→χ²_0 (massa degenere), formule H,S indefinite; I ricade a 0.5 solo per convenzione non scritta [R1]",
+  "atteso": null,
+  "formula": "# manuale: dominio n>=1 mai enunciato; chi2_0 contraddice 'famiglia continua' §5.5",
+  "tol": 0,
+  "esito": "manuale"
+ },
+ {
+  "dove": "[ESTREMO] parola mai vista: 0.4 (Graham §3.4.3) vs shrink Robinson n=0→0.5 (§4.4); la mappa compone clamp→shrink e sovrascrive 0.4 [R2]",
+  "atteso": null,
+  "formula": "# manuale: (1*0.5+0*0.4)/(1+0)==0.5 annulla il 0.4",
+  "tol": 0,
+  "esito": "manuale"
+ },
+ {
+  "dove": "[ESTREMO] §3.2-§3.3 MLE/Graham con N_S=0 o N_H=0 (classe vuota): b/N_S divisione per zero; N_S,N_H>=1 mai enunciato [R3]",
+  "atteso": null,
+  "formula": "# manuale: denominatore nullo non escluso",
+  "tol": 0,
+  "esito": "manuale"
+ },
+ {
+  "dove": "[ESTREMO] email tutta neutra (ogni f=0.5): H=S per simmetria → I=0.5 esatto per ogni n>=1 — ben posto",
+  "atteso": null,
+  "formula": "# manuale: comportamento neutro corretto per n>=1",
+  "tol": 0,
+  "esito": "manuale"
+ },
+ {
+  "dove": "[ESTREMO] n=1 (un solo token): H=f, S=1-f → I=f — coerente",
+  "atteso": null,
+  "formula": "# manuale: fusione a un ingrediente restituisce f",
+  "tol": 0,
+  "esito": "manuale"
+ }
+]

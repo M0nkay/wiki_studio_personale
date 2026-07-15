@@ -1,0 +1,17 @@
+[
+  {"dove": "§1 esempio: N·v = V_target", "atteso": 10000, "formula": "200*50", "tol": 0, "esito": "OK"},
+  {"dove": "§1 esempio: v = metà soglia (θ*=100)", "atteso": 50, "formula": "100/2", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 esempio: H_src per 4 IP a quote uguali (bit)", "atteso": 2, "formula": "__import__('math').log2(4)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 esempio: indice campagna", "atteso": 8.3, "formula": "2/0.24", "tol": 0.05, "esito": "OK"},
+  {"dove": "§3 esempio: indice legittimo", "atteso": 0.12, "formula": "0.24/2", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 esempio: «settanta volte di differenza»", "atteso": 70, "formula": "(2/0.24)/(0.24/2)", "tol": 1, "esito": "OK"},
+  {"dove": "§3 esercizio 1: N = 30.000/150", "atteso": 200, "formula": "30000/150", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 sol.1: «tre quarti della soglia» (v/θ*)", "atteso": 0.75, "formula": "150/200", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 esercizio 2: 1,5/0,5", "atteso": 3, "formula": "1.5/0.5", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§3 esercizio 2 (scambiate): 0,5/1,5", "atteso": 0.33, "formula": "0.5/1.5", "tol": 0.005, "esito": "OK"},
+  {"dove": "§4–§5 esercizio 1: DMARC (SPF pass non allineato; DKIM pass allineato) codificato 1=pass", "atteso": 1, "formula": "int((True and False) or (True and True))", "tol": 0, "esito": "OK"},
+  {"dove": "§3 caso estremo: indice con H_content=0 (fotocopia perfetta), ε=1e-9 → finito ma arbitrario", "atteso": 2000000000.0, "formula": "2/(0+1e-9)", "tol": 1000000.0, "esito": "OK"},
+  {"dove": "§3 caso estremo: indice con H_src=0 (sorgente unica) → 0", "atteso": 0, "formula": "0/(0.5+1e-9)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§1 caso estremo: N·v=V_target con v=7 che non divide 10000 → N non intero (→ S4)", "atteso": 1428.5714285714287, "formula": "10000/7", "tol": 1e-6, "esito": "OK"},
+  {"dove": "§2 verifica S3: archi orientati ip→m, m→url formano un DAG → #SCC = #nodi = 9 (tutte componenti forti singoletto; l'isola non emerge)", "atteso": 9, "formula": "len({x for e in [('ip1','m1'),('ip2','m2'),('ip3','m3'),('ip4','m4'),('m1','url'),('m2','url'),('m3','url'),('m4','url')] for x in e})", "tol": 0, "esito": "OK"}
+]

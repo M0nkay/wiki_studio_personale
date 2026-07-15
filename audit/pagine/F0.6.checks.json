@@ -1,0 +1,21 @@
+[
+  {"dove": "§1 somma (3;4)+(1;1) prima componente", "atteso": 4, "formula": "3+1", "tol": 0, "esito": "OK"},
+  {"dove": "§1 somma (3;4)+(1;1) seconda componente", "atteso": 5, "formula": "4+1", "tol": 0, "esito": "OK"},
+  {"dove": "§1 scala 2*(3;4) prima componente", "atteso": 6, "formula": "2*3", "tol": 0, "esito": "OK"},
+  {"dove": "§1 scala 2*(3;4) seconda componente", "atteso": 8, "formula": "2*4", "tol": 0, "esito": "OK"},
+  {"dove": "§2 prodotto scalare (2;-1)·(3;4)", "atteso": 2, "formula": "sum(t*x for t,x in zip((2,-1),(3,4)))", "tol": 0, "esito": "OK"},
+  {"dove": "§2 perpendicolari (1;0)·(0;1)", "atteso": 0, "formula": "sum(t*x for t,x in zip((1,0),(0,1)))", "tol": 0, "esito": "OK"},
+  {"dove": "§3 norma euclidea ||(3;4)|| (3-4-5)", "atteso": 5, "formula": "__import__('math').sqrt(3**2+4**2)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "Es.1 seconda componente di (7;2;5)", "atteso": 2, "formula": "(7,2,5)[1]", "tol": 0, "esito": "OK"},
+  {"dove": "Es.2 (1;2)·(4;3)", "atteso": 10, "formula": "sum(t*x for t,x in zip((1,2),(4,3)))", "tol": 0, "esito": "OK"},
+  {"dove": "Es.3 (2;-1)·(1;5)", "atteso": -3, "formula": "sum(t*x for t,x in zip((2,-1),(1,5)))", "tol": 0, "esito": "OK"},
+  {"dove": "Es.4 norma ||(6;8)||", "atteso": 10, "formula": "__import__('math').sqrt(6**2+8**2)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "estremo: ||(-5)|| a 1 componente = |-5|", "atteso": 5, "formula": "__import__('math').sqrt((-5)**2)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "estremo: ||(0;0)|| vettore nullo", "atteso": 0, "formula": "__import__('math').sqrt(0**2+0**2)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.6-6: zip tronca dot((2;-1;99),(3;4)) → 99 ignorato, nessun errore", "atteso": 2, "formula": "sum(t*x for t,x in zip((2,-1,99),(3,4)))", "tol": 0, "esito": "OK"},
+  {"dove": "F0.6-1: tipo 'due vettori→un numero' soddisfatto da f(v,w)=v1*w1 (non definito positivo): f((0;1),(0;1))=0 su vettore non nullo", "atteso": 0, "formula": "(lambda v,w: v[0]*w[0])((0,1),(0,1))", "tol": 0, "esito": "OK"},
+  {"dove": "F0.6-2: identità con norme L1 dà cosφ=0.5 (≠ euclideo 1/√2≈0.707)", "atteso": 0.5, "formula": "1/(2*1)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "F0.6-2: euclideo cosφ=1/√2 → angolo geometrico reale 45°", "atteso": 45.0, "formula": "__import__('math').degrees(__import__('math').acos(1/2**0.5))", "tol": 1e-6, "esito": "OK"},
+  {"dove": "F0.6-2 (manuale): con L1 e angolo geometrico 45°, ||θ||1·||x||1·cos45°=1.41 ≠ dot=1 → identità falsa se ||·|| non è la norma indotta", "atteso": null, "formula": "abs(2*1*__import__('math').cos(__import__('math').radians(45)) - 1) > 0.4", "tol": 0, "esito": "manuale"},
+  {"dove": "estremo dim 0 (manuale): dot((),())=0 e norm(())=0.0; caso non discusso, ipotesi tacita n≥1 non enunciata (non usato dalla wiki → non difetto reale)", "atteso": null, "formula": "(sum(t*x for t,x in zip((),())), __import__('math').sqrt(sum(x*x for x in ())))", "tol": 0, "esito": "manuale"}
+]

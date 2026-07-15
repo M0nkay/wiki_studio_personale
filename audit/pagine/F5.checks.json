@@ -1,0 +1,23 @@
+[
+  {"dove": "§1.1 media μ", "atteso": 5, "formula": "sum([2,4,4,4,5,5,7,9])/8", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§1.1 somma quadrati scarti", "atteso": 32, "formula": "sum((x-5)**2 for x in [2,4,4,4,5,5,7,9])", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§1.1 σ = √(32/8)", "atteso": 2, "formula": "(sum((x-5)**2 for x in [2,4,4,4,5,5,7,9])/8)**0.5", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§1.2 z(x=9)", "atteso": 2, "formula": "(9-5)/2", "tol": 1e-9, "esito": "OK"},
+  {"dove": "Sol §1 es.1 z(x=2)", "atteso": -1.5, "formula": "(2-5)/2", "tol": 1e-9, "esito": "OK"},
+  {"dove": "Sol §1 es.2 z(x=1800)", "atteso": 4, "formula": "(1800-1000)/200", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§2 CUSUM S finale (μ0=10,κ=1; x=12,13,9,14,14)", "atteso": 7, "formula": "__import__('functools').reduce(lambda S,x: max(0,S+(x-11)), [12,13,9,14,14], 0)", "tol": 0, "esito": "OK"},
+  {"dove": "Sol §2 CUSUM S al 3º passo (μ0=5,κ=0; x=6,7,7)", "atteso": 5, "formula": "__import__('functools').reduce(lambda S,x: max(0,S+(x-5)), [6,7,7], 0)", "tol": 0, "esito": "OK"},
+  {"dove": "Sol §2 CUSUM passo di allarme (primo S>3)", "atteso": 3, "formula": "next(i+1 for i,S in enumerate(__import__('itertools').accumulate([6,7,7], lambda a,x: max(0,a+(x-5)), initial=0)) if i>0 and S>3)-1", "tol": 0, "esito": "OK"},
+  {"dove": "§3 token bucket dopo 1,5 min (B=10,r=2 da 0)", "atteso": 3, "formula": "min(10, 0 + 2*1.5)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "Sol §3 es.1 passati subito (B=5, 6 msg)", "atteso": 5, "formula": "min(6,5)", "tol": 0, "esito": "OK"},
+  {"dove": "Sol §3 es.1 attesa 6º msg (r=1, serve 1 gettone)", "atteso": 1, "formula": "1/1", "tol": 1e-9, "esito": "OK"},
+  {"dove": "CASO ESTREMO §1.2 σ dati costanti [7,7,7,7] (=0 → z indefinito, F5-02)", "atteso": 0, "formula": "(sum((x-7)**2 for x in [7,7,7,7])/4)**0.5", "tol": 1e-9, "esito": "OK"},
+  {"dove": "CASO ESTREMO §2 CUSUM κ=-3, x=μ0 costante → allarme falso (F5-04)", "atteso": 9, "formula": "__import__('functools').reduce(lambda S,x: max(0,S+(x-10-(-3))), [10,10,10], 0)", "tol": 0, "esito": "OK"},
+  {"dove": "CASO ESTREMO §1.2 Chebyshev |z|=2 (≤1/4) vs «ufficialmente strano» (F5-03)", "atteso": 0.25, "formula": "1/2**2", "tol": 1e-9, "esito": "OK"},
+  {"dove": "CASO ESTREMO §1.2 coda normale bilaterale |z|=2 (~0,0455) (F5-03)", "atteso": 0.0455, "formula": "2*(1-0.5*(1+__import__('math').erf(2/2**0.5)))", "tol": 1e-3, "esito": "OK"},
+  {"dove": "CASO ESTREMO §1.2 coda normale bilaterale |z|=4 (~6,3e-5) (F5-03)", "atteso": 6.334e-05, "formula": "2*(1-0.5*(1+__import__('math').erf(4/2**0.5)))", "tol": 1e-7, "esito": "OK"},
+  {"dove": "CASO ESTREMO §3 token bucket Δt=0,25 da vuoto → 0,5<1, accettazione non definita (F5-06)", "atteso": 0.5, "formula": "min(10, 0 + 2*0.25)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "CASO ESTREMO §3 token bucket Δt=-1 da 3 gettoni → 1, nessun max(0,·), serve t≥t⁻ (F5-06)", "atteso": 1, "formula": "min(10, 3 + 2*(-1))", "tol": 1e-9, "esito": "OK"},
+  {"dove": "CASO ESTREMO §1.1 campione vuoto n=0 → μ=somma/0 ZeroDivisionError (F5-02)", "atteso": null, "formula": "(lambda: (_ for _ in ()).throw(ZeroDivisionError) if len([])==0 else sum([])/len([]))()", "tol": 0, "esito": "manuale"},
+  {"dove": "CASO ESTREMO §1.1 n=1 → σ=0 → z=(x−μ)/0 indefinito (F5-02)", "atteso": null, "formula": "(sum((x-7)**2 for x in [7])/1)**0.5", "tol": 0, "esito": "manuale"}
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "dove": "§4 P(buono sopra)=sigma(1,5-0,3)=sigma(1,2); pagina dice ~0,77",
+    "atteso": 0.77,
+    "formula": "1/(1+__import__('math').exp(-(1.5-0.3)))",
+    "tol": 0.005,
+    "esito": "OK"
+  },
+  {
+    "dove": "Soluzioni es.1 s_i=s_j=2,5 -> P_ij=sigma(0); pagina dice 0,5",
+    "atteso": 0.5,
+    "formula": "1/(1+__import__('math').exp(-(2.5-2.5)))",
+    "tol": 1e-9,
+    "esito": "OK"
+  },
+  {
+    "dove": "§4 'ordine sbagliato -> NDCG scende', rel diversi (buono=3, scarso=1), ordine scambiato: NDCG<1",
+    "atteso": 0.7098,
+    "formula": "((2**1-1)/__import__('math').log2(2)+(2**3-1)/__import__('math').log2(3))/((2**3-1)/__import__('math').log2(2)+(2**1-1)/__import__('math').log2(3))",
+    "tol": 1e-3,
+    "esito": "OK"
+  },
+  {
+    "dove": "§4 CONTROESEMPIO S2: rel uguali (2,2), swap -> NDCG=1,0 invariata -> deltaNDCG=0 (ipotesi tacita rel diversi mancante)",
+    "atteso": 1.0,
+    "formula": "((2**2-1)/__import__('math').log2(2)+(2**2-1)/__import__('math').log2(3))/((2**2-1)/__import__('math').log2(2)+(2**2-1)/__import__('math').log2(3))",
+    "tol": 1e-12,
+    "esito": "OK"
+  },
+  {
+    "dove": "§4 caso estremo tutti rel=0: IDCG=0 -> NDCG=0/0 indefinita (difetto ereditato da F4 §6.2); nessun valore numerico atteso",
+    "atteso": null,
+    "formula": "(lambda idcg: 'nan (0/0)' if idcg==0 else None)((2**0-1)/__import__('math').log2(2)+(2**0-1)/__import__('math').log2(3))",
+    "tol": 0,
+    "esito": "manuale"
+  }
+]

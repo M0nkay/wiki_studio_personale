@@ -1,0 +1,535 @@
+==============================================================================
+VERIFICA CONTI — ricalcolo cifra per cifra dei check numerici delle pagine
+==============================================================================
+
+[F0.2] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 r.161: 2^3                                     8              8  OK
+  §1 r.161: 3^4                                    81             81  OK
+  §1 r.161: 10^2                                  100            100  OK
+  §1 r.164: 10^6                              1000000          1e+06  OK
+  §2 r.174: 10^2*10^3 = 10^5                   100000         100000  OK
+  §2 r.174: 10^5/10^2 = 10^3                     1000           1000  OK
+  §3 r.185: 10^-6                               1e-06          1e-06  OK
+  §3 r.185: 2^-1                                  0.5            0.5  OK
+  §4 r.194: sqrt(25)                                5              5  OK
+  §4 r.194: sqrt(100)                              10             10  OK
+  §4 r.194: sqrt(2) ~ 1,41                       1.41           1.41  OK
+  Sol. r.216: 2^4                                  16             16  OK
+  Sol. r.217: 3^2*3^2 = 3^4                        81             81  OK
+  Sol. r.219: 10^-3                             0.001          0.001  OK
+  Sol. r.220: sqrt(36)                              6              6  OK
+  Sol. r.220: sqrt(81)                              9              9  OK
+  S1 caso estremo: numero di radici inte            2              2  OK
+  S1 caso estremo: numero di reali con x            0              0  OK
+  S3: 0**0 in Python (pagina dice indefi            1              1  OK
+  S3: pow(0,0) in Python (notazione sugg            1              1  OK
+  S3 impatto valle: binomiale 1.1 al bor            1              1  OK
+  S5/A1: violazioni regola prodotto a^m*            0              0  OK
+  S2/A2: violazioni regola quoziente a^(            0              0  OK
+  S2 caso estremo: 0**2/0**3 (quoziente             —      (manuale)  ·
+  S2 caso estremo: 0**-1 (esponente nega            —      (manuale)  ·
+
+[F0.3] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 log_2 8 = 3                                  3.0              3  OK
+  §2 log_10 1000 = 3 (float 4e-16)                3.0              3  OK
+  §2 log_2 4 = 2                                  2.0              2  OK
+  §2 log_10 100 = 2                               2.0              2  OK
+  §2 log_2 1 = 0                                  0.0              0  OK
+  §2 log_10 1 = 0                                 0.0              0  OK
+  §2 log_2 2 = 1 (log_b b)                        1.0              1  OK
+  §3 e approx 2,718                             2.718          2.718  OK
+  §4 100*1000 = 100000                         100000         100000  OK
+  §4 100000 == 10^5                            100000         100000  OK
+  §4 log_10 100000 = 5                            5.0              5  OK
+  §4 log_10 100 + log_10 1000 = 5                 5.0              5  OK
+  Es.1 log_2 16 = 4                               4.0              4  OK
+  Es.2 log_10 10000 = 4                           4.0              4  OK
+  Es.3 log_5 1 = 0                                0.0              0  OK
+  Es.5 log(7*3) = log7+log3 (residuo 0)           0.0              0  OK
+  §4 regola d'oro LHS con a=-2,b=-3: log 0.7781512503836435       0.778151  OK
+  §4 gemella LHS con a=-2,n=2: log10(4)  0.6020599913279623        0.60206  OK
+  §4 gemella: n*log|a| = 0.60206 coincid 0.6020599913279623        0.60206  OK
+  CASO ESTREMO §3 base=1: 1**x collassa             —      (manuale)  ·
+  CASO ESTREMO §3 base=0: math.log(8,0)             —      (manuale)  ·
+  CASO ESTREMO §3 base=-2: math.log(-2,1            —      (manuale)  ·
+  CASO ESTREMO §2 argomento 0: math.log(            —      (manuale)  ·
+  CASO ESTREMO §2 argomento negativo: ma            —      (manuale)  ·
+  CASO ESTREMO §4 regola d'oro fattore 0            —      (manuale)  ·
+
+[F0.4] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 esempio — Σ(2,5,3)=10                         10             10  OK
+  §2 esempio — Σ i² (1..3)=14                      14             14  OK
+  §3 esempio — Π(2,5,3)=30                         30             30  OK
+  Soluzione 1 — Σ i (1..4)=10                      10             10  OK
+  Soluzione 2 — Π i (1..4)=4!=24                   24             24  OK
+  Soluzione 3 — 10+1+4=15                          15             15  OK
+  §4 identità log(Π)=Σlog su [2,5,3]: sc            0              0  OK
+  Caso estremo n=0 — somma vuota (verifi            0              0  OK
+  Caso estremo n=0 — prodotto vuoto (ver            1              1  OK
+  Caso estremo 0! come prodotto vuoto (F            1              1  OK
+  §4 caso estremo x_i=0 (probabilità amm            0              0  OK
+  §4 caso estremo x_i<0: Π([-2,-5])=+10>           10             10  OK
+
+[F0.5] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 |5|                                            5              5  OK
+  §1 |-5|                                           5              5  OK
+  §1 |0|                                            0              0  OK
+  §1 |3-7|=|-4|                                     4              4  OK
+  §1 |7-3|=|4|                                      4              4  OK
+  §1 box Il confine: (-3)^2                         9              9  OK
+  §1 box Il confine: |-3|                           3              3  OK
+  §2 floor 2,75                                     2              2  OK
+  §2 floor 5                                        5              5  OK
+  §2 floor 0,9                                      0              0  OK
+  §2 Trappola floor 2,9                             2              2  OK
+  §2 CASO ESTREMO floor(-2,9): prosa 'di           -3             -3  OK
+  §2 controprova troncamento int(-2,9) (           -2             -2  OK
+  §3 min(3,8,5)                                     3              3  OK
+  §3 max(3,8,5)                                     8              8  OK
+  §3 CASO ESTREMO ambiguita' virgola: mi            5              5  OK
+  §3 lettura intesa a 2 argomenti min(10        999.5          999.5  OK
+  §4 3!                                             6              6  OK
+  §4 4!                                            24             24  OK
+  §4 5!                                           120            120  OK
+  §4 0!                                             1              1  OK
+  §4 ricorsione 1! = 1*0!                           1              1  OK
+  §4 CASO ESTREMO prodotto vuoto prod(ra            1              1  OK
+  §4 unicita': base 0!=1 vs base 0!=7 da            —      (manuale)  ·
+  Sol. es.1 |-8|                                    8              8  OK
+  Sol. es.1 |8-2|                                   6              6  OK
+  Sol. es.2 floor 3,99                              3              3  OK
+  Sol. es.3 min(7,2,9)                              2              2  OK
+  Sol. es.3 max(7,2,9)                              9              9  OK
+  Sol. es.4 4!                                     24             24  OK
+  Sol. es.5 min(1000,1139)                       1000           1000  OK
+
+[F0.6] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 somma (3;4)+(1;1) prima componente             4              4  OK
+  §1 somma (3;4)+(1;1) seconda component            5              5  OK
+  §1 scala 2*(3;4) prima componente                 6              6  OK
+  §1 scala 2*(3;4) seconda componente               8              8  OK
+  §2 prodotto scalare (2;-1)·(3;4)                  2              2  OK
+  §2 perpendicolari (1;0)·(0;1)                     0              0  OK
+  §3 norma euclidea ||(3;4)|| (3-4-5)               5              5  OK
+  Es.1 seconda componente di (7;2;5)                2              2  OK
+  Es.2 (1;2)·(4;3)                                 10             10  OK
+  Es.3 (2;-1)·(1;5)                                -3             -3  OK
+  Es.4 norma ||(6;8)||                             10             10  OK
+  estremo: ||(-5)|| a 1 componente = |-5            5              5  OK
+  estremo: ||(0;0)|| vettore nullo                  0              0  OK
+  F0.6-6: zip tronca dot((2;-1;99),(3;4)            2              2  OK
+  F0.6-1: tipo 'due vettori→un numero' s            0              0  OK
+  F0.6-2: identità con norme L1 dà cosφ=          0.5            0.5  OK
+  F0.6-2: euclideo cosφ=1/√2 → angolo ge         45.0             45  OK
+  F0.6-2 (manuale): con L1 e angolo geom            —      (manuale)  ·
+  estremo dim 0 (manuale): dot((),())=0             —      (manuale)  ·
+
+[F0.7] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2 esempio retta — pendenza (11-3)/(6-            2              2  OK
+  §2 esempio retta — sali 11-3                      8              8  OK
+  §2 esempio retta — avanzi 6-2                     4              4  OK
+  Soluzioni es.1 — pendenza (8-2)/(4-1)             2              2  OK
+  Soluzioni es.1 — sali 8-2                         6              6  OK
+  Soluzioni es.1 — avanzi 4-1                       3              3  OK
+  §1 cartello 'pendenza 10%' = 10 ogni 1          0.1            0.1  OK
+  F0.7-01 controesempio x^3 in 0 — deriv            0              0  OK
+  F0.7-01 MLE k=0,n=5 — derivata L'(0)=-           -5             -5  OK
+  F0.7-01 MLE k=0,n=5 — argmax su grigli          0.0              0  OK
+  F0.7-01 MLE — dove L'=0 (t=1) il valor          0.0              0  OK
+  F0.7-02 |x| in 0 — pendenza destra                1              1  OK
+  F0.7-02 |x| in 0 — pendenza sinistra             -1             -1  OK
+  F0.7-06 gradiente — f(x)=x^2 in x=1, d            2              2  OK
+  F0.7-04 muro/tangente verticale — pend            —      (manuale)  ·
+  F0.7-01 x^3 flesso — la curva sale att            —      (manuale)  ·
+
+[F0.8] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2 Esempio numerico — rettangolo altez           12             12  OK
+  §2 Intuizione — 60 km/h per 2 ore               120            120  OK
+  Soluzione esercizio 2 — base 3 × altez           15             15  OK
+  F08-04 (manuale) — Dirichlet su [0,1]:            —      (manuale)  ·
+  F08-04 (manuale) — 1/x su (0,1]: tutti            —      (manuale)  ·
+
+[1.1] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2.1 P(malato|+) via Bayes                     0.16       0.161017  OK
+  §2.1 conteggi 95/590                           0.16       0.161017  OK
+  §3.1 LR «viagra» 0.10/0.001                     100            100  OK
+  §3.3 prova del nove p(w)                        0.8            0.8  OK
+  §3.3 identita p=LR/(LR+1)                       0.0              0  OK
+  §4.5 Robinson n=2 (p=0.99)                     0.83       0.826667  OK
+  §4.5 Robinson n=200 (p=0.99)                   0.99       0.987562  OK
+  §5.2 sigmoide σ(2)                             0.88       0.880797  OK
+  §5.2 sigmoide σ(-2)                            0.12       0.119203  OK
+  §5.4 p-value moneta 9-10 teste/10             0.011      0.0107422  OK
+  §5.5 -2 ln 0.5                                1.386        1.38629  OK
+  §5.5 -2 ln 0.1                                 4.61        4.60517  OK
+  §5.5 -2 ln 0.01                                9.21        9.21034  OK
+  §5.5 bonus e^{-T/2}=u per u=0.5                 0.5            0.5  OK
+  §5.6 es.1 H=P(χ²_6>0.63)                      0.996        0.99584  OK
+  §5.6 es.1 S=P(χ²_6>13.82)                     0.032      0.0317663  OK
+  §5.6 es.1 I                                    0.98       0.982037  OK
+  §5.6 es.2 naive P (conflitto)                  0.99           0.99  OK
+  §5.6 es.2 H=P(χ²_6>9.25)                       0.16        0.15997  OK
+  §5.6 es.2 S=P(χ²_6>18.44)                     0.005     0.00522009  OK
+  §5.6 es.2 I (Fisher non satura)                0.58       0.577375  OK
+  A.2 logit(0.8)=ln4                             1.39        1.38629  OK
+  A.2 logit(0.2)                                -1.39       -1.38629  OK
+  sol §2 es.1 18/116                             0.16       0.155172  OK
+  sol §3 es.1 p(w)=0.3/0.35                      0.86       0.857143  OK
+  sol §3 es.1 LR=0.3/0.05                           6              6  OK
+  sol §3 es.2 2g p=0.3/0.4                       0.75           0.75  OK
+  sol §4 es.1 f (s=1,n=2,p=0.9)                  0.77       0.766667  OK
+  sol §4 es.3 f (s=3,n=2,p=0.9)                  0.66           0.66  OK
+  sol §5 es.2 I (H=0.9,S=0.1)                     0.9            0.9  OK
+  App.D E[X] dado equo                            3.5            3.5  OK
+  App.D E[X|G] media globale                      3.5            3.5  OK
+  App.D D.4 media pari                              4              4  OK
+  App.D D.4 media dispari                           3              3  OK
+  [ESTREMO] §5.6 Fisher con n=0 (nessun             —      (manuale)  ·
+  [ESTREMO] parola mai vista: 0.4 (Graha            —      (manuale)  ·
+  [ESTREMO] §3.2-§3.3 MLE/Graham con N_S            —      (manuale)  ·
+  [ESTREMO] email tutta neutra (ogni f=0            —      (manuale)  ·
+  [ESTREMO] n=1 (un solo token): H=f, S=            —      (manuale)  ·
+
+[F4] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1.2 prodotto scalare (1;-2)·(0,5;0,25          0.0              0  OK
+  §1.3 norma ||(3;4)||                            5.0              5  OK
+  §1 ex1 (2;-1;0,5)·(1;2;4)                       2.0              2  OK
+  §2.2 r=σ(1)                                    0.73       0.731059  OK
+  §2.3 -ln0,9                                   0.105       0.105361  OK
+  §2.3 -ln0,1                                   2.303        2.30259  OK
+  §2 ex2 -ln0,01                                4.605        4.60517  OK
+  §3.2 θ_new componente 1                        1.05           1.05  OK
+  §3.2 θ_new componente 2                      -1.975         -1.975  OK
+  §3.2 nuovo punteggio                          0.031        0.03125  OK
+  §3 ex3 θ_new componente 1                     0.927       0.926894  OK
+  §4.1 EWMA passo 1 (λ=0,5)                      15.0             15  OK
+  §4.1 EWMA passo 2                              17.5           17.5  OK
+  §4 ex4 passo 1 (λ=0,2)                        120.0            120  OK
+  §4 ex4 passo 2                                136.0            136  OK
+  §4.2 λ per Δt=τ (1-e^-1)                       0.63       0.632121  OK
+  §5.3 Wilson LCB k=1,m=10,z=2                  0.017      0.0173707  OK
+  §5.3 centro (conteggi virtuali 3/14)          0.214       0.214286  OK
+  §5.3 Wilson LCB k=100,m=1000,z=2              0.083      0.0825909  OK
+  §5 ex5 Wilson LCB k=0,m=10,z=2                  0.0              0  OK
+  §6.2 log2(3)                                  1.585        1.58496  OK
+  §6.2 DCG ordine (3;0;2)                         8.5            8.5  OK
+  §6.2 IDCG (3;2;0)                              8.89        8.89279  OK
+  §6.2 NDCG                                     0.956       0.955831  OK
+  §6 ex6 DCG ordine (2;3;0)                      7.42        7.41651  OK
+  §6 ex6 NDCG                                   0.834       0.833991  OK
+  S5 §3.2 gradiente L2 componente 1 (λ=0        1.181         1.1808  OK
+  CASO ESTREMO S4 §4.1 peso reale k=1 co  0.640559377       0.640559  OK
+  CASO ESTREMO S? §5.3 Wilson p̂=1 (k=m= 0.7142857143       0.714286  OK
+  CASO ESTREMO S1 §6.2 NDCG con tutti re            —      (manuale)  ·
+  CASO ESTREMO S2 §5.3 Wilson con m=0: k            —      (manuale)  ·
+  CASO ESTREMO S3 §4.1/§4.2 EWMA primo p            —      (manuale)  ·
+  CASO ESTREMO N2 §2.2 log-loss su dati             —      (manuale)  ·
+
+[1.2] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2 esempio, theta^T x = 500*0,004 - 3*         -0.7           -0.7  OK
+  §2 esempio, r = sigma(-0,7)                    0.33       0.331812  OK
+  §2 sol.1, theta^T x = 500*0,001 - 3*0,        -2.35          -2.35  OK
+  §2 sol.1, hint e^2,35                          10.5        10.4856  OK
+  §2 sol.1, r = 1/(1+e^2,35)                     0.09      0.0870658  OK
+  §2 sol.2, c = 3/2000 (= 0,15%)               0.0015         0.0015  OK
+  §3 esempio, Beta(3,7) media                     0.3            0.3  OK
+  §3 esempio, Beta(3,27) media                    0.1            0.1  OK
+  §3 esempio, Beta(5,25) media                   0.17       0.166667  OK
+  §3 sol.1, Beta(5,7) media                      0.42       0.416667  OK
+  §5 esempio, miscela 0,7*0,4 + 0,3*0,8          0.52           0.52  OK
+  §5 sol.1, miscela 0,5*0,2 + 0,5*0,6             0.4            0.4  OK
+  Trappola percentuali, 0,3% -> 0,003           0.003          0.003  OK
+  Trappola percentuali, 0,1% -> 0,001           0.001          0.001  OK
+  §4 Wilson LCB, m=1000, p=0,1, z=2 (con        0.083      0.0825909  OK
+  §4 Wilson LCB, m=10, p=0,1, z=2 (conve        0.017      0.0173707  OK
+  §4 Wilson LCB, m=10, p=0,1, z=1,96: dà     0.017876      0.0178757  OK
+  §4 Wilson UCB, m=10, p=0,1, z=1,96 (bo        0.404       0.404156  OK
+  §4 Wilson UCB, m=1000, p=0,1, z=1,96 (         0.12       0.120152  OK
+  §3 identità 'Beta = Robinson con altri          0.0              0  OK
+  CASO ESTREMO §3: IP nuovo in blocco nu            —      (manuale)  ·
+  CASO ESTREMO §3: k>m (a0=3,b0=1,k=5,m=            —      (manuale)  ·
+  CASO ESTREMO §4: mittente con m=0 invi            —      (manuale)  ·
+  SEGNO INVERTITO §4: LCB(m=10)=0,0174 <            —      (manuale)  ·
+
+[F5] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1.1 media μ                                      5              5  OK
+  §1.1 somma quadrati scarti                       32             32  OK
+  §1.1 σ = √(32/8)                                  2              2  OK
+  §1.2 z(x=9)                                       2              2  OK
+  Sol §1 es.1 z(x=2)                             -1.5           -1.5  OK
+  Sol §1 es.2 z(x=1800)                             4              4  OK
+  §2 CUSUM S finale (μ0=10,κ=1; x=12,13,            7              7  OK
+  Sol §2 CUSUM S al 3º passo (μ0=5,κ=0;             5              5  OK
+  Sol §2 CUSUM passo di allarme (primo S            3              3  OK
+  §3 token bucket dopo 1,5 min (B=10,r=2            3              3  OK
+  Sol §3 es.1 passati subito (B=5, 6 msg            5              5  OK
+  Sol §3 es.1 attesa 6º msg (r=1, serve             1              1  OK
+  CASO ESTREMO §1.2 σ dati costanti [7,7            0              0  OK
+  CASO ESTREMO §2 CUSUM κ=-3, x=μ0 costa            9              9  OK
+  CASO ESTREMO §1.2 Chebyshev |z|=2 (≤1/         0.25           0.25  OK
+  CASO ESTREMO §1.2 coda normale bilater       0.0455      0.0455003  OK
+  CASO ESTREMO §1.2 coda normale bilater    6.334e-05    6.33425e-05  OK
+  CASO ESTREMO §3 token bucket Δt=0,25 d          0.5            0.5  OK
+  CASO ESTREMO §3 token bucket Δt=-1 da             1              1  OK
+  CASO ESTREMO §1.1 campione vuoto n=0 →            —      (manuale)  ·
+  CASO ESTREMO §1.1 n=1 → σ=0 → z=(x−μ)/            —      (manuale)  ·
+
+[1.3] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2 esempio giorno 1 (V0=100, rho=1.5)           150            150  OK
+  §2 esempio giorno 2                             225            225  OK
+  §2 esempio giorno 3 (pagina scrive ≈33          338            338  OK
+  §2 esempio giorno 4 (≈506; raw 506,25)          506            506  OK
+  §2 esempio giorno 5 (≈759; raw 759,375          759            759  OK
+  §2 esempio giorno 6 raw (≈1139)                1139           1139  OK
+  §2 esempio giorno 6 col tetto min(1000         1000           1000  OK
+  §2 caso d=0 -> V0                               100            100  OK
+  §4 regime z_V=0: sigma(a*r - b*z) con          0.77       0.768525  OK
+  §4 picco z_V=3: sigma(-1.8)                    0.14       0.141851  OK
+  §4 picco: frazione differita 1-P_accep     0.857143       0.858149  OK
+  §4 esercizio 1 z_V=1.2: sigma(0)                0.5            0.5  OK
+  §3 esercizio 1 (V0=50, rho=2): giorno           400            400  OK
+  §3 esercizio 2 indicatrice: (c_d=0.08<            0              0  OK
+  S1 controesempio polarita: P_accept(r=     0.598688       0.598688  OK
+  S1 controesempio polarita: P_accept(r=     0.832018       0.832018  OK
+  S2: z_V con sigma_V=0 -> divisione per            —      (manuale)  ·
+  S3: formula §3 alla lettera con cond V            3              3  OK
+
+[F3] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 log₂ 8                                       3.0              3  OK
+  §1 sorpresa(1/2)                                1.0              1  OK
+  §1 sorpresa(1/4)                                2.0              2  OK
+  §1 sorpresa(1)                                  0.0             -0  OK
+  §2 es.1 moneta equa H                           1.0              1  OK
+  §2 es.2 log₂ 0,9                             -0.152      -0.152003  OK
+  §2 es.2 log₂ 0,1                              -3.32       -3.32193  OK
+  §2 es.2 moneta truccata H                      0.47       0.468996  OK
+  §2 es.2 aritmetica pagina 0,9·0,152+0,         0.47         0.4688  OK
+  §2 es.3 quattro equiprobabili H                 2.0              2  OK
+  §3 es.1 sparpagliato H_src (0,25×4)             2.0              2  OK
+  §3 es.2 -log₂ 0,97                            0.044      0.0439433  OK
+  §3 es.2 -log₂ 0,01                             6.64        6.64386  OK
+  §3 es.2 concentrato H_src (97% + 1%·3)         0.24       0.241941  OK
+  §3 es.2 somma quote concentrato = 1             1.0              1  OK
+  §4 es.1 PMI rapporto 5 (P(a,b)=0,05)           2.32        2.32193  OK
+  §4 es.2 PMI rapporto 1 (P(a,b)=0,01)            0.0   -3.20343e-16  OK
+  §4 es.3 PMI rapporto 0,1 (P(a,b)=0,001        -3.32       -3.32193  OK
+  Sol §2-§3 e1: 8 equiprobabili                   3.0              3  OK
+  Sol §2-§3 e2: quota 1 -> H_src                  0.0             -0  OK
+  Sol §4 e1: P(a)=0,2 P(b)=0,5 P(a,b)=0,          0.0              0  OK
+  N3 controesempio: legit 8 IP equiproba          3.0              3  OK
+  N3 controesempio: snowshoe 3 IP equipr 1.5849625007211563        1.58496  OK
+  CASO ESTREMO S4 §1: sorpresa(0) evento            —      (manuale)  ·
+  CASO ESTREMO S2 §3: H_src con Sigma v_            —      (manuale)  ·
+  CASO ESTREMO S1 §4: PMI con P(a,b)=0 -            —      (manuale)  ·
+  CASO ESTREMO S1 §4: PMI con P(a)=0 ->             —      (manuale)  ·
+  S1 §4: PMI+ = max(0, -inf) = 0 (il cli          0.0              0  OK
+
+[F6] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 SHA-256: 32 byte = 256 bit                   256            256  OK
+  §2 prefisso 4 byte: 2^32 in miliardi (          4.3        4.29497  OK
+  §2 esercizio: prefisso 2 byte = 2^16 u        65536          65536  OK
+  §2 Pr[match|URL sicura] con P=4,3 mili        0.001     0.00100117  OK
+  §2 come scritto sulla pagina: 4,3e6/4,        0.001          0.001  OK
+  §3 esempio Jaccard {a,b,c,d},{c,d,e} =          0.4            0.4  OK
+  §4 E[coincidenze] con J=0,4 e 100 hash           40             40  OK
+  §5 esempio r=2,b=3, s=0,3 -> P_cand            0.25       0.246429  OK
+  §5 esempio r=2,b=3, s=0,9 -> P_cand            0.99       0.993141  OK
+  §5 soluzione es.2: r=2,b=3, s=0,5 -> P         0.58       0.578125  OK
+  §5 soluzione es.2 nella forma scritta      0.578125       0.578125  OK
+  §5 soglia indicativa (1/b)^(1/r) con b         0.58        0.57735  OK
+  §5 P_cand alla soglia s=0,577 (pagina        0.7037       0.703704  OK
+  §5 soluzione es.1 Jaccard {1,2,3},{2,3          0.4            0.4  OK
+  §6 Rice k=2, delta=11 -> q                        2              2  OK
+  §6 Rice k=2, delta=11 -> r                        3              3  OK
+  §6 Rice k=2, delta=11 -> lunghezza cod            5              5  OK
+  §6 Rice k=2, delta=2 -> lunghezza codi            3              3  OK
+  §6 soluzione es.1 Rice k=2, delta=6 ->            1              1  OK
+  §6 soluzione es.1 Rice k=2, delta=6 ->            2              2  OK
+  §6 floor(2,75)                                    2              2  OK
+  CASO ESTREMO F6-01: Jaccard A=B=vuoto             0              0  OK
+  CASO ESTREMO F6-01: shingling di 'ciao            0              0  OK
+  CASO ESTREMO F6-02: Jaccard A=vuoto,B=          0.0              0  OK
+  CASO ESTREMO F6-02: min(insieme vuoto)            —      (manuale)  ·
+  CASO ESTREMO F6-07: LSH r=0 -> P_cand=          1.0              1  OK
+  CASO ESTREMO F6-07: LSH b=0 -> P_cand=          0.0              0  OK
+  CASO ESTREMO F6-05: n=4 numeri ordinat            3              3  OK
+
+[1.4] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 esempio: N·v = V_target                    10000          10000  OK
+  §1 esempio: v = metà soglia (θ*=100)             50             50  OK
+  §3 esempio: H_src per 4 IP a quote ugu            2              2  OK
+  §3 esempio: indice campagna                     8.3        8.33333  OK
+  §3 esempio: indice legittimo                   0.12           0.12  OK
+  §3 esempio: «settanta volte di differe           70        69.4444  OK
+  §3 esercizio 1: N = 30.000/150                  200            200  OK
+  §3 sol.1: «tre quarti della soglia» (v         0.75           0.75  OK
+  §3 esercizio 2: 1,5/0,5                           3              3  OK
+  §3 esercizio 2 (scambiate): 0,5/1,5            0.33       0.333333  OK
+  §4–§5 esercizio 1: DMARC (SPF pass non            1              1  OK
+  §3 caso estremo: indice con H_content= 2000000000.0          2e+09  OK
+  §3 caso estremo: indice con H_src=0 (s            0              0  OK
+  §1 caso estremo: N·v=V_target con v=7  1428.5714285714287        1428.57  OK
+  §2 verifica S3: archi orientati ip→m,             9              9  OK
+
+[F2] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1 Mp[0], p=(0,5;0,5)                          0.55           0.55  OK
+  §1 Mp[1], p=(0,5;0,5)                          0.45           0.45  OK
+  §2 meteo domani sole da (1;0)                   0.9            0.9  OK
+  §2 meteo dopodomani sole                       0.83           0.83  OK
+  §3 stazionaria x da 0,2=0,3x           0.6666666666666666       0.666667  OK
+  §3 prova del nove 0,9·2/3+0,2·1/3      0.6666666666666666       0.666667  OK
+  §4 autovettore v=(2;1) prima comp               2.0              2  OK
+  §4 autovettore v=(1;-1) prima comp (=λ          0.7            0.7  OK
+  §5 errore al 4° passo (=1/3·0,7^4)             0.08           0.08  OK
+  §5 rapporto errori consecutivi (p0-p*∝          0.7            0.7  OK
+  §6 serie geometrica x=0,5 → 1/(1-0,5)           2.0              2  OK
+  Es.1 M(0,6;0,4) prima comp                     0.62           0.62  OK
+  Es.2 M(3;1) rapporto comp                     2.636        2.63636  OK
+  Es.3 serie geometrica x=0,1 → 1/0,9           1.111        1.11111  OK
+  [controesempio F2-03] (I-αM)^-1 diag p        -1.25          -1.25  OK
+  [controesempio F2-03] ragione serie ρ(          1.8            1.8  OK
+  [controesempio F2-01] swap M=[[0,1],[1          1.0              1  OK
+  [controesempio F2-04] 3x3 non-normale:            —      (manuale)  ·
+  [caso limite] N=1, M=[[1]]: λ2 inesist            —      (manuale)  ·
+
+[2.1] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2 esempio — PR(A) al primo passo (d=0 0.3333333333333333       0.333333  OK
+  §2 esempio — PR(B) al primo passo              0.25           0.25  OK
+  §2 esempio — PR(C) al primo passo      0.4166666666666667       0.416667  OK
+  §2 esempio — somma al primo passo (pro          1.0              1  OK
+  §2 — PageRank vero (stazionaria) del g 0.358974358974359       0.358974  OK
+  §3 esempio — iterazioni k per errore 1         85.0        85.0086  OK
+  Soluzioni Es.1 — PR(A) dopo un passo,          0.25           0.25  OK
+  Soluzioni Es.1 — PR(B) dopo un passo           0.75           0.75  OK
+  S1 — somma della soluzione con un dang 0.7166666666666667       0.716667  OK
+  S1 — singola pagina dangling N=1, d=0,         0.15           0.15  OK
+  S3 — teletrasporto concentrato semi={1         0.85           0.85  OK
+  S3 — stessa istanza: PR del nodo 1 irr 0.5405405405405406       0.540541  OK
+
+[2.2] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §3 bullet trust dampening — 0,85^5 ≈ 0         0.44       0.443705  OK
+  §3 bullet trust dampening — 0,85^10 ≈           0.2       0.196874  OK
+  §3 bullet trust dampening — 0,85^20 ≈          0.04      0.0387595  OK
+  §3 esempio anello — t* componente Seme        0.571       0.571429  OK
+  §3 esempio anello — t* componente A (0        0.286       0.285714  OK
+  §3 esempio anello — t* componente B (0        0.143       0.142857  OK
+  §3 esempio anello — forma chiusa Seme      0.571429       0.571429  OK
+  §3 esempio anello — somma dei tre valo          1.0              1  OK
+  §3 esempio anello — rapporto Seme/A (4          2.0              2  OK
+  Esercizio 1 — riferimento 0,85^14 ≈ 0,          0.1        0.10277  OK
+  Soluzione 1 — 0,85^15 ≈ 0,087 (<0,1)          0.087      0.0873542  OK
+  Soluzione 1 — primo hop col dampening            15             15  OK
+  Soluzione 3 — t*_B se B è anche seme (     0.357143       0.357143  OK
+  S1 — «la somma fa 1» portata al caso d          1.0          0.875  KO  <<<
+  S1 — Neumann troncata a 60 termini sul     0.571429       0.571429  OK
+  S1 caso estremo α=1 — det(I−M)=0: (I−M            —      (manuale)  ·
+  S2 caso estremo — S+=∅: 1/|S+| = 1/0 →            —      (manuale)  ·
+  S2 caso estremo — d=0 (nessun seme) →             —      (manuale)  ·
+  Caso estremo α=0 — t*=d (degrada bene)            —      (manuale)  ·
+
+[2.3] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §1.1 pioggia (1-d)/N                        1.5e-07        1.5e-07  OK
+  §1.2 flusso al bersaglio d*F*(1-d)/N,        0.0013       0.001275  OK
+  §1.3 quante volte la media (esatto 127         1300           1275  OK
+  §3.1 m del bersaglio (esatto 0.998846,        0.999       0.998846  OK
+  §3.2 m della pagina onesta                      0.1            0.1  OK
+  Soluzione Es1 — m                              0.25           0.25  OK
+  Soluzione Es2 — flusso al bersaglio F=      0.00013      0.0001275  OK
+  Soluzione Es2 — quante volte la media           130          127.5  OK
+  S4 — flusso modello a stella: valore E     0.001275       0.001275  OK
+  S2 controesempio — m di un seme impopo         -4.0             -4  OK
+  S2 bound superiore — m con PR+=0: m<=1          1.0              1  OK
+  S2 struttura — Sum(M) con PR e PR+ ent          0.0              0  OK
+  S3 caso estremo — PR(p)=0 => m=0/0 ind            —      (manuale)  ·
+
+[3.1] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §4 P(buono sopra)=sigma(1,5-0,3)=sigma         0.77       0.768525  OK
+  Soluzioni es.1 s_i=s_j=2,5 -> P_ij=sig          0.5            0.5  OK
+  §4 'ordine sbagliato -> NDCG scende',        0.7098        0.70981  OK
+  §4 CONTROESEMPIO S2: rel uguali (2,2),          1.0              1  OK
+  §4 caso estremo tutti rel=0: IDCG=0 ->            —      (manuale)  ·
+
+[3.2] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2 esempio — P(a)P(b) sotto puro caso         0.001          0.001  OK
+  §2 esempio 1 — log2(10) (arco forte)           3.32        3.32193  OK
+  §2 esempio 2 — log2(1) (nessun arco)            0.0              0  OK
+  §3 esempio — media pesata dei vicini (        0.625          0.625  OK
+  §3 controesempio S2 — riga di W (nodo          1.25           1.25  OK
+  §3 controesempio S2 — (W@rep)_E con vi          1.0              1  OK
+  §4 esercizio 1 / soluzione 1 — P(a)P(b        0.002          0.002  OK
+  §4 esercizio 1 / soluzione 1 — log2(5)         2.32        2.32193  OK
+  §4 esercizio 2 / soluzione 2 — arriva           0.6            0.6  OK
+  S3 — rep e' una distribuzione? seed so          1.0              1  OK
+  S6 — self-loop PMI+(a,a)=-log2 P(a) co 5.643856189774724        5.64386  OK
+  S3/casi estremi — alpha=1: det(I-W)=0           0.0              0  OK
+  S1 — entita' isolata: colonna nulla ->            —      (manuale)  ·
+  S5 — P(a,b)=0: log2(0) indefinito, sol            —      (manuale)  ·
+
+[4.1] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §3: P/2^32 con P=4,3·10^6 → «≈0,1%», «        0.001     0.00100117  OK
+  §3: forma esatta 1-(1-2^-32)^P (non su        0.001     0.00100067  OK
+  Sol. 2: 8,6·10^6/2^32 → «≈0,002 = 0,2%        0.002     0.00200234  OK
+  Sol. 2: «raddoppia la lista, raddoppia          2.0              2  OK
+  estremo P=0 (blacklist vuota): nessun           0.0              0  OK
+  estremo P=2^32 (ogni prefisso in lista          1.0              1  OK
+  estremo P=2^32+1 (formula alla lettera          1.0              1  KO  <<<
+  §4 prefisso 3 byte (correzione della c       0.2563         0.2563  OK
+  §4 prefisso 5 byte → ~0,0004%              3.91e-06    3.91083e-06  OK
+  §4 prefisso 2 byte → satura a 100% (P>          1.0              1  OK
+  full hash 32 byte → P/2^256 ~ 0 (anoni          0.0    3.71355e-71  OK
+  correzione collisioni tra prefissi a P         0.05      0.0500419  OK
+  S1 k-anonimità: controesempio (traffic            —      (manuale)  ·
+
+[4.2] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  A1 §2 — leak al server quando suona il        0.001     0.00100117  OK
+  A1 §2 (confutazione dell'over-reach di 0.9988434612751007       0.998843  OK
+  A1 §2 — 'Privacy piena (k-anonimita)':            —      (manuale)  ·
+
+[4.3] --------------------------------------------------------------------
+  dove                                         atteso    ricalcolato  esito
+  §2 p.1 — delta medio 2^32/P                    1000         998.83  OK
+  §2 p.2 — k = log2(1000)                          10        9.96578  OK
+  §2 p.3 — codice medio Rice k=10                  12        11.9754  OK
+  §2 p.3 — rapporto 12/32 contro 'quasi  0.3333333333333333          0.375  KO  <<<
+  §4 — falsi positivi di prefisso P/2^32          0.1       0.100117  OK
+  Sol §1 — primo delta 104-100                      4              4  OK
+  Sol §1 — secondo delta 116-104                   12             12  OK
+  Sol §1 — Rice(delta=4,k=2) atteso '100            —      (manuale)  ·
+  Sol §1 — Rice(delta=12,k=2) atteso '11            —      (manuale)  ·
+  §2 p.2 — k ottimale geometrico log2(m*            —      (manuale)  ·
+  §3 caso estremo — rimozione naive L->R            —      (manuale)  ·
+  casi estremi — P=0: 2^32/P divisione p            —      (manuale)  ·
+
+==============================================================================
+RIEPILOGO
+==============================================================================
+  check numerici totali : 396
+  OK                    : 393
+  KO (non tornano)      : 3
+  errori di valutazione : 0
+  voci manuali          : 53
+  sidecar mancanti      : 1 -> F0.1
+

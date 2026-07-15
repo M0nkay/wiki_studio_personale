@@ -1,0 +1,7 @@
+[
+  {"dove": "§2 Esempio numerico — rettangolo altezza 3, da 0 a 4", "atteso": 12, "formula": "4*3", "tol": 0, "esito": "OK"},
+  {"dove": "§2 Intuizione — 60 km/h per 2 ore", "atteso": 120, "formula": "60*2", "tol": 0, "esito": "OK"},
+  {"dove": "Soluzione esercizio 2 — base 3 × altezza 5", "atteso": 15, "formula": "3*5", "tol": 0, "esito": "OK"},
+  {"dove": "F08-04 (manuale) — Dirichlet su [0,1]: limitata ma non integrabile; somma con tag razionali=1, con tag irrazionali=0 → due valori diversi", "atteso": null, "formula": "(lambda tags: (max(tags)!=min(tags)))([sum(1 for _ in range(4)), 0])  # 1 (razionali) != 0 (irrazionali) -> non converge", "tol": 0, "esito": "manuale"},
+  {"dove": "F08-04 (manuale) — 1/x su (0,1]: tutti i valori finiti ma illimitati; la glossa 'non arrivano a infinito' non lo esclude letteralmente", "atteso": null, "formula": "all(1.0/x < float('inf') for x in [0.1,0.01,0.001]) and (1.0/0.001 > 1.0/0.1)  # valori finiti ma crescenti senza limite", "tol": 0, "esito": "manuale"}
+]

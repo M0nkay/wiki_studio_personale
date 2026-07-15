@@ -1,0 +1,23 @@
+[
+  {
+    "dove": "A1 §2 — leak al server quando suona il campanello: frazione di spazio-prefissi flaggata 'cattiva' (P=4,3e6 da 4.1 §3, che cita F6 §2); il valore 0,1% e' esattamente quello dichiarato in 4.1 §3, e dimostra che il server apprende informazione NON nulla -> 'Privacy piena' e' falsa",
+    "atteso": 0.001,
+    "formula": "4.3e6 / 2**32",
+    "tol": 1e-4,
+    "esito": "OK"
+  },
+  {
+    "dove": "A1 §2 (confutazione dell'over-reach di FASE A) — identita' aritmetica 4,29e9/2^32 ~ 1,0 che FASE A usava per 'k~1 -> privacy nulla' quando N_url~2^32: l'aritmetica torna ma lo scenario e' ipotetico e non si da' (k-anonimita' e' sugli URL POSSIBILI, illimitati; N_url reale >> 2^32), quindi NON dimostra il difetto",
+    "atteso": 0.9988434612751007,
+    "formula": "4.29e9 / 2**32",
+    "tol": 1e-6,
+    "esito": "OK"
+  },
+  {
+    "dove": "A1 §2 — 'Privacy piena (k-anonimita)': refutazione qualitativa (k-anonimita = identificabilita residua >= 1/k > 0 per definizione, quindi mai privacy totale; il server vede il prefisso, cfr 4.1 §3). Nessuna formula propria in pagina",
+    "atteso": null,
+    "formula": "None  # verifica qualitativa: k-anonimita e' privacy parziale per costruzione",
+    "tol": 0,
+    "esito": "manuale"
+  }
+]

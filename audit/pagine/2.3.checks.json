@@ -1,0 +1,15 @@
+[
+  {"dove": "§1.1 pioggia (1-d)/N", "atteso": 1.5e-7, "formula": "(1-0.85)/1e6", "tol": 1e-12, "esito": "OK"},
+  {"dove": "§1.2 flusso al bersaglio d*F*(1-d)/N, F=1e4 (esatto 0.001275, pagina 0.0013)", "atteso": 0.0013, "formula": "0.85*1e4*((1-0.85)/1e6)", "tol": 5e-5, "esito": "OK"},
+  {"dove": "§1.3 quante volte la media (esatto 1275, pagina ~1300)", "atteso": 1300, "formula": "0.85*1e4*((1-0.85)/1e6)/(1/1e6)", "tol": 30, "esito": "OK"},
+  {"dove": "§3.1 m del bersaglio (esatto 0.998846, pagina ~0.999)", "atteso": 0.999, "formula": "(0.0013-1.5e-6)/0.0013", "tol": 1e-3, "esito": "OK"},
+  {"dove": "§3.2 m della pagina onesta", "atteso": 0.1, "formula": "(4e-6-3.6e-6)/4e-6", "tol": 1e-9, "esito": "OK"},
+  {"dove": "Soluzione Es1 — m", "atteso": 0.25, "formula": "(8e-6-6e-6)/8e-6", "tol": 1e-9, "esito": "OK"},
+  {"dove": "Soluzione Es2 — flusso al bersaglio F=1e3 (esatto 1.275e-4, pagina ~1.3e-4)", "atteso": 1.3e-4, "formula": "0.85*1e3*((1-0.85)/1e6)", "tol": 5e-6, "esito": "OK"},
+  {"dove": "Soluzione Es2 — quante volte la media (esatto 127.5, pagina ~130)", "atteso": 130, "formula": "0.85*1e3*((1-0.85)/1e6)/(1/1e6)", "tol": 5, "esito": "OK"},
+  {"dove": "S4 — flusso modello a stella: valore ESATTO (non 'almeno'; PR_farm=(1-d)/N, L=1)", "atteso": 0.001275, "formula": "0.85*1e4*((1-0.85)/1e6)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S2 controesempio — m di un seme impopolare con PR+=TrustRank normalizzato (N=5): DIMOSTRA che 'm in [0,1]' e' FALSO", "atteso": -4.0, "formula": "1 - ((1-0.85)*1.0)/((1-0.85)/5)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S2 bound superiore — m con PR+=0: m<=1 SEMPRE, nessuno sforamento verso l'alto", "atteso": 1.0, "formula": "1 - 0.0/((1-0.85)/5)", "tol": 0, "esito": "OK"},
+  {"dove": "S2 struttura — Sum(M) con PR e PR+ entrambe distribuzioni somma 1 => 0 (masse negative inevitabili con spam)", "atteso": 0.0, "formula": "1.0 - 1.0", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S3 caso estremo — PR(p)=0 => m=0/0 indefinito (ZeroDivisionError); garanzia PR>=(1-d)/N>0 non enunciata sulla pagina", "atteso": null, "formula": "0.0/0.0  # ZeroDivisionError atteso", "tol": 0, "esito": "manuale"}
+]

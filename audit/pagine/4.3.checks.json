@@ -1,0 +1,14 @@
+[
+  {"dove": "§2 p.1 — delta medio 2^32/P", "atteso": 1000, "formula": "2**32/4.3e6", "tol": 5, "esito": "OK"},
+  {"dove": "§2 p.2 — k = log2(1000)", "atteso": 10, "formula": "__import__('math').log2(1000)", "tol": 0.05, "esito": "OK"},
+  {"dove": "§2 p.3 — codice medio Rice k=10", "atteso": 12, "formula": "10 + 1 + (2**32/4.3e6)/2**10", "tol": 0.5, "esito": "OK"},
+  {"dove": "§2 p.3 — rapporto 12/32 contro 'quasi un terzo' (S4)", "atteso": 0.3333333333333333, "formula": "12/32", "tol": 0.02, "esito": "KO"},
+  {"dove": "§4 — falsi positivi di prefisso P/2^32 (%)", "atteso": 0.1, "formula": "100*4.3e6/2**32", "tol": 0.01, "esito": "OK"},
+  {"dove": "Sol §1 — primo delta 104-100", "atteso": 4, "formula": "104-100", "tol": 0, "esito": "OK"},
+  {"dove": "Sol §1 — secondo delta 116-104", "atteso": 12, "formula": "116-104", "tol": 0, "esito": "OK"},
+  {"dove": "Sol §1 — Rice(delta=4,k=2) atteso '1000': la formula restituisce True se coincide", "atteso": null, "formula": "(lambda d,k: '1'*(d>>k)+'0'+format(d-((d>>k)<<k),'0{}b'.format(k)))(4,2) == '1000'", "tol": 0, "esito": "manuale"},
+  {"dove": "Sol §1 — Rice(delta=12,k=2) atteso '111000': la formula restituisce True se coincide", "atteso": null, "formula": "(lambda d,k: '1'*(d>>k)+'0'+format(d-((d>>k)<<k),'0{}b'.format(k)))(12,2) == '111000'", "tol": 0, "esito": "manuale"},
+  {"dove": "§2 p.2 — k ottimale geometrico log2(m*ln2) ~= 9,44 vs 10 usato (hedged 'sensato'); non e' difetto", "atteso": null, "formula": "__import__('math').log2((2**32/4.3e6)*__import__('math').log(2))", "tol": 0, "esito": "manuale"},
+  {"dove": "§3 caso estremo — rimozione naive L->R indici {1,3} su [A,B,C,D,E] da' 'ACD' invece di 'ACE' (S2)", "atteso": null, "formula": "(lambda l=list('ABCDE'): (l.pop(1), l.pop(3), ''.join(l))[-1])()", "tol": 0, "esito": "manuale"},
+  {"dove": "casi estremi — P=0: 2^32/P divisione per zero (ipotesi tacita 'P grande' non enunciata)", "atteso": null, "formula": "('ZeroDivisionError' if 4.3e6==0 else 'n/a')", "tol": 0, "esito": "manuale"}
+]

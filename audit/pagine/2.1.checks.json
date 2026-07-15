@@ -1,0 +1,14 @@
+[
+  {"dove": "§2 esempio — PR(A) al primo passo (d=0,5, start 1/3)", "atteso": 0.3333333333333333, "formula": "1/6 + 0.5*((1/3)/1)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§2 esempio — PR(B) al primo passo", "atteso": 0.25, "formula": "1/6 + 0.5*((1/3)/2)", "tol": 1e-12, "esito": "OK"},
+  {"dove": "§2 esempio — PR(C) al primo passo", "atteso": 0.4166666666666667, "formula": "1/6 + 0.5*((1/3)/2 + (1/3)/1)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "§2 esempio — somma al primo passo (prova del nove)", "atteso": 1.0, "formula": "1/3 + 1/4 + 5/12", "tol": 1e-12, "esito": "OK"},
+  {"dove": "§2 — PageRank vero (stazionaria) del grafo A->B,A->C,B->C,C->A, d=0,5, componente A = 14/39 (smaschera S7)", "atteso": 0.358974358974359, "formula": "__import__('numpy').linalg.solve(__import__('numpy').eye(3)-0.5*__import__('numpy').array([[0,0,1.],[.5,0,0],[.5,1,0]]), 0.5*__import__('numpy').array([1/3,1/3,1/3]))[0]", "tol": 0.001, "esito": "OK"},
+  {"dove": "§3 esempio — iterazioni k per errore 1e-6 con 0,85^k", "atteso": 85.0, "formula": "__import__('math').log(1e-6)/__import__('math').log(0.85)", "tol": 1.0, "esito": "OK"},
+  {"dove": "Soluzioni Es.1 — PR(A) dopo un passo, start (1;0), d=0,5", "atteso": 0.25, "formula": "0.5/2 + 0.5*(0/1)", "tol": 1e-12, "esito": "OK"},
+  {"dove": "Soluzioni Es.1 — PR(B) dopo un passo", "atteso": 0.75, "formula": "0.5/2 + 0.5*(1/1)", "tol": 1e-12, "esito": "OK"},
+  {"dove": "S1 — somma della soluzione con un dangling di massa m=1/20 (d=0,85) = 43/60 (deve essere 1 ma non lo e')", "atteso": 0.7166666666666667, "formula": "1 - 0.85*(1/20)/(1-0.85)", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S1 — singola pagina dangling N=1, d=0,85: PR = 1-d = 0,15 (deve essere 1 ma non lo e')", "atteso": 0.15, "formula": "(1-0.85)/1", "tol": 1e-9, "esito": "OK"},
+  {"dove": "S3 — teletrasporto concentrato semi={1}, grafo 1->2,2->1,3(self-loop), d=0,85: |lambda2| = d = 0,85 (irriducibilita' di §3 FALSA)", "atteso": 0.85, "formula": "sorted(abs(__import__('numpy').linalg.eigvals(0.85*__import__('numpy').array([[0,1,0],[1,0,0],[0,0,1.]])+0.15*__import__('numpy').outer([1.,0,0],[1,1,1]))),reverse=True)[1]", "tol": 1e-6, "esito": "OK"},
+  {"dove": "S3 — stessa istanza: PR del nodo 1 irraggiungibile-safe = 1/(1+d) = 0,5405 e PR(nodo 3)=0", "atteso": 0.5405405405405406, "formula": "__import__('numpy').linalg.solve(__import__('numpy').eye(3)-0.85*__import__('numpy').array([[0,1,0],[1,0,0],[0,0,1.]]), 0.15*__import__('numpy').array([1.,0,0]))[0]", "tol": 1e-6, "esito": "OK"}
+]
