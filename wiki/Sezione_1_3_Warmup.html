@@ -168,7 +168,8 @@ a{color:var(--navy);}
 
 <h2 id="sec-3">3. La versione realistica: crescita in retroazione</h2>
 <p>Crescere «a tabella» è ingenuo: la crescita va <strong>subordinata ai segnali</strong>. Il paper la scrive con due simboli nuovi:</p>
-<div class="formula key">\[ \rho_d \;=\; \rho_{\max} \cdot \mathbb{1}\bigl[\, c_d < c^{*} \ \wedge\ \text{bounce}_d < b^{*} \ \wedge\ \text{block}_d < \beta^{*} \,\bigr] \;+\; \rho_{\text{hold}}\ \text{(altrimenti)} \]</div>
+<p>Siano \(\rho_{\max} \geq 1\) il fattore di crescita massimo (lo stesso \(\rho \in [1{,}3;\ 2]\) del §2) e \(\rho_{\text{hold}}\) il fattore in attesa: \(\rho_{\text{hold}} = 1\) per mantenere il volume, \(\rho_{\text{hold}} < 1\) per arretrare. Se serve distinguere attesa e arretramento, prevedere due valori (o due rami) espliciti, non un unico \(\rho_{\text{hold}}\).</p>
+<div class="formula key">\[ \rho_d = \begin{cases} \rho_{\max} & \text{se } c_d < c^{*} \wedge \text{bounce}_d < b^{*} \wedge \text{block}_d < \beta^{*} \\ \rho_{\text{hold}} & \text{altrimenti} \end{cases} \]</div>
 <p>Da programmatore li conosci già entrambi: \(\mathbb{1}[\text{condizione}]\) è la <strong>funzione indicatrice</strong> — vale \(1\) se la condizione è vera, \(0\) se falsa (un cast da booleano a numero); \(\wedge\) è la <strong>e logica</strong> (l'<code>and</code>). L'<strong>asterisco</strong> in alto (\(c^{*}\), \(b^{*}\), \(\beta^{*}\)) marca i <strong>valori obiettivo</strong>, le soglie da rispettare — target tipici: reclami \(c^{*} = 0{,}1\%\), hard bounce \(b^{*} \approx 2\%\) <strong>[DOC/INF]</strong>.</p>
 <p>Lettura: <strong>se tutti i KPI tengono</strong> (KPI = indicatori chiave di prestazione), acceleri a \(\rho_{\max}\); <strong>se uno solo sgarra</strong>, l'indicatrice si azzera e resti fermo a \(\rho_{\text{hold}}\) (mantieni, o arretri se i blocchi sono alti). È un termostato: la retroazione tiene la crescita agganciata ai segnali reali.</p>
 
@@ -184,16 +185,19 @@ a{color:var(--navy);}
 
 <h2 id="sec-4">4. Dall'altra parte: come il ricevente legge il warmup</h2>
 <p>Il fornitore che riceve (nel paper: l'ESP, es. Gmail) osserva la <strong>traiettoria congiunta</strong>: volume, engagement, reclami, bounce, autenticazione. Un mittente legittimo in crescita mostra volume che sale <strong>insieme</strong> all'engagement e <strong>senza</strong> reclami; uno spammer mostra volume alto con engagement piatto. Il paper condensa il giudizio in una probabilità di accettazione — e sono tutti pezzi che possiedi:</p>
-<div class="formula key">\[ P_{\text{accept}} \;=\; \sigma\bigl(a \cdot r(\mathbf{x}) \;-\; b \cdot z_V\bigr) \qquad z_V = \frac{V_t - \mu_V}{\sigma_V} \]</div>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Ipotesi: il mittente dispone di uno storico di volume con \(\sigma_V > 0\). Allora \(z_V \in \mathbb{R}\), \(z_V = \frac{V_t - \mu_V}{\sigma_V}\). Nei primi giorni di warmup, con storico insufficiente (\(\sigma_V = 0\)), si adotta la convenzione esplicita \(z_V := 0\) finché lo storico non è stabile.</p>
+</div>
+<div class="formula key">\[ P_{\text{accept}} \;=\; \sigma\bigl(a\,(1 - r(\mathbf{x})) - b\,z_V\bigr),\quad a, b > 0. \]</div>
 <p>Dentro: \(r(\mathbf{x})\) = la reputazione della 1.2; \(z_V\) = lo <strong>z-score del volume</strong> (F5 §1) rispetto allo storico del mittente — il pedice \(V\) dice «del volume»; \(a, b\) = pesi di importanza dei due segnali; la sigmoide impacchetta tutto in una probabilità. Picco improvviso (\(z_V\) grande) su reputazione fragile → \(P_{\text{accept}}\) crolla → fioccano i <strong>4xx</strong> («deferral»: riprova più tardi, F5 §3), e il mittente deve rallentare con pazienza.</p>
 <div class="callout warn"><span class="tag">Trappola dei simboli</span>
 <p>Questi \(a\) e \(b\) sono <strong>pesi</strong>: il \(b\) qui non è il conteggio spam della 1.1. E \(\rho\) (rho) non è la \(p\) di probabilità: è una lettera greca diversa, scelta apposta per il fattore di crescita.</p>
 </div>
 <div class="callout ex"><span class="tag">Esempio numerico — regime contro picco</span>
-<p>Mittente con reputazione discreta \(r = 0{,}6\); pesi \(a = 2\), \(b = 1\).</p>
+<p>Mittente con \(r(\mathbf{x}) = 0{,}4\) (40 % stimato abusivo → buona reputazione \(0{,}6\)); pesi \(a = 2\), \(b = 1\).</p>
 <ol>
-<li><strong>Regime</strong> (\(z_V = 0\)): \(P_{\text{accept}} = \sigma(1{,}2 - 0) = \sigma(1{,}2) \approx 0{,}77\) — quasi tutto passa.</li>
-<li><strong>Picco</strong> (\(z_V = 3\)): \(P_{\text{accept}} = \sigma(1{,}2 - 3) = \sigma(-1{,}8) \approx 0{,}14\) — sei email su sette differite.</li>
+<li><strong>Regime</strong> (\(z_V = 0\)): \(P_{\text{accept}} = \sigma(2 \cdot 0{,}6 - 0) = \sigma(1{,}2) \approx 0{,}77\) — quasi tutto passa.</li>
+<li><strong>Picco</strong> (\(z_V = 3\)): \(P_{\text{accept}} = \sigma(2 \cdot 0{,}6 - 3) = \sigma(-1{,}8) \approx 0{,}14\) — sei email su sette differite.</li>
 </ol>
 <p>Stessa reputazione: a fare la differenza è <strong>quanto sei strano rispetto al tuo storico</strong>.</p>
 </div>
@@ -237,6 +241,7 @@ a{color:var(--navy);}
 <tr><td>\(\mathbb{1}[\cdot]\)</td><td>funzione indicatrice</td><td>vale \(1\) se la condizione è vera, \(0\) altrimenti</td><td>1.3 §3</td></tr>
 <tr><td>\(\wedge\)</td><td>e logica</td><td>l'<code>and</code>: vera solo se tutte le condizioni sono vere</td><td>1.3 §3</td></tr>
 <tr><td>\(c^{*}\), \(b^{*}\), \(\beta^{*}\)</td><td>valori obiettivo</td><td>l'asterisco in alto marca la soglia da rispettare</td><td>1.3 §3</td></tr>
+<tr><td>\(\rho_{\max}\), \(\rho_{\text{hold}}\)</td><td>fattori di crescita in retroazione</td><td>\(\rho_{\max} \geq 1\) crescita massima; \(\rho_{\text{hold}}\) fattore in attesa (\(=1\) mantiene, \(<1\) arretra)</td><td>1.3 §3</td></tr>
 <tr><td>KPI, ESP</td><td>sigle</td><td>indicatori chiave di prestazione; il fornitore email che riceve e giudica</td><td>1.3 §3–§4</td></tr>
 <tr><td>\(z_V\), \(\mu_V\), \(\sigma_V\)</td><td>z-score del volume</td><td>anomalia del volume di oggi rispetto allo storico; pedice \(V\) = «del volume»</td><td>1.3 §4</td></tr>
 <tr><td>\(a\), \(b\)</td><td>pesi</td><td>importanza di reputazione e anomalia (questo \(b\) ≠ conteggio spam della 1.1)</td><td>1.3 §4</td></tr>
