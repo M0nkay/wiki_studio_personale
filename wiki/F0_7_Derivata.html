@@ -151,10 +151,10 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. L'intuizione: quanto è ripida la salita</h2>
-<p><strong>Intuizione.</strong> Immagina di camminare su una collina. In ogni punto puoi chiederti: «quanto è <strong>ripido</strong> qui?». Su un tratto piano, zero. Su una salita dolce, poco. Su un muro, tanto. La <strong>derivata</strong> è esattamente questo: la <strong>ripidità (pendenza) di una curva in un punto</strong>.</p>
+<p><strong>Intuizione.</strong> Immagina di camminare su una collina. In ogni punto puoi chiederti: «quanto è <strong>ripido</strong> qui?». Su un tratto piano, zero. Su una salita dolce, poco. Su un muro — una parete verticale — la pendenza non è nemmeno definita (ci torniamo). La <strong>derivata</strong> è esattamente questo: la <strong>ripidità (pendenza) di una curva in un punto</strong>.</p>
 <p>Il concetto lo conosci già dalla strada: un cartello «pendenza 10%» dice che ogni 100 metri in avanti sali di 10. Pendenza = <strong>quanto sali</strong> diviso <strong>quanto avanzi</strong>.</p>
 <div class="callout intu"><span class="tag">La formula della pendenza è una frazione</span>
-<p>Pendenza \(= \dfrac{\text{quanto sali}}{\text{quanto avanzi}} = \dfrac{\text{variazione in verticale}}{\text{variazione in orizzontale}}\). Nient'altro che una divisione (F0.1): su/avanti.</p>
+<p>Pendenza \(= \dfrac{\text{quanto sali}}{\text{quanto avanzi}} = \dfrac{\text{variazione in verticale}}{\text{variazione in orizzontale}}\). Nient'altro che una divisione (F0.1): su/avanti. È definita quando «quanto avanzi» \(\neq 0\): la curva dev'essere il grafico di una funzione (a ogni orizzontale un solo valore) e la tangente non verticale. Su un tratto verticale — un «muro» — «quanto avanzi» \(= 0\): la pendenza non è «tanta», è <strong>indefinita</strong> (divisione per zero).</p>
 </div>
 
 <hr/>
@@ -164,7 +164,10 @@ a{color:var(--navy);}
 <div class="callout ex"><span class="tag">Esempio numerico — la retta</span>
 <p>Da (orizzontale 2, verticale 3) a (orizzontale 6, verticale 11): sali \(11 - 3 = 8\), avanzi \(6 - 2 = 4\). Pendenza \(= \dfrac{8}{4} = 2\). Ogni passo in avanti, due in su.</p>
 </div>
-<p><strong>Il problema.</strong> Una <strong>curva</strong> non ha una pendenza sola: è più ripida in certi punti, meno in altri. La <strong>derivata</strong> risolve così: misura la pendenza <strong>in un singolo punto</strong>, guardando un tratto <strong>talmente piccolo</strong> che lì la curva sembra una retta. È la pendenza della retta che «sfiora» la curva in quel punto (i matematici la chiamano <strong>tangente</strong>).</p>
+<p><strong>Il problema.</strong> Una <strong>curva</strong> non ha una pendenza sola: è più ripida in certi punti, meno in altri. La <strong>derivata</strong> risolve così: misura la pendenza <strong>in un singolo punto</strong>, guardando un tratto <strong>talmente piccolo</strong> che lì la curva sembra una retta. Più precisamente: la derivata in un punto è la pendenza a cui tende la retta per due punti vicini della curva, quando i due punti si stringono attorno al punto (la pendenza «da vicino»). La <strong>tangente</strong> è poi la retta che passa per il punto con quella pendenza — così né la derivata né la tangente dipendono dalla parola «sfiora».</p>
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>Nei punti utili la curva, ingrandita, si avvicina a una retta, e quella pendenza è la derivata. Non sempre: in uno spigolo (es. \(|x|\) in 0) per quanto si ingrandisca restano <strong>due</strong> pendenze diverse (sinistra \(-1\), destra \(+1\)), la retta unica non c'è e la derivata non esiste. In questa wiki assumiamo curve <strong>lisce</strong>, prive di spigoli; il passaggio al limite (le secanti che si stringono) è dato per idea, non come procedimento \(\varepsilon\)-\(\delta\).</p>
+</div>
 <div class="callout warn"><span class="tag">Cosa ti serve davvero</span>
 <p>Non ti serve <strong>calcolare</strong> derivate a mano (ci sono regole che qui non servono). Ti serve capire che «derivata» = <strong>pendenza in un punto</strong> = «quanto sta cambiando la cosa proprio qui». Quando nella wiki leggi «la derivata è zero», traduci: «qui è piatto, non cambia».</p>
 </div>
@@ -176,18 +179,18 @@ a{color:var(--navy);}
 <ul>
 <li>derivata <strong>positiva</strong> → la curva <strong>sale</strong> (più avanzi, più cresce);</li>
 <li>derivata <strong>negativa</strong> → la curva <strong>scende</strong>;</li>
-<li>derivata <strong>zero</strong> → punto <strong>piatto</strong>: una cima, un fondo, o un pianoro.</li>
+<li>derivata <strong>zero</strong> → punto <strong>piatto</strong>: un <strong>candidato</strong> a cima o fondo — ma può anche essere un pianoro o un flesso a tangente orizzontale (va controllato a parte).</li>
 </ul>
 <div class="callout intu"><span class="tag">Perché lo zero è speciale</span>
-<p>In cima a una collina, per un istante non stai né salendo né scendendo: pendenza zero. Lo stesso nel punto più basso di una valle. Ecco perché «trovare dove la derivata è zero» = <strong>trovare i punti più alti o più bassi</strong>. È il trucco dietro la ricerca del massimo (la MLE della 1.1) e del minimo (la discesa del gradiente di F4).</p>
+<p>In cima a una collina, per un istante non stai né salendo né scendendo: pendenza zero. Lo stesso nel punto più basso di una valle. Ma l'implicazione vale in <strong>un solo verso</strong>: la derivata nulla in un punto <strong>interno e liscio</strong> è condizione <strong>necessaria</strong> (non sufficiente) per un massimo o un minimo. Dove c'è un estremo interno la pendenza è zero, ma non ogni punto a pendenza zero è un estremo: può essere un <strong>flesso a tangente orizzontale</strong> (\(x^3\) in 0 ha pendenza zero, eppure la curva continua a salire). E un estremo può cadere sul <strong>bordo</strong> del dominio, dove la pendenza non si annulla: nella MLE della 1.1, se i successi osservati sono 0 la stima è \(\theta = 0\), sul bordo. Perciò «pendenza zero» segnala i <strong>candidati</strong> (il trucco dietro la ricerca del massimo — la MLE della 1.1 — e del minimo — la discesa del gradiente di F4); quale sia cima, fondo o flesso, e cosa accada ai bordi, va controllato a parte.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-4">4. Dove la ritrovi nella wiki</h2>
 <ul>
-<li><strong>Discesa del gradiente</strong> (F4): «scendere la collina dell'errore» significa seguire la pendenza verso il basso. Il gradiente è la derivata che indica <strong>da che parte si scende</strong>.</li>
-<li><strong>MLE</strong> (1.1, §3.2): trovare il valore che <strong>massimizza</strong> la verosimiglianza = trovare la cima = cercare dove la pendenza è zero.</li>
+<li><strong>Discesa del gradiente</strong> (F4): «scendere la collina dell'errore». Il gradiente è la versione a più direzioni della derivata e punta dove la funzione <strong>cresce</strong> più in fretta (massima salita); per scendere si va nel verso <strong>opposto</strong> al gradiente — da cui il nome del metodo. Il segno della pendenza dà comunque la direzione locale: dove è negativa, avanzando la funzione scende.</li>
+<li><strong>MLE</strong> (1.1, §3.2): trovare il valore che <strong>massimizza</strong> la verosimiglianza. All'interno del dominio i candidati sono i punti a pendenza zero; al bordo (0 successi o tutti successi) il massimo cade dove la pendenza non si annulla — «pendenza zero» dà i candidati, non la risposta garantita.</li>
 <li>Ogni volta che un box dice «qui la funzione è massima/minima», sotto c'è l'idea di pendenza zero.</li>
 </ul>
 
@@ -221,8 +224,8 @@ a{color:var(--navy);}
 <tbody>
 <tr><td>derivata</td><td>pendenza in un punto</td><td>quanto è ripida una curva lì; «quanto sta cambiando proprio qui»</td><td>F0.7 §1</td></tr>
 <tr><td>pendenza</td><td>—</td><td>\(\dfrac{\text{quanto sali}}{\text{quanto avanzi}}\): una frazione</td><td>F0.7 §1</td></tr>
-<tr><td>tangente</td><td>—</td><td>la retta che «sfiora» la curva in un punto; la sua pendenza è la derivata</td><td>F0.7 §2</td></tr>
-<tr><td>derivata = 0</td><td>punto piatto</td><td>cima, fondo o pianoro: né sale né scende</td><td>F0.7 §3</td></tr>
+<tr><td>tangente</td><td>—</td><td>la retta per il punto con la pendenza «da vicino» (limite delle rette per due punti che si stringono); la derivata è quella pendenza</td><td>F0.7 §2</td></tr>
+<tr><td>derivata = 0</td><td>punto piatto (candidato)</td><td>né sale né scende: cima, fondo, pianoro o flesso a tangente orizzontale — solo un candidato a estremo</td><td>F0.7 §3</td></tr>
 </tbody>
 </table>
 
