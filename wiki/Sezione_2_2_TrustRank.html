@@ -171,6 +171,9 @@ a{color:var(--navy);}
 <h2 id="sec-3">3. La propagazione del trust</h2>
 <p>Ora il colpo di scena che non è un colpo di scena: TrustRank <strong>è</strong> il Personalized PageRank di 2.1 §4, col teletrasporto sui semi:</p>
 <div class="formula key">\[ \mathbf{t} \;=\; \alpha\,M\,\mathbf{t} \;+\; (1-\alpha)\,\mathbf{d} \]</div>
+<div class="callout nb"><span class="tag">N.B. — ipotesi sulla matrice e sul damping</span>
+<p>\(M\) è la matrice <strong>colonna-stocastica</strong> dei link (\(M_{ij} = 1/L(p_j)\) se \(j \to i\), \(0\) altrimenti), <strong>con la correzione dei nodi dangling di 2.1 §3</strong> — la colonna vuota rimpiazzata dal teletrasporto — così che ogni colonna sommi a 1. Con \(0 < \alpha < 1\): \((I - \alpha M)\) è invertibile perché \(\rho(\alpha M) \le \alpha < 1\), quindi \(\mathbf{t}\) esiste ed è <strong>unico</strong> (serie di Neumann, F2 §6); e sommando la ricorsione, \(\sum_i t_i = \alpha \sum_i t_i + (1-\alpha)\), da cui \(\sum_i t_i = 1\): il trust è una <strong>distribuzione</strong>. (Ad \(\alpha = 1\), \((I - M)\) è singolare e \(\mathbf{t}\) è indefinito.)</p>
+</div>
 <p>Il navigatore segue i link con probabilità \(\alpha \approx 0{,}85\), e quando si teletrasporta <strong>torna sempre a un seme fidato</strong>. Il vettore \(\mathbf{t}\) è il trust di ogni pagina. Due principi, leggibili nella soluzione in forma chiusa via serie di Neumann (F2 §6):</p>
 <div class="formula key">\[ \mathbf{t}^{*} \;=\; (1-\alpha) \sum_{k=0}^{\infty} \alpha^{k} M^{k} \mathbf{d} \]</div>
 <ul>
@@ -180,7 +183,10 @@ a{color:var(--navy);}
 <div class="callout ex"><span class="tag">Esempio numerico — il trust lungo una catena</span>
 <p>Tre pagine in anello: Seme → A → B → Seme. Semi: solo la prima, quindi \(\mathbf{d} = (1;\ 0;\ 0)\). Uso \(\alpha = 0{,}5\) per i conti. All'equilibrio (risolvendo, o sommando la serie):</p>
 <div class="formula">\[ \mathbf{t}^{*} \;=\; \bigl(0{,}571;\ 0{,}286;\ 0{,}143\bigr) \]</div>
-<p>Prova del nove doppia: la somma fa \(1\), e i tre valori stanno in rapporto <strong>4 : 2 : 1</strong> — ogni hop dimezza, esattamente \(\alpha = 0{,}5\) per passo. Il dampening reso visibile.</p>
+<p>Prova del nove doppia: la somma fa \(1\) (grazie all'ipotesi «\(M\) colonna-stocastica, dangling corretti» dell'N.B. sopra), e i tre valori stanno in rapporto <strong>4 : 2 : 1</strong> — ogni hop dimezza, esattamente \(\alpha = 0{,}5\) per passo. Il dampening reso visibile.</p>
+</div>
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>La verifica «somma \(= 1\)» vale <strong>solo dopo</strong> la correzione dei nodi dangling. Su un grafo con dangling non corretti la fiducia si disperde: \(\sum_i t_i < 1\). Esempio: Seme→A→B con B dangling, \(\alpha = 0{,}5\), \(\mathbf{d} = (1;\ 0;\ 0)\) → \(\mathbf{t}^{*} = (0{,}5;\ 0{,}25;\ 0{,}125)\), somma \(0{,}875\). Esistenza e unicità di \(\mathbf{t}\) reggono comunque (per \(0 < \alpha < 1\)); è l'invariante «distribuzione» a cadere.</p>
 </div>
 
 <hr/>
