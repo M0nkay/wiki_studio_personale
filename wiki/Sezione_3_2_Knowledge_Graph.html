@@ -170,13 +170,19 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. La propagazione: la stessa macchina, terza divisa</h2>
-<p>Coi pesi PMI si costruisce la matrice \(W\) del grafo delle entità (normalizzata per colonna → stocastica, F2 §2), e la reputazione si propaga <strong>[INF]</strong> con lo schema ormai di famiglia:</p>
+<p>Coi pesi \(\text{PMI}^{+}\) si costruisce la matrice \(W\) del grafo delle entità, e la reputazione si propaga <strong>[INF]</strong> con lo schema ormai di famiglia:</p>
+<div class="callout nb"><span class="tag">N.B. — costruzione di W</span>
+<p>Sia \(R_{ab} = \text{PMI}^{+}(a; b)\) (simmetrica), con <strong>diagonale nulla</strong>: la co-citazione lega entità <strong>distinte</strong>, quindi \(W_{aa} = 0\) (altrimenti \(\text{PMI}^{+}(a; a) = -\log_2 P(a)\) sarebbe la voce dominante e la propagazione degenererebbe in auto-rinforzo). Si pone \(W_{ab} = R_{ab} / \sum_c R_{cb}\) <strong>a condizione che ogni colonna sia non nulla</strong> (ogni entità abbia almeno un vicino con \(\text{PMI}^{+} > 0\)). Per un'entità <strong>isolata</strong> (colonna nulla) la normalizzazione è \(0/0\), indefinita: come per i nodi <strong>dangling</strong> di 2.1, la colonna nulla va rimpiazzata con la distribuzione dei semi (o l'uniforme). Solo allora \(W\) è colonna-stocastica (F2 §2) e la propagazione è ben posta.</p>
+</div>
 <div class="formula key">\[ \mathbf{rep} \;=\; (1-\alpha)\,\mathbf{seed} \;+\; \alpha\, W\, \mathbf{rep} \]</div>
-<p>È il Personalized PageRank di 2.1 §4 sul grafo delle entità: i <strong>seed</strong> sono le entità di autorevolezza accertata (l'oracolo, ancora), e la fiducia viaggia sugli archi di co-citazione pagando il solito pedaggio \(\alpha\) per hop. Lettura locale: la reputazione che ti arriva è la <strong>media pesata</strong> — coi pesi PMI — delle reputazioni dei tuoi vicini, smorzata.</p>
+<div class="callout nb"><span class="tag">N.B. — tipo e buona posizione di rep e seed</span>
+<p>\(\mathbf{rep}, \mathbf{seed} \in \mathbb{R}^{n}\) con \(n\) = numero di entità. \(\mathrm{seed}_i \ge 0\), \(\sum_i \mathrm{seed}_i = 1\): distribuzione uniforme sull'<strong>insieme</strong> \(S^{+}\) delle entità di autorevolezza accertata, zero altrove (come la \(\mathbf{d}\) di 2.2 §2). Con \(\alpha \in (0,1)\) e \(W\) colonna-stocastica, \((I - \alpha W)\) è invertibile: \(\mathbf{rep}\) esiste ed è <strong>unica</strong>; la massa si conserva, quindi \(\sum_i \mathrm{rep}_i = 1\) e \(\mathbf{rep}\) è una distribuzione sulle entità. (A \(\alpha = 1\), \((I - W)\) è singolare e \(\mathbf{rep}\) non è unica.)</p>
+</div>
+<p>È il Personalized PageRank di 2.1 §4 sul grafo delle entità — la stessa forma chiusa vive in 2.2 §2 (TrustRank): i <strong>seed</strong> sono le entità di autorevolezza accertata (l'oracolo, ancora), e la fiducia viaggia sugli archi di co-citazione pagando il solito pedaggio \(\alpha\) per hop. Lettura locale: la reputazione che ti arriva è la <strong>somma dei contributi</strong> dei vicini — ciascuno pari alla quota \(W_{ij}\) della reputazione del vicino \(j\) — poi smorzata. <strong>Non</strong> è una media: i pesi entranti \(\{W_{ij}\}_j\) (una riga di \(W\)) in generale non sommano a 1; è la costruzione per colonna a rendere stocastiche le colonne, non le righe.</p>
 <div class="callout ex"><span class="tag">Esempio numerico — la media pesata dei vicini</span>
 <p>L'entità \(E\) è co-citata con \(A\) (autorevole: rep \(0{,}8\), peso normalizzato \(0{,}75\)) e con \(B\) (ignota: rep \(0{,}1\), peso \(0{,}25\)):</p>
 <div class="formula">\[ 0{,}75 \cdot 0{,}8 + 0{,}25 \cdot 0{,}1 = 0{,}6 + 0{,}025 = 0{,}625 \]</div>
-<p>poi lo smorzamento \(\alpha\) e la quota dei seed completano il conto. Essere citati <strong>accanto a chi conta</strong> vale più di essere citati tanto.</p>
+<p>poi lo smorzamento \(\alpha\) e la quota dei seed completano il conto. (Qui i pesi \(0{,}75\) e \(0{,}25\) sommano a 1 per <strong>scelta</strong> dell'esempio, non per costruzione: in generale i pesi entranti in un nodo non sommano a 1.) Essere citati <strong>accanto a chi conta</strong> vale più di essere citati tanto.</p>
 </div>
 <div class="callout warn"><span class="tag">Trappola dei simboli</span>
 <p>\(W\) maiuscola è la <strong>matrice</strong> dei pesi di co-citazione: non il peso di miscela \(w\) della 1.2, non la parola \(w\) della 1.1. Maiuscola + contesto matriciale = matrice.</p>
@@ -216,7 +222,7 @@ a{color:var(--navy);}
 <tr><td>entità, Knowledge Graph</td><td>—</td><td>persone/organizzazioni/opere come nodi; il grafo delle loro relazioni</td><td>3.2 §1</td></tr>
 <tr><td>co-citazione</td><td>—</td><td>due entità che compaiono insieme in un documento</td><td>3.2 §2</td></tr>
 <tr><td>\(W\)</td><td>matrice dei pesi</td><td>pesi \(\text{PMI}^{+}\) normalizzati per colonna (maiuscola: matrice, ≠ \(w\))</td><td>3.2 §3</td></tr>
-<tr><td>\(\mathbf{rep}\), \(\mathbf{seed}\)</td><td>reputazione; semi di entità</td><td>vettore di reputazione; entità di autorevolezza accertata</td><td>3.2 §3</td></tr>
+<tr><td>\(\mathbf{rep}\), \(\mathbf{seed}\)</td><td>reputazione; semi di entità</td><td>vettori in \(\mathbb{R}^n\) (\(n\) entità); \(\mathbf{seed}\) distribuzione uniforme sui semi \(S^{+}\), \(\mathbf{rep}\) distribuzione stazionaria della propagazione</td><td>3.2 §3</td></tr>
 </tbody>
 </table>
 
