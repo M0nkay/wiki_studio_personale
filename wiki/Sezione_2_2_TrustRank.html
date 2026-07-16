@@ -148,42 +148,51 @@ a{color:var(--navy);}
 <h2 id="prerequisiti">Prerequisiti</h2>
 <p><a class="xref" href="Sezione_2_1_PageRank.html">2.1</a> (soprattutto il teletrasporto personalizzato, §4) e <a class="xref" href="F2_Algebra_lineare_Markov.html">F2</a> §6 (serie di Neumann).</p>
 
-<div class="callout warn"><span class="tag">Trappola dei simboli — cambio di guardia</span>
-<p>In questa sezione il damping si chiama \(\alpha\) (terzo mestiere: era conteggio virtuale \(\alpha_0\) nella 1.2, autovalore mai — quello è \(\lambda\)). La lettera \(\mathbf{d}\) in <strong>grassetto</strong> qui è la <strong>distribuzione dei semi</strong> (un vettore!), non il damping scalare di 2.1. E \(L\) da solo è il <strong>budget di chiamate all'oracolo</strong> — terzo lavoro dopo \(L(\theta)\) e \(L(p_j)\).</p>
+<div class="callout warn"><span class="tag">Trappola — collisione di simboli</span>
+<p>Qui il damping si chiama \(\alpha\): è il <strong>secondo mestiere dell'\(\alpha\) nudo</strong> (in 1.1 §4.5 era il parametro di forma di \(\mathrm{Beta}(\alpha;\ \beta)\); da non confondere con il conteggio virtuale \(\alpha_0\) di 1.2, né con l'autovalore, che è \(\lambda\)). La lettera \(\mathbf{d}\) in <strong>grassetto</strong> è la <strong>distribuzione dei semi</strong> (un vettore), non il damping scalare \(d\) di 2.1. E \(L\) da solo è il <strong>budget di chiamate all'oracolo</strong> — dopo \(L(\theta)\) e \(L(p_j)\).</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-1">1. L'oracolo, il budget, l'assunzione</h2>
-<p>Distinguere pagine buone da spam con certezza richiede un <strong>oracolo</strong> \(O(p) \in \{0, 1\}\): la valutazione umana. Ma è costosa: puoi permettertela solo su \(L\) pagine (il <strong>budget</strong>), su un web di miliardi. TrustRank cerca una <strong>funzione di trust</strong> \(T(p) \in [0,1]\) calcolabile per tutti, che <strong>ordini</strong> le pagine come farebbe l'oracolo.</p>
-<p>L'assunzione che regge tutto — dichiarata, non dimostrata — è la <strong>separazione approssimata</strong>: le pagine buone <strong>raramente</strong> linkano spam (per sbaglio, o per commenti infestati: raramente, non mai). Quindi la fiducia può <strong>viaggiare sui link</strong>: chi è raggiungibile in pochi passi dai fidati, probabilmente è a posto.</p>
+<p>Sia \(O\) l'<strong>oracolo</strong>: la funzione \(O(p) \in \{0, 1\}\) che assegna a ogni pagina \(p\) il giudizio umano certo — \(1\) se buona, \(0\) se spam. È affidabile ma costosa: valutabile solo su un <strong>budget</strong> di \(L\) pagine, a fronte di un web di miliardi. TrustRank costruisce una <strong>funzione di trust</strong> \(T(p) \in [0,1]\), definita su <strong>tutte</strong> le pagine, il cui ordinamento approssima quello indotto da \(O\).</p>
+<p>Il metodo poggia su un'<strong>assunzione</strong> dichiarata e non dimostrata, la <strong>separazione approssimata</strong>: una pagina buona linka spam solo <strong>raramente</strong> (per errore, o per commenti infestati), non mai. Ne segue che una pagina raggiungibile in pochi passi lungo i link da pagine fidate è, con alta probabilità, affidabile.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Un revisore umano riconosce una pagina buona da una di spam, ma non può esaminarle tutte. L'idea è partire da poche pagine verificate a mano e lasciare che la fiducia si propaghi lungo i link: se una pagina buona quasi mai rimanda a spam, chi si raggiunge in pochi passi da una pagina fidata è quasi sempre a posto.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-2">2. Scegliere i semi: PageRank all'incontrario</h2>
-<p>Quali \(L\) pagine mostrare all'oracolo? Le più <strong>utili a propagare</strong>: quelle da cui si <strong>raggiunge</strong> tanto web. Il trucco del paper è elegante: calcola PageRank sul <strong>grafo trasposto</strong> \(G^{\top}\) — tutti gli archi <strong>girati al contrario</strong>. Nel grafo girato, «ricevere tanti link» significa, nel grafo vero, «<strong>puntare</strong> verso tante pagine importanti»: è l'<strong>inverse PageRank</strong>, un punteggio di copertura.</p>
+<p>Quali \(L\) pagine sottoporre all'oracolo? Quelle da cui si <strong>raggiunge</strong> più web. Il criterio è l'<strong>inverse PageRank</strong>: il PageRank calcolato sul <strong>grafo trasposto</strong> \(G^{\top}\) — il grafo con ogni arco invertito. Un punteggio alto nel grafo trasposto corrisponde, nel grafo originale, al <strong>puntare</strong> verso molte pagine importanti; misura quindi la copertura di una pagina come sorgente di link.</p>
 <p>Procedura: ordina per inverse PageRank, chiama l'oracolo sui primi \(L\), tieni i promossi: l'insieme dei <strong>semi buoni</strong> \(S^{+}\) (un sottoinsieme delle pagine mostrate all'oracolo), con <strong>\(|S^{+}| \ge 1\)</strong> (se l'oracolo non promuove nulla, TrustRank non è definito: ripetere la selezione allargando il budget \(L\)). La distribuzione dei semi è l'uniforme su \(S^{+}\):</p>
 <div class="formula key">\[ \mathbf{d}_i \;=\; \begin{cases} 1 / |S^{+}| & \text{se la pagina } i \text{ è un seme} \\ 0 & \text{altrimenti} \end{cases} \]</div>
 <p>(La graffa è una <strong>definizione per casi</strong>: la prima riga vale nel primo caso, la seconda altrimenti.)</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Le poche valutazioni umane vanno spese sulle pagine più «generose»: quelle da cui, seguendo i link, si arriva a gran parte del web. Rovesciando tutti gli archi e calcolando il PageRank vengono a galla proprio quelle pagine, ottimi punti da cui far partire la fiducia.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-3">3. La propagazione del trust</h2>
-<p>Ora il colpo di scena che non è un colpo di scena: TrustRank <strong>è</strong> il Personalized PageRank di 2.1 §4, col teletrasporto sui semi:</p>
+<p>Il <strong>trust</strong> \(\mathbf{t}\) è il Personalized PageRank di 2.1 §4 con il teletrasporto concentrato sui semi. È il vettore \(\mathbf{t} \in [0,1]^{N}\) (una componente per pagina) che soddisfa:</p>
 <div class="formula key">\[ \mathbf{t} \;=\; \alpha\,M\,\mathbf{t} \;+\; (1-\alpha)\,\mathbf{d} \]</div>
-<div class="callout nb"><span class="tag">N.B. — ipotesi sulla matrice e sul damping</span>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>\(M\) è la matrice <strong>colonna-stocastica</strong> dei link (\(M_{ij} = 1/L(p_j)\) se \(j \to i\), \(0\) altrimenti), <strong>con la correzione dei nodi dangling di 2.1 §3</strong> — la colonna vuota rimpiazzata dal teletrasporto — così che ogni colonna sommi a 1. Con \(0 < \alpha < 1\): \((I - \alpha M)\) è invertibile perché \(\rho(\alpha M) \le \alpha < 1\), quindi \(\mathbf{t}\) esiste ed è <strong>unico</strong> (serie di Neumann, F2 §6); e sommando la ricorsione, \(\sum_i t_i = \alpha \sum_i t_i + (1-\alpha)\), da cui \(\sum_i t_i = 1\): il trust è una <strong>distribuzione</strong>. (Ad \(\alpha = 1\), \((I - M)\) è singolare e \(\mathbf{t}\) è indefinito.)</p>
 </div>
-<p>Il navigatore segue i link con probabilità \(\alpha \approx 0{,}85\), e quando si teletrasporta <strong>torna sempre a un seme fidato</strong>. Il vettore \(\mathbf{t}\) è il trust di ogni pagina. Due principi, leggibili nella soluzione in forma chiusa via serie di Neumann (F2 §6):</p>
+<p>Con probabilità \(\alpha \approx 0{,}85\) il processo segue i link; con probabilità \(1-\alpha\) si teletrasporta, ma soltanto verso i semi (secondo \(\mathbf{d}\)). La soluzione in forma chiusa, via serie di Neumann (F2 §6), rende leggibili due principi:</p>
 <div class="formula key">\[ \mathbf{t}^{*} \;=\; (1-\alpha) \sum_{k=0}^{\infty} \alpha^{k} M^{k} \mathbf{d} \]</div>
 <ul>
 <li><strong>Trust dampening</strong>: \(M^k \mathbf{d}\) è la fiducia che arriva in \(k\) <strong>hop</strong> (un hop = un passo lungo un arco) dai semi, e pesa \(\alpha^k\): decade geometricamente con la distanza. Con \(\alpha = 0{,}85\): \(0{,}85^{5} \approx 0{,}44\), \(0{,}85^{10} \approx 0{,}20\), \(0{,}85^{20} \approx 0{,}04\) — la fiducia si esaurisce in una manciata di passi.</li>
-<li><strong>Trust splitting</strong>: dentro \(M\) c'è la divisione \(1/L(p_j)\) di 2.1 — chi dà fiducia a cento link ne dà un centesimo a ciascuno.</li>
+<li><strong>Trust splitting</strong>: dentro \(M\) opera la divisione \(1/L(p_j)\) di 2.1 — una pagina con \(L(p_j)\) link uscenti trasmette a ciascuno una frazione \(1/L(p_j)\) del proprio trust.</li>
 </ul>
-<div class="callout ex"><span class="tag">Esempio numerico — il trust lungo una catena</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il navigatore segue i link, ma ogni tanto si teletrasporta: invece di ricadere su una pagina a caso, torna sempre su un seme fidato. Così la fiducia sgorga di continuo dai semi e si diffonde lungo i link, affievolendosi a ogni passo — molta alle pagine vicine ai semi, quasi nulla a quelle lontane.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Tre pagine in anello: Seme → A → B → Seme. Semi: solo la prima, quindi \(\mathbf{d} = (1;\ 0;\ 0)\). Uso \(\alpha = 0{,}5\) per i conti. All'equilibrio (risolvendo, o sommando la serie):</p>
 <div class="formula">\[ \mathbf{t}^{*} \;=\; \bigl(0{,}571;\ 0{,}286;\ 0{,}143\bigr) \]</div>
-<p>Prova del nove doppia: la somma fa \(1\) (grazie all'ipotesi «\(M\) colonna-stocastica, dangling corretti» dell'N.B. sopra), e i tre valori stanno in rapporto <strong>4 : 2 : 1</strong> — ogni hop dimezza, esattamente \(\alpha = 0{,}5\) per passo. Il dampening reso visibile.</p>
+<p>Prova del nove doppia: la somma fa \(1\) (grazie all'ipotesi «\(M\) colonna-stocastica, dangling corretti» dell'N.B. sopra), e i tre valori stanno in rapporto <strong>4 : 2 : 1</strong>. Qui ogni hop moltiplica per \(\alpha = 0{,}5\) perché ogni nodo ha <strong>un solo</strong> link uscente (nessun bivio). In generale il fattore per hop è \(\alpha / L(p_j)\): con più link uscenti il trust si divide anche per il grado (trust splitting) e il rapporto non è più semplicemente \(\alpha\).</p>
 </div>
 <div class="callout warn"><span class="tag">Onestà</span>
 <p>La verifica «somma \(= 1\)» vale <strong>solo dopo</strong> la correzione dei nodi dangling. Su un grafo con dangling non corretti la fiducia si disperde: \(\sum_i t_i < 1\). Esempio: Seme→A→B con B dangling, \(\alpha = 0{,}5\), \(\mathbf{d} = (1;\ 0;\ 0)\) → \(\mathbf{t}^{*} = (0{,}5;\ 0{,}25;\ 0{,}125)\), somma \(0{,}875\). Esistenza e unicità di \(\mathbf{t}\) reggono comunque (per \(0 < \alpha < 1\)); è l'invariante «distribuzione» a cadere.</p>
@@ -192,7 +201,10 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-4">4. Perché mette in difficoltà lo spam</h2>
-<p>Confronta i due mondi. Nel <strong>PageRank</strong> classico, il teletrasporto uniforme regala \((1-d)/N\) a <strong>tutte</strong> le pagine — anche a una link farm sperduta, che poi se lo rimpalla internamente per gonfiarsi. Nel <strong>TrustRank</strong> quella pioggia non esiste: la fiducia nasce <strong>solo dai semi</strong> e per raggiungerti deve percorrere link reali, pagando \(\alpha^k\) a ogni hop e la divisione a ogni bivio. Una farm lontana dai semi e poco linkata dal web buono riceve trust <strong>quasi nullo</strong> — qualunque sia il suo PageRank interno. Il divario tra i due punteggi è proprio la firma che la 2.3 (spam mass) trasformerà in un rilevatore.</p>
+<p>TrustRank e PageRank differiscono nella <strong>sorgente</strong> del punteggio. Nel <strong>PageRank</strong> classico il teletrasporto uniforme assegna \((1-d)/N\) a <strong>ogni</strong> pagina, incluse le link farm isolate. Nel <strong>TrustRank</strong> la fiducia nasce <strong>solo dai semi</strong> e per arrivare a una pagina deve percorrere link reali, pagando il fattore \(\alpha^{k}\) a ogni hop e la divisione \(1/L(p_j)\) a ogni biforcazione. Una link farm lontana dai semi e poco linkata dal web buono riceve trust <strong>prossimo a zero</strong>, qualunque sia il suo PageRank interno. Il divario tra i due punteggi è la firma che 2.3 (spam mass) trasforma in un rilevatore.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Nel PageRank ogni pagina incassa un po' di punteggio «gratis» dal teletrasporto uniforme, e una link farm può rimpallarselo internamente per gonfiarsi. In TrustRank quel regalo non c'è: la fiducia arriva solo percorrendo link reali a partire dai semi e si affievolisce a ogni passo. Chi è lontano dalle pagine fidate resta quasi a secco, per quanti link interni costruisca.</p>
+</div>
 
 <div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
 <ol>
@@ -222,12 +234,12 @@ a{color:var(--navy);}
 <tbody>
 <tr><td>\(O(p)\)</td><td>oracolo</td><td>giudizio umano certo, \(0\) o \(1\): costoso, budget di \(L\) chiamate</td><td>2.2 §1</td></tr>
 <tr><td>\(T(p)\), \(\mathbf{t}\)</td><td>funzione di trust; suo vettore</td><td>fiducia in \([0,1]\) calcolabile per tutte le pagine</td><td>2.2 §1</td></tr>
-<tr><td>\(L\)</td><td>budget dell'oracolo</td><td>quante valutazioni umane puoi permetterti (terzo mestiere della lettera)</td><td>2.2 §1</td></tr>
+<tr><td>\(L\)</td><td>budget dell'oracolo</td><td>numero massimo di valutazioni umane disponibili (terzo mestiere della lettera, dopo \(L(\theta)\) e \(L(p_j)\))</td><td>2.2 §1</td></tr>
 <tr><td>\(G^{\top}\)</td><td>grafo trasposto</td><td>tutti gli archi girati al contrario</td><td>2.2 §2</td></tr>
 <tr><td>\(S^{+}\)</td><td>semi buoni</td><td>le pagine promosse dall'oracolo</td><td>2.2 §2</td></tr>
 <tr><td>\(\mathbf{d}\)</td><td>distribuzione dei semi</td><td>uniforme su \(S^{+}\), zero altrove (in grassetto: vettore, ≠ damping \(d\))</td><td>2.2 §2</td></tr>
 <tr><td>\(\begin{cases}\cdot\end{cases}\)</td><td>definizione per casi</td><td>la graffa: ogni riga vale nel suo caso</td><td>2.2 §2</td></tr>
-<tr><td>\(\alpha\)</td><td>damping del trust</td><td>\(\approx 0{,}85\); terzo mestiere di \(\alpha\) (era conteggio virtuale nella 1.2)</td><td>2.2 §3</td></tr>
+<tr><td>\(\alpha\)</td><td>damping del trust</td><td>\(\approx 0{,}85\); <strong>≠</strong> forma \(\alpha\) di \(\mathrm{Beta}(\alpha;\ \beta)\) in 1.1 §4.5, <strong>≠</strong> conteggio virtuale \(\alpha_0\) in 1.2; mai autovalore (quello è \(\lambda\))</td><td>2.2 §3</td></tr>
 <tr><td>hop</td><td>passo di grafo</td><td>un passo lungo un arco</td><td>2.2 §3</td></tr>
 </tbody>
 </table>

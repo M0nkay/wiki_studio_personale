@@ -154,12 +154,15 @@ a{color:var(--navy);}
 
 <hr/>
 
-<h2 id="sec-1">1. Lo z-score: «quanto sei strano?»</h2>
+<h2 id="sec-1">1. Lo z-score</h2>
 
 <h3 id="sec-1-1">1.1 Prima i due mattoni: media e deviazione standard</h3>
-<p>La <strong>media</strong> \(\mu\) di una serie di numeri la conosci: somma diviso quanti sono. La <strong>deviazione standard</strong> \(\sigma\) è il <strong>righello della dispersione</strong>: misura quanto, in tipico, i dati si allontanano dalla media.</p>
+<p>La <strong>media</strong> \(\mu\) di \(n \ge 1\) numeri \(x_1, \dots, x_n\) è la loro somma divisa per \(n\). La <strong>deviazione standard</strong> \(\sigma \ge 0\) è la radice quadrata della media dei quadrati degli scarti dalla media: misura quanto, tipicamente, i dati si allontanano dalla media.</p>
 <div class="formula key">\[ \sigma \;=\; \sqrt{\ \text{media dei quadrati degli scarti}\ } \;=\; \sqrt{\frac{1}{n}\sum_{i=1}^{n} (x_i - \mu)^2} \]</div>
 <p>Ricetta in tre passi: (1) scarto di ogni dato dalla media, (2) quadrato di ogni scarto (così i negativi non cancellano i positivi), (3) media dei quadrati, e radice per tornare all'unità originale.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La deviazione standard è un righello della dispersione: un valore piccolo dice che i dati stanno stretti attorno alla media, uno grande che sono sparpagliati.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Dati: \(2,\ 4,\ 4,\ 4,\ 5,\ 5,\ 7,\ 9\) (otto numeri).</p>
 <ol>
@@ -170,12 +173,18 @@ a{color:var(--navy);}
 </div>
 
 <h3 id="sec-1-2">1.2 Lo z-score</h3>
-<p>Lo <strong>z-score</strong> di un valore \(x\) risponde a: «quante deviazioni standard disti dalla media?»</p>
+<p>Lo <strong>z-score</strong> di un valore \(x\) misura di quante deviazioni standard \(x\) dista dalla media.</p>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p>Siano \(n \ge 1\) e i dati non tutti uguali, così che \(\sigma > 0\). Se \(\sigma = 0\) (storico costante) lo z-score non è definito: ogni scostamento è o nullo o infinitamente anomalo, e va trattato a parte.</p>
+<p>Lo z-score di un valore \(x\) è un numero reale puro (adimensionale). Siano \(n \ge 1\) e i dati non tutti uguali, così che \(\sigma > 0\); allora \(z = (x-\mu)/\sigma\) è ben definito. Se \(\sigma = 0\) (storico costante) lo z-score non è definito: ogni scostamento è o nullo o infinitamente anomalo, e va trattato a parte.</p>
 </div>
 <div class="formula key">\[ z \;=\; \frac{x - \mu}{\sigma} \]</div>
-<p>È un numero <strong>puro</strong> (senza unità): \(z = 0\) = perfettamente nella media; \(z = 2\) = due righelli sopra; \(z\) negativo = sotto. Regola spannometrica: oltre \(|z| = 2\)–\(3\) sei ufficialmente «strano». Nell'esempio: \(x = 9\) → \(z = (9-5)/2 = 2\).</p>
+<p>È un numero <strong>puro</strong> (senza unità): \(z = 0\) indica un valore perfettamente nella media; \(z = 2\) due deviazioni standard sopra; \(z\) negativo sotto. Nell'esempio: \(x = 9\) → \(z = (9-5)/2 = 2\).</p>
+<div class="callout warn"><span class="tag">Attenzione — la soglia presuppone una distribuzione a campana</span>
+<p>[INF] Come ordine di grandezza, sotto una distribuzione a campana circa il 95% dei valori sta entro \(|z| = 2\) e circa il 99,7% entro \(|z| = 3\); oltre, il dato è raro. Senza ipotesi sulla forma, la sola garanzia è di Chebyshev (\(\le 1/k^2\) della massa oltre \(k\sigma\)), molto più debole: fino al 25% oltre \(2\sigma\) e all'11,1% oltre \(3\sigma\).</p>
+</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Lo z-score misura la distanza dalla media usando \(\sigma\) come unità: \(z = 2\) vuol dire «due righelli sopra la media». Serve a confrontare sulla stessa scala scostamenti di grandezze con dispersioni diverse.</p>
+</div>
 <p class="note">Legame con F4 §5.2: là \(z\) era un valore <strong>scelto a tavolino</strong> (quanta prudenza voglio); qui è <strong>misurato dai dati</strong> (quanto è anomalo ciò che vedo). Stessa scala, direzioni opposte.</p>
 
 <div class="callout ex" id="ex-1"><span class="tag">Esercizi — §1</span>
@@ -190,9 +199,14 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. CUSUM: la vasca che accumula gli sforamenti</h2>
 <p><strong>Il problema</strong>: un singolo picco può essere caso; un <strong>cambiamento di regime</strong> (il volume medio è davvero salito) va colto anche se fatto di tanti piccoli sforamenti. Serve una memoria che <strong>accumuli</strong>.</p>
-<p><strong>L'idea</strong>: una vasca. Ogni osservazione sopra il livello atteso versa acqua nella vasca; quelle sotto ne tolgono; la vasca non va mai sotto lo zero. Se l'acqua supera un'asta di allarme, scatta il rilevamento.</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Siano \(S_0 = 0\), \(\kappa \ge 0\) il margine di tolleranza e \(\mu_0\) il livello di riferimento. L'<strong>accumulatore CUSUM</strong> \(S_t \ge 0\) è definito, per \(t \ge 1\), dalla ricorrenza sotto; l'allarme scatta al primo \(t\) con \(S_t > h\).</p>
+</div>
 <div class="formula key">\[ S_t \;=\; \max\bigl(0,\ S_{t-1} + (x_t - \mu_0 - \kappa)\bigr) \qquad \text{allarme se } S_t > h \]</div>
-<p>I pezzi: \(\mu_0\) = livello atteso di riferimento (pedice \(0\) = «di riferimento»); \(\kappa\) (kappa) = <strong>margine di tolleranza</strong>, lo sforamento gratis che non conta; \(h\) = <strong>soglia d'allarme</strong>; il \(\max(0,\cdot)\) impedisce crediti infiniti dai periodi tranquilli.</p>
+<p>I pezzi: \(\mu_0\) = livello atteso di riferimento (pedice \(0\) = «di riferimento»); \(\kappa \ge 0\) (kappa) = <strong>margine di tolleranza</strong>, lo sforamento tollerato che non accumula; \(h\) = <strong>soglia d'allarme</strong>; il \(\max(0,\cdot)\) impedisce crediti infiniti dai periodi tranquilli.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Una vasca. Ogni osservazione sopra il livello di riferimento versa acqua nella vasca; quelle sotto ne tolgono; il termine \(\max(0,\cdot)\) impedisce alla vasca di scendere sotto lo zero. Quando l'acqua supera l'asta di allarme \(h\), scatta il rilevamento: così un cambiamento di regime fatto di tanti piccoli sforamenti viene colto anche senza un singolo picco.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(\mu_0 = 10\), \(\kappa = 1\), \(h = 5\), partenza \(S_0 = 0\). Ogni passo somma \(x_t - 11\):</p>
 <ol>
@@ -215,9 +229,14 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. Token bucket: il rate limiting</h2>
-<p><strong>L'idea</strong>: un secchio di gettoni. Ogni messaggio in ingresso <strong>consuma un gettone</strong>; il secchio si <strong>ricarica</strong> a velocità costante fino a un tetto. Secchio vuoto = messaggio rifiutato temporaneamente (il «4xx» del mondo email: «riprova più tardi»).</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Siano \(B \ge 0\) la capacità, \(r \ge 0\) il tasso di ricarica e \(t \ge t^-\), con \(t^-\) l'istante dell'ultimo aggiornamento. La carica \(\text{gettoni}(t) \in [0, B]\) si aggiorna secondo la formula sotto. All'arrivo di un messaggio: se \(\text{gettoni} \ge 1\) il messaggio passa e \(\text{gettoni}\) diminuisce di \(1\); altrimenti è rifiutato (risposta 4xx).</p>
+</div>
 <div class="formula key">\[ \text{gettoni}(t) \;=\; \min\bigl(B,\ \text{gettoni}(t^-) + r\,(t - t^-)\bigr) \]</div>
 <p>I pezzi: \(B\) = capacità del secchio (il <strong>burst</strong> massimo concesso tutto insieme); \(r\) = tasso di ricarica (gettoni al minuto); \(t^-\) si legge «l'istante dell'ultimo aggiornamento». Il \(\min\) impedisce di accumulare oltre il tetto.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Un secchio di gettoni. Ogni messaggio in ingresso consuma un gettone; il secchio si ricarica a velocità costante fino a un tetto. Secchio vuoto significa messaggio rifiutato temporaneamente — il «riprova più tardi» del mondo email. Raffiche brevi sono tollerate fino a \(B\), ma il ritmo di regime resta inchiodato a \(r\).</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(B = 10\), \(r = 2\) gettoni al minuto, secchio pieno.</p>
 <ol>
@@ -270,7 +289,7 @@ a{color:var(--navy);}
 <thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
 <tr><td>\(\mu\)</td><td>media</td><td>somma dei dati diviso il loro numero</td><td>F5 §1.1</td></tr>
-<tr><td>\(\sigma\)</td><td>deviazione standard</td><td>righello della dispersione: \(\sqrt{\text{media dei quadrati degli scarti}}\) — senza parentesi-argomento, ≠ sigmoide \(\sigma(\cdot)\)</td><td>F5 §1.1</td></tr>
+<tr><td>\(\sigma\)</td><td>deviazione standard</td><td>radice della media dei quadrati degli scarti dalla media, \(\sqrt{\text{media dei quadrati degli scarti}}\) — senza parentesi-argomento, ≠ sigmoide \(\sigma(\cdot)\)</td><td>F5 §1.1</td></tr>
 <tr><td>\(z\)</td><td>z-score</td><td>\((x-\mu)/\sigma\): distanza dalla media in unità di \(\sigma\)</td><td>F4 §5.2 (riciclato)</td></tr>
 <tr><td>\(S_t\), pedice \(t\)</td><td>accumulatore CUSUM; tempo</td><td>la «vasca» degli sforamenti al passo \(t\) (≠ classe S, ≠ spamminess)</td><td>F5 §2</td></tr>
 <tr><td>\(\mu_0\)</td><td>livello di riferimento</td><td>il valore atteso in condizioni normali</td><td>F5 §2</td></tr>

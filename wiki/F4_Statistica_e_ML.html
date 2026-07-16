@@ -145,7 +145,7 @@ a{color:var(--navy);}
 <h1 id="top">F4 — Statistica e machine learning <span class="badge bozza">BOZZA</span></h1>
 <p class="note">Pagina Fondamenta della wiki «Sistemi di Fiducia» · copre ciò che serve alla sezione 1.2 del paper. Include anche il blocco <strong>learning-to-rank</strong> (§6), che serve alla sezione 3.1.</p>
 
-<div class="callout warn"><span class="tag">Stato: bozza — regole d'ingaggio</span>
+<div class="callout warn"><span class="tag">Attenzione — stato: bozza</span>
 <p>Questa pagina è <strong>generata e auto-collaudata</strong> (numeri verificati a macchina), ma <strong>non ancora studiata insieme</strong>. Si legge a schermo, si segnala tutto ciò che non regge, e <strong>non si trascrive su carta</strong> finché non diventa «verificata».</p>
 </div>
 
@@ -161,6 +161,9 @@ a{color:var(--navy);}
 <p>Nella sezione 1.2 del paper un mittente non è descritto da <em>un</em> numero ma da <strong>tanti numeri insieme</strong>: tasso di reclami, tasso di bounce, frazione di posta autenticata… Un <strong>vettore</strong> è esattamente questo: una <strong>lista ordinata di numeri</strong>, scritta in grassetto:</p>
 <div class="formula">\[ \mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n) \]</div>
 <p>Ogni posizione \(x_j\) è una <strong>componente</strong>. Da programmatore: un array di float. Esempio dal mondo della 1.2: \(\mathbf{x} = (0{,}002;\ 0{,}03;\ 0{,}95)\) — reclami, bounce, autenticazione di un mittente.</p>
+<div class="callout intu"><span class="tag">Intuizione — un solo oggetto, tanti numeri</span>
+<p>Descrivere un mittente con un solo numero costringe a buttare via informazione. Il vettore tiene insieme tutte le sue misure — reclami, bounce, autenticazione — in un unico oggetto ordinato, così che ogni posizione conservi il suo significato e due mittenti si possano confrontare componente per componente.</p>
+</div>
 <div class="callout warn"><span class="tag">Trappola dei simboli — il grassetto</span>
 <p>La regola è: <strong>grassetto = oggetto a più componenti</strong>. Nella 1.1, \(\mathbf{w}\) era l'elenco delle parole dell'email; qui \(\mathbf{x}\) e \(\boldsymbol{\theta}\) sono elenchi di numeri. Stessa convenzione, contenuti diversi.</p>
 </div>
@@ -169,6 +172,9 @@ a{color:var(--navy);}
 <p>Accanto ai dati \(\mathbf{x}\) c'è un vettore di <strong>pesi</strong> \(\boldsymbol\theta = (\theta_1; \dots; \theta_n)\): quanto conta ogni componente. Il <strong>prodotto scalare</strong> combina i due in <strong>un solo numero</strong>: moltiplica componente per componente, poi somma.</p>
 <div class="formula key">\[ \boldsymbol\theta^{\top}\mathbf{x} \;=\; \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n \;=\; \sum_{j=1}^{n} \theta_j\, x_j \]</div>
 <p>Il simbolo \(\top\) si legge «<strong>trasposto</strong>»: è la convenzione che gira il vettore «in orizzontale» per poterlo moltiplicare — a livello di calcolo, per noi, significa solo «moltiplica e somma». Da programmatore: <code>sum(t*x for t, x in zip(theta, xs))</code>.</p>
+<div class="callout intu"><span class="tag">Intuizione — un voto pesato</span>
+<p>Ogni peso dice quanto conta la sua componente e con che segno. Il prodotto scalare fonde dati e pesi in un unico voto: le componenti importanti con peso positivo lo alzano, quelle con peso negativo lo abbassano, quelle irrilevanti (peso vicino a zero) quasi non contano. Il risultato è un solo numero che riassume il caso.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(\boldsymbol\theta = (1;\ -2)\), \(\mathbf{x} = (0{,}5;\ 0{,}25)\):</p>
 <div class="formula">\[ \boldsymbol\theta^{\top}\mathbf{x} = 1 \cdot 0{,}5 + (-2) \cdot 0{,}25 = 0{,}5 - 0{,}5 = 0 \]</div>
@@ -179,6 +185,9 @@ a{color:var(--navy);}
 <p>La <strong>norma</strong> è la <strong>lunghezza</strong> del vettore: la distanza dall'origine al punto che il vettore descrive. È Pitagora esteso a più componenti:</p>
 <div class="formula">\[ \lVert\boldsymbol\theta\rVert \;=\; \sqrt{\theta_1^2 + \theta_2^2 + \dots + \theta_n^2} \]</div>
 <p>Il simbolo \(\sqrt{\ }\) è la <strong>radice quadrata</strong>: il numero che, moltiplicato per sé stesso, dà l'argomento (\(\sqrt{25} = 5\) perché \(5 \cdot 5 = 25\)). Esempio: \(\boldsymbol\theta = (3;\ 4)\) → \(\lVert\boldsymbol\theta\rVert = \sqrt{9 + 16} = \sqrt{25} = 5\). Misura «quanto sono grossi i pesi nel complesso»: servirà tra poco per la regolarizzazione.</p>
+<div class="callout intu"><span class="tag">Intuizione — quanto sono grossi i pesi</span>
+<p>La norma comprime un intero vettore in un solo numero mai negativo: la sua lunghezza in linea d'aria. Vale zero solo per il vettore tutto nullo e cresce quando le componenti diventano grandi. Risponde alla domanda «quanto sono estremi questi pesi nel complesso?», su cui poggia la regolarizzazione.</p>
+</div>
 
 <div class="callout ex" id="ex-1"><span class="tag">Esercizi — §1</span>
 <ol>
@@ -196,14 +205,16 @@ a{color:var(--navy);}
 <p>Il prodotto scalare \(\boldsymbol\theta^{\top}\mathbf{x}\) è un <strong>punteggio</strong>: può essere qualsiasi numero, positivo o negativo. Ma la 1.2 vuole una <strong>probabilità</strong> («quanto è probabile che questo mittente sia abusivo?»), cioè un numero in \((0,1)\). Il traduttore lo conosci già: è la <strong>sigmoide</strong> \(\sigma\) della 1.1 (§5.2), la funzione che comprime tutta la retta reale in \((0,1)\).</p>
 
 <h3 id="sec-2-2">2.2 Definizione</h3>
-<p>Fissato un vettore dei pesi, ogni membro della <strong>regressione logistica</strong> è una <strong>funzione</strong>: prende il vettore dei dati \(\mathbf{x}\) e restituisce una <strong>probabilità</strong> in \((0,1)\) — la stima di quanto è probabile che l'etichetta valga 1. Due mosse: punteggio lineare, poi sigmoide.</p>
+<div class="callout intu"><span class="tag">Intuizione — punteggio, poi schiacciamento</span>
+<p>Un membro della famiglia lavora in due mosse: prima pesa i dati in un unico punteggio lineare (il prodotto scalare pesi·dati), poi passa il punteggio alla sigmoide, che lo comprime in \((0,1)\) e lo rende leggibile come probabilità. Pesi grandi in valore assoluto rendono il confine netto; pesi piccoli danno decisioni sfumate.</p>
+</div>
 <p><strong>Definizione.</strong> La <strong>regressione logistica</strong> (binaria) non è <strong>una</strong> funzione: è una <strong>famiglia</strong> di funzioni, una per ogni scelta del vettore dei <strong>pesi</strong> \(\boldsymbol\theta\). Ogni membro prende un vettore di dati \(\mathbf{x}\) (della stessa lunghezza di \(\boldsymbol\theta\)) e restituisce un numero <strong>strettamente tra 0 e 1</strong>: la stima della probabilità che l'<strong>etichetta</strong> valga 1. Ciò che <strong>caratterizza</strong> la famiglia — e la distingue da ogni altro classificatore — è che il <strong>logit</strong> di quella probabilità, cioè \(\ln\frac{p}{1-p}\) (il logaritmo delle «quote»), sia una funzione <strong>affine</strong> dei dati: una combinazione dei dati con i pesi \(\boldsymbol\theta\), di cui uno — l'<strong>intercetta</strong> — moltiplica una componente costante \(x_0 = 1\). <strong>Scegliere \(\boldsymbol\theta\)</strong> significa scegliere un membro; <strong>addestrare</strong> significa cercare <strong>un</strong> \(\boldsymbol\theta\) che minimizza \(\mathcal{L}\). Con la penale L2 (\(\lambda > 0\), §2.4) l'obiettivo è strettamente convesso e il minimo è <strong>unico</strong>; senza penale, su dati linearmente separabili il minimo non esiste (i pesi divergono) — motivo in più per \(\lambda > 0\).</p>
 <div class="formula key">\[ r(\mathbf{x}) \;=\; \sigma\bigl(\boldsymbol\theta^{\top}\mathbf{x}\bigr) \;=\; \frac{1}{1 + e^{-\boldsymbol\theta^{\top}\mathbf{x}}} \]</div>
 <p><strong>Come si calcola.</strong> Due mosse: prima il <strong>punteggio</strong> \(\boldsymbol\theta^{\top}\mathbf{x}\) (il prodotto scalare pesi·dati; l'intercetta si include aggiungendo a \(\mathbf{x}\) una componente costante \(x_0 = 1\)), poi lo si <strong>schiaccia</strong> tra 0 e 1 con la <strong>sigmoide</strong> \(\sigma\). Il denominatore \(1 + e^{-\boldsymbol\theta^{\top}\mathbf{x}}\) è sempre positivo, quindi \(r(\mathbf{x})\) è definita ovunque. L'<strong>etichetta</strong> \(y \in \{0, 1\}\) è la verità osservata: nel mondo della 1.2, \(y = 1\) = mittente abusivo, \(y = 0\) = legittimo.</p>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Con \(\boldsymbol\theta = (1;\ -2)\): per \(\mathbf{x} = (0{,}5;\ 0{,}25)\) il punteggio è \(0\) → \(r = \sigma(0) = 0{,}5\), incertezza pura. Per \(\mathbf{x} = (2;\ 0{,}5)\): punteggio \(= 2 - 1 = 1\) → \(r = \sigma(1) \approx 0{,}73\).</p>
 </div>
-<div class="callout deep"><span class="tag">Il confine (opzionale) — cosa cambia se rilassi</span>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — il confine della famiglia</span>
 <p>Se il logit può essere una funzione <strong>qualsiasi</strong> dei dati (non più affine), esci dalla famiglia: hai un classificatore generico, per esempio una <strong>rete neurale</strong>. Se al punteggio applichi un'altra curva a S al posto della sigmoide, hai il modello <strong>probit</strong>. Con più di due etichette, la sigmoide diventa la <strong>softmax</strong> (regressione multinomiale). E se non schiacci più tra 0 e 1, torni alla <strong>regressione lineare</strong>, che stima un numero qualsiasi, non una probabilità.</p>
 </div>
 
@@ -212,6 +223,9 @@ a{color:var(--navy);}
 <div class="formula key">\[ \ell \;=\; -\bigl[\, y \ln r + (1 - y)\ln(1 - r) \,\bigr] \]</div>
 <p>Lettura pratica: se \(y = 1\) resta solo \(-\ln r\); se \(y = 0\) resta solo \(-\ln(1-r)\). Con i logaritmi che conosci (§5.2 della 1.1): previsione giusta e sicura → perdita quasi zero (\(r = 0{,}9\), \(y = 1\): \(\ell = -\ln 0{,}9 \approx 0{,}105\)); previsione <strong>sicura e sbagliata</strong> → punizione enorme (\(r = 0{,}9\), \(y = 0\): \(\ell = -\ln 0{,}1 \approx 2{,}303\)). La sicurezza mal riposta costa cara — di proposito.</p>
 <p>La perdita totale sul campione è la somma sugli esempi, ed è la \(\mathcal{L}(\boldsymbol\theta)\) che vedi nella formula della 1.2.</p>
+<div class="callout intu"><span class="tag">Intuizione — la sicurezza sbagliata si paga</span>
+<p>La log-loss guarda solo alla probabilità che il modello ha assegnato alla risposta giusta: più è alta, più la perdita è vicina a zero. Se il modello è sicuro e azzecca, paga pochissimo; se è sicuro e sbaglia, la perdita esplode. Così conviene essere prudenti quando non si sa, invece di scommettere tutto.</p>
+</div>
 <div class="callout deep"><span class="tag">Approfondimento (opzionale) — perché «log»-loss: è la vecchia conoscenza MLE</span>
 <p>Per esempi indipendenti, la verosimiglianza dei dati è \(L(\boldsymbol\theta) = \prod_i r_i^{\,y_i}(1-r_i)^{1-y_i}\). Prendi \(-\ln\): il prodotto diventa somma e ottieni esattamente \(\mathcal{L}(\boldsymbol\theta)\). Quindi <strong>minimizzare la log-loss = massimizzare la verosimiglianza</strong>: la regressione logistica è la MLE di §3.2 in abiti nuovi.</p>
 </div>
@@ -221,6 +235,9 @@ a{color:var(--navy);}
 
 <h3 id="sec-2-4">2.4 La regolarizzazione L2</h3>
 <p>Nel paper la perdita ha una coda: \(+\ \dfrac{\lambda}{2}\lVert\boldsymbol\theta\rVert^2\). È la <strong>regolarizzazione L2</strong>: una penale sulla <strong>grandezza dei pesi</strong> (la norma di §1.3, al quadrato). La penale agisce sui pesi \(\theta_1, \dots, \theta_n\), non sull'intercetta \(\theta_0\): \(\tfrac{\lambda}{2}\sum_{j\ge 1}\theta_j^2\). Regolarizzare \(\theta_0\) spingerebbe la probabilità di base verso \(0{,}5\). Scopo: impedire al modello di «imparare a memoria» il campione gonfiando pesi enormi su dettagli casuali (<strong>overfitting</strong>), invece di imparare la regola. \(\lambda\) regola la severità della penale: \(\lambda = 0\) = nessun freno; \(\lambda\) grande = pesi tenuti piccoli e modello più prudente.</p>
+<div class="callout intu"><span class="tag">Intuizione — un guinzaglio sui pesi</span>
+<p>Senza freno, il modello può gonfiare pochi pesi per adattarsi a dettagli casuali del campione: impara a memoria invece della regola. La penale L2 aggiunge un costo che cresce con la grandezza dei pesi, così restano piccoli a meno che i dati non giustifichino davvero valori grandi. Il parametro \(\lambda\) regola la lunghezza del guinzaglio.</p>
+</div>
 
 <div class="callout ex" id="ex-2"><span class="tag">Esercizi — §2</span>
 <ol>
@@ -235,8 +252,11 @@ a{color:var(--navy);}
 <h2 id="sec-3">3. La discesa del gradiente</h2>
 
 <h3 id="sec-3-1">3.1 L'idea: scendere la collina</h3>
-<p>Ho la perdita \(\mathcal{L}(\boldsymbol\theta)\): un paesaggio dove ogni punto è una scelta di pesi e l'altitudine è quanto sbaglio. Voglio il punto più basso. Strategia: da dove sono, guardo <strong>da che parte il terreno sale di più</strong> e faccio un passo <strong>nella direzione opposta</strong>. Ripeto.</p>
-<p>«Da che parte sale» è il <strong>gradiente</strong>: il vettore delle pendenze della perdita rispetto a ciascun peso (la pendenza è l'idea di derivata del box opzionale di §3.2 della 1.1: quanto cambia l'uscita per un piccolo ritocco dell'ingresso). Il <strong>passo</strong> è governato dal <strong>learning rate</strong> \(\eta\): un numero piccolo (\(0{,}01\)–\(0{,}5\)) che decide quanto lungo è ogni passo.</p>
+<p>La perdita \(\mathcal{L}(\boldsymbol\theta)\) associa a ogni scelta di pesi un numero: quanto il modello sbaglia sul campione. La <strong>discesa del gradiente</strong> cerca un minimo di \(\mathcal{L}\) muovendo \(\boldsymbol\theta\), a passi, nella direzione in cui la perdita <strong>cala</strong> più rapidamente, e ripetendo.</p>
+<div class="callout intu"><span class="tag">Intuizione — scendere la collina</span>
+<p>La perdita è un paesaggio: ogni punto è una scelta di pesi, l'altitudine è quanto si sbaglia. Per arrivare in fondo, da dove ci si trova si guarda da che parte il terreno sale di più e si fa un passo nella direzione opposta; poi si ripete. Con la nebbia si vede solo la pendenza sotto i piedi, non l'intera valle: per questo si procede a piccoli passi.</p>
+</div>
+<p>«Da che parte sale» è il <strong>gradiente</strong>: il vettore delle pendenze della perdita rispetto a ciascun peso (la pendenza è l'idea di derivata del box opzionale di §3.2 della 1.1: quanto cambia l'uscita per un piccolo ritocco dell'ingresso). Il <strong>passo</strong> è governato dal <strong>learning rate</strong> \(\eta > 0\): la lunghezza di ogni passo. Nella pratica industriale <strong>[INF]</strong> lo si sceglie piccolo (ordine \(10^{-2}\)–\(10^{-1}\)): troppo grande fa divergere, troppo piccolo rallenta. Il valore dipende da dati, scala delle feature e schema di decadimento, non è una soglia dimostrata.</p>
 
 <h3 id="sec-3-2">3.2 La regola del paper</h3>
 <p>Per la regressione logistica il gradiente ha una forma incredibilmente pulita, e la regola di aggiornamento della 1.2 è:</p>
@@ -273,6 +293,9 @@ a{color:var(--navy);}
 <div class="formula key">\[ \bar{x}_t \;=\; \lambda\, x_t \;+\; (1 - \lambda)\,\bar{x}_{t-1} \]</div>
 <p><strong>Inizializzazione:</strong> al primo dato si pone \(\bar{x}_1 = x_1\) (nessun \(\Delta t\), la memoria parte dal primo valore); la ricorsione vale da \(t \ge 2\), con \(\Delta t\) = tempo fra \(t-1\) e \(t\).</p>
 <p>\(\lambda \in [0,1]\) è il <strong>fattore di apprendimento</strong>: la fetta di fiducia data al dato nuovo. Da programmatore è un accumulatore: <code>media = lam*nuovo + (1-lam)*media</code>.</p>
+<div class="callout intu"><span class="tag">Intuizione — una media smemorata</span>
+<p>Una media normale tratta il primo dato come l'ultimo. L'EWMA no: a ogni nuovo valore mescola una fetta \(\lambda\) di nuovo con \(1-\lambda\) di vecchio, così il passato pesa sempre meno senza mai sparire di colpo. La media insegue il livello corrente, e \(\lambda\) decide quanto in fretta.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(\lambda = 0{,}5\), partenza \(\bar{x} = 10\), arrivano due valori \(20\):</p>
 <p>\(\bar{x} = 0{,}5 \cdot 20 + 0{,}5 \cdot 10 = 15\), poi \(\bar{x} = 0{,}5 \cdot 20 + 0{,}5 \cdot 15 = 17{,}5\). La media <strong>insegue</strong> il nuovo livello senza saltarci sopra.</p>
@@ -281,6 +304,9 @@ a{color:var(--navy);}
 
 <h3 id="sec-4-2">4.2 La costante di tempo \(\tau\)</h3>
 <p>Il paper fissa \(\lambda = 1 - e^{-\Delta t/\tau}\), dove \(\Delta t\) è il tempo trascorso dall'ultimo aggiornamento e \(\tau\) è la <strong>costante di tempo</strong>: la scala della memoria. Prova del nove: se passa esattamente \(\Delta t = \tau\), allora \(\lambda = 1 - e^{-1} \approx 0{,}63\) — il nuovo dato prende subito il 63% della fiducia. \(\tau\) grande = memoria lunga; \(\tau\) piccolo = reputazione nervosa.</p>
+<div class="callout intu"><span class="tag">Intuizione — la scala della memoria</span>
+<p>\(\tau\) fissa quanto lontano guarda la memoria, misurandolo in tempo anziché in numero di passi: dopo un intervallo pari a \(\tau\) il dato nuovo si prende circa i due terzi della fiducia. Con \(\tau\) grande la reputazione è lenta e stabile; con \(\tau\) piccolo reagisce subito ma è nervosa.</p>
+</div>
 <div class="callout warn"><span class="tag">Trappola dei simboli — \(\lambda\) e \(\tau\) sono riciclati</span>
 <p>Nel paper \(\lambda\) fa <strong>due lavori</strong>: forza della regolarizzazione L2 (§2.4) e fattore EWMA (qui). E \(\tau\) pure: <strong>soglia di decisione</strong> nella 1.1 (§5.6), <strong>costante di tempo</strong> qui. Stesso segno, mestieri diversi: decide il contesto.</p>
 </div>
@@ -301,9 +327,18 @@ a{color:var(--navy);}
 <p>È il fantasma di Robinson (§4 della 1.1) sotto altro nome: la frequenza \(\hat{p} = k/m\) — \(k\) eventi su \(m\) prove — con \(m\) piccolo è <strong>instabile</strong>. Un mittente con 1 reclamo su 10 invii ha \(\hat{p} = 0{,}1\), ma con 10 invii quel numero è quasi rumore. Robinson correggeva contraendo verso un prior; Wilson risponde a un'altra domanda: «<strong>quanto in basso potrebbe realisticamente essere il valore vero</strong>, visti così pochi dati?» Si assume \(m \ge 1\) (almeno una prova). Per \(m = 0\) non c'è informazione: si pone LCB \(= 0\).</p>
 
 <h3 id="sec-5-2">5.2 Intervallo di confidenza e il numero \(z\)</h3>
-<p>Un <strong>intervallo di confidenza</strong> è una forchetta di valori plausibili per il parametro, costruita dai dati. Il suo bordo inferiore è il <strong>lower confidence bound</strong> (LCB). La larghezza della forchetta la governa \(z\): un numero preso dalla <strong>distribuzione normale</strong> (la classica curva a campana — trattazione completa più avanti nella wiki; per ora la usiamo come la \(\chi^2\): valori tabulati). Riferimenti: \(z = 1{,}96\) ↔ confidenza 95%; \(z = 1\) ↔ circa 68%. Più \(z\) è grande, più il bordo scende: più prudenza.</p>
-<div class="callout warn"><span class="tag">Trappola classica — cosa significa «95%»</span>
-<p>Il 95% è una proprietà della <strong>procedura</strong>: ripetendola su tanti campioni, azzecca il valore vero il 95% delle volte. <strong>Non</strong> è «il vero \(p\) sta qui dentro con probabilità 95%» per <em>questo</em> campione — per dire quello servirebbe Bayes, con un prior. Stessa famiglia di trappole di likelihood/posterior e del p-value (§5.4 della 1.1). Esistono anche sottigliezze a una/due code che qui non servono.</p>
+<p>Un <strong>intervallo di confidenza</strong> è una forchetta di valori plausibili per il parametro, costruita dai dati. Il suo bordo inferiore è il <strong>lower confidence bound</strong> (LCB). La larghezza della forchetta la governa un numero \(z\), che si legge da una <strong>tabella</strong> di quantili (come per ogni percentile): \(z = 1{,}96\) ↔ 95% bilatero, \(z = 1\) ↔ circa 68%. Più \(z\) è grande, più il bordo scende: più prudenza. Il numero \(z\) viene dalla <strong>distribuzione normale</strong>, che si definisce qui.</p>
+<p><strong>Definizione (distribuzione normale).</strong> La <strong>distribuzione normale</strong> di parametri \(\mu\) (la <strong>media</strong>, un numero reale) e \(\sigma > 0\) (la <strong>deviazione standard</strong>) è una <strong>distribuzione di probabilità continua</strong> sui numeri reali. È individuata dalla sua <strong>funzione di densità</strong> \(f_{\mu,\sigma} : \mathbb{R} \to (0, +\infty)\), simmetrica attorno a \(\mu\), con area totale unitaria sotto la curva (\(\int_{-\infty}^{+\infty} f_{\mu,\sigma}(x)\,dx = 1\), condizione che la rende una distribuzione). <strong>Come si calcola.</strong> La densità è</p>
+<div class="formula">\[ f_{\mu,\sigma}(x) \;=\; \frac{1}{\sigma\sqrt{2\pi}}\; e^{-\frac{(x-\mu)^2}{2\sigma^2}} \]</div>
+<p>Il parametro \(\mu\) fissa il centro, \(\sigma\) la larghezza (e \(\sigma^2\) è la <strong>varianza</strong>); \(\sigma > 0\) è necessario perché la densità sia definita. La <strong>normale standard</strong> è il caso \(\mu = 0\), \(\sigma = 1\). Il numero \(z\) usato per l'intervallo è un <strong>quantile</strong> della normale standard: la soglia che lascia alla propria sinistra una frazione fissata dell'area, cioè della probabilità. Lo <strong>z-score</strong> di un valore \(x\) è \((x - \mu)/\sigma\): quante deviazioni standard dista dalla media.</p>
+<div class="callout intu"><span class="tag">Intuizione — la curva a campana</span>
+<p>Molte grandezze che nascono dalla somma di tanti piccoli effetti indipendenti si distribuiscono a campana: quasi tutti i valori si stringono attorno alla media \(\mu\) e diventano via via più rari allontanandosi, in modo simmetrico. \(\sigma\) dice quanto è larga la campana. Scegliere \(z\) significa decidere quanto lontano dal centro spingersi prima di considerare un valore troppo improbabile.</p>
+</div>
+<div class="callout warn"><span class="tag">Trappola — cosa significa «95%»</span>
+<p>Il 95% è una proprietà della <strong>procedura</strong>: ripetendola su tanti campioni, azzecca il valore vero il 95% delle volte. <strong>Non</strong> è «il vero \(p\) sta qui dentro con probabilità 95%» per <em>questo</em> campione — per dire quello servirebbe Bayes, con un prior. Stessa famiglia di trappole di likelihood/posterior e del p-value (§5.4 della 1.1).</p>
+</div>
+<div class="callout warn"><span class="tag">Onestà — una coda o due code</span>
+<p>Il LCB è per costruzione un bordo a <strong>una coda</strong>, ma qui si usa \(z = 1{,}96\), che è il livello di un intervallo <strong>bilatero</strong> al 95%; come limite a una coda corrisponde al 97,5%. Un LCB a una coda al 95% userebbe \(z = 1{,}645\). Si adotta di proposito il bordo dell'intervallo bilatero (la convenzione di Evan Miller <strong>[DA VERIFICARE]</strong>): rende leggermente più prudenti. La scelta è dichiarata qui invece di essere taciuta.</p>
 </div>
 
 <h3 id="sec-5-3">5.3 La formula, smontata</h3>
@@ -343,6 +378,9 @@ a{color:var(--navy);}
 <h3 id="sec-6-2">6.2 La pagella: DCG e NDCG</h3>
 <div class="formula key">\[ \mathrm{DCG@}k \;=\; \sum_{i=1}^{k} \frac{2^{\,rel_i} - 1}{\log_2(i+1)} \]</div>
 <p>La chiocciola \(@k\) si legge «considerando solo le prime \(k\) posizioni». Due leve nella formula: il <strong>guadagno</strong> \(2^{rel}-1\) premia in modo esplosivo i molto rilevanti (\(rel = 3 \to 7\), \(rel = 1 \to 1\)); lo <strong>sconto di posizione</strong> \(\log_2(i+1)\) penalizza chi sta in basso (posizione 1 divide per \(1\); posizione 3 divide per \(2\)). Il valore assoluto dipende dalla query, quindi si normalizza: <strong>NDCG</strong> \(= \mathrm{DCG}/\mathrm{IDCG}\), dove IDCG è la DCG dell'<strong>ordinamento ideale</strong>. È definita solo quando \(\mathrm{IDCG} > 0\), cioè quando almeno un documento ha \(rel_i > 0\). Se tutti i voti sono \(0\) si pone per convenzione NDCG \(= 0\) (nessun ordine è migliore di un altro). Sotto questa condizione NDCG \(\in [0,1]\), con \(1\) = ordine ideale.</p>
+<div class="callout intu"><span class="tag">Intuizione — una pagella per le classifiche</span>
+<p>Un buon ordinamento mette i risultati più rilevanti in alto. Il DCG premia i risultati rilevanti tanto più quanto più stanno in cima; poi l'NDCG divide per il punteggio dell'ordinamento perfetto, così il voto finale sta tra 0 e 1 ed è confrontabile fra query diverse: \(1\) significa «già ordinato al meglio possibile».</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — serve solo \(\log_2 3 \approx 1{,}585\)</span>
 <p>Tre risultati mostrati nell'ordine con voti \((3;\ 0;\ 2)\). Guadagni: \(7;\ 0;\ 3\).</p>
 <ol>
@@ -356,6 +394,9 @@ a{color:var(--navy);}
 <p>Come si <strong>impara</strong> a ordinare? L'idea di RankNet: il modello assegna a ogni documento un punteggio \(s_i\), e per ogni <strong>coppia</strong> stima la probabilità che \(i\) debba stare sopra \(j\):</p>
 <div class="formula key">\[ P_{ij} \;=\; \sigma\bigl(s_i - s_j\bigr) \]</div>
 <p>La sigmoide, di nuovo: differenza di punteggi → probabilità. La perdita è la log-loss (§2.3) sulle coppie con etichetta nota, e si scende col gradiente (§3). Esempio: \(s_i = 2\), \(s_j = 1\) → \(P_{ij} = \sigma(1) \approx 0{,}73\).</p>
+<div class="callout intu"><span class="tag">Intuizione — imparare a coppie</span>
+<p>Invece di indovinare in un colpo l'ordine di tutta la lista, RankNet guarda due documenti alla volta e stima la probabilità che il primo meriti di stare sopra il secondo. Più il punteggio del primo supera quello del secondo, più questa probabilità si avvicina a 1. Confrontando molte coppie con l'ordine noto, i punteggi si aggiustano finché la classifica torna.</p>
+</div>
 
 <h3 id="sec-6-4">6.4 LambdaMART, in una riga</h3>
 <p>Il motore industriale: <strong>alberi di decisione in sequenza</strong> (GBDT: ogni albero corregge gli errori del precedente), guidati da gradienti «lambda» pesati per <strong>quanto uno scambio di posizioni cambierebbe l'NDCG</strong>. Nome da riconoscere nella 3.1; il suo smontaggio fine è oltre il perimetro.</p>
@@ -410,7 +451,7 @@ a{color:var(--navy);}
 <h3 id="sol-6">Soluzioni — §6</h3>
 <p class="note"><a class="xref" href="#ex-6">↩ Torna agli esercizi di §6</a></p>
 <ol>
-<li>Guadagni nell'ordine: \(3;\ 7;\ 0\) → \(\mathrm{DCG} = \dfrac{3}{1} + \dfrac{7}{1{,}585} + 0 pprox 3 + 4{,}42 = 7{,}42\); \(\mathrm{NDCG} = 7{,}42/8{,}89 pprox 0{,}834\). Peggio di prima: il documento migliore è sceso di una posizione.</li>
+<li>Guadagni nell'ordine: \(3;\ 7;\ 0\) → \(\mathrm{DCG} = \dfrac{3}{1} + \dfrac{7}{1{,}585} + 0 \approx 3 + 4{,}42 = 7{,}42\); \(\mathrm{NDCG} = 7{,}42/8{,}89 \approx 0{,}834\). Peggio di prima: il documento migliore è sceso di una posizione.</li>
 <li>Perché l'esponenziale rende un \(rel = 3\) <strong>sette volte</strong> un \(rel = 1\): sbagliare sui contenuti eccellenti deve costare molto più che sbagliare sui mediocri.</li>
 </ol>
 

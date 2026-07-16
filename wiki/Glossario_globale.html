@@ -197,7 +197,7 @@ a{color:var(--navy);}
 <tr><td>\(\sum\)</td><td>sommatoria</td><td>somma di tutti i termini indicati dall'indice</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
 <tr><td>\(:=\)</td><td>uguale per definizione</td><td>introduce un nome: il lato sinistro è definito come il lato destro; niente da verificare</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
 <tr><td>\(\arg\max\)</td><td>argomento del massimo</td><td>il valore dell'argomento che rende massima la funzione (non il massimo stesso)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
-<tr><td>\(S\), \(H\)</td><td>classi spam / ham</td><td>le due classi di email (ham = buone). Attenzione: in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-6">§5.6</a> \(H\) e \(S\) cambiano ruolo (indicatori di Fisher)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
+<tr><td>\(S\), \(H\)</td><td>classi spam / ham</td><td>le due classi di email (ham = buone). Attenzione: in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-6">§5.6</a> \(H\) e \(S\) cambiano ruolo (indicatori di Fisher, ≠ classi spam/ham)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
 <tr><td>\(w\)</td><td>parola (token)</td><td>una parola dell'email</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
 <tr><td>\(b\), \(N_S\)</td><td>conteggi spam</td><td>spam contenenti la parola / totale spam (definiti in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
 <tr><td>\(g\), \(N_H\)</td><td>conteggi ham</td><td>ham contenenti la parola / totale ham (definiti in <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-2">§3.2</a>)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-2-2">§2.2</a></td></tr>
@@ -215,7 +215,7 @@ a{color:var(--navy);}
 <tr><td>\(\min\), \(\max\)</td><td>minimo / massimo</td><td>il più piccolo / il più grande tra gli argomenti</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-3-4">§3.4</a></td></tr>
 <tr><td>\(f(w)\)</td><td>stima contratta</td><td>\(p(w)\) corretto da Robinson (shrinkage)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-3">§4.3</a></td></tr>
 <tr><td>\(x\), \(s\), \(n\)</td><td>neutro; forza del prior; osservazioni</td><td>\(0{,}5\); numero di osservazioni virtuali; numero di osservazioni vere</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-3">§4.3</a></td></tr>
-<tr><td>\(\alpha\), \(\beta\), \(k\), \(\text{Beta}(\alpha,\beta)\)</td><td>parametri Beta; successi</td><td>conteggi virtuali del prior Beta; \(k\) = successi reali su \(n\) prove</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-5">§4.5</a> (opz.)</td></tr>
+<tr><td>\(\alpha\), \(\beta\), \(k\), \(\text{Beta}(\alpha;\beta)\)</td><td>parametri Beta; successi</td><td>conteggi virtuali del prior Beta; \(k\) = successi reali su \(n\) prove</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-4-5">§4.5</a> (opz.)</td></tr>
 <tr><td>\(\prod\)</td><td>produttoria</td><td>prodotto di tutti i termini indicati dall'indice</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-1">§5.1</a></td></tr>
 <tr><td>\(\sim\)</td><td>dell'ordine di</td><td>«si comporta circa come»: \(\sim p^{\,n}\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
 <tr><td>\(e\), \(\ln\)</td><td>numero di Nepero; logaritmo naturale</td><td>\(e \approx 2{,}718\); \(\ln\) è l'inverso di \(e^t\); \(\ln(ab)=\ln a + \ln b\); negativo su \((0,1)\)</td><td><a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html#sec-5-2">§5.2</a></td></tr>
@@ -298,8 +298,8 @@ a{color:var(--navy);}
 <tbody id="f3-teoria-dell-informazi">
 <tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— F3 — Teoria dell'informazione —</td></tr>
 <tr><td>\(\log_2\)</td><td>logaritmo in base 2</td><td>l'esponente da dare a \(2\); cugino di \(\ln\), cambia solo l'unità</td><td>F3 §1</td></tr>
-<tr><td>bit</td><td>unità di sorpresa</td><td>la sorpresa di una moneta equa; una domanda sì/no</td><td>F3 §1</td></tr>
-<tr><td>\(H\), \(H_{\text{src}}\), \(H_{\text{content}}\)</td><td>entropia</td><td>sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera H)</td><td>F3 §2</td></tr>
+<tr><td>bit</td><td>unità di sorpresa</td><td>la sorpresa di una moneta equa; una domanda sì/no (≠ bit = cifra binaria di F6 §1)</td><td>F3 §1</td></tr>
+<tr><td>\(H\), \(H_{\text{src}}\), \(H_{\text{content}}\)</td><td>entropia</td><td>sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera \(H\), ≠ classe ham / indicatore di Fisher \(H\) di 1.1)</td><td>F3 §2</td></tr>
 <tr><td>\(0 \cdot \log_2 0 := 0\)</td><td>convenzione</td><td>gli esiti impossibili non contribuiscono all'entropia</td><td>F3 §2</td></tr>
 <tr><td>PMI, \(\text{PMI}^{+}\)</td><td>pointwise mutual information</td><td>\(\log_2\) del rapporto tra co-occorrenza reale e caso puro; la versione \(^{+}\) azzera i negativi</td><td>F3 §4</td></tr>
 </tbody>
@@ -310,13 +310,13 @@ a{color:var(--navy);}
 <tr><td>collisione</td><td>—</td><td>input diversi, stesso output; per coppia fissata: prob. \(1/N\)</td><td>F6 §1</td></tr>
 <tr><td>k-anonimità</td><td>—</td><td>nascondersi in un gruppo di almeno \(k\) indistinguibili</td><td>F6 §2</td></tr>
 <tr><td>\(D\), \(P\)</td><td>conteggi del database</td><td>hash completi in DB; prefissi in lista (questo \(D\) ≠ dati di §3.2)</td><td>F6 §2</td></tr>
-<tr><td>\(J(A,B)\)</td><td>similarità di Jaccard</td><td>\(|A \cap B| / |A \cup B|\): quota condivisa sul totale distinto</td><td>F6 §3</td></tr>
+<tr><td>\(J(A;B)\)</td><td>similarità di Jaccard</td><td>\(|A \cap B| / |A \cup B|\): quota condivisa sul totale distinto</td><td>F6 §3</td></tr>
 <tr><td>shingle</td><td>finestra scorrevole</td><td>frammento di parole consecutive; trasforma un testo in un insieme</td><td>F6 §3</td></tr>
 <tr><td>\(h_{\min}\)</td><td>min-hash</td><td>il minimo degli hash degli elementi; coincide con prob. \(= J\)</td><td>F6 §4</td></tr>
 <tr><td>\(s\), \(r\), \(b\)</td><td>similarità; righe; bande</td><td>parametri LSH (questo \(s\) ≠ forza del prior; questo \(r\) ≠ resto, ≠ tasso)</td><td>F6 §5</td></tr>
 <tr><td>\(\lfloor \cdot \rfloor\)</td><td>floor</td><td>arrotonda in giù all'intero: \(\lfloor 2{,}75 \rfloor = 2\)</td><td>F6 §6</td></tr>
 <tr><td>\(\bmod\)</td><td>modulo</td><td>resto della divisione intera (il <code>%</code>)</td><td>F6 §6</td></tr>
-<tr><td>\(\delta\), \(q\), \(k\) (Rice)</td><td>delta; quoziente; parametro</td><td>differenza tra consecutivi; \(\lfloor \delta/2^k \rfloor\) in unario; taglia del resto</td><td>F6 §6</td></tr>
+<tr><td>\(\delta\), \(q\), \(k\) (Rice)</td><td>delta; quoziente; parametro</td><td>differenza tra consecutivi; \(\lfloor \delta/2^k \rfloor\) in unario; taglia del resto (questo \(k\) ≠ successi di 1.1, ≠ conteggi di F4)</td><td>F6 §6</td></tr>
 <tr><td>unario</td><td>—</td><td>contare coi segni: \(q\) bit a 1 chiusi da uno 0</td><td>F6 §6</td></tr>
 <tr><td>somma prefissa</td><td>—</td><td>ricostruire la lista sommando i delta in cascata dal primo valore</td><td>F6 §6</td></tr>
 </tbody>
@@ -338,7 +338,7 @@ a{color:var(--navy);}
 <tr><td>colonna-stocastica</td><td>—</td><td>ogni colonna somma a \(1\): probabilità in uscita da uno stato</td><td>F2 §2</td></tr>
 <tr><td>catena di Markov</td><td>—</td><td>sistema senza memoria: il futuro dipende solo dal presente</td><td>F2 §2</td></tr>
 <tr><td>\(\mathbf{p}^{*}\)</td><td>distribuzione stazionaria</td><td>il punto fermo: \(M\mathbf{p}^{*} = \mathbf{p}^{*}\)</td><td>F2 §3</td></tr>
-<tr><td>\(\mathbf{v}\), \(\lambda\)</td><td>autovettore; autovalore</td><td>direzione non deviata; suo fattore di scala (terzo mestiere di \(\lambda\))</td><td>F2 §4</td></tr>
+<tr><td>\(\mathbf{v}\), \(\lambda\)</td><td>autovettore; autovalore</td><td>direzione non deviata; suo fattore di scala (terzo mestiere di \(\lambda\), ≠ \(\lambda\) L2/EWMA di F4 §2.4/§4.1)</td><td>F2 §4</td></tr>
 <tr><td>irriducibile, aperiodica</td><td>—</td><td>tutto raggiungibile da tutto; niente ritorni a passi fissi obbligati</td><td>F2 §5</td></tr>
 <tr><td>\(I\)</td><td>matrice identità</td><td>la macchina «non fare niente»: \(I\mathbf{v} = \mathbf{v}\) (≠ indicatore di Fisher \(I\) di 1.1 §5.6)</td><td>F2 §6</td></tr>
 <tr><td>\(A^{-1}\)</td><td>matrice inversa</td><td>annulla l'effetto di \(A\) (stavolta il \(-1\) è un'inversa vera)</td><td>F2 §6</td></tr>
@@ -365,7 +365,7 @@ a{color:var(--navy);}
 <tr><td>\(S^{+}\)</td><td>semi buoni</td><td>le pagine promosse dall'oracolo</td><td>2.2 §2</td></tr>
 <tr><td>\(\mathbf{d}\)</td><td>distribuzione dei semi</td><td>uniforme su \(S^{+}\), zero altrove (in grassetto: vettore, ≠ damping \(d\))</td><td>2.2 §2</td></tr>
 <tr><td>\(\begin{cases}\cdot\end{cases}\)</td><td>definizione per casi</td><td>la graffa: ogni riga vale nel suo caso</td><td>2.2 §2</td></tr>
-<tr><td>\(\alpha\)</td><td>damping del trust</td><td>\(\approx 0{,}85\); terzo mestiere di \(\alpha\) (era conteggio virtuale nella 1.2)</td><td>2.2 §3</td></tr>
+<tr><td>\(\alpha\)</td><td>damping del trust</td><td>\(\approx 0{,}85\); riuso della lettera \(\alpha\) (≠ parametro Beta \(\alpha\) di 1.1 §4.5, dove era il conteggio virtuale del prior)</td><td>2.2 §3</td></tr>
 <tr><td>hop</td><td>passo di grafo</td><td>un passo lungo un arco</td><td>2.2 §3</td></tr>
 </tbody>
 <tbody id="2-3-spam-mass">
@@ -373,7 +373,7 @@ a{color:var(--navy);}
 <tr><td>link farm</td><td>—</td><td>pagine fantasma interconnesse per gonfiare il rank di un bersaglio</td><td>2.3 §1</td></tr>
 <tr><td>\(10^{-k}\)</td><td>esponente negativo</td><td>dividere per la potenza: \(10^{-6} = 1/1.000.000\)</td><td>2.3 §1</td></tr>
 <tr><td>\(PR^{+}(p)\)</td><td>rank giustificato</td><td>PageRank col teletrasporto ristretto ai semi fidati (2.2), NON rinormalizzato: \(0\le PR^{+}\le PR\), così \(m\in[0,1]\)</td><td>2.3 §2</td></tr>
-<tr><td>\(M(p)\), \(m(p)\)</td><td>spam mass assoluta; relativa</td><td>\(PR - PR^{+}\); la sua frazione su \(PR\) (quarto mestiere della lettera M)</td><td>2.3 §2</td></tr>
+<tr><td>\(M(p)\), \(m(p)\)</td><td>spam mass assoluta; relativa</td><td>\(PR - PR^{+}\); la sua frazione su \(PR\) (quarto mestiere della lettera \(M\), ≠ matrice \(M\) di F2 §1, ≠ predecessori \(M(p_i)\) di 2.1 §2)</td><td>2.3 §2</td></tr>
 </tbody>
 <tbody id="3-1-e-e-a-t-e-learning-t">
 <tr><td colspan="4" style="background:#fff2c4;font-weight:700;">— 3.1 — E-E-A-T e learning-to-rank —</td></tr>

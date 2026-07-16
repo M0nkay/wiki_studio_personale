@@ -152,7 +152,10 @@ a{color:var(--navy);}
 
 <h2 id="sec-1">1. Che cos'è E-E-A-T (e che cosa non è)</h2>
 <p><strong>E-E-A-T</strong> è una sigla dalle linee guida per i valutatori di qualità di Google <strong>[DOC]</strong>: <strong>E</strong>xperience (esperienza diretta di chi scrive), <strong>E</strong>xpertise (competenza), <strong>A</strong>uthoritativeness (autorevolezza riconosciuta), <strong>T</strong>rust (affidabilità — la qualità che le linee guida stesse indicano come centrale).</p>
-<p>Il punto documentato e spesso frainteso: <strong>non è un punteggio</strong> dentro l'algoritmo. I giudizi dei valutatori umani <strong>non modificano direttamente</strong> i ranking <strong>[DOC]</strong>. E allora a cosa servono? È qui che entra la matematica.</p>
+<p>Il punto documentato e spesso frainteso: <strong>non è un punteggio</strong> dentro l'algoritmo. I giudizi dei valutatori umani <strong>non modificano direttamente</strong> i ranking <strong>[DOC]</strong>. Non entrano come punteggio: servono a generare le <strong>etichette</strong> di addestramento, ed è qui che entra la matematica.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>E-E-A-T raccoglie in una sigla le domande che un valutatore umano si pone davanti a una pagina: chi scrive ha esperienza diretta e competenza? la fonte è autorevole e affidabile? Non è un ingranaggio interno dell'algoritmo, ma il criterio con cui le persone giudicano la qualità — e da quel giudizio, non da un punteggio, parte tutto il resto.</p>
+</div>
 
 <hr/>
 
@@ -161,10 +164,13 @@ a{color:var(--navy);}
 <ol>
 <li>i valutatori producono <strong>etichette</strong>: triple (query \(q\), documento, voto di rilevanza/qualità \(rel\));</li>
 <li>le etichette diventano il <strong>dataset di addestramento</strong>;</li>
-<li>un modello di <strong>learning-to-rank</strong> (F4 §6: RankNet come idea, LambdaMART come motore) impara a ordinare massimizzando l'<strong>NDCG</strong> su quelle etichette;</li>
+<li>un modello di <strong>learning-to-rank</strong> (F4 §6: RankNet come idea, LambdaMART come motore) ottimizza un obiettivo che <strong>approssima</strong> l'<strong>NDCG</strong> (la NDCG stessa non è differenziabile): LambdaMART usa gradienti pesati da \(|\Delta\text{NDCG}|\) che empiricamente la migliorano <strong>[INF]</strong>;</li>
 <li>il modello, una volta addestrato, ordina <strong>tutte</strong> le query — anche quelle che nessun valutatore vedrà mai.</li>
 </ol>
-<p>In una frase: <strong>l'oracolo fa da metro e da maestro, il modello generalizza</strong>. È la terza volta che incontri lo schema: oracolo → pochi giudizi costosi → propagazione (i semi di 2.2, il budget \(L\), e ora i rater).</p>
+<p>È il terzo caso dello stesso schema: oracolo → pochi giudizi costosi → propagazione (i semi di 2.2, il budget \(L\), e ora i rater).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>L'oracolo umano fa da metro e da maestro: fornisce pochi giudizi di riferimento (il metro) e da quei giudizi il modello impara come ordinare (il maestro). Una volta addestrato, il modello estende quel criterio a tutte le query — comprese quelle che nessun valutatore vedrà mai.</p>
+</div>
 <div class="callout warn"><span class="tag">Trappola dei simboli</span>
 <p>\(q\) qui è una <strong>query</strong> (la ricerca dell'utente), non il quoziente di Rice di F6 §6. E i voti \(rel\) sono quelli di F4 §6.1.</p>
 </div>
@@ -172,7 +178,7 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. I segnali: il vettore di feature del ranking</h2>
-<p>Che cosa vede il modello di ogni coppia (query, documento)? Un vettore di feature <strong>[INF]</strong> — la 1.2 in versione web:</p>
+<p>Di ogni coppia (query, documento) il modello vede un <strong>vettore di feature</strong> <strong>[INF]</strong> — la 1.2 in versione web:</p>
 <ul>
 <li><strong>segnali di link</strong>: la famiglia PageRank/TrustRank della sezione 2 — popolarità e vicinanza ai fidati;</li>
 <li><strong>segnali di contenuto</strong>: pertinenza del testo rispetto alla query;</li>
@@ -180,6 +186,9 @@ a{color:var(--navy);}
 <li><strong>segnali di comportamento</strong>: come gli utenti interagiscono coi risultati.</li>
 </ul>
 <p>Struttura familiare dalla 1.2/F4: un punteggio \(s\) costruito dalle feature \(\mathbf{x}\). Nei modelli lineari (la logistica di F4 §2) è \(s=\boldsymbol\theta^{\top}\mathbf{x}\); nel motore industriale qui citato (LambdaMART, un ensemble di alberi — F4 §6.4) \(s\) è invece una funzione <strong>non lineare</strong> delle feature, priva di un vettore di pesi \(\boldsymbol\theta\). Il tratto comune: i parametri non li fissa nessuno a mano, li apprende il ranker dalle etichette dei rater. <strong>[INF]</strong> E-E-A-T vive qui: non come numero, ma come <strong>criterio che genera le etichette</strong> su cui tutto si calibra.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Ogni coppia (query, documento) diventa una lista di numeri — le feature: quanto è popolare la pagina, quanto il testo è pertinente alla ricerca, quanto è reputata l'entità che firma. Il ranker fonde questi numeri in un unico punteggio \(s\): nei modelli lineari la fusione è una somma pesata, nei motori industriali una combinazione non lineare più ricca; in entrambi i pesi si imparano dai dati, non si fissano a mano.</p>
+</div>
 
 <hr/>
 
@@ -187,7 +196,10 @@ a{color:var(--navy);}
 <div class="callout ex"><span class="tag">Esempio numerico — due documenti, una query</span>
 <p>Il ranker assegna \(s_{\text{buono}} = 1{,}5\) e \(s_{\text{scarso}} = 0{,}3\). In lettura RankNet (F4 §6.3):</p>
 <div class="formula">\[ P(\text{buono sopra}) = \sigma(1{,}5 - 0{,}3) = \sigma(1{,}2) \approx 0{,}77 \]</div>
-<p>E se il modello li mostrasse nell'ordine sbagliato, la pagella NDCG (F4 §6.2) scenderebbe — esattamente il segnale che LambdaMART usa per correggersi.</p>
+<p>Se i due documenti hanno rilevanza diversa (qui \(rel_{\text{buono}}>rel_{\text{scarso}}\)) e il modello li mostra nell'ordine sbagliato, la NDCG (F4 §6.2) scende: è il segnale che LambdaMART pesa nel gradiente. Se invece hanno la <strong>stessa</strong> rilevanza, lo scambio lascia la NDCG invariata (\(\Delta\text{NDCG}=0\)) e il ranker non riceve alcun segnale su quella coppia.</p>
+</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il punteggio \(s\) non conta in assoluto: conta la differenza fra due documenti. RankNet la trasforma in una probabilità — se il documento buono ha punteggio più alto, \(P(\text{buono sopra})\) supera 0,5; se i punteggi coincidono vale esattamente 0,5, cioè il modello è indifferente su chi mettere sopra.</p>
 </div>
 <div class="callout warn"><span class="tag">Onestà — dove finisce il documentato</span>
 <p>Che i rater producano etichette e che il ranking usi modelli appresi con segnali di link, contenuto ed entità: <strong>[DOC]/[INF]</strong>. Quali architetture esatte, quali pesi, quante feature: <strong>[PROP]</strong> — segreti industriali. Il paper (e questa pagina) ricostruisce la <strong>classe di metodi</strong>, non la ricetta di Google.</p>

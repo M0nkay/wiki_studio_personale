@@ -151,40 +151,48 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. Il valore assoluto |x|: «quanto lontano da zero»</h2>
-<p><strong>Intuizione.</strong> Il <strong>valore assoluto</strong> è la <strong>distanza da zero</strong>, e una distanza non è mai negativa. Sia \(+5\) che \(-5\) distano 5 passi dallo zero: il valore assoluto di entrambi è \(5\). In pratica: <strong>togli il segno meno</strong>.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il <strong>valore assoluto</strong> è la <strong>distanza da zero</strong>, e una distanza non è mai negativa. Sia \(+5\) che \(-5\) distano 5 passi dallo zero: il valore assoluto di entrambi è \(5\). Operativamente: \(|x| = x\) se \(x \ge 0\), \(|x| = -x\) se \(x < 0\).</p>
+</div>
 <p><strong>Definizione.</strong> Il <strong>valore assoluto</strong> di un numero \(x\) è un <strong>numero mai negativo</strong>: la <strong>distanza di \(x\) da zero</strong> sulla linea dei numeri. <strong>Il simbolo.</strong> Due barre verticali attorno al numero: \(|x|\). <strong>Come si calcola.</strong> Se \(x\) è positivo o zero resta com'è; se è negativo, togli il segno.</p>
 <div class="formula key">\[ |5| = 5 \qquad |-5| = 5 \qquad |0| = 0 \]</div>
-<div class="callout ex"><span class="tag">Esempio numerico — a cosa serve</span>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Per misurare quanto due numeri <strong>differiscono</strong>, senza che conti chi è più grande: \(|3 - 7| = |-4| = 4\), e \(|7 - 3| = |4| = 4\). Stessa distanza, nei due versi. (Nella 1.1 serve per scegliere le parole «più lontane da \(0{,}5\)»: \(|p - 0{,}5|\).)</p>
 </div>
-<div class="callout deep"><span class="tag">Il confine — cosa lo distingue</span>
+<div class="callout deep"><span class="tag">Approfondimento</span>
 <p>Il valore assoluto tiene la <strong>grandezza</strong> e butta via il <strong>segno</strong>. Non è la stessa cosa di «elevare al quadrato»: anche \(x^2\) è mai negativo e vale zero solo in \(0\), ma \((-3)^2 = 9\), mentre \(|-3| = 3\). E da qui nasce la <strong>distanza fra due numeri</strong>: quanto distano \(a\) e \(b\) è \(|a - b|\), lo stesso in qualunque ordine li scrivi.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-2">2. Il floor ⌊·⌋: «arrotonda in giù»</h2>
-<p><strong>Intuizione.</strong> Il <strong>floor</strong> (in italiano «parte intera inferiore») scende all'intero immediatamente <strong>a sinistra</strong> sulla retta: verso il basso, mai al più vicino. È come contare quante persone <em>intere</em> stanno in un ascensore: 2,75 persone non esistono, sono 2.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il <strong>floor</strong> (in italiano «parte intera inferiore») scende all'intero immediatamente <strong>a sinistra</strong> sulla retta: verso il basso, mai al più vicino. È come contare quante persone <em>intere</em> stanno in un ascensore: 2,75 persone non esistono, sono 2.</p>
+</div>
 <p><strong>Definizione.</strong> Le parentesi a squadra basse, \(\lfloor x \rfloor\), danno il più grande intero non superiore a \(x\). Floor verso \(-\infty\): <code>math.floor</code>, l'operatore <code>//</code> di Python — <strong>non</strong> il troncamento <code>int()</code> / <code>(int)</code> del C.</p>
 <div class="formula key">\[ \lfloor 2{,}75 \rfloor = 2 \qquad \lfloor 5 \rfloor = 5 \qquad \lfloor 0{,}9 \rfloor = 0 \qquad \lfloor -2{,}9 \rfloor = -3 \]</div>
-<div class="callout warn"><span class="tag">Sempre in giù, non «al più vicino»</span>
-<p>Attenzione: il floor va <strong>sempre verso il basso</strong>, non arrotonda al più vicino. \(\lfloor 2{,}9 \rfloor = 2\), non 3. Taglia e basta. (Serve nella codifica Rice della sezione 4: \(\lfloor \delta / 2^k \rfloor\).)</p>
+<div class="callout warn"><span class="tag">Trappola</span>
+<p>Attenzione: il floor va <strong>sempre verso il basso</strong>, non arrotonda al più vicino. \(\lfloor 2{,}9 \rfloor = 2\), non 3. Taglia e basta. (Serve nella codifica Rice in F6 §6: \(\lfloor \delta / 2^k \rfloor\), con \(\delta \ge 0\).)</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-3">3. min e max: il più piccolo e il più grande</h2>
-<p><strong>Intuizione.</strong> Esattamente ciò che sembrano: \(\min\) sceglie il <strong>più piccolo</strong> di un gruppo di numeri, \(\max\) il <strong>più grande</strong>.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Esattamente ciò che sembrano: \(\min\) sceglie il <strong>più piccolo</strong> di un gruppo di numeri, \(\max\) il <strong>più grande</strong>.</p>
+</div>
 <div class="formula key">\[ \min(3; 8; 5) = 3 \qquad\qquad \max(3; 8; 5) = 8 \]</div>
-<div class="callout ex"><span class="tag">Esempio numerico — a cosa servono nella wiki</span>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Spesso fanno da <strong>tetto</strong> o <strong>pavimento</strong>. Nel warmup (1.3): \(\min(V_{\max}; \text{volume calcolato})\) impedisce di superare il tetto \(V_{\max}\) — se il calcolo dà di più, vince il tetto. E \(\max(0; \dots)\) nel CUSUM (F5) impedisce di scendere sotto zero.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-4">4. Il fattoriale n!: il prodotto dei primi n numeri</h2>
-<p><strong>Intuizione.</strong> Il <strong>fattoriale</strong> di \(n\) conta in quanti modi diversi puoi mettere in fila \(n\) oggetti. Tre libri sullo scaffale: \(3! = 6\) ordini possibili. Ogni oggetto in più apre \(n\) posizioni nuove dove infilarlo: ecco perché i modi si moltiplicano per \(n\) a ogni passo, partendo dall'unico modo di ordinare la fila vuota.</p>
-<p><strong>Definizione.</strong> Il <strong>fattoriale</strong> di \(n\) è un <strong>numero</strong>: il <strong>prodotto di tutti gli interi da 1 a \(n\)</strong>. Per convenzione \(0! = 1\). Misura in quanti modi puoi mettere in fila \(n\) oggetti diversi. <strong>Il simbolo.</strong> Si scrive col punto esclamativo, \(n!\), e si legge «\(n\) fattoriale». È fissato in modo <strong>necessario e sufficiente</strong> da due condizioni:</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il <strong>fattoriale</strong> di \(n\) conta in quanti modi diversi si possono mettere in fila \(n\) oggetti. Tre libri sullo scaffale: \(3! = 6\) ordini possibili. Ogni oggetto in più apre \(n\) posizioni nuove dove inserirlo: ecco perché i modi si moltiplicano per \(n\) a ogni passo, partendo dall'unico modo di ordinare la fila vuota.</p>
+</div>
+<p><strong>Definizione.</strong> Il <strong>fattoriale</strong> di \(n\) è un <strong>numero</strong>: il <strong>prodotto di tutti gli interi da 1 a \(n\)</strong>. Per convenzione \(0! = 1\). Misura il numero di ordinamenti distinti in fila di \(n\) oggetti distinti (le permutazioni di \(n\) oggetti). <strong>Il simbolo.</strong> Si scrive col punto esclamativo, \(n!\), e si legge «\(n\) fattoriale». È fissato in modo <strong>necessario e sufficiente</strong> da due condizioni:</p>
 <ul>
 <li>ordinare <strong>zero</strong> oggetti si può in <strong>un solo modo</strong> (la fila vuota);</li>
 <li>passando da \(n-1\) a \(n\) oggetti (per ogni \(n \ge 1\)), il numero di ordinamenti si <strong>moltiplica per \(n\)</strong>.</li>
@@ -196,7 +204,7 @@ a{color:var(--navy);}
 <p>\(3! = 1 \cdot 2 \cdot 3 = 6\). \(4! = 1 \cdot 2 \cdot 3 \cdot 4 = 24\). \(5! = 120\). Cresce in fretta. In forma ricorsiva: \(0! = 1\) e \(n! = n \cdot (n-1)!\).</p>
 <p>E \(0! = 1\) <strong>non è una convenzione arbitraria</strong>: c'è un solo modo di ordinare zero oggetti — la fila vuota — quindi \(0!\) deve valere 1. Lo conferma la regola stessa: \(1! = 1 \cdot 0!\) impone \(0! = 1\).</p>
 </div>
-<div class="callout deep"><span class="tag">Il confine</span>
+<div class="callout deep"><span class="tag">Approfondimento</span>
 <p>Servono <strong>entrambe</strong> le condizioni: senza il caso base (la fila vuota) infinite funzioni rispetterebbero il passo «moltiplica per \(n\)». Sugli interi <strong>negativi</strong> il fattoriale non è definito.</p>
 </div>
 
@@ -230,7 +238,7 @@ a{color:var(--navy);}
 <table class="gl">
 <thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
-<tr><td>\(|x|\)</td><td>valore assoluto</td><td>distanza da zero: toglie il segno meno; \(|-5|=5\)</td><td>F0.5 §1</td></tr>
+<tr><td>\(|x|\)</td><td>valore assoluto</td><td>distanza di \(x\) da zero; \(|-5|=5\)</td><td>F0.5 §1</td></tr>
 <tr><td>\(\lfloor x \rfloor\)</td><td>floor (parte intera inferiore)</td><td>arrotonda sempre in giù all'intero: \(\lfloor 2{,}75 \rfloor = 2\)</td><td>F0.5 §2</td></tr>
 <tr><td>\(\min\), \(\max\)</td><td>minimo, massimo</td><td>il più piccolo / il più grande di un gruppo; spesso tetto o pavimento</td><td>F0.5 §3</td></tr>
 <tr><td>\(n!\)</td><td>fattoriale</td><td>\(1\cdot2\cdots n\): il prodotto dei primi \(n\) interi; \(0!=1\)</td><td>F0.5 §4</td></tr>

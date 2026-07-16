@@ -155,7 +155,9 @@ a{color:var(--navy);}
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Fissati un <strong>orizzonte</strong> e la nozione di <strong>evento abusivo</strong> (es.: la prossima email consegnata genera un reclamo o colpisce una spam-trap), la <strong>reputazione</strong> di un mittente è un numero \(r\in[0,1]\): la probabilità — condizionata al vettore di feature \(\mathbf{x}\) osservato finora <strong>e a un modello probabilistico esplicito</strong> — che il prossimo evento del suo traffico sia abusivo. La forma operativa industriale è ricostruita <strong>[INF]</strong> (§2). Nota: il §2 (discriminativo, su \(\mathbf{x}\)) e il §3 (generativo, sui conteggi) sono due stime dello stesso \(r\), non la stessa formula.</p>
 </div>
-<p>È la stessa mossa mentale di §2 della 1.1: prior (che mittente è, prima di guardare i dati) + evidenza (il suo comportamento) → credenza aggiornata. Cambia solo l'oggetto: non «questa email è spam?» ma «questo mittente è un problema?».</p>
+<div class="callout intu"><span class="tag">Intuizione — dal contenuto alla sorgente</span>
+<p>È la stessa mossa mentale del §2 della 1.1: il prior (che mittente è, prima di guardare i dati) più l'evidenza (il suo comportamento) danno la credenza aggiornata. Cambia solo l'oggetto della domanda: non «questa email è spam», ma «questo mittente è un problema».</p>
+</div>
 
 <hr/>
 
@@ -171,6 +173,9 @@ a{color:var(--navy);}
 <li><strong>Engagement</strong>: aperture, risposte, «non è spam» (positivi); cancellazioni senza lettura (negativo).</li>
 <li><strong>Anomalie di volume</strong>: variazioni brusche \(\Delta V\) (\(\Delta\) = «variazione di»), picchi, novità della sorgente.</li>
 </ul>
+<div class="callout intu"><span class="tag">Intuizione — una somma di indizi, schiacciata in [0,1]</span>
+<p>Ogni feature è un indizio; il peso \(\theta_j\) dice quanto quell'indizio conta e in che verso (i reclami spingono il rischio in su, l'autenticazione in giù). Il modello somma gli indizi pesati e la funzione \(\sigma\) schiaccia il risultato in un numero fra 0 e 1, leggibile come rischio.</p>
+</div>
 <div class="callout warn"><span class="tag">Trappola delle percentuali piccole</span>
 <p>Gmail dichiara <strong>[DOC]</strong>: sopra \(c > 0{,}3\%\) niente clemenza, raccomandato \(c < 0{,}1\%\). Occhio alla conversione: \(0{,}3\% = 0{,}003\) e \(0{,}1\% = 0{,}001\) — <strong>non</strong> \(0{,}3\) e \(0{,}1\). Tre reclami ogni mille consegne bastano per essere fuori.</p>
 </div>
@@ -194,11 +199,17 @@ a{color:var(--navy);}
 <p>Per un mittente con <strong>poca storia</strong>, la frequenza \(c = k/m\) è instabile — il fantasma dei conteggi piccoli, di nuovo. Qui il paper promuove a protagonista il modello che nella 1.1 era un box opzionale (§4.5): la <strong>Beta-Bernoulli</strong>.</p>
 <p>Ripasso in una riga: il prior \(\text{Beta}(\alpha_0, \beta_0)\) sono <strong>conteggi virtuali</strong> — \(\alpha_0\) eventi negativi e \(\beta_0\) invii puliti «già visti» in immaginazione (il pedice \(0\) si legge «di partenza»). Osservati \(k\) eventi negativi reali su \(m\) invii:</p>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p><strong>Ipotesi (prima della formula).</strong> (i) prior proprio \(\alpha_0>0,\beta_0>0\); (ii) gli \(m\) invii sono prove di Bernoulli <strong>indipendenti</strong>, ciascuna abusiva con probabilità \(\theta_{\text{spam}}\), e \(k\) è il numero di esiti abusivi, \(0\le k\le m\); (iii) esiste sempre massa virtuale \(\alpha_0+\beta_0>0\), sicché \(\alpha_0+\beta_0+m>0\). Sotto (i)–(iii): \(\theta_{\text{spam}}\mid\text{dati}\sim\text{Beta}(\alpha_0+k,\ \beta_0+m-k)\) e \(E=\dfrac{\alpha_0+k}{\alpha_0+\beta_0+m}\). <strong>Caso limite.</strong> IP nuovo in blocco senza storia: assegnare un prior neutro esplicito (es. \(\text{Beta}(1,1)\)), altrimenti la reputazione non è definita. Onestà: sotto reclami correlati la posterior sovrastima la precisione.</p>
+<p><strong>Ipotesi (prima della formula).</strong> (i) prior proprio \(\alpha_0>0,\beta_0>0\); (ii) gli \(m\) invii sono prove di Bernoulli <strong>indipendenti</strong>, ciascuna abusiva con probabilità \(\theta_{\text{spam}}\), e \(k\) è il numero di esiti abusivi, \(0\le k\le m\); (iii) esiste sempre massa virtuale \(\alpha_0+\beta_0>0\), sicché \(\alpha_0+\beta_0+m>0\). Sotto (i)–(iii): \(\theta_{\text{spam}}\mid\text{dati}\sim\text{Beta}(\alpha_0+k,\ \beta_0+m-k)\) e \(E=\dfrac{\alpha_0+k}{\alpha_0+\beta_0+m}\). <strong>Caso limite.</strong> IP nuovo in blocco senza storia: assegnare un prior neutro esplicito (es. \(\text{Beta}(1,1)\)), altrimenti la reputazione non è definita.</p>
+</div>
+<div class="callout warn"><span class="tag">Onestà — dove il rigore è sacrificato (consapevolmente)</span>
+<p>La posterior Beta è esatta solo se gli \(m\) invii sono prove <strong>indipendenti</strong>. I reclami reali sono correlati: una campagna cattiva ne concentra molti insieme. Sotto correlazione la posterior <strong>sovrastima la precisione</strong>, cioè dichiara meno incertezza di quanta ce ne sia davvero.</p>
 </div>
 <div class="formula key">\[ \theta_{\text{spam}} \mid \text{dati} \;\sim\; \text{Beta}(\alpha_0 + k,\ \beta_0 + m - k) \qquad\Rightarrow\qquad \mathbb{E}[\theta_{\text{spam}} \mid \text{dati}] \;=\; \frac{\alpha_0 + k}{\alpha_0 + \beta_0 + m} \]</div>
-<p>(\(\sim\) qui si legge «si distribuisce come»; \(\mathbb{E}\) è il valore atteso dell'Appendice D.2 della 1.1.) Aggiornare = <strong>sommare i conteggi reali a quelli virtuali</strong>. Nessuna magia nuova: è la formula di Robinson con altri vestiti.</p>
-<p><strong>Da dove viene il prior? Dal vicinato.</strong> Un IP mai visto eredita \((\alpha_0, \beta_0)\) dalla reputazione del suo blocco /24, del suo fornitore di rete (ASN), del suo «quartiere» <strong>[INF]</strong>. Ecco perché un IP pulito dentro un blocco sporco <strong>parte penalizzato</strong>: il suo prior nasce già carico.</p>
+<p>(\(\sim\) qui si legge «si distribuisce come»; \(\mathbb{E}\) è il valore atteso dell'Appendice D.2 della 1.1.) Aggiornare significa <strong>sommare i conteggi reali a quelli virtuali</strong>: è la formula di Robinson (1.1 §4.5) con altri simboli.</p>
+<p><strong>Il prior viene dal vicinato.</strong> Un IP mai visto eredita \((\alpha_0, \beta_0)\) dalla reputazione del suo blocco /24, del suo fornitore di rete (ASN), del suo «quartiere» <strong>[INF]</strong>. Un IP pulito dentro un blocco sporco <strong>parte penalizzato</strong>, perché il prior che eredita è già sbilanciato verso il rischio.</p>
+<div class="callout intu"><span class="tag">Intuizione — il quartiere</span>
+<p>Un indirizzo nuovo non parte da zero: eredita la fama della via in cui abita. Se il blocco /24 e l'operatore hanno una brutta storia, il conteggio virtuale di partenza pende già verso il rischio, e servono molti invii puliti prima che la storia personale abbia il sopravvento.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — il quartiere cattivo</span>
 <p>IP nuovo in un blocco con brutta fama: prior ereditato \(\text{Beta}(3, 7)\) → stima di partenza \(\mathbb{E} = 3/10 = 0{,}3\): il 30% di rischio <strong>prima ancora di inviare</strong>.</p>
 <p>Il mittente si comporta bene: \(m = 20\) invii, \(k = 0\) eventi negativi → posterior \(\text{Beta}(3, 27)\) → \(\mathbb{E} = 3/30 = 0{,}1\). La buona condotta erode il pregiudizio — ma non lo azzera in un giorno.</p>
@@ -217,6 +228,9 @@ a{color:var(--navy);}
 
 <h2 id="sec-4">4. Wilson: non premiare chi ha pochi dati</h2>
 <p>La reputazione del §1 è un <strong>rischio</strong> (alto = peggio): il bordo prudente è l'estremo <strong>superiore</strong> di Wilson (UCB). A parità di tasso osservato, chi ha pochi dati ottiene con l'UCB un rischio stimato <strong>più alto</strong> → non è premiato. Se invece si vincola una <strong>quota buona</strong> (frazione di invii puliti, engagement), è l'<strong>LCB</strong> a essere prudente: <strong>dichiarare quale delle due quantità si vincola</strong>. Richiamo F4 (z=2, convenzione a mano di F4 §5): tasso 0,1 → LCB \(\approx 0{,}017\) (m=10) vs \(\approx 0{,}083\) (m=1000).</p>
+<div class="callout intu"><span class="tag">Intuizione — pochi dati, poca fiducia</span>
+<p>Dieci invii con un solo reclamo e diecimila invii con mille reclami mostrano la stessa frequenza, 0,1, ma non la stessa certezza. Wilson tiene conto di quanti dati ci sono: con pochi dati l'intervallo è largo e il bordo prudente resta lontano dalla frequenza grezza; con molti dati si stringe attorno ad essa.</p>
+</div>
 
 <hr/>
 
@@ -232,8 +246,11 @@ a{color:var(--navy);}
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Siano \(s_p\in[0,1]\) lo <strong>score personale</strong> e \(s_v\in[0,1]\) il <strong>prior del vicinato</strong>; il vicinato entra <strong>una sola volta</strong>: se \(s_p\) è già la media Beta a posteriori del §3 (seminata dal vicinato), <strong>non</strong> rimescolarlo con \(s_v\); la miscela vale solo se \(s_p\) è calcolato <strong>senza</strong> il prior di quartiere (es. la sola logistica del §2). Legge del peso: \(w=\dfrac{m}{m+m_0}\) con \(m_0\) forza del prior, \(w\in[0,1]\); \(w=0\Rightarrow\text{score}=s_v\), \(w=1\Rightarrow\text{score}=s_p\).</p>
 </div>
+<div class="callout intu"><span class="tag">Intuizione — dal vicinato a sé stessi</span>
+<p>All'inizio un mittente non ha storia propria, quindi lo score si appoggia al prior del vicinato. Man mano che accumula invii, il peso \(w\) cresce e lo score diventa sempre più il suo, sempre meno quello del quartiere.</p>
+</div>
 <div class="callout warn"><span class="tag">Trappola dei simboli</span>
-<p>Questo \(w\) è un <strong>peso</strong>, non la <strong>parola</strong> \(w\) della 1.1. E il \(\#\) di §2 è «numero di», non un commento di codice. Il paper ricicla le lettere: decide sempre il contesto.</p>
+<p>Questo \(w\) è un <strong>peso</strong>, non la <strong>parola</strong> \(w\) della 1.1. E il \(\#\) di §2 è «numero di», non un commento di codice. Il \(\sim\) del §3 è «si distribuisce come»; in 1.1 §5.2 era «dell'ordine di». Il paper ricicla le lettere: decide sempre il contesto.</p>
 </div>
 <div class="callout ex"><span class="tag">Esempio numerico — la miscela</span>
 <p>Score personale \(0{,}4\) (poca storia, \(w = 0{,}7\)), vicinato malfamato con prior \(0{,}8\):</p>
@@ -286,7 +303,7 @@ a{color:var(--navy);}
 <tr><td>\(\#\)</td><td>numero di</td><td>cancelletto di conteggio: \(\#\text{reclami}\) = quanti reclami</td><td>1.2 §2</td></tr>
 <tr><td>\(\Delta V\)</td><td>variazione di volume</td><td>\(\Delta\) = «variazione di»: quanto è cambiato \(V\)</td><td>1.2 §2</td></tr>
 <tr><td>\(\alpha_0\), \(\beta_0\)</td><td>prior Beta (di partenza)</td><td>conteggi virtuali ereditati dal vicinato; pedice \(0\) = di partenza</td><td>1.2 §3</td></tr>
-<tr><td>\(\sim\)</td><td>si distribuisce come</td><td>secondo uso di \(\sim\) (in F4 era «dell'ordine di»): decide il contesto</td><td>1.2 §3</td></tr>
+<tr><td>\(\sim\)</td><td>si distribuisce come</td><td>secondo uso di \(\sim\) (in 1.1 §5.2 era «dell'ordine di»): decide il contesto</td><td>1.2 §3</td></tr>
 <tr><td>ASN, /24</td><td>vicinato di rete</td><td>fornitore di rete; blocco di 256 indirizzi IP contigui</td><td>1.2 §3</td></tr>
 <tr><td>\(w\)</td><td>peso della miscela</td><td>quanto pesa lo score personale contro il prior del vicinato (≠ parola \(w\) della 1.1)</td><td>1.2 §5</td></tr>
 </tbody>

@@ -151,13 +151,16 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. Il modello: un navigatore casuale</h2>
-<p>Immagina un navigatore che vaga per il web all'infinito. A ogni pagina:</p>
+<p>Si consideri una passeggiata casuale sul grafo del web. A ogni pagina si verifica uno di due eventi:</p>
 <ul>
-<li>con probabilità \(d\) clicca <strong>un link uscente a caso</strong>;</li>
-<li>con probabilità \(1 - d\) si <strong>teletrasporta</strong> su una pagina qualunque, a caso.</li>
+<li>con probabilità \(d\) si segue <strong>un link uscente scelto uniformemente</strong>;</li>
+<li>con probabilità \(1 - d\) si <strong>salta</strong> a una pagina scelta uniformemente fra tutte.</li>
 </ul>
-<p>\(d \approx 0{,}85\) è il <strong>damping factor</strong> (fattore di smorzamento). Il <strong>PageRank</strong> è il vettore \(PR:V\to[0,1]\) con \(\sum_v PR(v)=1\). Interpretazione: frazione di tempo di lungo periodo del navigatore = <strong>distribuzione stazionaria</strong>. La definizione è ben posta solo dopo la costruzione di \(G\) (§3), che rende la catena <strong>irriducibile e aperiodica</strong>: allora la stazionaria esiste ed è unica per Perron–Frobenius (F2 §5). L'intera sezione 2 del paper è F2 travestita da web.</p>
-<div class="callout warn"><span class="tag">Trappola dei simboli</span>
+<p>\(d \approx 0{,}85\) <strong>[DOC]</strong> è il <strong>damping factor</strong> (fattore di smorzamento; valore adottato nel lavoro originale su PageRank). Il <strong>PageRank</strong> è il vettore \(PR:V\to[0,1]\) con \(\sum_v PR(v)=1\): a ogni pagina associa un numero in \([0,1]\) e l'insieme dei valori è una distribuzione di probabilità. Coincide con la <strong>distribuzione stazionaria</strong> della catena di Markov descritta. La definizione è ben posta solo dopo la costruzione di \(G\) (§3), che rende la catena <strong>irriducibile e aperiodica</strong>: allora la stazionaria esiste ed è unica per Perron–Frobenius (F2 §5).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Un navigatore casuale percorre il web senza fermarsi: a ogni pagina segue un link a caso e, di tanto in tanto — con probabilità \(1-d\) — salta su una pagina qualunque. Il PageRank di una pagina è la frazione di tempo che, alla lunga, il navigatore trascorre su di essa: valgono di più le pagine su cui capita più spesso.</p>
+</div>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>Questo \(d\) è il damping, non il «giorno» della 1.3. E attenzione doppia in §2: \(M(p_i)\) con l'argomento tra parentesi è un <strong>insieme di pagine</strong>, non la matrice \(M\) di F2; \(L(p_j)\) è un <strong>conteggio di link</strong>, non la verosimiglianza \(L(\theta)\). \(N\) qui è il numero di pagine, non il numero di sorgenti della 1.4; \(\mathbf{v}\) (grassetto) è il vettore di teletrasporto, non l'autovettore generico di F2.</p>
 </div>
 
@@ -168,19 +171,21 @@ a{color:var(--navy);}
 <p>Ipotesi (valida finché §3 non introduce \(G\)): ogni pagina ha almeno un link uscente. Il PageRank è un vettore \(PR:V\to[0,1]\) con \(\sum_v PR(v)=1\). In presenza di nodi dangling la loro massa va ridistribuita (§3); solo allora \(\sum_i PR(p_i)=1\), coerente con l'interpretazione di §1.</p>
 </div>
 <div class="formula key">\[ PR(p_i) \;=\; \frac{1-d}{N} \;+\; d \sum_{p_j \in M(p_i)} \frac{PR(p_j)}{L(p_j)} \]</div>
-<p>I pezzi: \(N\) = numero totale di pagine; \(M(p_i)\) = l'insieme delle pagine che <strong>puntano a</strong> \(p_i\); \(L(p_j)\) = numero di link <strong>uscenti</strong> da \(p_j\). Lettura in due tempi:</p>
-<ul>
-<li>\(\dfrac{1-d}{N}\): la <strong>pioggia uniforme</strong> del teletrasporto — tocca a tutti, anche alle pagine senza link in entrata;</li>
-<li>ogni pagina \(p_j\) <strong>divide il suo punteggio in parti uguali</strong> tra i suoi \(L(p_j)\) link uscenti, e \(p_i\) raccoglie le fette che le arrivano. Un link vale tanto se chi lo dà conta molto <em>e</em> non lo dà a tutti.</li>
-</ul>
+<p>I pezzi: \(N\) = numero totale di pagine; \(M(p_i)\) = l'insieme delle pagine che <strong>puntano a</strong> \(p_i\); \(L(p_j)\) = numero di link <strong>uscenti</strong> da \(p_j\). Il primo termine \(\frac{1-d}{N}\) assegna a ogni pagina una quota uguale; il secondo somma, per ogni predecessore \(p_j\in M(p_i)\), la porzione \(PR(p_j)/L(p_j)\) del suo punteggio.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Due contributi si sommano. Il termine \(\frac{1-d}{N}\) è una quota uguale per tutti, la pioggia del teletrasporto, che raggiunge anche le pagine senza link in entrata. Il secondo termine raccoglie il punteggio in arrivo: ogni pagina divide il proprio valore in parti uguali fra i suoi link uscenti, e \(p_i\) somma le fette che le arrivano. Un link pesa di più se chi lo concede conta molto <em>e</em> non lo concede a molti.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — un web di tre pagine</span>
-<p>Pagine A, B, C con link: A→B, A→C, B→C, C→A. Quindi \(L(A) = 2\), \(L(B) = 1\), \(L(C) = 1\), \(N = 3\). Uso \(d = 0{,}5\) per l'aritmetica (il valore vero è \(\approx 0{,}85\)). Parto da PageRank uniforme \(1/3\) e faccio <strong>un passo</strong>, usando i valori vecchi:</p>
+<p>Pagine A, B, C con link: A→B, A→C, B→C, C→A. Quindi \(L(A) = 2\), \(L(B) = 1\), \(L(C) = 1\), \(N = 3\). Uso \(d = 0{,}5\) per l'aritmetica (il valore vero è \(\approx 0{,}85\)). Parto dalla stima uniforme \(PR^{(0)} = 1/3\) e faccio <strong>un passo</strong>, ottenendo la stima \(PR^{(1)}\) (un'iterata, non ancora la stazionaria):</p>
 <ol>
-<li>\(PR(A) = \dfrac{1}{6} + 0{,}5 \cdot \dfrac{1/3}{1} = \dfrac{1}{6} + \dfrac{1}{6} = \dfrac{1}{3} \approx 0{,}333\) — riceve tutto da C.</li>
-<li>\(PR(B) = \dfrac{1}{6} + 0{,}5 \cdot \dfrac{1/3}{2} = \dfrac{1}{6} + \dfrac{1}{12} = \dfrac{1}{4} = 0{,}25\) — riceve mezza fetta di A.</li>
-<li>\(PR(C) = \dfrac{1}{6} + 0{,}5 \cdot \Bigl(\dfrac{1/3}{2} + \dfrac{1/3}{1}\Bigr) = \dfrac{1}{6} + \dfrac{1}{4} = \dfrac{5}{12} \approx 0{,}417\) — due sorgenti.</li>
+<li>\(PR^{(1)}(A) = \dfrac{1}{6} + 0{,}5 \cdot \dfrac{1/3}{1} = \dfrac{1}{6} + \dfrac{1}{6} = \dfrac{1}{3} \approx 0{,}333\) — riceve tutto da C.</li>
+<li>\(PR^{(1)}(B) = \dfrac{1}{6} + 0{,}5 \cdot \dfrac{1/3}{2} = \dfrac{1}{6} + \dfrac{1}{12} = \dfrac{1}{4} = 0{,}25\) — riceve mezza fetta di A.</li>
+<li>\(PR^{(1)}(C) = \dfrac{1}{6} + 0{,}5 \cdot \Bigl(\dfrac{1/3}{2} + \dfrac{1/3}{1}\Bigr) = \dfrac{1}{6} + \dfrac{1}{4} = \dfrac{5}{12} \approx 0{,}417\) — due sorgenti.</li>
 </ol>
-<p>Prova del nove: \(\frac{4}{12} + \frac{3}{12} + \frac{5}{12} = 1\). ✓ C, con due link in entrata, guida già dopo un passo; iterando (F2 §5) i valori si assestano.</p>
+<p>Prova del nove: \(\frac{4}{12} + \frac{3}{12} + \frac{5}{12} = 1\). ✓ Iterando fino a convergenza (F2 §5) i valori si assestano sulla stazionaria \(PR = (14/39;\ 10/39;\ 15/39) \approx (0{,}359;\ 0{,}256;\ 0{,}385)\): C, con due link in entrata, resta in testa.</p>
+</div>
+<div class="callout nb"><span class="tag">Onestà</span>
+<p>Questa presentazione usa la forma normalizzata \(\frac{1-d}{N}\), per cui \(\sum_v PR(v)=1\), coerente con l'interpretazione «frazione di tempo». Il lavoro originale (Page–Brin, 1998) usa il termine \((1-d)\), da cui \(\sum_v PR(v)=N\): stessa graduatoria, diversa normalizzazione. Anche la redistribuzione uniforme della massa dei nodi dangling è una scelta di questa presentazione, non presente nella formulazione originale.</p>
 </div>
 
 <hr/>
@@ -188,19 +193,25 @@ a{color:var(--navy);}
 <h2 id="sec-3">3. La forma matriciale e la matrice di Google</h2>
 <p>In notazione F2, con \(\mathbf{v} = \frac{1}{N}\mathbf{1}\) (dove \(\mathbf{1}\) è il <strong>vettore di tutti uni</strong>, quindi \(\mathbf{v}\) è la distribuzione uniforme):</p>
 <div class="formula key">\[ \mathbf{p} \;=\; (1-d)\,\mathbf{v} \;+\; d\,M\,\mathbf{p} \]</div>
-<p>Un intoppo: i <strong>nodi dangling</strong> (pagine <strong>senza link uscenti</strong>) hanno colonna vuota → \(M\) non è più stocastica e il punteggio «evapora». Rimedio: la loro massa si ridistribuisce uniformemente (nel paper: il vettore indicatore \(\mathbf{a}\) segna chi è dangling). Impacchettando link, dangling e teletrasporto in un'unica matrice si ottiene la <strong>matrice di Google</strong> \(G\): stocastica, <strong>irriducibile e aperiodica</strong> — esattamente le condizioni di Perron–Frobenius (F2 §5). Conseguenze, tutte già tue:</p>
+<p>I <strong>nodi dangling</strong> (pagine <strong>senza link uscenti</strong>) hanno colonna nulla: \(M\) non è più stocastica e la massa non si conserva. Rimedio: la massa dei dangling si ridistribuisce uniformemente (nel paper: il vettore indicatore \(\mathbf{a}\) segna quali nodi sono dangling). Impacchettando link, dangling e teletrasporto in un'unica matrice si ottiene la <strong>matrice di Google</strong> \(G\): stocastica, <strong>irriducibile e aperiodica</strong> — esattamente le condizioni di Perron–Frobenius (F2 §5). Ne seguono due conseguenze:</p>
 <ul>
 <li>la stazionaria <strong>esiste ed è unica</strong>: il PageRank è ben definito;</li>
-<li>il secondo autovalore soddisfa \(|\lambda_2| \le d\) → l'iterazione di potenza converge con errore \(\sim d^{\,k}\).</li>
+<li><strong>[PROP]</strong> per la \(G\) con teletrasporto (\(0 < d < 1\)) il secondo autovalore soddisfa \(|\lambda_2| \le d\); quindi l'iterazione di potenza converge con errore \(O(d^{\,k})\) (F2 §5). <em>[DA VERIFICARE]</em> la fonte del bound spettrale.</li>
 </ul>
-<div class="callout ex"><span class="tag">Esempio numerico — quanto ci mette?</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La matrice \(G\) raccoglie in un solo oggetto le tre regole del navigatore: seguire i link, redistribuire la massa che resterebbe intrappolata nei nodi senza uscite, e il teletrasporto uniforme. È proprio il teletrasporto a collegare ogni pagina a ogni altra, e questo garantisce che esista un'unica distribuzione di lungo periodo verso cui il calcolo converge.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico — numero di iterazioni</span>
 <p>Con \(d = 0{,}85\), per errore \(10^{-6}\) servono circa \(k\) passi con \(0{,}85^{k} = 10^{-6}\) → \(k \approx 85\) iterazioni. Ottantacinque moltiplicazioni per classificare il web: il motivo per cui PageRank era calcolabile già nel 1998.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-4">4. Il teletrasporto personalizzato: la porta verso TrustRank</h2>
-<p>La generalizzazione decisiva: nel teletrasporto, al posto della distribuzione uniforme \(\mathbf{v}\), metti una distribuzione <strong>concentrata su un sottoinsieme</strong> di pagine. Il navigatore, quando si teletrasporta, riparte sempre da lì. Questo è il <strong>Personalized PageRank</strong> — e <strong>TrustRank</strong> (pagina 2.2) è l'istanza in cui il sottoinsieme sono i <strong>semi fidati</strong>.</p>
+<p>La generalizzazione decisiva: nel teletrasporto si sostituisce alla distribuzione uniforme \(\mathbf{v}\) una distribuzione <strong>concentrata su un sottoinsieme</strong> di pagine, verso cui il salto riparte sempre. Questo è il <strong>Personalized PageRank</strong>; <strong>TrustRank</strong> (pagina 2.2) è l'istanza in cui il sottoinsieme sono i <strong>semi fidati</strong>.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Cambiando la destinazione del teletrasporto si cambia il punto di vista. Se il salto non porta più a una pagina qualunque ma sempre dentro un piccolo insieme scelto, il punteggio si concentra attorno a quelle pagine e a ciò che esse raggiungono. TrustRank sceglie come insieme di partenza le pagine di cui ci si fida.</p>
+</div>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Con teletrasporto concentrato \(G\) non è più irriducibile e \(PR\) può annullarsi sui nodi irraggiungibili dai semi. La buona posizione si conserva ugualmente perché \(I-dM\) è invertibile per \(d<1\) (serie di Neumann, F2 §6): \(\mathbf{p}=(1-d)(I-dM)^{-1}\mathbf{v}\) è l'unica soluzione.</p>
 </div>
@@ -232,7 +243,7 @@ a{color:var(--navy);}
 <thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
 <tr><td>\(PR(p_i)\)</td><td>PageRank della pagina \(p_i\)</td><td>frazione di tempo del navigatore casuale = componente della stazionaria</td><td>2.1 §1</td></tr>
-<tr><td>\(d\)</td><td>damping factor</td><td>probabilità di seguire un link (≈ 0,85); \(1-d\) = teletrasporto (≠ giorno della 1.3)</td><td>2.1 §1</td></tr>
+<tr><td>\(d\)</td><td>damping factor</td><td>probabilità di seguire un link (≈ 0,85 <strong>[DOC]</strong>); \(1-d\) = teletrasporto (≠ giorno della 1.3)</td><td>2.1 §1</td></tr>
 <tr><td>\(N\)</td><td>numero di pagine</td><td>la taglia del web in esame (≠ numero di sorgenti della 1.4)</td><td>2.1 §2</td></tr>
 <tr><td>\(M(p_i)\)</td><td>insieme dei predecessori</td><td>le pagine che puntano a \(p_i\) — con argomento: insieme, ≠ matrice \(M\)</td><td>2.1 §2</td></tr>
 <tr><td>\(L(p_j)\)</td><td>grado uscente</td><td>numero di link in uscita da \(p_j\) (≠ verosimiglianza \(L(\theta)\))</td><td>2.1 §2</td></tr>

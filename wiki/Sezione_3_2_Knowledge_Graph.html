@@ -157,12 +157,18 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. Gli archi: co-citazione pesata con la PMI</h2>
 <p>Il segnale grezzo: due entità che compaiono <strong>insieme</strong> nei documenti. Ma «insieme» quanto conta? Il metro è la PMI di F3 §4 — insieme <strong>più del caso</strong>:</p>
-<div class="formula key">\[ \text{peso dell'arco}(a, b) \;=\; \text{PMI}^{+}(a, b) \;=\; \max\Bigl(0,\ \log_2 \frac{P(a,b)}{P(a)\,P(b)}\Bigr) \]</div>
+<div class="formula key">\[ \text{peso dell'arco}(a; b) \;=\; \text{PMI}^{+}(a; b) \;=\; \max\Bigl(0,\ \log_2 \frac{P(a;b)}{P(a)\,P(b)}\Bigr) \]</div>
+<div class="callout nb"><span class="tag">N.B. — casi estremi di PMI⁺</span>
+<p>La definizione assume \(P(a) > 0\) e \(P(b) > 0\) (entità che compaiono almeno una volta). Convenzione: se \(P(a;b) = 0\) — due entità mai co-citate, il caso più frequente in un grafo sparso — si pone \(\text{PMI}^{+}(a;b) = 0\), estendendo \(\log_2 0 = -\infty\) e \(\max(0,\ -\infty) = 0\). La convenzione va fissata in F3 §4 e qui è richiamata.</p>
+</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>L'arco misura quanto due entità compaiano insieme <strong>più di quanto accadrebbe per puro caso</strong>. Se la co-presenza osservata eguaglia il prodotto delle due frequenze isolate, il rapporto vale 1 e il legame è nullo; quando lo supera, il peso cresce col logaritmo del rapporto. Il taglio a zero scarta i legami più deboli del caso.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>L'entità \(a\) compare nel \(2\%\) dei documenti, \(b\) nel \(5\%\). Sotto puro caso: \(P(a)P(b) = 0{,}001\).</p>
 <ol>
-<li>Osservato \(P(a,b) = 0{,}01\): rapporto \(10\) → \(\text{PMI} = \log_2 10 \approx 3{,}32\) → <strong>arco forte</strong>.</li>
-<li>Osservato \(P(a,b) = 0{,}001\): rapporto \(1\) → \(\text{PMI} = 0\) → <strong>nessun arco</strong>: la coincidenza da sola non basta.</li>
+<li>Osservato \(P(a;b) = 0{,}01\): rapporto \(10\) → \(\text{PMI} = \log_2 10 \approx 3{,}32\) → <strong>arco forte</strong>.</li>
+<li>Osservato \(P(a;b) = 0{,}001\): rapporto \(1\) → \(\text{PMI} = 0\) → <strong>nessun arco</strong>: la coincidenza da sola non basta.</li>
 </ol>
 </div>
 <p>Il \(^{+}\) taglia i negativi: per propagare autorevolezza servono i legami, non le antipatie — e pesi negativi romperebbero la macchina del §3.</p>
@@ -174,12 +180,18 @@ a{color:var(--navy);}
 <div class="callout nb"><span class="tag">N.B. — costruzione di W</span>
 <p>Sia \(R_{ab} = \text{PMI}^{+}(a; b)\) (simmetrica), con <strong>diagonale nulla</strong>: la co-citazione lega entità <strong>distinte</strong>, quindi \(W_{aa} = 0\) (altrimenti \(\text{PMI}^{+}(a; a) = -\log_2 P(a)\) sarebbe la voce dominante e la propagazione degenererebbe in auto-rinforzo). Si pone \(W_{ab} = R_{ab} / \sum_c R_{cb}\) <strong>a condizione che ogni colonna sia non nulla</strong> (ogni entità abbia almeno un vicino con \(\text{PMI}^{+} > 0\)). Per un'entità <strong>isolata</strong> (colonna nulla) la normalizzazione è \(0/0\), indefinita: come per i nodi <strong>dangling</strong> di 2.1, la colonna nulla va rimpiazzata con la distribuzione dei semi (o l'uniforme). Solo allora \(W\) è colonna-stocastica (F2 §2) e la propagazione è ben posta.</p>
 </div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Ogni colonna di \(W\) ripartisce l'intera autorevolezza di un'entità fra i suoi vicini di co-citazione, in proporzione alla forza dei legami. La somma di ciascuna colonna vale 1: passando da un'entità ai suoi vicini nulla si aggiunge e nulla si perde.</p>
+</div>
 <div class="formula key">\[ \mathbf{rep} \;=\; (1-\alpha)\,\mathbf{seed} \;+\; \alpha\, W\, \mathbf{rep} \]</div>
 <div class="callout nb"><span class="tag">N.B. — tipo e buona posizione di rep e seed</span>
 <p>\(\mathbf{rep}, \mathbf{seed} \in \mathbb{R}^{n}\) con \(n\) = numero di entità. \(\mathrm{seed}_i \ge 0\), \(\sum_i \mathrm{seed}_i = 1\): distribuzione uniforme sull'<strong>insieme</strong> \(S^{+}\) delle entità di autorevolezza accertata, zero altrove (come la \(\mathbf{d}\) di 2.2 §2). Con \(\alpha \in (0,1)\) e \(W\) colonna-stocastica, \((I - \alpha W)\) è invertibile: \(\mathbf{rep}\) esiste ed è <strong>unica</strong>; la massa si conserva, quindi \(\sum_i \mathrm{rep}_i = 1\) e \(\mathbf{rep}\) è una distribuzione sulle entità. (A \(\alpha = 1\), \((I - W)\) è singolare e \(\mathbf{rep}\) non è unica.)</p>
 </div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La reputazione di un'entità proviene per la quota \((1-\alpha)\) dai semi fidati e per la quota \(\alpha\) dalla reputazione dei vicini, attenuata a ogni passaggio. Il valore cercato è quello di equilibrio: resta invariato quando lo si reintroduce nella stessa regola (punto fisso).</p>
+</div>
 <p>È il Personalized PageRank di 2.1 §4 sul grafo delle entità — la stessa forma chiusa vive in 2.2 §2 (TrustRank): i <strong>seed</strong> sono le entità di autorevolezza accertata (l'oracolo, ancora), e la fiducia viaggia sugli archi di co-citazione pagando il solito pedaggio \(\alpha\) per hop. Lettura locale: la reputazione che ti arriva è la <strong>somma dei contributi</strong> dei vicini — ciascuno pari alla quota \(W_{ij}\) della reputazione del vicino \(j\) — poi smorzata. <strong>Non</strong> è una media: i pesi entranti \(\{W_{ij}\}_j\) (una riga di \(W\)) in generale non sommano a 1; è la costruzione per colonna a rendere stocastiche le colonne, non le righe.</p>
-<div class="callout ex"><span class="tag">Esempio numerico — la media pesata dei vicini</span>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>L'entità \(E\) è co-citata con \(A\) (autorevole: rep \(0{,}8\), peso normalizzato \(0{,}75\)) e con \(B\) (ignota: rep \(0{,}1\), peso \(0{,}25\)):</p>
 <div class="formula">\[ 0{,}75 \cdot 0{,}8 + 0{,}25 \cdot 0{,}1 = 0{,}6 + 0{,}025 = 0{,}625 \]</div>
 <p>poi lo smorzamento \(\alpha\) e la quota dei seed completano il conto. (Qui i pesi \(0{,}75\) e \(0{,}25\) sommano a 1 per <strong>scelta</strong> dell'esempio, non per costruzione: in generale i pesi entranti in un nodo non sommano a 1.) Essere citati <strong>accanto a chi conta</strong> vale più di essere citati tanto.</p>
@@ -195,7 +207,7 @@ a{color:var(--navy);}
 
 <div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
 <ol>
-<li>\(P(a) = 0{,}04\), \(P(b) = 0{,}05\), \(P(a,b) = 0{,}01\): calcola la PMI (serve: \(\log_2 5 \approx 2{,}32\)).</li>
+<li>\(P(a) = 0{,}04\), \(P(b) = 0{,}05\), \(P(a;b) = 0{,}01\): calcola la PMI (serve: \(\log_2 5 \approx 2{,}32\)).</li>
 <li>Vicini con pesi \(0{,}5 / 0{,}5\) e reputazioni \(0{,}9 / 0{,}3\): quanto arriva a \(E\) prima dello smorzamento?</li>
 <li>Perché si usa \(\text{PMI}^{+}\) e non la PMI con segno? (Una frase.)</li>
 </ol>

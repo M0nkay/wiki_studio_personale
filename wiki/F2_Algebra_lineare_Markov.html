@@ -151,8 +151,11 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. Matrici e prodotto matrice·vettore</h2>
-<p>Una <strong>matrice</strong> è una tabella di numeri: righe e colonne. Da programmatore: un array bidimensionale. La voce \(M_{ij}\) sta alla <strong>riga \(i\), colonna \(j\)</strong>.</p>
-<p>Il <strong>prodotto matrice·vettore</strong> \(M\mathbf{p}\) produce un nuovo vettore: la componente \(i\) è il <strong>prodotto scalare della riga \(i\) con \(\mathbf{p}\)</strong> (F4 §1.2). Una matrice è quindi una pila di prodotti scalari: una <strong>macchina che trasforma vettori in vettori</strong>.</p>
+<p>Una <strong>matrice</strong> \(M\in\mathbb{R}^{m\times n}\) è una tabella di numeri con \(m\) righe e \(n\) colonne; la voce \(M_{ij}\) sta alla <strong>riga \(i\), colonna \(j\)</strong>.</p>
+<p>Il <strong>prodotto matrice·vettore</strong> \(M\mathbf{p}\), con \(\mathbf{p}\in\mathbb{R}^{n}\), è il vettore di \(\mathbb{R}^{m}\) la cui componente \(i\) è il <strong>prodotto scalare della riga \(i\) con \(\mathbf{p}\)</strong> (F4 §1.2).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Una matrice è una pila di prodotti scalari: una macchina che trasforma vettori in vettori. Per chi programma, è un array bidimensionale.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(M = \begin{pmatrix} 0{,}9 & 0{,}2 \\ 0{,}1 & 0{,}8 \end{pmatrix}\), \(\mathbf{p} = (0{,}5;\ 0{,}5)\):</p>
 <div class="formula">\[ M\mathbf{p} = \bigl(0{,}9 \cdot 0{,}5 + 0{,}2 \cdot 0{,}5;\ \ 0{,}1 \cdot 0{,}5 + 0{,}8 \cdot 0{,}5\bigr) = (0{,}55;\ 0{,}45) \]</div>
@@ -161,9 +164,13 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-2">2. Matrici stocastiche e catene di Markov</h2>
-<p>Un sistema salta tra <strong>stati</strong> (pagine web, condizioni del tempo…). Un <strong>vettore di probabilità</strong> \(\mathbf{p}\) dice dove potresti essere: componenti \(\ge 0\) che sommano a \(1\).</p>
-<p>Una matrice è <strong>colonna-stocastica</strong> quando ogni <strong>colonna</strong> somma a \(1\): la colonna \(j\) elenca le probabilità di transizione <strong>uscendo</strong> dallo stato \(j\) — cioè \(M_{ij}\) = probabilità di passare da \(j\) a \(i\). Una <strong>catena di Markov</strong> è un sistema <strong>senza memoria</strong>: il prossimo passo dipende solo da dove sei ora. Un passo intero della catena è una moltiplicazione:</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Sia \(S=\{1,\dots,n\}\) un insieme finito di <strong>stati</strong>. Un <strong>vettore di probabilità</strong> su \(S\) è un vettore \(\mathbf{p}\in\mathbb{R}^{n}\) con \(p_i\ge 0\) per ogni \(i\) e \(\sum_{i=1}^{n} p_i = 1\). Una matrice \(M\in\mathbb{R}^{n\times n}\) è <strong>colonna-stocastica</strong> se \(M_{ij}\ge 0\) per ogni \(i,j\) e ogni colonna somma a \(1\): \(\sum_{i=1}^{n} M_{ij}=1\) per ogni \(j\); la voce \(M_{ij}\) è la probabilità di transizione dallo stato \(j\) allo stato \(i\). Una <strong>catena di Markov</strong> a tempo discreto e omogenea è una successione di distribuzioni in cui quella al passo successivo dipende solo da quella corrente: \(\mathbf{p}_{k+1}=M\mathbf{p}_k\). Se \(M\) è colonna-stocastica e \(\mathbf{p}_k\) è un vettore di probabilità, allora \(M\mathbf{p}_k\) è ancora un vettore di probabilità.</p>
+</div>
 <div class="formula key">\[ \mathbf{p}_{\text{domani}} \;=\; M\,\mathbf{p}_{\text{oggi}} \]</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il vettore di probabilità dice dove ci si può trovare adesso; la matrice colonna-stocastica raccoglie, colonna per colonna, le probabilità di uscita da ciascuno stato. «Senza memoria» significa che per il passo successivo conta solo lo stato presente, non il modo in cui ci si è arrivati: un passo della catena è una sola moltiplicazione \(M\mathbf{p}\).</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — il meteo a due stati</span>
 <p>Stati: sole, pioggia. Dal sole: 90% resta sole, 10% pioggia. Dalla pioggia: 20% torna sole, 80% resta pioggia. È esattamente la \(M\) di §1. Oggi c'è il sole: \(\mathbf{p} = (1;\ 0)\).</p>
 <p>Domani: \(M\mathbf{p} = (0{,}9;\ 0{,}1)\). Dopodomani: \(M(0{,}9;\ 0{,}1) = (0{,}81 + 0{,}02;\ 0{,}09 + 0{,}08) = (0{,}83;\ 0{,}17)\).</p>
@@ -176,6 +183,9 @@ a{color:var(--navy);}
 <p>Siano \(M\) colonna-stocastica su \(n\) stati e \(\mathbf{p}^{*}\) un <strong>vettore di probabilità</strong> (\(p^{*}_i \ge 0\), \(\sum_i p^{*}_i = 1\)). \(\mathbf{p}^{*}\) è una <strong>distribuzione stazionaria</strong> se \(M\mathbf{p}^{*} = \mathbf{p}^{*}\). <strong>Esistenza:</strong> garantita per ogni \(M\) colonna-stocastica. <strong>Unicità</strong> della stazionaria e <strong>convergenza</strong> \(M^{k}\mathbf{p} \to \mathbf{p}^{*}\) da ogni distribuzione iniziale valgono se \(M\) è irriducibile e aperiodica (vedi §5); senza aperiodicità la catena può oscillare senza limite (es. \(M = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\) da \((1;\ 0)\)). L'identità «frazione di tempo passata in ogni stato \(= \mathbf{p}^{*}\)» è il <strong>teorema ergodico</strong> [PROP], valido per \(M\) irriducibile.</p>
 </div>
 <div class="formula key">\[ M\,\mathbf{p}^{*} \;=\; \mathbf{p}^{*} \]</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La distribuzione stazionaria è il punto fermo della catena: applicarle un altro passo non la cambia. Quando valgono le ipotesi di §5, è anche l'equilibrio di lungo periodo, cioè la frazione di tempo trascorsa in ciascuno stato lungo un cammino molto lungo.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — l'equilibrio del meteo</span>
 <p>Cerco \(\mathbf{p}^{*} = (x;\ 1-x)\) con \(0{,}9x + 0{,}2(1-x) = x\) → \(0{,}2 = 0{,}3x\) → \(x = 2/3\).</p>
 <p>\(\mathbf{p}^{*} = (2/3;\ 1/3)\): a regime, due giorni di sole ogni giorno di pioggia. Prova del nove: \(0{,}9 \cdot \frac{2}{3} + 0{,}2 \cdot \frac{1}{3} = 0{,}6 + 0{,}0\overline{6} = \frac{2}{3}\). ✓ E la sequenza di §2 — \(1;\ 0{,}9;\ 0{,}83;\ 0{,}781;\ 0{,}747\dots\) — sta scivolando proprio verso \(0{,}667\).</p>
@@ -188,8 +198,11 @@ a{color:var(--navy);}
 <p>Un <strong>autovettore</strong> di \(M\) è un vettore \(\mathbf{v} \neq \mathbf{0}\) tale che \(M\mathbf{v} = \lambda\mathbf{v}\) per qualche scalare \(\lambda\) (l'<strong>autovalore</strong>). L'esclusione \(\mathbf{v} \neq \mathbf{0}\) è indispensabile: altrimenti \(M\mathbf{0} = \lambda\mathbf{0}\) varrebbe per ogni \(\lambda\) e la nozione sarebbe vuota. (Per una matrice stocastica generale \(\lambda\) può essere complesso.)</p>
 </div>
 <div class="formula key">\[ M\,\mathbf{v} \;=\; \lambda\,\mathbf{v} \]</div>
-<p>Colpo d'occhio: la stazionaria di §3 <strong>è</strong> un autovettore, con \(\lambda = 1\).</p>
-<div class="callout warn"><span class="tag">Trappola dei simboli — terzo mestiere di \(\lambda\)</span>
+<p>La stazionaria di §3 <strong>è</strong> un autovettore, con \(\lambda = 1\).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Un autovettore è una direzione che la matrice non devia: la lascia dov'è e si limita a riscalarla del fattore \(\lambda\). La distribuzione stazionaria è proprio la direzione con \(\lambda=1\), quella che resta identica a sé stessa.</p>
+</div>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>\(\lambda\) è già stata forza della penale L2 e fattore EWMA (F4). Qui è un <strong>autovalore</strong>. Il contesto — una matrice nei paraggi — decide.</p>
 </div>
 <div class="callout ex"><span class="tag">Esempio numerico — i due autovettori del meteo, verificati a mano</span>
@@ -204,11 +217,14 @@ a{color:var(--navy);}
 
 <h2 id="sec-5">5. Perron–Frobenius e l'iterazione di potenza</h2>
 <p>Il teorema di <strong>Perron–Frobenius</strong> (enunciato, non dimostrato) garantisce: se la matrice stocastica è <strong>irriducibile</strong> (da ogni stato puoi raggiungere ogni altro) e <strong>aperiodica</strong> (niente metronomo: non sei costretto a tornare solo a passi fissi), allora la stazionaria <strong>esiste ed è unica</strong>, l'autovalore dominante è \(1\), e tutti gli altri hanno \(|\lambda| < 1\).</p>
-<p>Da qui l'algoritmo più semplice del mondo, l'<strong>iterazione di potenza</strong>: parti da un \(\mathbf{p}\) qualsiasi e applica \(M\) in loop. L'errore si restringe <strong>asintoticamente</strong> di un fattore \(|\lambda_2|\) — <strong>decadimento geometrico</strong>, la crescita geometrica di 1.3 girata al contrario:</p>
+<p>Da qui l'<strong>iterazione di potenza</strong>: si parte da un vettore di probabilità \(\mathbf{p}\) e si applica \(M\) ripetutamente. L'errore rispetto a \(\mathbf{p}^{*}\) decade <strong>asintoticamente</strong> di un fattore \(|\lambda_2|\) a ogni passo — <strong>decadimento geometrico</strong>, la crescita geometrica di 1.3 girata al contrario:</p>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Se \(M\) è diagonalizzabile con autovalore dominante \(1\) semplice e secondo modulo \(|\lambda_2| < 1\) strettamente isolato, e la distribuzione iniziale \(\mathbf{p}\) ha componente non nulla lungo \(\mathbf{v}_2\), allora \(\lVert M^{k}\mathbf{p} - \mathbf{p}^{*} \rVert \sim c\,|\lambda_2|^{k}\) (<strong>asintotico</strong>). Il rapporto per-passo <strong>tende</strong> a \(|\lambda_2|\) ma è costante a ogni passo solo se l'errore iniziale è proporzionale a \(\mathbf{v}_2\) (come nel meteo); con \(\lambda_2\) complesso o non isolato oscilla (e può temporaneamente superare \(1\)).</p>
 </div>
 <div class="formula key">\[ \text{errore dopo } k \text{ passi} \;\sim\; |\lambda_2|^{\,k} \]</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Applicando \(M\) in loop, la parte «sbagliata» della distribuzione iniziale si contrae a ogni giro: il secondo autovalore \(|\lambda_2|\) è il cronometro della convergenza. Più \(|\lambda_2|\) è piccolo, più in fretta si raggiunge la stazionaria.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico — l'errore che si dimezza (quasi)</span>
 <p>Meteo, componente sole, bersaglio \(2/3 \approx 0{,}667\): errori a ogni passo</p>
 <p>\(0{,}333 \to 0{,}233 \to 0{,}163 \to 0{,}114 \to 0{,}080\)</p>
@@ -218,23 +234,32 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-6">6. La serie di Neumann: l'inversa come somma di cammini</h2>
-<p>Servirà per la forma chiusa di TrustRank. Prima due mattoni: \(I\) è la <strong>matrice identità</strong> — la macchina «non fare niente»: \(1\) sulla diagonale, \(0\) altrove, \(I\mathbf{v} = \mathbf{v}\).</p>
+<p>Servirà per la forma chiusa di TrustRank. Prima due mattoni. La <strong>matrice identità</strong> \(I\in\mathbb{R}^{n\times n}\) ha \(1\) sulla diagonale e \(0\) altrove; soddisfa \(I\mathbf{v} = \mathbf{v}\) per ogni vettore \(\mathbf{v}\).</p>
+<div class="callout warn"><span class="tag">Trappola</span>
+<p>Qui \(I\) è la <strong>matrice identità</strong>, non l'indicatore di Fisher \(I=(1+H-S)/2\) della 1.1 §5.6: decide il contesto (una matrice nei paraggi).</p>
+</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>\(I\) è la macchina «non fare niente»: qualunque vettore le entri, esce identico.</p>
+</div>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>\(A^{-1}\) è l'<strong>inversa</strong> di una matrice <strong>quadrata</strong> \(A\): l'unica matrice — quando esiste — tale che \(A\,A^{-1} = A^{-1}A = I\). Esiste se e solo se \(A\) è <strong>non singolare</strong> (\(\det A \neq 0\)); non ogni matrice ha inversa.</p>
 </div>
 <div class="callout intu"><span class="tag">Intuizione</span>
 <p>\(A^{-1}\) è la macchina che annulla l'effetto di \(A\).</p>
 </div>
-<div class="callout warn"><span class="tag">Nota sui simboli</span>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>Questa volta l'esponente \(-1\) è <strong>davvero</strong> un'inversa — a differenza del \(C^{-1}\) della 1.1 §5.5, che era solo un nome.</p>
 </div>
-<p>Ricordi la serie geometrica dei numeri? Per \(|x| < 1\): \(\dfrac{1}{1-x} = 1 + x + x^2 + x^3 + \dots\) (prova con \(x = 0{,}5\): \(1 + 0{,}5 + 0{,}25 + 0{,}125 + \dots \to 2 = \frac{1}{1-0{,}5}\)). La <strong>serie di Neumann</strong> è la stessa identica cosa per le matrici.</p>
+<p>Per \(|x| < 1\) la serie geometrica dei numeri vale \(\dfrac{1}{1-x} = 1 + x + x^2 + x^3 + \dots\) (con \(x = 0{,}5\): \(1 + 0{,}5 + 0{,}25 + 0{,}125 + \dots \to 2 = \frac{1}{1-0{,}5}\)). La <strong>serie di Neumann</strong> ne è l'analogo per le matrici.</p>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Se \(M\) ha raggio spettrale \(\rho(M) \le 1\) — in particolare se \(M\) è colonna-stocastica — e \(0 < \alpha < 1\), allora \(I - \alpha M\) è invertibile e \((I - \alpha M)^{-1} = \sum_{k \ge 0} \alpha^{k} M^{k}\). L'ipotesi \(\rho(M) \le 1\) è necessaria: con \(M = 2I\) e \(\alpha = 0{,}9\) la serie diverge pur essendo \(0 < \alpha < 1\).</p>
 </div>
 <div class="formula key">\[ (I - \alpha M)^{-1} \;=\; \sum_{k=0}^{\infty} \alpha^{k} M^{k} \]</div>
-<p>dove \(M^k\) significa «\(M\) applicata \(k\) volte», cioè <strong>\(k\) passi della catena</strong>. Lettura che serve a TrustRank: l'inversa è la <strong>somma dei contributi di tutti i cammini</strong>, con i cammini lunghi \(k\) smorzati da \(\alpha^k\).</p>
-<div class="callout warn"><span class="tag">Trappola dei simboli — \(\alpha\) riciclata</span>
+<p>dove \(M^{k}\) è la <strong>potenza \(k\)-esima</strong> di \(M\) (\(M\) applicata \(k\) volte, cioè \(k\) passi della catena), con la convenzione \(M^{0}=I\) (zero passi: prodotto vuoto di matrici, non far nulla).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Lettura che serve a TrustRank: l'inversa è la somma dei contributi di tutti i cammini. Il termine \(\alpha^{k}M^{k}\) raccoglie i cammini di lunghezza \(k\), smorzati dal fattore \(\alpha^{k}\); i cammini più lunghi pesano meno. È la stessa idea della serie geometrica \(\frac{1}{1-x}=\sum_k x^{k}\), trasportata alle matrici.</p>
+</div>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>Qui \(\alpha\) è il <strong>fattore di smorzamento</strong> della serie di Neumann (\(0 < \alpha < 1\)), <strong>non</strong> il conteggio virtuale del prior Beta di 1.1/1.2. Stesso ruolo del damping di 2.2.</p>
 </div>
 
@@ -268,12 +293,12 @@ a{color:var(--navy);}
 <tr><td>\(M\mathbf{p}\)</td><td>prodotto matrice·vettore</td><td>pila di prodotti scalari riga-per-vettore: un passo della catena</td><td>F2 §1</td></tr>
 <tr><td>colonna-stocastica</td><td>—</td><td>ogni colonna somma a \(1\): probabilità in uscita da uno stato</td><td>F2 §2</td></tr>
 <tr><td>catena di Markov</td><td>—</td><td>sistema senza memoria: il futuro dipende solo dal presente</td><td>F2 §2</td></tr>
-<tr><td>\(\mathbf{p}^{*}\)</td><td>distribuzione stazionaria</td><td>il punto fermo: \(M\mathbf{p}^{*} = \mathbf{p}^{*}\)</td><td>F2 §3</td></tr>
-<tr><td>\(\mathbf{v}\), \(\lambda\)</td><td>autovettore; autovalore</td><td>direzione non deviata; suo fattore di scala (terzo mestiere di \(\lambda\))</td><td>F2 §4</td></tr>
+<tr><td>\(\mathbf{p}^{*}\)</td><td>distribuzione stazionaria</td><td>vettore di probabilità (\(p^{*}_i\ge 0\), \(\sum_i p^{*}_i=1\)) con \(M\mathbf{p}^{*} = \mathbf{p}^{*}\); esistenza per \(M\) colonna-stocastica, unicità se irriducibile e aperiodica</td><td>F2 §3</td></tr>
+<tr><td>\(\mathbf{v}\), \(\lambda\)</td><td>autovettore; autovalore</td><td>direzione non deviata \(\mathbf{v}\neq\mathbf{0}\); suo fattore di scala \(\lambda\) (terzo mestiere di \(\lambda\))</td><td>F2 §4</td></tr>
 <tr><td>irriducibile, aperiodica</td><td>—</td><td>tutto raggiungibile da tutto; niente ritorni a passi fissi obbligati</td><td>F2 §5</td></tr>
 <tr><td>\(I\)</td><td>matrice identità</td><td>la macchina «non fare niente»: \(I\mathbf{v} = \mathbf{v}\)</td><td>F2 §6</td></tr>
-<tr><td>\(A^{-1}\)</td><td>matrice inversa</td><td>annulla l'effetto di \(A\) (stavolta il \(-1\) è un'inversa vera)</td><td>F2 §6</td></tr>
-<tr><td>\(M^{k}\)</td><td>potenza di matrice</td><td>\(M\) applicata \(k\) volte: \(k\) passi della catena</td><td>F2 §6</td></tr>
+<tr><td>\(A^{-1}\)</td><td>matrice inversa</td><td>\(A\) quadrata: l'unica matrice con \(A A^{-1}=A^{-1}A=I\) (esiste se e solo se \(\det A\neq 0\); non ogni matrice ha inversa)</td><td>F2 §6</td></tr>
+<tr><td>\(M^{k}\)</td><td>potenza di matrice</td><td>\(M\) applicata \(k\) volte (\(k\) passi della catena), con la convenzione \(M^{0}=I\)</td><td>F2 §6</td></tr>
 <tr><td>\(\alpha\)</td><td>fattore di smorzamento</td><td>fattore di smorzamento della serie di Neumann, \(0 < \alpha < 1\) (≠ conteggio virtuale del prior Beta di 1.1/1.2; stesso ruolo del damping di 2.2)</td><td>F2 §6</td></tr>
 <tr><td>serie di Neumann</td><td>—</td><td>\((I-\alpha M)^{-1} = \sum_k \alpha^k M^k\): l'inversa come somma di cammini smorzati</td><td>F2 §6</td></tr>
 </tbody>

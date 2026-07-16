@@ -148,32 +148,40 @@ a{color:var(--navy);}
 <h2 id="prerequisiti">Prerequisiti</h2>
 <p>Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: probabilità (§1–§2), logaritmi (§5.2), indipendenza (Appendice A.3), e l'idea di «sorpresa» già usata da Fisher (§5.5).</p>
 
-<div class="callout warn"><span class="tag">Trappola dei simboli — il quarto mestiere della lettera H</span>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>Finora \(H\) è stata: classe ham (1.1 §2), indicatore di Fisher (1.1 §5.6), ipotesi nulla \(H_0\) (1.1 §5.4). Qui arriva il quarto lavoro: <strong>entropia</strong>, sempre con un pedice che dice «di cosa» (\(H_{\text{src}}\), \(H_{\text{content}}\)). Il pedice è la targa: senza pedice e con le formule di questa pagina intorno, è entropia.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-1">1. La sorpresa di un evento</h2>
-<p>Idea già incontrata con Fisher: un evento <strong>raro</strong> è <strong>sorprendente</strong>, uno scontato non dice nulla. La teoria dell'informazione dà a questa idea un'unità di misura:</p>
+<p>La teoria dell'informazione assegna a ogni evento una misura di quanto è inatteso: più l'evento è raro, maggiore è la sua sorpresa.</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Sia \(p \in (0,1]\) la probabilità di un evento. La <strong>sorpresa</strong> è la funzione \(\text{sorpresa}\colon (0,1] \to [0,\infty)\), \(\text{sorpresa}(p) = -\log_2 p\), in bit. Il simbolo \(\log_2\) è il logaritmo in base 2: l'esponente da dare a \(2\) per ottenere l'argomento (\(\log_2 8 = 3\) perché \(2^3 = 8\)). Bordi del dominio: \(p \to 0^{+} \Rightarrow \text{sorpresa} \to +\infty\); \(p = 1 \Rightarrow 0\) bit.</p>
+</div>
 <div class="formula key">\[ \text{sorpresa}(p) \;=\; -\log_2 p \qquad \text{(misurata in bit)} \]</div>
-<p>Il simbolo \(\log_2\) è il <strong>logaritmo in base 2</strong>: l'esponente da dare a \(2\) per ottenere l'argomento (\(\log_2 8 = 3\) perché \(2^3 = 8\)). È il fratello del \(\ln\) di §5.2: cambia solo la base, cioè l'unità di misura — come metri contro piedi. Il segno meno raddrizza: \(p < 1\) → logaritmo negativo → sorpresa positiva.</p>
-<p>Punti di riferimento: \(p = 1/2\) → \(1\) bit; \(p = 1/4\) → \(2\) bit; \(p = 1\) → \(0\) bit (nessuna sorpresa). Un <strong>bit</strong> è la sorpresa di una moneta equa: una domanda sì/no onesta.</p>
+<p>Punti di riferimento: \(p = 1/2\) → \(1\) bit; \(p = 1/4\) → \(2\) bit; \(p = 1\) → \(0\) bit. Un <strong>bit</strong> è la sorpresa di una moneta equa: una domanda sì/no.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Un evento scontato non aggiunge nulla a ciò che già si sa; uno raro, quando accade, informa molto. Il \(\log_2\) è lo stesso strumento del \(\ln\) di §5.2: cambia solo la base, cioè l'unità con cui si conta la sorpresa. Il segno meno raddrizza il conto: per \(p < 1\) il logaritmo è negativo, e la sorpresa risulta positiva.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-2">2. L'entropia di Shannon: la sorpresa media</h2>
-<p>Una sorgente casuale produce esiti con probabilità \(p_1, \dots, p_n\). La sua <strong>entropia</strong> è la <strong>sorpresa media</strong> che ti riserva.</p>
+<p>Una sorgente casuale produce esiti con probabilità \(p_1, \dots, p_n\). La sua <strong>entropia</strong> è la <strong>sorpresa media</strong> dei suoi esiti.</p>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Sia \((p_1, \dots, p_n)\) una <strong>distribuzione di probabilità</strong>: \(p_i \ge 0\) per ogni \(i\) e \(\sum_i p_i = 1\). L'entropia di Shannon è \(H = -\sum_i p_i \log_2 p_i \in [0,\, \log_2 n]\) (convenzione \(0 \cdot \log_2 0 := 0\)), in bit. È la sorpresa media, cioè il valore atteso di \(-\log_2 p_i\).</p>
 </div>
 <div class="formula key">\[ H \;=\; -\sum_i p_i \log_2 p_i \]</div>
-<p>Ogni esito porta la sua sorpresa \(-\log_2 p_i\), pesata per quanto spesso capita (\(p_i\)): è un valore atteso (Appendice D.2 della 1.1). Lettura: \(H\) alta = sorgente <strong>imprevedibile</strong>; \(H = 0\) = tutto già scritto. Convenzione: \(0 \cdot \log_2 0 := 0\) (un esito impossibile non contribuisce).</p>
-<div class="callout ex"><span class="tag">Esempi numerici</span>
+<p>Ogni esito porta la sua sorpresa \(-\log_2 p_i\), pesata per la sua probabilità \(p_i\): l'entropia è il valore atteso della sorpresa (Appendice D.2 della 1.1). Convenzione: \(0 \cdot \log_2 0 := 0\) (un esito impossibile non contribuisce).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>L'entropia riassume in un solo numero quanto una sorgente è imprevedibile: è alta quando gli esiti sono molti e ugualmente probabili, ed è nulla quando un esito è già certo. È la sorpresa che ci si attende in media, prima di osservare l'esito.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <ol>
 <li><strong>Moneta equa</strong>: \(H = -(0{,}5 \cdot (-1) + 0{,}5 \cdot (-1)) = 1\) bit.</li>
 <li><strong>Moneta truccata</strong> (\(0{,}9 / 0{,}1\)): \(\log_2 0{,}9 \approx -0{,}152\), \(\log_2 0{,}1 \approx -3{,}32\) → \(H = 0{,}9 \cdot 0{,}152 + 0{,}1 \cdot 3{,}32 \approx 0{,}47\) bit. Più prevedibile = meno entropia.</li>
-<li><strong>Quattro esiti equiprobabili</strong>: \(H = \log_2 4 = 2\) bit — l'uniforme è il massimo dell'imprevedibilità.</li>
+<li><strong>Quattro esiti equiprobabili</strong>: \(H = \log_2 4 = 2\) bit. Tra tutte le distribuzioni su \(n\) esiti l'uniforme massimizza \(H\), con \(H = \log_2 n\) [teorema, senza dimostrazione qui].</li>
 <li><strong>Evento certo</strong>: \(H = 0\).</li>
 </ol>
 </div>
@@ -181,16 +189,19 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. L'entropia di una distribuzione di sorgenti</h2>
-<p>Il ponte verso la 1.4: prendi il traffico email e chiediti «<strong>da quali IP arriva?</strong>». L'entropia delle quote di volume degli IP misura quanto il traffico è <strong>concentrato o sparpagliato</strong>.</p>
+<p>Il ponte verso la 1.4: dato il traffico email, si considera la distribuzione degli IP di provenienza. L'entropia delle quote di volume degli IP misura quanto il traffico è <strong>concentrato o sparpagliato</strong>.</p>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
 <p>Sia \(v_i \ge 0\) il volume dell'IP \(i\) e \(V = \sum_j v_j\) il volume totale nella finestra. Se \(V > 0\), le quote \(p_i = v_i / V\) formano una distribuzione (\(p_i \ge 0\), \(\sum_i p_i = 1\)) e \(H_{\text{src}} = -\sum_i p_i \log_2 p_i\) (convenzione \(0 \cdot \log_2 0 := 0\)). Se \(V = 0\) (nessun traffico) \(H_{\text{src}}\) non è definita: la finestra va esclusa a monte.</p>
 </div>
-<div class="callout ex"><span class="tag">Esempio numerico — concentrato contro sparpagliato</span>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <ol>
 <li><strong>Sparpagliato</strong>: 4 IP con quote uguali \((0{,}25 \times 4)\) → \(H_{\text{src}} = 2\) bit.</li>
 <li><strong>Concentrato</strong>: un IP al \(97\%\) e tre all'\(1\%\): \(H_{\text{src}} = 0{,}97 \cdot 0{,}044 + 3 \cdot 0{,}01 \cdot 6{,}64 \approx 0{,}24\) bit.</li>
 </ol>
-<p>Un mittente legittimo concentra (pochi server, \(H_{\text{src}}\) bassa); lo snowshoe della 1.4 sparpaglia di proposito (\(H_{\text{src}}\) alta). Il contenuto fa il gioco inverso: quasi-duplicato per lo spammer (\(H_{\text{content}}\) bassa), vario per il legittimo.</p>
+</div>
+<p>[INF] Nei dati osservati un mittente legittimo tende a concentrare il traffico (\(H_{\text{src}}\) bassa) e lo snowshoe della 1.4 a sparpagliarlo (\(H_{\text{src}}\) alta); sul contenuto il rapporto si inverte (quasi-duplicato per lo spammer, \(H_{\text{content}}\) bassa; vario per il legittimo). Il confronto è valido a parità di numero di sorgenti \(n\), oppure sull'entropia normalizzata \(H_{\text{src}}/\log_2 n \in [0,1]\): l'entropia assoluta non è comparabile tra sorgenti con \(n\) diverso.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Se il traffico arriva da pochi IP l'origine è prevedibile e l'entropia è bassa; se è distribuito su molti IP con quote simili l'origine è incerta e l'entropia è alta. È la misura del §2 applicata alla domanda «da dove arriva».</p>
 </div>
 
 <div class="callout ex" id="ex-2"><span class="tag">Esercizi — §2–§3</span>
@@ -204,24 +215,27 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-4">4. PMI: insieme più del caso?</h2>
-<p>Domanda della 3.2: due entità che compaiono <strong>insieme</strong> nei documenti sono legate, o è caso? Il metro è il confronto con l'indipendenza (Appendice A.3 della 1.1): se \(a\) e \(b\) fossero indipendenti, \(P(a,b) = P(a)\,P(b)\). La <strong>PMI</strong> (pointwise mutual information) misura di quanto la realtà scarta da lì.</p>
+<p>Domanda della 3.2: due entità che compaiono <strong>insieme</strong> nei documenti sono legate, o è caso? Il metro è il confronto con l'indipendenza (Appendice A.3 della 1.1): se \(a\) e \(b\) fossero indipendenti, \(P(a;b) = P(a)\,P(b)\). La <strong>PMI</strong> (pointwise mutual information) misura di quanto la realtà scarta da lì.</p>
 <div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p>Siano \(P(a), P(b) \in (0,1]\) le probabilità marginali e \(P(a,b) \in [0,1]\) la congiunta, con \(P(a,b) \le \min(P(a), P(b))\). Per \(P(a,b) > 0\) si pone \(\text{PMI}(a;b) = \log_2\!\left[\dfrac{P(a,b)}{P(a)\,P(b)}\right] \in \mathbb{R}\). Caso \(P(a,b) = 0\) (mai insieme): \(\text{PMI} := -\infty\) per convenzione. Un evento mai osservato (\(P = 0\)) non ha PMI. È per questo che a valle si usa \(\text{PMI}^{+} = \max(0, \text{PMI})\), sempre finita e \(\ge 0\).</p>
+<p>Siano \(P(a), P(b) \in (0,1]\) le probabilità marginali e \(P(a;b) \in [0,1]\) la congiunta, con \(P(a;b) \le \min(P(a); P(b))\). Per \(P(a;b) > 0\) si pone \(\text{PMI}(a;b) = \log_2\!\left[\dfrac{P(a;b)}{P(a)\,P(b)}\right] \in \mathbb{R}\). Caso \(P(a;b) = 0\) (mai insieme): \(\text{PMI} := -\infty\) per convenzione. Un evento mai osservato (\(P = 0\)) non ha PMI. È per questo che a valle si usa \(\text{PMI}^{+} = \max(0; \text{PMI})\), sempre finita e \(\ge 0\).</p>
 </div>
-<div class="formula key">\[ \text{PMI}(a;b) \;=\; \log_2 \frac{P(a,b)}{P(a)\,P(b)} \]</div>
-<p>Lettura: PMI \(= 0\) → esattamente come il caso; <strong>positiva</strong> → compaiono insieme più del caso (legame); <strong>negativa</strong> → si evitano. Nella 3.2 si usa la \(\text{PMI}^{+} = \max(0, \text{PMI})\): i legami negativi vengono azzerati.</p>
+<div class="formula key">\[ \text{PMI}(a;b) \;=\; \log_2 \frac{P(a;b)}{P(a)\,P(b)} \]</div>
+<p>Lettura: PMI \(= 0\) → esattamente come il caso; <strong>positiva</strong> → compaiono insieme più del caso (legame); <strong>negativa</strong> → si evitano. Nella 3.2 si usa la \(\text{PMI}^{+} = \max(0; \text{PMI})\): i legami negativi vengono azzerati.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La PMI confronta quanto spesso due entità compaiono insieme con quanto capiterebbe se fossero indipendenti: sopra lo zero indica attrazione (più del caso), sotto lo zero repulsione (meno del caso), a zero nessun legame oltre il caso.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(P(a) = 0{,}1\), \(P(b) = 0{,}1\) → caso puro: \(P(a)\,P(b) = 0{,}01\).</p>
 <ol>
-<li>Osservato \(P(a,b) = 0{,}05\): rapporto \(5\) → \(\text{PMI} = \log_2 5 \approx 2{,}32\): forte legame.</li>
-<li>Osservato \(P(a,b) = 0{,}01\): rapporto \(1\) → \(\text{PMI} = 0\): indipendenti.</li>
-<li>Osservato \(P(a,b) = 0{,}001\): rapporto \(0{,}1\) → \(\text{PMI} = \log_2 0{,}1 \approx -3{,}32\): si evitano.</li>
+<li>Osservato \(P(a;b) = 0{,}05\): rapporto \(5\) → \(\text{PMI} = \log_2 5 \approx 2{,}32\): forte legame.</li>
+<li>Osservato \(P(a;b) = 0{,}01\): rapporto \(1\) → \(\text{PMI} = 0\): indipendenti.</li>
+<li>Osservato \(P(a;b) = 0{,}001\): rapporto \(0{,}1\) → \(\text{PMI} = \log_2 0{,}1 \approx -3{,}32\): si evitano.</li>
 </ol>
 </div>
 
 <div class="callout ex" id="ex-4"><span class="tag">Esercizi — §4</span>
 <ol>
-<li>\(P(a) = 0{,}2\), \(P(b) = 0{,}5\), \(P(a,b) = 0{,}1\). Calcola la PMI e interpreta.</li>
+<li>\(P(a) = 0{,}2\), \(P(b) = 0{,}5\), \(P(a;b) = 0{,}1\). Calcola la PMI e interpreta.</li>
 <li>Perché il confronto giusto è con \(P(a)\,P(b)\)? (Una frase, con la parola «indipendenza».)</li>
 </ol>
 <p class="note">Soluzioni in <a class="xref" href="#sol-4">fondo pagina</a>.</p>
@@ -250,7 +264,7 @@ a{color:var(--navy);}
 <table class="gl">
 <thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
-<tr><td>\(\log_2\)</td><td>logaritmo in base 2</td><td>l'esponente da dare a \(2\); cugino di \(\ln\), cambia solo l'unità</td><td>F3 §1</td></tr>
+<tr><td>\(\log_2\)</td><td>logaritmo in base 2</td><td>l'esponente da dare a \(2\); cugino di \(\ln\), cambia solo l'unità</td><td>F0.3 (log_b); qui la base 2</td></tr>
 <tr><td>bit</td><td>unità di sorpresa</td><td>la sorpresa di una moneta equa; una domanda sì/no</td><td>F3 §1</td></tr>
 <tr><td>\(H\), \(H_{\text{src}}\), \(H_{\text{content}}\)</td><td>entropia</td><td>sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera H)</td><td>F3 §2</td></tr>
 <tr><td>\(0 \cdot \log_2 0 := 0\)</td><td>convenzione</td><td>gli esiti impossibili non contribuiscono all'entropia</td><td>F3 §2</td></tr>

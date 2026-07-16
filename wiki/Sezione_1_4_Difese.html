@@ -146,14 +146,17 @@ a{color:var(--navy);}
 <p class="note">Pagina Sezione della wiki · paper §1.4. <strong>Bozza</strong>: schermo sì, carta no. La matematica pesante è nelle Fondamenta: qui la vedi combattere.</p>
 
 <h2 id="prerequisiti">Prerequisiti</h2>
-<p><a class="xref" href="F3_Teoria_informazione.html">F3</a> (entropia), <a class="xref" href="F5_Segnali_e_rilevamento.html">F5</a> (CUSUM, token bucket), <a class="xref" href="F6_Similarita_hashing_codifiche.html">F6</a> (shingling, MinHash, LSH), <a class="xref" href="Sezione_1_2_Score_reputazionali.html">1.2</a> (reputazione e soglie), e dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a> la logica di §1–§2.</p>
+<p><a class="xref" href="F3_Teoria_informazione.html">F3</a> (entropia), <a class="xref" href="F5_Segnali_e_rilevamento.html">F5</a> (CUSUM, token bucket), <a class="xref" href="F6_Similarita_hashing_codifiche.html">F6</a> (shingling, MinHash, LSH), <a class="xref" href="Sezione_1_2_Score_reputazionali.html">1.2</a> (reputazione e soglie), <a class="xref" href="F4_Statistica_e_ML.html">F4</a> (prodotto scalare \(\boldsymbol\theta^{\top}\mathbf{x}\), score lineare), e dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a> la logica di §1–§2.</p>
 
 <hr/>
 
 <h2 id="sec-1">1. Snowshoe: il carico distribuito</h2>
-<p>La racchetta da neve non sfonda perché <strong>distribuisce il peso</strong>. Lo <strong>snowshoe spamming</strong> fa lo stesso col volume: tanti IP e tanti domini <strong>freschi</strong>, ognuno sotto le soglie per-sorgente dei filtri della 1.2. Formalmente: se \(\theta^{*}\) è la soglia di volume per sorgente (l'asterisco-obiettivo della 1.3), lo spammer sceglie \(N\) sorgenti con volume \(v < \theta^{*}\) ciascuna, tali che</p>
-<div class="formula key">\[ N \cdot v \;=\; V_{\text{target}} \]</div>
-<p>Ogni sorgente, da sola, è invisibile («reputazione neutra»: nuova, non ancora in nessuna lista); il volume complessivo è intatto. La difesa per-IP è cieca <strong>per costruzione</strong>: bisogna vedere la campagna intera.</p>
+<p>Lo <strong>snowshoe spamming</strong> distribuisce il volume su molte sorgenti: tanti IP e tanti domini <strong>freschi</strong>, ognuno tenuto sotto le soglie per-sorgente dei filtri della 1.2. Sia \(\theta^{*} > 0\) la soglia di volume per sorgente (la convenzione «asterisco = obiettivo» della 1.3). Lo spammer fissa un volume per sorgente reale \(0 < v < \theta^{*}\) e impiega un numero intero di sorgenti \(N = \lceil V_{\text{target}} / v \rceil \in \mathbb{N}\), così che il volume complessivo raggiunga l'obiettivo \(V_{\text{target}} > 0\):</p>
+<div class="formula key">\[ N \cdot v \;\ge\; V_{\text{target}} \qquad\bigl(\text{uguaglianza quando } v \text{ divide } V_{\text{target}}\bigr) \]</div>
+<p>Più piccolo è \(v\), più sorgenti servono e più profonda è la mimetizzazione. Ogni sorgente, da sola, è invisibile («reputazione neutra»: nuova, non ancora in nessuna lista); il volume complessivo è intatto. La difesa per-IP è cieca <strong>per costruzione</strong>: bisogna vedere la campagna intera.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Come una racchetta da neve non sfonda la crosta perché ne distribuisce il peso su una superficie ampia, lo snowshoe distribuisce il volume su molte sorgenti: nessuna, da sola, pesa abbastanza da far scattare l'allarme per-sorgente.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Soglia \(\theta^{*} = 100\) email/giorno per IP, obiettivo \(V_{\text{target}} = 10.000\): bastano \(N = 200\) sorgenti a \(v = 50\) — metà soglia ciascuna, zero allarmi individuali, \(200 \cdot 50 = 10.000\) consegnate.</p>
 </div>
@@ -161,16 +164,19 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-2">2. La controffensiva: ricostruire la campagna</h2>
-<p>Se le sorgenti sono tante ma <strong>il messaggio è uno</strong>, la firma sta nel contenuto e nell'infrastruttura condivisa. Due reti da pesca, insieme:</p>
+<p>Se le sorgenti sono tante ma <strong>il messaggio è uno</strong>, la firma sta nel contenuto e nell'infrastruttura condivisa. Due segnali, combinati:</p>
 <p><strong>(a) Contenuto quasi-duplicato</strong> — è F6 in azione, tutta in fila: shingling (testo → insieme), MinHash (insieme → firma corta), LSH (firme → secchi di candidati con la curva a S). Milioni di email, e i quasi-fotocopia si ritrovano nello stesso secchio senza confrontare tutte le coppie.</p>
 <p><strong>(b) Infrastruttura condivisa</strong> — Costruiamo un <strong>grafo non orientato</strong>: i <strong>nodi</strong> (messaggi, IP, domini, URL, registrar) sono uniti da un <strong>arco</strong> quando condividono una relazione osservata (un messaggio e il suo IP; un messaggio e la sua URL). Una <strong>componente connessa</strong> è un insieme <strong>massimale</strong> di nodi collegati da un cammino di archi (classe della relazione di equivalenza «esiste un cammino»). La campagna emerge come una componente con molti IP ma pochi URL/registrar condivisi. (Il paper cita anche DBSCAN e community detection: algoritmi di raggruppamento più fini — nomi da riconoscere, non li serve smontare qui.)</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Una componente connessa è un'«isola» del grafo: partendo da un nodo e seguendo gli archi si raggiungono tutti e soli i nodi della stessa isola, mai quelli di un'altra. La campagna snowshoe è l'isola con molti IP di provenienza ma pochissime URL e registrar in comune.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-3">3. Le anomalie in numeri: CUSUM ed entropia</h2>
-<p>Sul <strong>volume</strong> lavora la vasca CUSUM di F5 §2: accumula gli sforamenti e coglie i cambi di regime fatti di tanti piccoli eccessi. Sulla <strong>forma del traffico</strong> lavora l'entropia di F3, con un rapporto che è la firma numerica dello snowshoe:</p>
-<div class="formula key">\[ \text{indice snowshoe} \;\propto\; \frac{H_{\text{src}}}{H_{\text{content}} + \varepsilon} \]</div>
-<p>Due simboli di contorno: \(\propto\) si legge «<strong>proporzionale a</strong>» (cresce e cala insieme a, senza fissare la scala); \(\varepsilon\) (epsilon) è un numero <strong>piccolissimo</strong> messo al denominatore solo per non dividere per zero.</p>
+<p>Sul <strong>volume</strong> lavora la vasca CUSUM di F5 §2: accumula gli sforamenti e coglie i cambi di regime fatti di tanti piccoli eccessi. Sulla <strong>forma del traffico</strong> lavora l'entropia di F3. Si fissano, sulla <strong>stessa finestra temporale</strong> \(W\) del traffico osservato, due entropie in bit: \(H_{\text{src}} = H(\text{IP sorgente})\), entropia della distribuzione degli IP di provenienza, e \(H_{\text{content}} = H(\text{cluster di contenuto})\), entropia della distribuzione dei contenuti. L'<strong>indice snowshoe</strong> è il numero \(\ge 0\) definito da</p>
+<div class="formula key">\[ \text{indice snowshoe} \;:=\; \frac{H_{\text{src}}}{H_{\text{content}} + \varepsilon} \]</div>
+<p>dove \(\varepsilon > 0\) è una costante piccola, di ordine dichiarato, messa al denominatore per non dividere per zero. Il simbolo \(\propto\) («<strong>proporzionale a</strong>») dice solo che l'indice cresce con \(H_{\text{src}}\) e cala con \(H_{\text{content}}\), senza fissare la scala; la definizione operativa qui è un'<strong>uguaglianza</strong>, perché una proporzionalità, lasciando libera la costante, non ammette una soglia assoluta.</p>
 <div class="callout intu"><span class="tag">Intuizione</span>
 <p>Lo snowshoe tende a sorgenti disperse (\(H_{\text{src}}\) alta) con contenuto quasi identico (\(H_{\text{content}}\) bassa), quindi rapporto alto; un mittente con un solo server e contenuti vari sta all'estremo opposto.</p>
 </div>
@@ -180,6 +186,9 @@ a{color:var(--navy);}
 <div class="callout ex"><span class="tag">Esempio numerico — coi numeri di F3</span>
 <p>Campagna: 4 IP a quote uguali (\(H_{\text{src}} = 2\) bit) e contenuto quasi-fotocopia (\(H_{\text{content}} = 0{,}24\)) → indice \(\approx 2/0{,}24 \approx 8{,}3\).</p>
 <p>Legittimo: un server dominante (\(H_{\text{src}} = 0{,}24\)) e contenuti vari (\(H_{\text{content}} = 2\)) → indice \(\approx 0{,}12\). Settanta volte di differenza: c'è margine per una soglia.</p>
+</div>
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>[INF] L'indice snowshoe è un'<strong>euristica</strong> di provenienza documentale, non una legge. La soglia di allarme va <strong>calibrata</strong> su dati etichettati (è quel passaggio a fissare la scala assoluta); senza calibrazione, e senza aver dichiarato la finestra \(W\) e l'ordine di \(\varepsilon\), sono confrontabili solo i <strong>rapporti</strong> fra casi, non i valori assoluti.</p>
 </div>
 
 <div class="callout ex" id="ex-3"><span class="tag">Esercizi — §1–§3</span>
@@ -195,13 +204,16 @@ a{color:var(--navy);}
 <h2 id="sec-4">4. L'autenticazione: SPF, DKIM, DMARC (la parte matematica)</h2>
 <p>Tre protocolli rispondono a «chi ha davvero inviato questa email?». Le carte d'identità in una riga ciascuna — il funzionamento fine è ingegneria, non matematica, e qui resta in superficie:</p>
 <ul>
-<li><strong>SPF</strong>: il dominio pubblica la lista degli IP autorizzati a inviare per lui. Esiti: pass, fail, e i grigi (softfail/neutral) che molti filtri non puniscono — e gli spammer lo sanno.</li>
-<li><strong>DKIM</strong>: una firma crittografica sul messaggio, verificata con la chiave pubblica del dominio firmatario \(d\!=\). (Anomalie note: chiavi corte, firme riusate, corpi firmati solo in parte.)</li>
+<li><strong>SPF</strong>: il dominio pubblica la lista degli IP autorizzati a inviare per lui. Esiti: pass, fail, e i grigi (softfail/neutral), che [INF] molti filtri spesso non puniscono.</li>
+<li><strong>DKIM</strong>: una firma crittografica sul messaggio, verificata con la chiave pubblica del dominio firmatario, indicato nel tag <code>d=</code> della firma DKIM. (Anomalie note: chiavi corte, firme riusate, corpi firmati solo in parte.)</li>
 <li><strong>DMARC</strong>: lega tutto all'identità <strong>visibile</strong> nel campo From, chiedendo l'<strong>allineamento</strong> dei domini. La sua logica è algebra booleana pura:</li>
 </ul>
 <div class="formula key">\[ \text{DMARC pass} \;\Longleftrightarrow\; \bigl(\text{SPF pass} \wedge \text{align}_{\text{SPF}}\bigr) \;\vee\; \bigl(\text{DKIM pass} \wedge \text{align}_{\text{DKIM}}\bigr) \]</div>
 <p>Due simboli: \(\vee\) è la <strong>o logica</strong> (l'<code>or</code>: basta un lato vero), sorella della \(\wedge\) di 1.3; \(\Longleftrightarrow\) si legge «<strong>se e solo se</strong>»: i due lati sono veri esattamente negli stessi casi. Lettura: passi se <strong>almeno una</strong> delle due strade è completa — autenticata <em>e</em> allineata col From. Lo spoofing classico (SPF pass su un dominio di comodo, From falsificato) muore proprio sull'allineamento.</p>
-<p>Il paper condensa le anomalie in uno <strong>score a bandierine rosse</strong>: politica violata \(+w_1\), SPF grigio \(+w_2\), dominio più giovane di 30 giorni \(+w_3\), e così via. Struttura familiare: è un mini \(\boldsymbol\theta^{\top}\mathbf{x}\) di F4 — pesi per indizi — e il totale diventa una feature per la reputazione della 1.2.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>DMARC lascia passare il messaggio se almeno una delle due strade è completa: SPF che autentica <em>e</em> allinea, oppure DKIM che firma <em>e</em> allinea. Falsificare il campo From non basta, perché rompe l'allineamento su entrambe le strade.</p>
+</div>
+<p>Il paper condensa le anomalie in uno <strong>score a bandierine rosse</strong> ([INF] — euristica, pesi e soglie non normativi): politica violata \(+w_1\), SPF grigio \(+w_2\), dominio più giovane di ~30 giorni \(+w_3\), e così via. Struttura familiare: è un mini \(\boldsymbol\theta^{\top}\mathbf{x}\) di F4 — pesi per indizi — e il totale diventa una feature per la reputazione della 1.2.</p>
 
 <hr/>
 
@@ -209,7 +221,7 @@ a{color:var(--navy);}
 <p>Quattro livelli, e la matematica la possiedi già tutta:</p>
 <ol>
 <li><strong>Rate limiting</strong> per sorgente: il token bucket di F5 §3 — raffiche fino a \(B\), regime a \(r\), secchio vuoto → 4xx.</li>
-<li><strong>Greylisting</strong>: al primo contatto mai visto (la tripletta IP + mittente + destinatario) si risponde «riprova più tardi». Un server vero ritenta con pazienza; molte botnet non hanno nemmeno la coda dei ritentativi.</li>
+<li><strong>Greylisting</strong>: al primo contatto mai visto (la tripletta IP + mittente + destinatario) si risponde «riprova più tardi». Un server vero ritenta con pazienza; [PROP] molte botnet non implementano la coda dei ritentativi (retry).</li>
 <li><strong>Reputazione e blocklist</strong> (la 1.2) come cancello d'ingresso.</li>
 <li><strong>Clustering retroattivo</strong>: identificata la campagna (§2), il verdetto si propaga a <strong>tutte</strong> le sorgenti dell'isola. È il colpo che rompe l'economia dello snowshoe: aggiungere la sorgente numero 201 non compra più nessuna invisibilità, perché si blocca <strong>per cluster</strong>, non per IP.</li>
 </ol>
@@ -247,7 +259,7 @@ a{color:var(--navy);}
 <tbody>
 <tr><td>\(\theta^{*}\), \(N\), \(v\), \(V_{\text{target}}\)</td><td>parametri snowshoe</td><td>soglia per sorgente; numero di sorgenti; volume per sorgente; obiettivo totale</td><td>1.4 §1</td></tr>
 <tr><td>grafo, nodo, arco</td><td>—</td><td>pallini e linee: oggetti e relazioni fra loro</td><td>1.4 §2</td></tr>
-<tr><td>componente connessa</td><td>—</td><td>l'«isola»: i nodi raggiungibili l'uno dall'altro sugli archi</td><td>1.4 §2</td></tr>
+<tr><td>componente connessa</td><td>—</td><td>in un grafo non orientato, insieme massimale di nodi uniti da un cammino di archi (l'«isola»)</td><td>1.4 §2</td></tr>
 <tr><td>\(\propto\)</td><td>proporzionale a</td><td>cresce e cala insieme a, senza fissare la scala</td><td>1.4 §3</td></tr>
 <tr><td>\(\varepsilon\)</td><td>epsilon</td><td>numero piccolissimo anti-divisione-per-zero</td><td>1.4 §3</td></tr>
 <tr><td>\(\vee\)</td><td>o logica</td><td>l'<code>or</code>: vera se almeno un lato è vero</td><td>1.4 §4</td></tr>

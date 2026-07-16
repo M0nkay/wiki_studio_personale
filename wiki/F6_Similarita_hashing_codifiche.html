@@ -148,15 +148,18 @@ a{color:var(--navy);}
 <h2 id="prerequisiti">Prerequisiti</h2>
 <p>Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: cardinalità e intersezione (§1.3), unione (§2.2), probabilità (§1). Da <a class="xref" href="F4_Statistica_e_ML.html">F4</a>: le potenze \(a^b\).</p>
 
-<div class="callout warn"><span class="tag">Trappola dei simboli — lettere affollate in questa pagina</span>
-<p>(1) \(s\) qui è la <strong>similarità</strong> tra due documenti, non la forza del prior della 1.1. (2) \(r\) fa <strong>due lavori qui dentro</strong>: righe per banda (§5) e resto della divisione (§6) — oltre ai lavori delle altre pagine. (3) \(k\) pure: numero di funzioni hash (§4) e parametro di Rice (§6). (4) \(N\) è il <strong>numero di uscite possibili dell'hash</strong> (§1): questo \(N\) ≠ numero di pagine (2.1), ≠ numero di sorgenti (1.4). Il contesto della formula decide sempre.</p>
+<div class="callout warn"><span class="tag">Trappola — simboli affollati in questa pagina</span>
+<p>(1) \(s\) qui è la <strong>similarità</strong> tra due documenti, non la forza del prior della 1.1. (2) \(r\) fa <strong>due lavori qui dentro</strong>: righe per banda (§5) e resto della divisione (§6) — oltre ai lavori delle altre pagine. (3) \(k\) fa <strong>due lavori-simbolo qui dentro</strong>: taglia del gruppo di anonimato (\(k\)-anonimità, §2) e parametro di Rice (§6) — oltre a successi (1.1) e conteggi (F4). Il §4 <strong>non</strong> usa \(k\): le funzioni hash del min-hash sono 128, un numero, non un simbolo. (4) \(N\) è il <strong>numero di uscite possibili dell'hash</strong> (§1): questo \(N\) ≠ numero di pagine (2.1), ≠ numero di sorgenti (1.4). Il contesto della formula decide sempre.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-1">1. Funzioni di hash e collisioni</h2>
-<p>Da programmatore la conosci: una <strong>funzione di hash</strong> prende un input qualsiasi (una URL, un documento) e restituisce un numero di <strong>lunghezza fissa</strong>, in modo deterministico ma «ben mescolato»: output indistinguibili dal caso, e input simili finiscono lontani. SHA-256, usata dal paper, produce \(32\) <strong>byte</strong> (un byte = 8 <strong>bit</strong>, quindi \(256\) bit).</p>
+<p>Una <strong>funzione di hash</strong> prende un input qualsiasi (una URL, un documento) e restituisce un numero di <strong>lunghezza fissa</strong>, in modo deterministico ma «ben mescolato»: output indistinguibili dal caso, e input simili finiscono lontani. SHA-256, usata dal paper, produce \(32\) <strong>byte</strong> (un byte = 8 <strong>bit</strong>, quindi \(256\) bit; qui «bit» è la cifra binaria, non il bit di sorpresa di F3).</p>
 <p>Una <strong>collisione</strong> è quando due input diversi ricevono lo stesso output. Per un hash ben mescolato con \(N\) uscite possibili, una coppia fissata collide con probabilità \(1/N\): con \(N\) astronomico, quasi mai — ed è un fatto che il paper userà <strong>in entrambe le direzioni</strong>: evitare le collisioni (verifica finale) e <em>cercarle</em> apposta (privacy, §2; MinHash, §4).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Chi programma la conosce già: è l'impronta corta e ripetibile di un dato lungo, come la chiave di una tabella hash. Lo stesso input dà sempre la stessa impronta; cambiando un solo carattere in ingresso, l'impronta cambia in modo imprevedibile. Una collisione è due impronte uguali per dati diversi: con tante uscite possibili è un evento raro, ma non impossibile.</p>
+</div>
 <div class="callout warn"><span class="tag">Onestà</span>
 <p>La probabilità \(1/N\) assume uscite <strong>uniformi e indipendenti</strong> per la coppia fissata <strong>[INF]</strong>.</p>
 </div>
@@ -165,11 +168,14 @@ a{color:var(--navy);}
 
 <h2 id="sec-2">2. Prefissi e k-anonimità</h2>
 <p>Il <strong>prefisso</strong> di un hash sono i suoi primi byte: il paper usa 4 byte = 32 bit, quindi \(2^{32} \approx 4{,}3\) miliardi di prefissi possibili. Idea di Safe Browsing: il telefono conserva solo i <strong>prefissi</strong> delle URL pericolose, e quando c'è un match chiede al server «dammi gli hash completi di questo prefisso» — inviando <strong>solo il prefisso</strong>.</p>
-<p>La privacy sta nella <strong>k-anonimità</strong>: nasconderti in un gruppo di almeno \(k\) indistinguibili. Siccome <strong>innumerevoli URL diverse</strong> condividono lo stesso prefisso corto, il server non può dedurre quale stavi visitando. Due conti del paper, ora leggibili:</p>
+<p>La privacy sta nella <strong>k-anonimità</strong>: un elemento resta nascosto in un gruppo di almeno \(k\) elementi indistinguibili. Siccome <strong>innumerevoli URL diverse</strong> condividono lo stesso prefisso corto, il server non può dedurre quale URL fosse in visita. Due conti del paper, ora leggibili:</p>
 <div class="formula key">\[ \mathbb{E}[\#\text{collisioni}] \approx \frac{D}{2^{32}} \qquad\quad \Pr[\text{match} \mid \text{URL sicura}] \approx \frac{P}{2^{32}} \]</div>
 <p>dove \(D\) = hash completi nel database e \(P\) = prefissi in lista. Con \(P = 4{,}3\) milioni: \(4{,}3 \cdot 10^6 / 4{,}3 \cdot 10^9 = 0{,}001\) — una navigazione sicura su mille fa scattare (per puro caso) la verifica completa. Il match di prefisso <strong>non è un verdetto</strong>: è solo un campanello.</p>
 <div class="callout warn"><span class="tag">Onestà</span>
 <p>Le due formule ereditano la stessa idealizzazione del \(1/N\) di §1: assumono uscite <strong>uniformi e indipendenti</strong> dell'hash <strong>[INF]</strong>.</p>
+</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Mandare solo il prefisso è come chiedere in biblioteca «i libri che iniziano per SIS» invece di nominare il titolo esatto: la richiesta ricade su molti candidati, e chi ascolta non sa quale interessa davvero. Più corto è il prefisso, più grande è il gruppo in cui ci si confonde — e più spesso scatta una verifica a vuoto.</p>
 </div>
 
 <div class="callout ex" id="ex-2"><span class="tag">Esercizi — §1–§2</span>
@@ -193,6 +199,9 @@ a{color:var(--navy);}
 <p>\(A = \{a, b, c, d\}\), \(B = \{c, d, e\}\): intersezione \(\{c, d\}\) → \(2\); unione \(\{a,b,c,d,e\}\) → \(5\); \(J = 2/5 = 0{,}4\).</p>
 </div>
 <p>Ma un'email è testo, non un insieme. Lo <strong>shingling</strong> fa il ponte: spezza il testo in <strong>finestre scorrevoli</strong> di parole consecutive. «il gatto dorme bene», con finestre da 2: \(\{\)«il gatto», «gatto dorme», «dorme bene»\(\}\). Documento → insieme di shingle → Jaccard tra documenti. Due spam quasi-fotocopia condividono quasi tutti gli shingle: \(J\) vicino a \(1\).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Jaccard misura «quanta roba è in comune sul totale delle cose viste»: se due insiemi coincidono vale \(1\), se sono disgiunti vale \(0\). Lo shingling serve a trasformare un testo in un insieme di frammentini, così che due documenti quasi identici finiscano con quasi gli stessi frammenti e un Jaccard vicino a \(1\). Un documento più corto della finestra non produce alcun frammento: è l'insieme vuoto, il caso limite trattato sopra.</p>
+</div>
 
 <hr/>
 
@@ -205,19 +214,25 @@ a{color:var(--navy);}
 <p>Con la funzione di hash <strong>collidente</strong> del §1 l'uguaglianza vale solo in modo approssimato <strong>[INF]</strong>.</p>
 </div>
 <p>Una moneta sola dice poco: si usano tante funzioni hash indipendenti (il paper: 128) → la <strong>firma</strong> del documento è la lista dei minimi, e la frazione di posizioni uguali <strong>stima</strong> \(J\). Con \(J = 0{,}4\) e 100 hash: attese \(\approx 40\) coincidenze.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Mescolando a caso tutti gli elementi dei due insiemi e guardando solo chi finisce primo, la probabilità che il primo appartenga a entrambi è esattamente la loro quota condivisa, cioè \(J\). Un solo mescolamento è un lancio di moneta sbilanciata verso \(J\); ripetendolo con molte funzioni di hash e contando quante volte i due minimi coincidono, si stima \(J\) senza mai confrontare gli insiemi elemento per elemento.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-5">5. LSH: la curva a S</h2>
-<p>Restano troppi confronti a coppie. <strong>LSH</strong> (locality-sensitive hashing) li evita: taglia la firma in \(b\) <strong>bande</strong> da \(r\) <strong>righe</strong> ciascuna, e mette nello stesso secchio i documenti identici <strong>in almeno una banda intera</strong>. Solo quelli diventano candidati. La probabilità, per similarità \(s\):</p>
+<p>Restano troppi confronti a coppie. <strong>LSH</strong> (locality-sensitive hashing) li evita. Sia \(n\) la lunghezza della firma MinHash. Con interi \(r \geq 1\), \(b \geq 1\) tali che \(b \cdot r = n\), si divide la firma in \(b\) <strong>bande</strong> da \(r\) <strong>righe</strong> ciascuna, e si mettono nello stesso secchio i documenti identici <strong>in almeno una banda intera</strong>. Solo quelli diventano candidati. La probabilità che una coppia a similarità \(s\) diventi candidata è:</p>
 <div class="formula key">\[ P_{\text{cand}}(s) \;=\; 1 - \bigl(1 - s^{\,r}\bigr)^{b} \]</div>
-<p>Lettura: una riga coincide con probabilità \(s\); una banda intera con \(s^r\); «almeno una banda su \(b\)» è il complemento di «nessuna». Il risultato è una <strong>curva a S</strong>: quasi zero per i dissimili, quasi uno per i simili, con la transizione attorno a \(\approx (1/b)^{1/r}\) — formula indicativa della zona dove la curva si impenna, non un 50% esatto.</p>
+<p>Lettura: una riga coincide con probabilità \(s\); una banda intera con \(s^r\); «almeno una banda su \(b\)» è il complemento di «nessuna». Il risultato è una <strong>curva a S</strong>: quasi zero per i dissimili, quasi uno per i simili, con la transizione attorno a \(\approx (1/b)^{1/r}\) — formula indicativa della zona dove la curva si impenna, non un 50% esatto. A firma fissa \(r\) e \(b\) non sono indipendenti: essendo \(b \cdot r = n\), alzare \(r\) (bande più selettive) obbliga ad abbassare \(b\).</p>
 <div class="callout ex"><span class="tag">Esempio numerico — \(r = 2\), \(b = 3\) (soglia \(\approx 0{,}58\))</span>
 <ol>
 <li>\(s = 0{,}3\): \(s^r = 0{,}09\); \(P = 1 - 0{,}91^3 \approx 0{,}25\) — i dissimili restano quasi tutti fuori.</li>
 <li>\(s = 0{,}9\): \(s^r = 0{,}81\); \(P = 1 - 0{,}19^3 \approx 0{,}99\) — i quasi-duplicati non scappano.</li>
 </ol>
-<p>Regolando \(r\) e \(b\) sposti la soglia: è la manopola del rilevatore di campagne della 1.4.</p>
+<p>Regolando \(r\) e \(b\) (con \(b \cdot r = n\) fisso) si sposta la soglia: è la manopola del rilevatore di campagne della 1.4.</p>
+</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Una banda scatta solo se tutte le sue righe coincidono: è un filtro «tutto o niente» che le coppie poco simili superano di rado. Con più bande si moltiplicano le occasioni di finire nello stesso secchio. Il gioco fra righe per banda e numero di bande sagoma una curva a S: sotto la soglia quasi nessuna coppia passa, sopra quasi tutte. Righe più lunghe alzano la soglia, più bande la abbassano.</p>
 </div>
 
 <div class="callout ex" id="ex-5"><span class="tag">Esercizi — §3–§5</span>
@@ -231,15 +246,18 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-6">6. Rice–Golomb: comprimere una lista di numeri</h2>
-<p>Sezione 4 del paper: il telefono scarica <strong>milioni di prefissi</strong> — vanno compressi. Ricetta in tre mosse: <strong>ordina</strong> i numeri, tieni le <strong>differenze</strong> (delta \(\delta\)) tra consecutivi — piccole, se i numeri sono fitti — e codifica ogni delta così:</p>
+<p>Sezione 4 del paper: il telefono scarica <strong>milioni di prefissi</strong> — vanno compressi. Ricetta: <strong>ordina</strong> i numeri \(x_1 < \dots < x_n\); <strong>trasmetti \(x_1\) per esteso</strong>; per \(i \geq 2\) calcola il delta \(\delta_i = x_i - x_{i-1}\) tra consecutivi — piccolo, se i numeri sono fitti — e codifica ogni delta così:</p>
 <div class="formula key">\[ \delta \;=\; q \cdot 2^{k} + r \qquad q = \bigl\lfloor \delta / 2^{k} \bigr\rfloor, \quad r = \delta \bmod 2^{k} \]</div>
-<p>Simboli nuovi, tutti da programmatore: \(\lfloor \cdot \rfloor\) è il <strong>floor</strong>, arrotonda in giù all'intero (\(\lfloor 2{,}75 \rfloor = 2\)); \(\bmod\) è il <strong>resto della divisione</strong> (il tuo <code>%</code>); \(k\) è il parametro di Rice, fissato a monte. Poi: il quoziente \(q\) si scrive in <strong>unario</strong> (\(q\) bit a 1 seguiti da uno 0: contare coi segni), il resto \(r\) nei suoi \(k\) bit binari.</p>
+<p>Simboli nuovi: \(\lfloor \cdot \rfloor\) è il <strong>floor</strong>, arrotonda in giù all'intero (\(\lfloor 2{,}75 \rfloor = 2\)); \(\bmod\) è il <strong>resto della divisione intera</strong>; \(k\) è il parametro di Rice, fissato a monte. Poi: il quoziente \(q\) si scrive in <strong>unario</strong> (\(q\) bit a 1 seguiti da uno 0: contare coi segni), il resto \(r\) nei suoi \(k\) bit binari.</p>
 <div class="callout ex"><span class="tag">Esempio numerico — \(k = 2\) (quindi \(2^k = 4\))</span>
 <ol>
 <li>\(\delta = 11\): \(q = \lfloor 11/4 \rfloor = 2\), \(r = 11 \bmod 4 = 3\) → unario «110» + binario «11» → <strong>11011</strong> (5 bit).</li>
 <li>\(\delta = 2\): \(q = 0\), \(r = 2\) → «0» + «10» → <strong>010</strong> (3 bit).</li>
 </ol>
-<p>Delta piccoli → \(q\) piccoli → codici corti: la compressione premia i numeri fitti. La decodifica ricostruisce i delta e li <strong>somma in cascata</strong> dal primo valore (somma prefissa).</p>
+<p>Delta piccoli → \(q\) piccoli → codici corti: la compressione premia i numeri fitti. La decodifica parte da \(x_1\) (trasmesso per esteso) e somma i delta in cascata (somma prefissa) per ricostruire \(x_2, \dots, x_n\).</p>
+</div>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Invece dei numeri interi si spediscono i salti tra un numero e il successivo: se i valori sono fitti, i salti sono piccoli e occupano pochi bit. Il primo numero non ha un predecessore da cui misurare il salto, quindi va spedito per intero; da lì la somma progressiva dei salti restituisce tutta la lista. La codifica di Rice regola, col parametro \(k\), quanti bit riservare alla parte piccola del salto.</p>
 </div>
 
 <div class="callout ex" id="ex-6"><span class="tag">Esercizi — §6</span>
@@ -288,7 +306,8 @@ a{color:var(--navy);}
 <tr><td>\(J(A;B)\)</td><td>similarità di Jaccard</td><td>\(|A \cap B| / |A \cup B|\): quota condivisa sul totale distinto</td><td>F6 §3</td></tr>
 <tr><td>shingle</td><td>finestra scorrevole</td><td>frammento di parole consecutive; trasforma un testo in un insieme</td><td>F6 §3</td></tr>
 <tr><td>\(h_{\min}\)</td><td>min-hash</td><td>il minimo degli hash degli elementi; coincide con prob. \(= J\)</td><td>F6 §4</td></tr>
-<tr><td>\(s\), \(r\), \(b\)</td><td>similarità; righe; bande</td><td>parametri LSH (questo \(s\) ≠ forza del prior; questo \(r\) ≠ resto, ≠ tasso)</td><td>F6 §5</td></tr>
+<tr><td>\(s\), \(r\), \(b\), \(n\)</td><td>similarità; righe; bande; lunghezza firma</td><td>parametri LSH con \(b \cdot r = n\) (questo \(s\) ≠ forza del prior; questo \(r\) ≠ resto, ≠ tasso)</td><td>F6 §5</td></tr>
+<tr><td>\(P_{\text{cand}}(s)\)</td><td>probabilità di candidatura</td><td>probabilità che una coppia a similarità \(s\) diventi candidata LSH: \(1 - (1 - s^r)^b\)</td><td>F6 §5</td></tr>
 <tr><td>\(\lfloor \cdot \rfloor\)</td><td>floor</td><td>arrotonda in giù all'intero: \(\lfloor 2{,}75 \rfloor = 2\)</td><td>F6 §6</td></tr>
 <tr><td>\(\bmod\)</td><td>modulo</td><td>resto della divisione intera (il <code>%</code>)</td><td>F6 §6</td></tr>
 <tr><td>\(\delta\), \(q\), \(k\) (Rice)</td><td>delta; quoziente; parametro</td><td>differenza tra consecutivi; \(\lfloor \delta/2^k \rfloor\) in unario; taglia del resto</td><td>F6 §6</td></tr>

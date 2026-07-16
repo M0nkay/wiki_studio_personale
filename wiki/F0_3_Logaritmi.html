@@ -155,7 +155,7 @@ a{color:var(--navy);}
 <p>Coppia da tenere insieme:</p>
 <div class="formula key">\[ 2^3 = 8 \qquad\Longleftrightarrow\qquad \log_2 8 = 3 \]</div>
 <p>(\(\Longleftrightarrow\) si legge «se e solo se»: le due scritture dicono lo stesso fatto, da due lati.)</p>
-<div class="callout intu"><span class="tag">Una frase che risolve tutto</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
 <p>Il logaritmo è <strong>«a quale esponente devo elevare la base?»</strong>. Ogni volta che vedi \(\log\), traduci in questa domanda e sei a posto.</p>
 </div>
 
@@ -166,12 +166,12 @@ a{color:var(--navy);}
 <p>Siano \(b>0\) con \(b\neq1\) e \(c>0\). Il logaritmo \(\log_b c\) è l'<strong>unico</strong> esponente \(x\) tale che \(b^x=c\) (esiste ed è unico perché, con \(b>0,\ b\neq1\), la potenza \(b^x\) assume ogni valore positivo una sola volta). Fuori da queste condizioni — base \(\le0\) o \(=1\), argomento \(\le0\) — il logaritmo non è definito.</p>
 </div>
 <p>Il numero piccolo in basso, \(b\), è la <strong>base</strong> (la stessa idea di base della potenza); \(c\) è l'<strong>argomento</strong> (il risultato che vuoi raggiungere).</p>
-<div class="callout ex"><span class="tag">Esempio numerico — passo per passo</span>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Quanto vale \(\log_{10} 1000\)? La domanda: «10 elevato a quanto fa 1000?». Poiché \(10^3 = 1000\), la risposta è \(3\). Quindi \(\log_{10} 1000 = 3\).</p>
 <p>Altri: \(\log_2 4 = 2\) (perché \(2^2 = 4\)); \(\log_2 8 = 3\); \(\log_{10} 100 = 2\).</p>
 </div>
-<div class="callout ex"><span class="tag">Due valori speciali</span>
-<p>\(\log_b 1 = 0\) sempre: perché \(b^0 = 1\) (F0.2) — per ottenere 1 non elevo a niente. E \(\log_b b = 1\): per ottenere la base basta l'esponente 1.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>Per ogni base ammessa (\(b>0,\ b\neq1\)): \(\log_b 1=0\), perché \(b^0=1\); e \(\log_b b=1\).</p>
 </div>
 
 <hr/>
@@ -182,8 +182,11 @@ a{color:var(--navy);}
 <li><strong>Base 2</strong> → \(\log_2\). È «in quanti dimezzamenti / raddoppi». Vive nella teoria dell'informazione (F3): i bit.</li>
 <li><strong>Base \(e\)</strong> → si scrive \(\ln\) (elle-enne), detto <strong>logaritmo naturale</strong>. Qui \(e \approx 2{,}718\) è un numero speciale della matematica (come \(\pi\)). Vive nella regressione logistica e nel metodo di Fisher.</li>
 </ul>
-<div class="callout warn"><span class="tag">Attenzione alla scrittura</span>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>\(\ln x\) è solo un <strong>nome corto</strong> per \(\log_e x\): stessa identica idea, base \(e\). E \(\log\) senza base scritta, in questa wiki, va sempre letto guardando il contesto (di solito \(\ln\) o \(\log_2\)). Non ti serve calcolare \(\ln\) a mano: si legge dalla calcolatrice. Ti serve <strong>capire cosa chiede</strong>.</p>
+</div>
+<div class="callout nb"><span class="tag">Onestà</span>
+<p>\(e\) (numero di Nepero, \(\approx 2{,}718\)) è qui trattato come costante nota, come \(\pi\); la sua definizione (limite/serie) è fuori dal livello F0.x.</p>
 </div>
 
 <hr/>
@@ -193,8 +196,10 @@ a{color:var(--navy);}
 <p>Per \(a>0\) e \(b>0\), e con la stessa base su tutti i logaritmi:</p>
 <div class="formula key">\[ \log(a\cdot b)=\log a+\log b. \]</div>
 <p>(La positività serve: entrambi i logaritmi a destra devono esistere.)</p>
-<p><strong>Intuizione.</strong> Il logaritmo <strong>smonta le moltiplicazioni in addizioni</strong>. E perché è utile? Perché moltiplicare tanti numeri piccoli (tante probabilità, nella 1.1) porta a numeri minuscoli che il computer non gestisce bene; sommare i loro logaritmi, invece, è stabile. È il trucco che nella 1.1 (§5.2) evita la «degenerazione numerica».</p>
-<div class="callout ex"><span class="tag">Esempio numerico — la regola in azione</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La somma di logaritmi resta in una scala gestibile, dove il prodotto di molte probabilità collasserebbe verso zero (1.1 §5.2).</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>Verifichiamo con numeri tondi in base 10. \(\log_{10}(100 \cdot 1000)\):</p>
 <ol>
 <li>A sinistra: \(100 \cdot 1000 = 100\,000 = 10^5\) → \(\log_{10} 100\,000 = 5\).</li>
@@ -202,7 +207,7 @@ a{color:var(--navy);}
 </ol>
 <p>Uguali. ✓ Il prodotto (a sinistra) è diventato somma (a destra).</p>
 </div>
-<div class="callout deep"><span class="tag">Più a fondo (opzionale) — la regola gemella</span>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale)</span>
 <p>Come le potenze avevano il gemello con la divisione, anche il log. Per \(a>0,\ b>0\): \(\log\dfrac{a}{b}=\log a-\log b\) e \(\log(a^n)=n\log a\). (Per \(a<0\) con \(a^n>0\) vale \(\log(a^n)=n\log|a|\): \(\log a\) da solo non esiste.) Tutte figlie della stessa idea: il log abbassa di un livello — potenza→prodotto, prodotto→somma.</p>
 </div>
 

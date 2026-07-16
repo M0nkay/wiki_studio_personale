@@ -143,7 +143,7 @@ a{color:var(--navy);}
 <nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Problema</a><a href="#sec-2">§2 Flusso</a><a href="#sec-3">§3 Privacy</a><a href="#sec-4">§4 4 byte</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F6_Similarita_hashing_codifiche.html">↩ F6</a><a href="#top">↑ inizio</a></nav>
 
 <h1 id="top">4.1 — Safe Browsing: blacklist a prefissi di hash <span class="badge bozza">BOZZA</span></h1>
-<p class="note">Pagina Sezione della wiki · paper §4.1. <strong>Bozza</strong>: schermo sì, carta no. La matematica è tutta in F6 §1–§2: qui la vedi montata.</p>
+<p class="note">Pagina Sezione della wiki · paper §4.1. <strong>Bozza</strong>: schermo sì, carta no. La matematica è tutta in F6 §1–§2: qui è montata.</p>
 
 <h2 id="prerequisiti">Prerequisiti</h2>
 <p><a class="xref" href="F6_Similarita_hashing_codifiche.html">F6</a> §1 (hash e collisioni) e §2 (prefissi, k-anonimità).</p>
@@ -151,29 +151,75 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. Il problema: tre vincoli in collisione</h2>
-<p>Milioni di URL pericolose, miliardi di dispositivi, e tre vincoli: (a) il controllo deve avvenire <strong>a ogni navigazione</strong>, in millisecondi; (b) la lista non entra tutta sul telefono; (c) la cronologia dell'utente <strong>non deve finire al server</strong>. Safe Browsing risolve tutti e tre con lo stesso trucco: i <strong>prefissi di hash</strong>.</p>
+<p>Milioni di URL pericolose, miliardi di dispositivi, e tre vincoli: (a) il controllo deve avvenire <strong>a ogni navigazione</strong>, in millisecondi; (b) la lista non entra tutta sul telefono; (c) la cronologia dell'utente <strong>non deve finire al server</strong>. Safe Browsing affronta tutti e tre con lo stesso meccanismo: i <strong>prefissi di hash</strong>. Sul vincolo (c) la garanzia è parziale, non assoluta: si veda l'<em>Onestà</em> al §3.</p>
+
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Invece di spedire al server la URL da controllare, il dispositivo ne spedisce solo un troncone dell'impronta: abbastanza per farsi rispondere «qui potrebbe esserci un problema», troppo poco per rivelare quale pagina si stava aprendo. Lo stesso troncone tiene piccola la lista sul telefono e rapido il confronto.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-2">2. Il flusso di verifica, in cinque passi</h2>
 <ol>
-<li><strong>Canonicalizzazione</strong>: la URL viene riscritta in forma standard (minuscole, niente parti ridondanti) — così una stessa pagina ha un solo hash.</li>
+<li><strong>Canonicalizzazione</strong>: la URL viene riscritta in forma standard (minuscole, parti ridondanti rimosse) — così varianti banali della stessa URL collassano in un unico hash.</li>
 <li><strong>Hash</strong>: SHA-256 della URL canonica (F6 §1).</li>
 <li><strong>Confronto locale</strong>: i primi 4 byte contro il database di <strong>prefissi</strong> che il dispositivo tiene in locale. Nessun match (il caso normale): via libera, <strong>zero rete</strong>.</li>
 <li><strong>Match di prefisso</strong>: il dispositivo chiede al server <strong>gli hash completi di quel prefisso</strong> — inviando solo il prefisso.</li>
 <li><strong>Verdetto locale</strong>: il confronto finale tra l'hash completo della URL e quelli ricevuti avviene <strong>sul dispositivo</strong>. Solo un match completo fa scattare l'avviso.</li>
 </ol>
-<p>Nota bene il disegno: la URL, e perfino il suo hash completo, <strong>non lasciano mai il telefono</strong>.</p>
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Sia \(U\) l'insieme delle URL sintatticamente valide. La <strong>canonicalizzazione</strong> è una funzione \(c:U\to U\), idempotente (\(c(c(u))=c(u)\)), che riporta una URL a una forma normale secondo regole fissate — host in minuscolo, componenti ridondanti rimosse <strong>[DOC]</strong>. Se \(u_1,u_2\in U\) differiscono solo per varianti banali (maiuscole/minuscole, componenti ridondanti) allora \(c(u_1)=c(u_2)\), dunque \(\mathrm{SHA\text{-}256}(c(u_1))=\mathrm{SHA\text{-}256}(c(u_2))\). Il viceversa non vale: URL genuinamente distinte (http/https, host www/non-www) possono avere forme canoniche diverse e quindi hash diversi.</p>
+</div>
+
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Prima di confrontare, ogni indirizzo viene scritto nella stessa forma. Le differenze che non contano — una maiuscola, uno slash finale — spariscono e non generano hash diversi; le differenze che contano restano e producono hash diversi.</p>
+</div>
+
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Il <strong>full hash</strong> (hash completo) di una URL canonica \(u\) è l'intero output \(\mathrm{SHA\text{-}256}(c(u))\): una stringa di \(256\) bit, cioè \(32\) byte. Il <em>prefisso</em> confrontato in locale (passo 3) è la sua troncatura ai primi \(4\) byte. Il verdetto finale (passo 5) è il test di uguaglianza tra il full hash della URL e i full hash ricevuti dal server.</p>
+</div>
+
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il prefisso serve solo a filtrare in fretta; l'identità vera di una URL è il suo hash completo. Due hash completi uguali indicano la stessa URL canonica, mentre un prefisso uguale è solo un indizio.</p>
+</div>
+
+<p>Si osservi il disegno: la URL, e perfino il suo hash completo, <strong>non lasciano mai il dispositivo</strong>.</p>
 
 <hr/>
 
 <h2 id="sec-3">3. La matematica in gioco (richiami F6, coi numeri)</h2>
-<p>Dal §2 di F6, già tuoi: la probabilità che una URL <strong>sicura</strong> becchi per caso un prefisso in lista è \(\approx P/2^{32}\); con \(P = 4{,}3\) milioni di prefissi fa \(\approx 0{,}1\%\) — una navigazione su mille attiva il passo 4 <strong>per puro rumore</strong>. Ed è proprio quel rumore a comprare la privacy: Dietro ogni prefisso ricade un numero enorme di URL possibili: il server vede il prefisso, non la URL. La protezione è una <strong>k-anonimità [INF]</strong> — nasconde la URL in un gruppo di indistinguibili <em>nella misura in cui</em> il traffico reale verso quel prefisso non è dominato da un'unica pagina. Non è segretezza assoluta: il match di prefisso è un campanello, mai un verdetto.</p>
+<p>Dal §2 di F6: la probabilità che una URL <strong>sicura</strong> (non in lista) collida per caso con un prefisso in lista è \(\approx P/2^{32}\); con \(P \approx 4{,}3\) milioni di prefissi <strong>[DOC]</strong> fa \(\approx 0{,}1\%\) — una navigazione su mille attiva il passo 4 <strong>per puro rumore</strong>. È quel rumore a comprare la privacy. Dietro ogni prefisso ricade un numero enorme di URL possibili: il server vede il prefisso, non la URL. La protezione è una <strong>k-anonimità [INF]</strong> — nasconde la URL in un gruppo di indistinguibili <em>nella misura in cui</em> il traffico reale verso quel prefisso non è dominato da un'unica pagina. Non è segretezza assoluta: il match di prefisso è un campanello, mai un verdetto.</p>
+
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Sia \(P\) il numero di prefissi <strong>distinti</strong> in lista, con \(0\le P\le 2^{32}\). Modellando i primi 4 byte dell'hash come uniformi su \(\{0,1\}^{32}\) e indipendenti tra URL <strong>[INF]</strong>, la probabilità che una URL non in lista collida con almeno un prefisso è il numero in \([0,1]\)
+\[q(P)=1-\left(1-2^{-32}\right)^{P}.\]
+Per \(P\ll 2^{32}\) vale l'approssimazione \(q(P)\approx P/2^{32}\), da cui \(q\le 1\) e «lista raddoppiata → rumore raddoppiato», a meno di una correzione per collisioni tra prefissi \(<0{,}1\%\). Fuori da questo regime la forma esatta è concava e satura a \(1\); presa alla lettera, \(P/2^{32}\) con \(P>2^{32}\) darebbe un valore \(>1\), che non è una probabilità.</p>
+</div>
+
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Ogni prefisso in lista è un bersaglio da 4 byte nello spazio degli hash. Più bersagli ci sono, più è facile centrarne uno per caso. Finché coprono una frazione minima dello spazio, la probabilità di un colpo casuale cresce quasi in proporzione al loro numero.</p>
+</div>
+
+<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
+<p>Fissato un prefisso, il suo <strong>insieme di anonimato</strong> è l'insieme delle URL compatibili con quel prefisso; il prefisso realizza <strong>k-anonimità</strong> quando tale insieme ha cardinalità \(\ge k\). Il parametro \(k\) conta le URL <em>combinatoriamente</em> compatibili, non la distribuzione del traffico effettivamente realizzato: l'informazione che il server ricava dal prefisso dipende da quest'ultima, non da \(k\) <strong>[INF]</strong>.</p>
+</div>
+
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il prefisso mette la URL richiesta in mezzo a molte altre che iniziano nello stesso modo: guardando solo il prefisso non si distingue quale sia. La folla nasconde bene finché nessun singolo indirizzo domina il traffico verso quel prefisso.</p>
+</div>
+
+<div class="callout warn"><span class="tag">Onestà</span>
+<p>«Il server non individua la URL» non è una garanzia assoluta ma una protezione <strong>condizionata</strong>: regge sull'ipotesi, qui non dimostrata, che il traffico reale verso un prefisso non sia dominato da un'unica pagina popolare <strong>[INF]</strong>. Se lo fosse, il prefisso rivelerebbe di fatto la URL. Il conteggio \(k\) misura le URL <em>possibili</em>, non quelle <em>effettivamente visitate</em>.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-4">4. Perché proprio 4 byte</h2>
-<p>La lunghezza del prefisso è una <strong>manopola</strong>: più corto → gruppo di anonimato più grande (privacy su) ma più falsi campanelli (banda e latenza su); più lungo → l'inverso, fino a distruggere la k-anonimità. I 4 byte sono il punto d'equilibrio adottato <strong>[INF]</strong>: falsi campanelli rari (\(\sim 0{,}1\%\)) e anonimato ancora enorme.</p>
+<p>La lunghezza del prefisso è il <strong>parametro di compromesso</strong> del meccanismo: un prefisso più corto amplia l'insieme di anonimato (più privacy) ma aumenta i falsi campanelli (più banda e latenza); un prefisso più lungo produce l'effetto inverso, fino ad annullare la k-anonimità nel limite del full hash. I 4 byte sono il punto d'equilibrio adottato <strong>[INF]</strong>: falsi campanelli rari (\(\sim 0{,}1\%\)) e insieme di anonimato ancora enorme.</p>
+
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Il prefisso è una manopola con due estremi opposti. Tutta da un lato (prefisso cortissimo): quasi ogni URL fa scattare un campanello — molto traffico inutile, ma una folla enorme in cui nascondersi. Tutta dall'altro (prefisso lunghissimo): nessun campanello inutile, ma il prefisso identifica quasi la URL. I 4 byte sono il punto intermedio scelto per il sistema.</p>
+</div>
 
 <div class="callout ex" id="ex-4"><span class="tag">Esercizi</span>
 <ol>
@@ -201,7 +247,7 @@ a{color:var(--navy);}
 <table class="gl">
 <thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
-<tr><td>canonicalizzazione</td><td>—</td><td>riscrittura della URL in forma standard: una pagina, un solo hash</td><td>4.1 §2</td></tr>
+<tr><td>canonicalizzazione</td><td>—</td><td>funzione \(c:U\to U\) idempotente che riscrive la URL in forma standard: varianti banali della stessa URL collassano in un unico hash</td><td>4.1 §2</td></tr>
 <tr><td>full hash</td><td>hash completo</td><td>l'intero SHA-256, contro cui avviene il verdetto finale (in locale)</td><td>4.1 §2</td></tr>
 </tbody>
 </table>

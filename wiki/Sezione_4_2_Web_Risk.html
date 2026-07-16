@@ -151,16 +151,20 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. Cos'è</h2>
-<p><strong>Web Risk</strong> è la versione enterprise di Safe Browsing (Google Cloud): le stesse liste di URL pericolose, esposte alle <strong>aziende</strong> che vogliono controllare link nei propri sistemi — commenti, chat, allegati. Stesse liste, interfacce diverse: e la differenza tra le interfacce è esattamente una scelta su <strong>dove</strong> far girare la matematica di 4.1.</p>
+<p><strong>[DOC]</strong> <strong>Web Risk</strong> è la versione enterprise di Safe Browsing (Google Cloud): le stesse liste di URL pericolose, esposte alle <strong>aziende</strong> che vogliono controllare link nei propri sistemi — commenti, chat, allegati. Stesse liste, interfacce diverse: e la differenza tra le interfacce è esattamente una scelta su <strong>dove</strong> far girare la matematica di 4.1.</p>
 
 <hr/>
 
 <h2 id="sec-2">2. Due modalità, un trade-off</h2>
 <ul>
-<li><strong>Update API</strong> — il modello di 4.1, identico: database locale di prefissi, campanello, richiesta del solo prefisso, verdetto in casa. La privacy è quella della <strong>k-anonimità</strong> (F6 §2): al server arriva il prefisso — non la URL né il full hash — e dietro un prefisso si nascondono innumerevoli URL possibili, così il server non sa quale sia il tuo. <strong>Non è privacy totale</strong> (il prefisso, e il fatto stesso della richiesta su match, restano visibili al server), ma è la protezione massima ottenibile senza infrastruttura server-side; il prezzo è tenere il DB sincronizzato (→ 4.3).</li>
-<li><strong>Lookup API</strong> — la scorciatoia: mandi la URL al server, ricevi il verdetto. Zero infrastruttura, ma il server <strong>vede che cosa controlli</strong>: la k-anonimità è sacrificata per progetto.</li>
+<li><strong>[DOC]</strong> <strong>Update API</strong> — il modello di 4.1, identico: database locale di prefissi, campanello, richiesta del solo prefisso, verdetto in casa. La privacy è quella della <strong>k-anonimità</strong> (F6 §2): al server arriva il prefisso — non la URL né il full hash — e dietro un prefisso si nascondono innumerevoli URL possibili, così il server non sa quale sia il tuo. <strong>Non è privacy totale</strong> (il prefisso, e il fatto stesso della richiesta su match, restano visibili al server), ma è la protezione massima ottenibile senza infrastruttura server-side; il prezzo è tenere il DB sincronizzato (→ 4.3).</li>
+<li><strong>[DOC]</strong> <strong>Lookup API</strong> — la scorciatoia: mandi la URL al server, ricevi il verdetto. Zero infrastruttura, ma il server <strong>vede che cosa controlli</strong>: la k-anonimità è sacrificata per progetto.</li>
 </ul>
 <p>Non c'è modalità «giusta»: c'è la manopola <strong>privacy contro semplicità</strong>, dichiarata nel prezzo.</p>
+
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Le due modalità eseguono lo stesso controllo di 4.1; cambia soltanto <strong>dove</strong>. Con l'Update il controllo avviene sul dispositivo e verso il server parte solo un prefisso, comune a molti URL possibili: il server registra il prefisso, non l'URL. Con la Lookup il controllo avviene sul server, che riceve l'URL per intero e apprende che cosa è stato controllato. La protezione della prima ha un costo — mantenere sincronizzata la copia locale della lista (→ 4.3) — e la seconda lo evita rinunciando alla k-anonimità.</p>
+</div>
 
 <hr/>
 

@@ -151,25 +151,30 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. Che cos'è una potenza</h2>
-<p><strong>Intuizione.</strong> Una <strong>potenza</strong> è una moltiplicazione ripetuta, scritta corta. Invece di \(2 \cdot 2 \cdot 2\) scrivi \(2^3\): «due elevato a tre», cioè il prodotto di tre fattori uguali a 2. E moltiplicare zero volte, o un numero negativo di volte? Non si può contare a mano: allora si sceglie il valore che tiene in piedi la stessa regola di sempre.</p>
-<p><strong>Definizione.</strong> La <strong>potenza</strong> \(a^b\) è un <strong>numero</strong>: il numero ottenuto elevando la base \(a\) all'esponente \(b\). Quando \(b\) è un intero positivo coincide con il prodotto di \(a\) per sé stesso \(b\) volte. <strong>Il simbolo.</strong> Il numero grande \(a\) è la <strong>base</strong> (che cosa elevi), quello piccolo in alto \(b\) è l'<strong>esponente</strong> (a quale potenza elevi). Da programmatore lo scrivi <code>a**b</code> o <code>pow(a,b)</code>.</p>
-<div class="callout deep"><span class="tag">Il confine — dove la regola si ferma</span>
-<p>Con base \(a = 0\) la regola non forza alcun valore per l'esponente 0: \(0^0\) resta <strong>indefinito</strong>. E gli esponenti non interi (come \(a^{1/2}\)) sono un altro oggetto — le radici (§4) — non coperto da questa definizione.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Una potenza è una moltiplicazione ripetuta scritta in forma compatta: \(2^3\) sta per \(2 \cdot 2 \cdot 2\), cioè il prodotto di tre fattori uguali a 2. Contare i fattori ha senso finché l'esponente è un intero positivo; per l'esponente 0 o negativo non resta nulla da contare, e il valore si fissa in modo da mantenere valida la regola \(a^m \cdot a^n = a^{m+n}\).</p>
+</div>
+<p><strong>Definizione.</strong> La <strong>potenza</strong> \(a^b\) è un <strong>numero</strong>. Per un intero \(b \ge 1\) è il prodotto di \(b\) fattori tutti uguali alla base \(a\). Per \(a \ne 0\) la definizione si estende agli esponenti interi \(b \le 0\) come l'<strong>unico</strong> valore che fa persistere la regola \(a^m \cdot a^n = a^{m+n}\), già stabilita per esponenti positivi (§2): questa scelta obbliga \(a^0 = 1\) e \(a^{-n} = 1/a^n\) (§3), che sono conseguenze e non convenzioni. <strong>Il simbolo.</strong> Il numero grande \(a\) è la <strong>base</strong>, quello piccolo in alto \(b\) è l'<strong>esponente</strong>; in codice si scrive <code>a**b</code> o <code>pow(a,b)</code>.</p>
+<div class="callout deep"><span class="tag">Approfondimento</span>
+<p>Con base \(a = 0\) la regola non forza alcun valore per l'esponente 0: in analisi \(0^0\) si lascia <strong>indefinito</strong>. Dove serve una convenzione — il coefficiente binomiale in 1.1, l'entropia in F3 — si adotta \(0^0 = 1\), dichiarata sul posto. In Python <code>0**0</code> e <code>pow(0,0)</code> restituiscono <code>1</code>. Gli esponenti non interi (come \(a^{1/2}\)) sono un altro oggetto — le radici (§4) — non coperto da questa definizione.</p>
 </div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(2^3 = 2 \cdot 2 \cdot 2 = 8\). \(10^2 = 10 \cdot 10 = 100\). \(5^1 = 5\) (una volta sola). \(3^4 = 3 \cdot 3 \cdot 3 \cdot 3 = 81\).</p>
 </div>
-<div class="callout intu"><span class="tag">Le potenze di 10 sono facilissime</span>
-<p>L'esponente conta gli zeri: \(10^2 = 100\) (due zeri), \(10^3 = 1000\) (tre zeri), \(10^6 = 1\,000\,000\) (un milione). Le userai spesso per i numeri grandi.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Per le potenze di 10 l'esponente conta gli zeri: \(10^2 = 100\) (due zeri), \(10^3 = 1000\) (tre zeri), \(10^6 = 1\,000\,000\) (un milione). Compaiono spesso per scrivere numeri grandi.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-2">2. Le due regole che servono</h2>
-<p>Non serve impararle a memoria come formule: bastano se capisci <em>perché</em>.</p>
+<p>Le due regole non vanno imparate a memoria: seguono dal significato della potenza come prodotto ripetuto.</p>
 <p>Con \(a \ne 0\) (così i denominatori \(a^n\) non si annullano e gli esponenti \(\le 0\) hanno senso), per ogni \(m, n\) interi:</p>
 <div class="formula key">\[ a^m \cdot a^n = a^{m+n} \qquad\qquad \frac{a^m}{a^n} = a^{m-n} \]</div>
-<p><strong>Perché la prima.</strong> \(2^2 \cdot 2^3 = (2 \cdot 2) \cdot (2 \cdot 2 \cdot 2)\): in tutto cinque «2» moltiplicati, cioè \(2^5\). Moltiplicare potenze con la stessa base = <strong>sommare</strong> gli esponenti. La seconda è il gemello con la sottrazione (dividere ne toglie).</p>
+<p><strong>Perché la prima.</strong> \(2^2 \cdot 2^3 = (2 \cdot 2) \cdot (2 \cdot 2 \cdot 2)\): in tutto cinque fattori uguali a 2, cioè \(2^5\).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Moltiplicare due potenze con la stessa base accumula i fattori, perciò gli esponenti si sommano. La divisione toglie fattori, perciò gli esponenti si sottraggono.</p>
+</div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(10^2 \cdot 10^3 = 10^{5} = 100\,000\). Verifica: \(100 \cdot 1000 = 100\,000\). ✓ E \(\dfrac{10^5}{10^2} = 10^{3} = 1000\).</p>
 </div>
@@ -177,24 +182,26 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. Esponenti speciali: zero e negativi</h2>
-<p>Due casi che sembrano strani ma seguono dalla regola di sopra.</p>
-<p><strong>Esponente 0.</strong> Qualsiasi numero (tranne 0) elevato a 0 fa <strong>1</strong>: \(a^0 = 1\). Perché? \(\dfrac{a^3}{a^3} = a^{3-3} = a^0\), ma una cosa divisa per sé stessa fa 1. Quindi \(a^0 = 1\).</p>
-<p><strong>Esponente negativo.</strong> Significa «uno diviso»: per \(a \ne 0\), \(a^{-b} = \dfrac{1}{a^b}\). Il segno meno ti manda <strong>sotto</strong> la frazione.</p>
+<p>Entrambi i casi seguono dalla regola del prodotto, senza nuove convenzioni.</p>
+<p><strong>Esponente 0.</strong> Per \(a \ne 0\) vale \(a^0 = 1\). Infatti \(\dfrac{a^3}{a^3} = a^{3-3} = a^0\), e una quantità non nulla divisa per sé stessa vale 1; dunque \(a^0 = 1\).</p>
+<p><strong>Esponente negativo.</strong> Per \(a \ne 0\) e \(b\) intero, \(a^{-b} = \dfrac{1}{a^b}\): l'esponente negativo indica il reciproco.</p>
 <div class="formula key">\[ a^0 = 1 \qquad\qquad a^{-b} = \frac{1}{a^b} \]</div>
-<div class="callout ex"><span class="tag">Esempio numerico — molto usato nella wiki</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>L'esponente 0 è il punto in cui una potenza si divide per sé stessa: il risultato è 1. L'esponente negativo è un'istruzione a ribaltare: il segno meno porta la potenza sotto la linea di frazione, cioè al reciproco.</p>
+</div>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(10^{-6} = \dfrac{1}{10^6} = \dfrac{1}{1\,000\,000} = 0{,}000001\): un milionesimo. Quando nella 2.3 e nella sezione 4 vedi \(10^{-6}\), leggi «uno su un milione». \(2^{-1} = \dfrac{1}{2} = 0{,}5\).</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-4">4. La radice quadrata: la potenza al contrario</h2>
-<p><strong>Intuizione.</strong> La <strong>radice quadrata</strong> fa la domanda inversa del quadrato: «quale numero, moltiplicato per sé stesso, dà questo?». Il quadrato va avanti (\(5 \to 25\)), la radice torna indietro (\(25 \to 5\)).</p>
-<p><strong>Definizione.</strong> Per un numero \(c \ge 0\), la <strong>radice quadrata</strong> \(\sqrt{c}\) è l'<strong>unico</strong> numero \(\ge 0\) il cui quadrato è \(c\). Per \(c < 0\) nessun numero reale ha questa proprietà: \(\sqrt{c}\) <strong>non è definito</strong>. Esempio: \(\sqrt{25} = 5\) — non \(-5\), benché anche \((-5)^2 = 25\), perché si prende la radice <strong>non negativa</strong>; \(\sqrt{0} = 0\). Il simbolo \(\sqrt{\phantom{x}}\) si chiama <strong>segno di radice</strong>.</p>
-<div class="callout ex"><span class="tag">Esempi da riconoscere a colpo d'occhio</span>
-<p>\(\sqrt{1} = 1\) · \(\sqrt{4} = 2\) · \(\sqrt{9} = 3\) · \(\sqrt{16} = 4\) · \(\sqrt{25} = 5\) · \(\sqrt{100} = 10\). (Numeri come \(\sqrt{2} \approx 1{,}41\) non vengono «tondi»: si lasciano così o si stima con la calcolatrice.)</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La radice quadrata pone la domanda inversa del quadrato: dato un numero, individua il numero non negativo che, moltiplicato per sé stesso, lo produce. Il quadrato porta avanti (\(5 \to 25\)), la radice riporta indietro (\(25 \to 5\)). Il nome viene dalla geometria: un quadrato di lato 5 ha area \(5^2 = 25\), e dall'area si risale al lato con \(\sqrt{25} = 5\). Compare nella norma dei vettori (F0.6) e nella deviazione standard (F5).</p>
 </div>
-<div class="callout intu"><span class="tag">Perché «quadrata»</span>
-<p>Un quadrato di lato 5 ha area \(5^2 = 25\). Se conosci l'area (25) e vuoi il lato, fai la radice: \(\sqrt{25} = 5\). La radice quadrata trova il <strong>lato</strong> dato il quadrato — da lì il nome. Ti servirà nella norma dei vettori (F0.6) e nella deviazione standard (F5).</p>
+<p><strong>Definizione.</strong> Per un numero \(c \ge 0\), la <strong>radice quadrata</strong> \(\sqrt{c}\) è l'<strong>unico</strong> numero \(\ge 0\) il cui quadrato è \(c\). Per \(c < 0\) nessun numero reale ha questa proprietà: \(\sqrt{c}\) <strong>non è definito</strong>. Esempio: \(\sqrt{25} = 5\) — non \(-5\), benché anche \((-5)^2 = 25\), perché si prende la radice <strong>non negativa</strong>; \(\sqrt{0} = 0\). Il simbolo \(\sqrt{\phantom{x}}\) si chiama <strong>segno di radice</strong>.</p>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
+<p>\(\sqrt{1} = 1\) · \(\sqrt{4} = 2\) · \(\sqrt{9} = 3\) · \(\sqrt{16} = 4\) · \(\sqrt{25} = 5\) · \(\sqrt{100} = 10\). (Numeri come \(\sqrt{2} \approx 1{,}41\) non vengono «tondi»: si lasciano così o si stima con la calcolatrice.)</p>
 </div>
 
 <div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>

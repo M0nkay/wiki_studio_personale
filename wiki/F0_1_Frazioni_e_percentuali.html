@@ -145,29 +145,33 @@ a{color:var(--navy);}
 <h1 id="top">F0.1 — Frazioni e percentuali <span class="badge bozza">BOZZA</span></h1>
 <p class="note">Primo gradino dei <strong>prerequisiti</strong> della wiki. Nessuna base richiesta: si parte da qui. <strong>Bozza</strong>: schermo sì, carta no.</p>
 
-<div class="callout warn"><span class="tag">Perché questa pagina viene prima di tutto</span>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>Le percentuali sono la <strong>trappola numero uno</strong> di tutta la wiki: \(0{,}1\%\) non è \(0{,}1\). Sbagliare qui fa sballare interi ragionamenti più avanti (le soglie di reclamo della 1.2, per esempio). Vale la pena inchiodare bene le basi.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-1">1. Che cos'è una frazione</h2>
-<p><strong>Intuizione.</strong> Una <strong>frazione</strong> nasce da un gesto: tagli un intero in parti uguali e ne prendi alcune. «Tre quarti» = taglio la torta in 4 fette uguali, ne prendo 3. Quella quantità — 3 fette su 4 — è proprio il numero che, moltiplicato per 4, ricostruisce le 3 fette: è così che il gesto diventa un numero.</p>
-<p><strong>Definizione.</strong> Una <strong>frazione</strong> è un <strong>numero</strong>: la quantità che ottieni tagliando un intero in \(b\) parti uguali e prendendone \(a\). <strong>Il simbolo.</strong> Si scrive \(\dfrac{a}{b}\): sotto, il <strong>denominatore</strong> \(b\) (in quante parti tagli); sopra, il <strong>numeratore</strong> \(a\) (quante ne prendi). La barra si legge «diviso»: \(\dfrac{3}{4}\) è anche «3 diviso 4».</p>
-<div class="callout warn"><span class="tag">Il confine — perché il denominatore non può essere zero</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Una <strong>frazione</strong> nasce da un gesto: si taglia un intero in parti uguali e se ne prendono alcune. «Tre quarti» = la torta divisa in 4 fette uguali, di cui se ne prendono 3. Quella quantità — 3 fette su 4 — è proprio il numero che, moltiplicato per 4, ricostruisce le 3 fette: è così che il gesto diventa un numero.</p>
+</div>
+<p><strong>Definizione.</strong> Siano \(a\) e \(b\) interi con \(b \neq 0\). La <strong>frazione</strong> \(\dfrac{a}{b}\) è il <strong>numero</strong> che si ottiene dividendo un intero in \(b\) parti uguali e prendendone \(a\). <strong>Il simbolo.</strong> Si scrive \(\dfrac{a}{b}\), con \(b \neq 0\): sotto, il <strong>denominatore</strong> \(b\) (in quante parti si divide); sopra, il <strong>numeratore</strong> \(a\) (quante se ne prendono). La barra si legge «diviso»: \(\dfrac{3}{4}\) è anche «3 diviso 4».</p>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>\(\dfrac{3}{0}\) chiederebbe: quale numero, moltiplicato per 0, dà 3? Nessuno — tutto per 0 fa 0. E \(\dfrac{0}{0}\)? Qui ogni numero va bene (\(1\cdot 0 = 0\), \(5\cdot 0 = 0\)…): non ce n'è <strong>uno solo</strong>. In un caso non esiste risposta, nell'altro non ne esiste una sola: ecco perché il denominatore zero è sempre vietato. E se numeratore e denominatore non fossero interi (per esempio \(0{,}5 / 2{,}3\))? Sarebbe un quoziente qualsiasi, non una frazione: la frazione richiede due <strong>interi</strong>. Il numeratore, invece, può essere anche 0 o negativo: \(\dfrac{0}{5} = 0\) e \(\dfrac{-3}{4}\) sono frazioni a pieno titolo — la definizione dice più del disegno della torta.</p>
 </div>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(\dfrac{3}{4}\): quattro fette, ne prendi tre. Se la torta pesa 800 g, una fetta è \(800 : 4 = 200\) g, e tre fette sono \(3 \cdot 200 = 600\) g. Quindi \(\dfrac{3}{4}\) di 800 = 600.</p>
 </div>
-<div class="callout intu"><span class="tag">La regola pratica: «di» significa «per»</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
 <p>Calcolare «\(\dfrac{3}{4}\) <strong>di</strong> 800» = moltiplicare: \(\dfrac{3}{4} \cdot 800 = \dfrac{3 \cdot 800}{4} = \dfrac{2400}{4} = 600\). Ogni volta che leggi «i tre quarti di qualcosa», moltiplica per la frazione.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-2">2. Semplificare e confrontare</h2>
-<p><strong>Intuizione.</strong> La stessa quantità di torta si può scrivere in modi diversi: \(\dfrac{2}{4}\) e \(\dfrac{1}{2}\) sono la <strong>stessa cosa</strong> — metà torta.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La stessa quantità di torta si può scrivere in modi diversi: \(\dfrac{2}{4}\) e \(\dfrac{1}{2}\) sono la <strong>stessa cosa</strong> — metà torta.</p>
+</div>
 <p><strong>Regola.</strong> <strong>Semplificare</strong> = dividere sopra e sotto per lo stesso numero. \(\dfrac{2}{4} = \dfrac{2 : 2}{4 : 2} = \dfrac{1}{2}\). Non cambia il valore, cambia solo la scrittura — come ridurre ai minimi termini.</p>
 <div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(\dfrac{6}{8}\): sopra e sotto divisibili per 2 → \(\dfrac{3}{4}\). Non si può semplificare oltre (3 e 4 non hanno divisori comuni). Quindi \(\dfrac{6}{8} = \dfrac{3}{4} = 0{,}75\).</p>
@@ -176,32 +180,36 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-3">3. Dalla frazione al numero decimale</h2>
-<p><strong>Intuizione.</strong> La frazione è un'istruzione: «dividi». Se la esegui, ottieni un <strong>numero decimale</strong> — quello con la virgola.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>La frazione è un'istruzione: «dividi». Eseguendola si ottiene un <strong>numero decimale</strong> — quello con la virgola.</p>
+</div>
 <p><strong>Come si fa.</strong> Numeratore diviso denominatore. \(\dfrac{3}{4} = 3 : 4 = 0{,}75\).</p>
-<div class="callout warn"><span class="tag">Convenzione italiana — la virgola</span>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>In italiano il separatore dei decimali è la <strong>virgola</strong>: si scrive \(0{,}75\), non \(0.75\). Tutta la wiki usa la virgola. (I paesi anglosassoni usano il punto: attenzione quando leggi materiale in inglese.)</p>
 </div>
-<div class="callout ex"><span class="tag">Esempi utili da ricordare</span>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <p>\(\dfrac{1}{2} = 0{,}5\) · \(\dfrac{1}{4} = 0{,}25\) · \(\dfrac{3}{4} = 0{,}75\) · \(\dfrac{1}{10} = 0{,}1\) · \(\dfrac{1}{100} = 0{,}01\) · \(\dfrac{1}{3} = 0{,}333\ldots\) (i puntini: continua all'infinito).</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-4">4. Le percentuali</h2>
-<p><strong>Intuizione.</strong> «Per cento» vuol dire proprio <strong>su cento</strong>. Il \(70\%\) è «70 pezzi ogni 100»: la torta tagliata in 100 fettine, ne prendi 70.</p>
-<p><strong>Definizione.</strong> Il simbolo \(\%\) significa «\(\div 100\)». Quindi convertire una percentuale in numero = <strong>dividere per 100</strong> (spostare la virgola di due posti a sinistra):</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>«Per cento» vuol dire proprio <strong>su cento</strong>. Il \(70\%\) è «70 pezzi ogni 100»: la torta divisa in 100 fettine, di cui se ne prendono 70.</p>
+</div>
+<p><strong>Definizione.</strong> Una <strong>percentuale</strong> è un <strong>numero</strong>: una quantità riferita a un intero diviso in 100 parti uguali; la scrittura \(p\%\) indica \(p\) di quelle parti. <strong>Come si calcola.</strong> Convertire una percentuale in numero significa <strong>dividere per 100</strong> (spostare la virgola di due posti a sinistra):</p>
 <div class="formula key">\[ 70\% = \frac{70}{100} = 0{,}70 \qquad 5\% = \frac{5}{100} = 0{,}05 \qquad 0{,}1\% = \frac{0{,}1}{100} = 0{,}001 \]</div>
-<div class="callout warn"><span class="tag">LA trappola da non sbagliare mai</span>
+<div class="callout warn"><span class="tag">Trappola</span>
 <p>\(0{,}1\%\) <strong>non</strong> è \(0{,}1\). È \(0{,}001\) — mille volte più piccolo. Guarda: \(0{,}1\%\) significa «un decimo di uno su cento». Prima \(0{,}1 : 100 = 0{,}001\). Nella 1.2 questo è la differenza tra un mittente pulito e uno bandito: sbagliarla ribalta il verdetto.</p>
 </div>
-<div class="callout ex"><span class="tag">Esempio numerico — nei due sensi</span>
+<div class="callout ex"><span class="tag">Esempio numerico</span>
 <ol>
 <li><strong>Percentuale → numero</strong>: \(0{,}3\% = 0{,}3 : 100 = 0{,}003\).</li>
 <li><strong>Numero → percentuale</strong> (moltiplica per 100): \(0{,}05 = 0{,}05 \cdot 100 = 5\%\).</li>
 <li><strong>Percentuale di una quantità</strong>: il \(20\%\) di 300 email = \(0{,}20 \cdot 300 = 60\) email.</li>
 </ol>
 </div>
-<div class="callout deep"><span class="tag">Più a fondo (opzionale) — frazione, decimale e percentuale sono la stessa cosa</span>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale)</span>
 <p>Sono tre modi di scrivere lo stesso valore: \(\dfrac{1}{4} = 0{,}25 = 25\%\). Passi dall'uno all'altro così: frazione → decimale (dividi); decimale → percentuale (×100); percentuale → decimale (÷100). Un solo numero, tre vestiti.</p>
 </div>
 
@@ -225,7 +233,7 @@ a{color:var(--navy);}
 <li>\(\dfrac{4}{10} = \dfrac{2}{5} = 0{,}4\) (diviso 2 sopra e sotto; oppure \(4 : 10 = 0{,}4\)).</li>
 <li>\(2\% = 0{,}02\); \(0{,}5\% = 0{,}5 : 100 = 0{,}005\).</li>
 <li>\(10\%\) di 200 \(= 0{,}10 \cdot 200 = 20\).</li>
-<li>\(0{,}2\% = 0{,}2 : 100 = 0{,}002\) (non \(0{,}2\)!).</li>
+<li>\(0{,}2\% = 0{,}2 : 100 = 0{,}002\) (non \(0{,}2\)).</li>
 </ol>
 
 <hr/>

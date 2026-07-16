@@ -151,10 +151,10 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="sec-1">1. L'intuizione: quanto è ripida la salita</h2>
-<p><strong>Intuizione.</strong> Immagina di camminare su una collina. In ogni punto puoi chiederti: «quanto è <strong>ripido</strong> qui?». Su un tratto piano, zero. Su una salita dolce, poco. Su un muro — una parete verticale — la pendenza non è nemmeno definita (ci torniamo). La <strong>derivata</strong> è esattamente questo: la <strong>ripidità (pendenza) di una curva in un punto</strong>.</p>
-<p>Il concetto lo conosci già dalla strada: un cartello «pendenza 10%» dice che ogni 100 metri in avanti sali di 10. Pendenza = <strong>quanto sali</strong> diviso <strong>quanto avanzi</strong>.</p>
-<div class="callout intu"><span class="tag">La formula della pendenza è una frazione</span>
-<p>Pendenza \(= \dfrac{\text{quanto sali}}{\text{quanto avanzi}} = \dfrac{\text{variazione in verticale}}{\text{variazione in orizzontale}}\). Nient'altro che una divisione (F0.1): su/avanti. È definita quando «quanto avanzi» \(\neq 0\): la curva dev'essere il grafico di una funzione (a ogni orizzontale un solo valore) e la tangente non verticale. Su un tratto verticale — un «muro» — «quanto avanzi» \(= 0\): la pendenza non è «tanta», è <strong>indefinita</strong> (divisione per zero).</p>
+<p>La <strong>derivata</strong> in un punto è la <strong>ripidità (pendenza) di una curva in quel punto</strong>: un numero. Su un tratto piano vale zero; su una salita è positiva; su una discesa è negativa; su una parete verticale — un «muro» — non è definita.</p>
+<p>La pendenza è una frazione (F0.1): Pendenza \(= \dfrac{\text{quanto sali}}{\text{quanto avanzi}} = \dfrac{\text{variazione in verticale}}{\text{variazione in orizzontale}}\), cioè su/avanti. È definita quando «quanto avanzi» \(\neq 0\): la curva dev'essere il grafico di una funzione (a ogni orizzontale un solo valore) e la tangente non verticale. Su un tratto verticale — un «muro» — «quanto avanzi» \(= 0\) e la pendenza non è «tanta», è <strong>indefinita</strong> (divisione per zero).</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Su una collina, in ogni punto la pendenza dice quanto è ripido il terreno lì: nulla su un tratto piano, poca su una salita dolce, molta su una parete ripida. È la stessa idea dei cartelli stradali: «pendenza 10%» significa che ogni 100 metri in avanti si sale di 10. La derivata misura questa ripidità punto per punto.</p>
 </div>
 
 <hr/>
@@ -165,11 +165,14 @@ a{color:var(--navy);}
 <p>Da (orizzontale 2, verticale 3) a (orizzontale 6, verticale 11): sali \(11 - 3 = 8\), avanzi \(6 - 2 = 4\). Pendenza \(= \dfrac{8}{4} = 2\). Ogni passo in avanti, due in su.</p>
 </div>
 <p><strong>Il problema.</strong> Una <strong>curva</strong> non ha una pendenza sola: è più ripida in certi punti, meno in altri. La <strong>derivata</strong> risolve così: misura la pendenza <strong>in un singolo punto</strong>, guardando un tratto <strong>talmente piccolo</strong> che lì la curva sembra una retta. Più precisamente: la derivata in un punto è la pendenza a cui tende la retta per due punti vicini della curva, quando i due punti si stringono attorno al punto (la pendenza «da vicino»). La <strong>tangente</strong> è poi la retta che passa per il punto con quella pendenza — così né la derivata né la tangente dipendono dalla parola «sfiora».</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Ingrandendo molto una curva liscia attorno a un punto, il tratto visibile diventa quasi dritto: quella direzione è la tangente, e la sua pendenza è la derivata. Più si stringe lo sguardo, più la curva e la sua tangente si somigliano.</p>
+</div>
 <div class="callout warn"><span class="tag">Onestà</span>
 <p>Nei punti utili la curva, ingrandita, si avvicina a una retta, e quella pendenza è la derivata. Non sempre: in uno spigolo (es. \(|x|\) in 0) per quanto si ingrandisca restano <strong>due</strong> pendenze diverse (sinistra \(-1\), destra \(+1\)), la retta unica non c'è e la derivata non esiste. In questa wiki assumiamo curve <strong>lisce</strong>, prive di spigoli; il passaggio al limite (le secanti che si stringono) è dato per idea, non come procedimento \(\varepsilon\)-\(\delta\).</p>
 </div>
-<div class="callout warn"><span class="tag">Cosa ti serve davvero</span>
-<p>Non ti serve <strong>calcolare</strong> derivate a mano (ci sono regole che qui non servono). Ti serve capire che «derivata» = <strong>pendenza in un punto</strong> = «quanto sta cambiando la cosa proprio qui». Quando nella wiki leggi «la derivata è zero», traduci: «qui è piatto, non cambia».</p>
+<div class="callout nb"><span class="tag">N.B.</span>
+<p>Non serve <strong>calcolare</strong> le derivate a mano (ci sono regole che qui non occorrono). Serve invece ricordare che «derivata» = <strong>pendenza in un punto</strong> = «quanto sta cambiando la grandezza proprio lì». Quando nella wiki compare «la derivata è zero», si legge: «qui è piatto, non cambia».</p>
 </div>
 
 <hr/>
@@ -181,7 +184,7 @@ a{color:var(--navy);}
 <li>derivata <strong>negativa</strong> → la curva <strong>scende</strong>;</li>
 <li>derivata <strong>zero</strong> → punto <strong>piatto</strong>: un <strong>candidato</strong> a cima o fondo — ma può anche essere un pianoro o un flesso a tangente orizzontale (va controllato a parte).</li>
 </ul>
-<div class="callout intu"><span class="tag">Perché lo zero è speciale</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
 <p>In cima a una collina, per un istante non stai né salendo né scendendo: pendenza zero. Lo stesso nel punto più basso di una valle. Ma l'implicazione vale in <strong>un solo verso</strong>: la derivata nulla in un punto <strong>interno e liscio</strong> è condizione <strong>necessaria</strong> (non sufficiente) per un massimo o un minimo. Dove c'è un estremo interno la pendenza è zero, ma non ogni punto a pendenza zero è un estremo: può essere un <strong>flesso a tangente orizzontale</strong> (\(x^3\) in 0 ha pendenza zero, eppure la curva continua a salire). E un estremo può cadere sul <strong>bordo</strong> del dominio, dove la pendenza non si annulla: nella MLE della 1.1, se i successi osservati sono 0 la stima è \(\theta = 0\), sul bordo. Perciò «pendenza zero» segnala i <strong>candidati</strong> (il trucco dietro la ricerca del massimo — la MLE della 1.1 — e del minimo — la discesa del gradiente di F4); quale sia cima, fondo o flesso, e cosa accada ai bordi, va controllato a parte.</p>
 </div>
 
@@ -193,6 +196,9 @@ a{color:var(--navy);}
 <li><strong>MLE</strong> (1.1, §3.2): trovare il valore che <strong>massimizza</strong> la verosimiglianza. All'interno del dominio i candidati sono i punti a pendenza zero; al bordo (0 successi o tutti successi) il massimo cade dove la pendenza non si annulla — «pendenza zero» dà i candidati, non la risposta garantita.</li>
 <li>Ogni volta che un box dice «qui la funzione è massima/minima», sotto c'è l'idea di pendenza zero.</li>
 </ul>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Su un terreno a più direzioni il gradiente indica dove si sale più ripido; per scendere si cammina nel verso opposto. È l'idea della «discesa del gradiente»: seguire all'incontrario la freccia della salita più forte.</p>
+</div>
 
 <div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
 <ol>

@@ -148,32 +148,35 @@ a{color:var(--navy);}
 <h2 id="prerequisiti">Prerequisiti</h2>
 <p>La <a class="xref" href="F0_4_Somme_e_produttorie.html">sommatoria \(\sum\)</a> (F0.4): l'integrale è una somma «infinita». Aiuta aver visto la <a class="xref" href="F0_7_Derivata.html">derivata</a> (F0.7), perché sono le due facce opposte.</p>
 
-<div class="callout warn"><span class="tag">Onestà: perché questa pagina è l'ultima e la più «di lusso»</span>
+<div class="callout nb"><span class="tag">Onestà</span>
 <p>Il documento che studi è quasi <strong>tutto discreto</strong>: usa somme \(\sum\), non integrali. L'integrale compare in <strong>un solo box opzionale</strong> di tutta la wiki. Quindi impararlo è utile per <strong>colmare la tua lacuna</strong> e per leggere altri testi, più che per capire questo documento. Nessuna fretta: è un bonus, non un ostacolo sul percorso.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-1">1. L'intuizione: quanta area sta sotto la curva</h2>
-<p><strong>Intuizione.</strong> Hai una curva disegnata su un foglio. L'<strong>integrale</strong> risponde a una domanda semplice: «<strong>quanta area</strong> c'è sotto quella curva?» — lo spazio racchiuso tra la curva e la linea di terra.</p>
+<p>L'<strong>integrale</strong> misura l'<strong>area</strong> racchiusa tra il grafico di \(f\) e l'asse orizzontale su un tratto.</p>
 <p>Se la derivata (F0.7) misura <strong>quanto è ripido</strong>, l'integrale misura <strong>quanto spazio è racchiuso</strong>. Sono le due domande fondamentali del calcolo, ed è utile pensarle come opposte: una guarda la pendenza, l'altra accumula l'area.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Si immagini una curva tracciata su un foglio. L'integrale risponde a una domanda sola: quanta area sta racchiusa tra quella curva e l'asse orizzontale.</p>
+</div>
 
 <hr/>
 
 <h2 id="sec-2">2. Come si calcola l'idea: sommare tante fettine</h2>
-<p><strong>Il trucco.</strong> Un'area dai bordi curvi è difficile. Ma se la <strong>affetti</strong> in tante strisce verticali sottili, ogni striscia è quasi un <strong>rettangolo</strong> — e l'area di un rettangolo è facile: base × altezza. Sommi tutte le fettine e hai l'area totale.</p>
-<p>Ecco il legame con F0.4: l'integrale è una <strong>sommatoria \(\sum\)</strong> di tante fettine. La differenza: le fettine sono <strong>infinitamente sottili</strong>, quindi ne sommi infinite. «Integrale» = «somma continua».</p>
+<p>Un'area a bordi curvi si approssima affettandola in strisce verticali sottili, ciascuna quasi rettangolare (base × altezza); la somma delle strisce dà l'area.</p>
+<p>Ecco il legame con F0.4: l'integrale è una <strong>sommatoria \(\sum\)</strong> di tante fettine. La differenza: le fettine sono <strong>infinitamente sottili</strong>, quindi se ne sommano infinite. «Integrale» = «somma continua».</p>
 <div class="callout ex"><span class="tag">Esempio numerico — quando l'area è facile</span>
 <p>Se la curva è una <strong>retta orizzontale</strong> all'altezza 3, da orizzontale 0 a orizzontale 4, l'area sotto è un rettangolo: base 4 × altezza 3 = <strong>12</strong>. Questo è l'integrale di quella funzione su quel tratto. (Con curve vere servono le fettine, ma l'idea è identica: area = somma di basi × altezze.)</p>
 </div>
-<div class="callout intu"><span class="tag">Un caso che già conosci</span>
+<div class="callout intu"><span class="tag">Intuizione</span>
 <p>Percorri una strada a velocità costante 60 km/h per 2 ore. Distanza = \(60 \cdot 2 = 120\) km. Se disegni la velocità (una linea orizzontale a 60) e guardi l'area sotto, per 2 ore di larghezza: \(60 \times 2 = 120\). L'area sotto la curva della velocità <strong>è</strong> la distanza percorsa. Ecco cosa «accumula» un integrale.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-3">3. Il simbolo (per riconoscerlo, non per calcolarlo)</h2>
-<p><strong>Definizione.</strong> L'<strong>integrale</strong> di una funzione tra due bordi \(a\) e \(b\) è un <strong>numero</strong>: l'<strong>area</strong> racchiusa tra la curva e la linea di terra su quel tratto — la somma di infinite fettine sottilissime (§2). <strong>Il simbolo.</strong> Una <strong>S allungata</strong> — sta per «Somma»: \(\displaystyle\int\). Nella forma completa:</p>
+<p><strong>Definizione.</strong> L'<strong>integrale</strong> di una funzione \(f\) tra i bordi \(a\) e \(b\) (con \(a<b\)) è un <strong>numero</strong>: l'<strong>area</strong> racchiusa tra il grafico di \(f\) e l'asse orizzontale sul tratto da \(a\) a \(b\), contata col segno (positiva dove il grafico sta sopra l'asse, negativa dove sta sotto). <strong>Il simbolo.</strong> Una <strong>S allungata</strong> — sta per «Somma»: \(\displaystyle\int\). Nella forma completa:</p>
 <div class="formula key">\[ \int_{a}^{b} f(x)\,dx \]</div>
 <p>Leggiamo i pezzi, come abbiamo fatto per Σ:</p>
 <ul>
@@ -182,15 +185,18 @@ a{color:var(--navy);}
 <li>\(f(x)\) = l'<strong>altezza</strong> della curva in ogni punto (la funzione);</li>
 <li>\(dx\) = la <strong>larghezza</strong> di una fettina infinitamente sottile.</li>
 </ul>
-<p>Messo insieme: «somma, da \(a\) a \(b\), di (altezza × larghezza di ogni fettina)». È l'area, fettina per fettina. Non ti serve risolverlo: ti serve <strong>vedere</strong> che è una somma di aree.</p>
+<p>Messo insieme: «somma, da \(a\) a \(b\), di (altezza × larghezza di ogni fettina)». È l'area, fettina per fettina. Non occorre risolverlo: basta <strong>vedere</strong> che è una somma di aree.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Ogni fettina è un rettangolo sottile: altezza \(f(x)\), larghezza \(dx\). L'integrale somma le aree di tutte le fettine, da \(a\) a \(b\).</p>
+</div>
 <div class="callout warn"><span class="tag">Attenzione — sotto l'asse conta in negativo</span>
 <p>Se un tratto di grafico sta <strong>sotto</strong> l'asse orizzontale, la sua area viene <strong>sottratta</strong>. Un integrale può quindi risultare <strong>negativo</strong> o <strong>zero</strong>, non solo positivo. Negli esempi di questa pagina (curve sopra lo zero) il saldo è tutto positivo: è un caso particolare.</p>
 </div>
-<div class="callout deep"><span class="tag">Il confine (opzionale)</span>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — il confine</span>
 <p>Se \(f\) non è limitata, o il tratto si allunga all'infinito, si esce da questo integrale e si entra negli integrali <strong>impropri</strong> (definiti come limite, a volte senza un valore finito). E da non confondere: l'integrale definito è <strong>un numero</strong>, la <strong>primitiva</strong> è <strong>una funzione</strong> — le lega il teorema fondamentale (§4).</p>
 </div>
-<div class="callout warn"><span class="tag">Il gemello discreto che userai davvero</span>
-<p>Quasi ovunque nella wiki, al posto di \(\int f(x)\,dx\) trovi \(\sum_i x_i\): la <strong>stessa idea</strong> con fettine di larghezza 1 invece che infinitesime. Se hai capito la sommatoria (F0.4), hai già il 90% dell'integrale. La S allunga la somma dal discreto al continuo.</p>
+<div class="callout intu"><span class="tag">Intuizione</span>
+<p>Quasi ovunque nella wiki, al posto di \(\int f(x)\,dx\) compare \(\sum_i x_i\): la <strong>stessa idea</strong> con fettine di larghezza 1 anziché infinitesime. Chi padroneggia la sommatoria (F0.4) ha già il nucleo dell'integrale. La S allunga la somma dal discreto al continuo.</p>
 </div>
 
 <hr/>
@@ -200,7 +206,7 @@ a{color:var(--navy);}
 <li><strong>Un box opzionale</strong> della 1.1 (§2.2) accenna all'integrale spiegando cosa cambia tra probabilità <strong>discrete</strong> (somme) e <strong>continue</strong> (integrali). Tutto il resto del documento resta sul discreto.</li>
 <li>Ti serve soprattutto come <strong>cultura di base</strong>: ora, se apri un altro testo e vedi il segno \(\int\), sai leggerlo — «area sotto la curva, somma di fettine».</li>
 </ul>
-<div class="callout deep"><span class="tag">Più a fondo (opzionale) — il legame con la derivata</span>
+<div class="callout deep"><span class="tag">Approfondimento (opzionale) — il legame con la derivata</span>
 <p>Derivata e integrale sono <strong>l'una l'inverso dell'altra</strong>: la derivata smonta (dà la pendenza), l'integrale rimonta (accumula l'area). È il risultato più importante del calcolo — il «teorema fondamentale». Per la wiki non serve, ma è bello sapere che le due idee di queste ultime due pagine sono due lati della stessa medaglia.</p>
 </div>
 
@@ -219,7 +225,7 @@ a{color:var(--navy);}
 <h2 id="soluzioni">Soluzioni degli esercizi</h2>
 <p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
 <ol>
-<li>«Quanta <strong>area</strong> c'è sotto la curva?» (lo spazio racchiuso tra la curva e la linea di terra).</li>
+<li>«Quanta <strong>area</strong> c'è sotto la curva?» (lo spazio racchiuso tra la curva e l'asse orizzontale).</li>
 <li>Rettangolo: base \(3\) × altezza \(5 = 15\).</li>
 <li>La <strong>sommatoria</strong> \(\sum\): l'integrale è la sua versione «continua», con fettine infinitamente sottili.</li>
 <li>I <strong>bordi</strong> dell'area: da dove (\(a\), sinistra) a dove (\(b\), destra) sommare.</li>
@@ -232,7 +238,7 @@ a{color:var(--navy);}
 <table class="gl">
 <thead><tr><th>simbolo/termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
-<tr><td>integrale</td><td>area con segno sotto la curva</td><td>saldo tra l'area sopra (positiva) e sotto (negativa) l'asse; esiste se \(f\) è limitata e integrabile</td><td>F0.8 §1</td></tr>
+<tr><td>integrale</td><td>area con segno tra curva e asse</td><td>saldo tra l'area sopra (positiva) e sotto (negativa) l'asse; esiste se \(f\) è limitata e integrabile</td><td>F0.8 §1</td></tr>
 <tr><td>\(\displaystyle\int\)</td><td>segno di integrale</td><td>una S allungata = «Somma»; \(\int_a^b f(x)\,dx\)</td><td>F0.8 §3</td></tr>
 <tr><td>\(f(x)\)</td><td>funzione (altezza)</td><td>il valore/altezza della curva nel punto \(x\)</td><td>F0.8 §3</td></tr>
 <tr><td>\(dx\)</td><td>larghezza infinitesima</td><td>la larghezza di una fettina sottilissima</td><td>F0.8 §3</td></tr>
