@@ -591,6 +591,22 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## 4.2 — Web Risk API
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Web Risk — la versione enterprise di Safe Browsing: le stesse liste, esposte alle aziende; la differenza fra le interfacce è dove far girare la matematica di 4.1.
+- Le due modalità — Update API (DB locale a prefissi: privata, prezzo la sincronizzazione) contro Lookup API (URL al server: semplice, k-anonimità sacrificata).
+
+**Esempi numerici**: la pagina non contiene aritmetica propria (rimanda a 4.1); nessun esempio numerico possibile senza aggiungere contenuto.
+
+**Figure**: nessuna.
+
+**Scelte di giudizio e incertezze**:
+- L'ul delle due modalità in un def dedicato; la «manopola privacy contro semplicità» in blocco Intuizione; [INF] del §3 conservato.
+- Micro-aggiunta nel footer: «— l'ultima tappa.» (fattuale: 4.3 è la 17ª).
+
+**Ancore rinominate**: `ex-3` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
