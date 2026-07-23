@@ -381,6 +381,35 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 - Controllo 9: 2 segnalazioni (intervalli (0,1] e [0,1]) — false positive da virgola-separatore.
 
 **Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). **`sec-4` vincolata da Sezione_3_2 conservata** (verificato dal revisore).
+
+## F6 — Similarità, hashing e codifiche
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Funzione di hash — input qualsiasi → numero di lunghezza fissa, deterministico e «ben mescolato»; collisione = due input diversi, stesso output (probabilità 1/N per coppia fissata).
+- Prefisso e k-anonimità — i primi byte dell'hash; nascondersi in un gruppo di almeno k indistinguibili.
+- Similarità di Jaccard — un numero in [0,1]: la quota di elementi condivisi sul totale distinto.
+- Min-hash — il minimo degli hash degli elementi; la probabilità che due insiemi condividano il minimo è la loro similarità di Jaccard.
+- LSH — firma tagliata in b bande da r righe; candidati = identici in almeno una banda; la probabilità è la curva a S.
+- Rice–Golomb — delta = quoziente per 2^k più resto; quoziente in unario, resto in k bit binari.
+
+**Esempi numerici** (16 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- 2³² ≈ 4,3 miliardi; P = 4,3 milioni → 0,001; 2¹⁶ = 65 536.
+- Jaccard: 2/5 = 0,4 (entrambi gli esempi).
+- LSH (r=2, b=3): s=0,3 → ≈0,25; s=0,9 → ≈0,99; s=0,5 → ≈0,58; soglia (1/3)^½ ≈ 0,58.
+- Rice (k=2): δ=11 → q=2, r=3 → «11011» (5 bit); δ=2 → «010»; δ=6 → q=1, r=2 → «1010».
+
+**Figure**:
+- Curva a S di P_cand per r=2, b=3: polilinea di 21 punti calcolati esattamente, con s=0,3 e s=0,9 evidenziati — illustra il §5. Verificata punto per punto da me e dal revisore.
+
+**Scelte di giudizio e incertezze**:
+- ⚠ Conservato il marcatore preesistente «[DA VERIFICARE la convenzione preferita dalla wiki]» sul caso degenere J(∅;∅): la pagina stessa lascia aperta la scelta (convenzione :=1 oppure esclusione a monte) — decisione per Alex.
+- «Da F4: le potenze» → «Da F0.2: le potenze» (la potenza è definita lì; stesso retarget già fatto in 1.3).
+- \(2^{16} = 65.536\) riscritto \(65\,536\) (spazio sottile: convenzione delle migliaia già usata in F0.2/F0.3; evita l'ambiguità col punto decimale).
+- I tre blocchi «Onestà» conservati come blocchi Attenzione con la stessa etichetta.
+- Su rilievo del revisore: ripristinati «mette nello stesso secchio» (meccanismo LSH) e «La probabilità…» davanti alla formula di P_cand.
+- Controllo 9: 6 segnalazioni, tutte insiemi \(\{1,2,3\}\) — virgole da separatore, false positive.
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). **`sec-6` vincolata da Sezione_4_3 conservata** (verificato dal revisore).
 - «Lettura» del §3 resa blocco «Intuizione — il termostato» (l'analogia sta nel blocco giusto).
 - Riferimento «la potenza di F4» corretto in «la potenza di F0.2» (la potenza è definita lì).
 - Footer con F6 nel percorso ripristinato su rilievo del revisore.
