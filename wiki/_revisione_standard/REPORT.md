@@ -151,6 +151,31 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## F0.5 — Notazione di base
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Valore assoluto — un numero mai negativo: la distanza di x da zero sulla linea dei numeri; se x è positivo o zero resta com'è, se è negativo togli il segno.
+- Floor — un intero: il più grande intero non superiore a x; si scende all'intero immediatamente a sinistra sulla retta.
+- min / max — numeri del gruppo stesso: il più piccolo e il più grande.
+- Fattoriale — un numero: il prodotto di tutti gli interi da 1 a n; misura in quanti modi puoi mettere in fila n oggetti; 0! = 1.
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- |5| = 5; |−5| = 5; |0| = 0; |3−7| = |−4| = 4; |7−3| = 4; (−3)² = 9 contro |−3| = 3.
+- Floor: ⌊2,75⌋ = 2; ⌊5⌋ = 5; ⌊0,9⌋ = 0; ⌊−2,9⌋ = −3 (verso −∞); ⌊2,9⌋ = 2.
+- min(3; 8; 5) = 3; max(3; 8; 5) = 8.
+- 3! = 6; 4! = 24; 5! = 120; ricorsione 1! = 1·0! ⇒ 0! = 1.
+- Soluzioni: |−8| = 8; |8−2| = 6; ⌊3,99⌋ = 3; min(7;2;9) = 2; max = 9; 4! = 24; min(1000; 1139) = 1000.
+
+**Figure**:
+- Retta dei numeri con −5, 0, +5: tacche equidistanti (160 px per lato) e i due segmenti «distanza 5» simmetrici — illustra l'intuizione del §1 (|−5| = |5| = 5). Geometria verificata dal revisore.
+
+**Scelte di giudizio e incertezze**:
+- «Il confine — cosa lo distingue» (|x| vs x²) e «Il confine» del fattoriale convertiti in blocchi Attenzione.
+- ⚠ Frase di tipo aggiunta al def di min/max («numeri del gruppo stesso»): esplicitazione richiesta dal cover test, corretta per i gruppi finiti usati in pagina; segnalata dal revisore come unica frase senza antecedente letterale.
+- Su rilievo del revisore: formula del floor spostata sotto etichetta «Come si calcola»; le due condizioni del fattoriale sotto etichetta propria «Perché è fissato così» (prima pendevano da «Il simbolo»).
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
