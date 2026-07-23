@@ -32,3 +32,4 @@ Formato riga: `- ✅ <sigla> — <file> · commit <hash> · <data> [· note]`
 - ✅ 3.2 — Sezione_3_2_Knowledge_Graph.html · commit e26ae51 · 23/07/2026
 - ✅ 4.1 — Sezione_4_1_Safe_Browsing.html · commit 901780f · 23/07/2026
 - ✅ 4.2 — Sezione_4_2_Web_Risk.html · commit 8887bf8 · 23/07/2026
+- ✅ 4.3 — Sezione_4_3_Sincronizzazione.html · commit b34624a · 23/07/2026

@@ -256,6 +256,11 @@ la struttura interna non è stata toccata, quindi niente blocchi `.def`/`.note`.
 rendono come prosa piana fino alla ristrutturazione vera; le tabelle e i link prendono lo stile condiviso.
 Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
+**Addendum (fix successivo)** ⚠: la trasformazione via script aveva dimezzato le backslash della
+config MathJax (`\(` invece di `\\(` nei delimitatori): resa delle formule compromessa. Bug mio,
+stanato dal revisore del Glossario (stesso difetto, stessa causa); riparato con commit dedicato.
+Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
+
 ## F4 — Statistica e machine learning
 
 **Definizioni scritte** (testo senza formula, per il cover test):
