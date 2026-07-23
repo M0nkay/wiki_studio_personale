@@ -1,251 +1,293 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>F0.7 — La derivata · Wiki Sistemi di Fiducia</title>
-<style>
-:root{
-  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
-  --box:#F1E9DA; --border:#e2d6bf;
-  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
-  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
-  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
-  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
-  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
-}
-html{font-size:118%;-webkit-text-size-adjust:100%;}
-body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
-  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
-  letter-spacing:.012em;word-spacing:.03em;}
-p{margin:.7em 0 1em;}
-h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
-h1{font-size:1.7rem;margin:.2em 0 .2em;}
-.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
-h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
-h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
-h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
-strong{font-weight:700;}
-ul,ol{padding-left:1.35em;}
-li{margin:.4em 0;}
-hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
-code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
-  padding:.05em .35em;border-radius:4px;font-size:.9em;}
-
-/* callout boxes */
-.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
-.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
-.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
-.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;margin-bottom:.35em;}
-.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
-.intu .tag{color:var(--intu-bd);}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
-.warn .tag{color:var(--warn-bd);}
-.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
-.deep .tag{color:var(--deep-bd);}
-.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
-.ex .tag{color:#5f594d;}
-
-/* the orienting pipeline / index box */
-.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
-  padding:1em 1.2em;margin:1.4em 0 2em;}
-.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
-.chain{font-weight:700;color:var(--navy);line-height:1.9;}
-.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
-  padding:.12em .5em;display:inline-block;margin:.15em 0;}
-.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
-
-/* formula highlight */
-.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
-  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
-.formula.key{border-left:5px solid var(--navy);}
-
-/* tables */
-table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
-caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
-th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
-th{background:#fff8ec;color:var(--navy);}
-.cm td{text-align:center;font-size:.92rem;}
-.ok{background:#EAF3EE;}
-.fn{background:#FBF3DC;}
-.fp{background:#F8E3DC;}
-.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
-
-.note{font-size:.9rem;color:var(--navy2);}
-mjx-container{overflow-x:auto;overflow-y:hidden;}
-@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
-</style>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  svg: { fontCache: 'global' }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
-
-<style>
-/* navigazione — solo schermo, deriva dai colori del documento */
-html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-[id]{scroll-margin-top:3.6rem;}
-.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
- background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
- padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
-.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.quicknav a:hover{background:#fff2c4;}
-.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
- outline:2px solid var(--navy);outline-offset:2px;}
-details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
- padding:.75rem 1.1rem;margin:0 0 2rem;}
-details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
-details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
-details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
-details.toc li{margin:.28rem 0;}
-details.toc a{text-decoration:none;}
-details.toc a:hover{text-decoration:underline;}
-a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
-a.xref:hover{background:#fff2c4;}
-@media print{.quicknav,details.toc{display:none;}}
-</style>
-
-<style>
-.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
- padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
-.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
-</style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 La pendenza</a><a href="#sec-2">§2 Definizione</a><a href="#sec-3">§3 Segno</a><a href="#sec-4">§4 Nella wiki</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_6_Vettori_e_prodotto_scalare.html">↩ F0.6</a><a href="#top">↑ inizio</a></nav>
+<div class="wrap" id="top">
 
-<h1 id="top">F0.7 — La derivata: la pendenza <span class="badge bozza">BOZZA</span></h1>
-<p class="note">Settimo gradino. Qui impari <strong>l'idea</strong> di derivata, non la tecnica per calcolarle: nella wiki serve a capire «quanto ripido», non a fare conti. <strong>Bozza</strong>: schermo sì, carta no.</p>
+<nav class="top" aria-label="indice pagina">
+  <a href="#sec-1">§1 Pendenza</a>
+  <a href="#sec-2">§2 Derivata</a>
+  <a href="#sec-3">§3 Segno</a>
+  <a href="#sec-4">§4 Nella wiki</a>
+  <a href="#esercizi">Esercizi</a>
+  <a href="#simboli">Simboli</a>
+  <a href="F0_6_Vettori_e_prodotto_scalare.html">↩ F0.6</a>
+</nav>
 
-<h2 id="prerequisiti">Prerequisiti</h2>
-<p>Le <a class="xref" href="F0_1_Frazioni_e_percentuali.html">frazioni</a> (F0.1): la pendenza è un rapporto. Nient'altro di nuovo.</p>
+<p class="kicker">Gradino 0 · 7 di 8</p>
+<h1>F0.7 — La derivata: la pendenza in un punto</h1>
+<p class="lead">Qui si stabilisce <strong>una sola idea</strong>: la derivata misura quanto una curva è ripida in un punto — cioè quanto una grandezza sta cambiando proprio lì. Non servono le regole per calcolarla a mano: nella wiki serve a leggere «quanto ripido», non a fare conti.</p>
 
-<hr/>
+<p class="prereq"><strong>Prerequisito unico.</strong> Le <a href="F0_1_Frazioni_e_percentuali.html">frazioni</a> (F0.1): la pendenza è un rapporto, cioè una divisione. Nient'altro di nuovo.</p>
 
-<h2 id="sec-1">1. L'intuizione: quanto è ripida la salita</h2>
-<p><strong>Intuizione.</strong> Immagina di camminare su una collina. In ogni punto puoi chiederti: «quanto è <strong>ripido</strong> qui?». Su un tratto piano, zero. Su una salita dolce, poco. Su un muro — una parete verticale — la pendenza non è nemmeno definita (ci torniamo). La <strong>derivata</strong> è esattamente questo: la <strong>ripidità (pendenza) di una curva in un punto</strong>.</p>
-<p>Il concetto lo conosci già dalla strada: un cartello «pendenza 10%» dice che ogni 100 metri in avanti sali di 10. Pendenza = <strong>quanto sali</strong> diviso <strong>quanto avanzi</strong>.</p>
-<div class="callout intu"><span class="tag">La formula della pendenza è una frazione</span>
-<p>Pendenza \(= \dfrac{\text{quanto sali}}{\text{quanto avanzi}} = \dfrac{\text{variazione in verticale}}{\text{variazione in orizzontale}}\). Nient'altro che una divisione (F0.1): su/avanti. È definita quando «quanto avanzi» \(\neq 0\): la curva dev'essere il grafico di una funzione (a ogni orizzontale un solo valore) e la tangente non verticale. Su un tratto verticale — un «muro» — «quanto avanzi» \(= 0\): la pendenza non è «tanta», è <strong>indefinita</strong> (divisione per zero).</p>
+<hr>
+
+<h2 id="sec-1">1. La pendenza di una retta</h2>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Cammini su una collina. In ogni punto puoi chiederti: «quanto è <strong>ripido</strong> qui?». Su un tratto piano, zero; su una salita dolce, poco; su un muro verticale, tantissimo. Il cartello stradale «pendenza 10%» dice la stessa cosa: ogni 100 metri in avanti, sali di 10. <strong>Ripidità = quanto sali, diviso quanto avanzi.</strong></p>
 </div>
 
-<hr/>
-
-<h2 id="sec-2">2. Dalla pendenza di una retta alla derivata</h2>
-<p>Per una <strong>retta</strong>, la pendenza è la stessa dappertutto: prendi due punti e fai su/avanti.</p>
-<div class="callout ex"><span class="tag">Esempio numerico — la retta</span>
-<p>Da (orizzontale 2, verticale 3) a (orizzontale 6, verticale 11): sali \(11 - 3 = 8\), avanzi \(6 - 2 = 4\). Pendenza \(= \dfrac{8}{4} = 2\). Ogni passo in avanti, due in su.</p>
-</div>
-<p><strong>Il problema.</strong> Una <strong>curva</strong> non ha una pendenza sola: è più ripida in certi punti, meno in altri. La <strong>derivata</strong> risolve così: misura la pendenza <strong>in un singolo punto</strong>, guardando un tratto <strong>talmente piccolo</strong> che lì la curva sembra una retta. Più precisamente: la derivata in un punto è la pendenza a cui tende la retta per due punti vicini della curva, quando i due punti si stringono attorno al punto (la pendenza «da vicino»). La <strong>tangente</strong> è poi la retta che passa per il punto con quella pendenza — così né la derivata né la tangente dipendono dalla parola «sfiora».</p>
-<div class="callout warn"><span class="tag">Onestà</span>
-<p>Nei punti utili la curva, ingrandita, si avvicina a una retta, e quella pendenza è la derivata. Non sempre: in uno spigolo (es. \(|x|\) in 0) per quanto si ingrandisca restano <strong>due</strong> pendenze diverse (sinistra \(-1\), destra \(+1\)), la retta unica non c'è e la derivata non esiste. In questa wiki assumiamo curve <strong>lisce</strong>, prive di spigoli; il passaggio al limite (le secanti che si stringono) è dato per idea, non come procedimento \(\varepsilon\)-\(\delta\).</p>
-</div>
-<div class="callout warn"><span class="tag">Cosa ti serve davvero</span>
-<p>Non ti serve <strong>calcolare</strong> derivate a mano (ci sono regole che qui non servono). Ti serve capire che «derivata» = <strong>pendenza in un punto</strong> = «quanto sta cambiando la cosa proprio qui». Quando nella wiki leggi «la derivata è zero», traduci: «qui è piatto, non cambia».</p>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>La <strong>pendenza</strong> di una retta è un numero che misura la sua inclinazione: di quanto la retta sale (in verticale) per ogni unità di cui ci si sposta in avanti (in orizzontale). È lo stesso numero fra due punti qualsiasi della retta, perché una retta è inclinata sempre allo stesso modo.</p>
+  <span class="lbl">Il simbolo</span>
+  <p>Si indica con <strong>\(m\)</strong>. La <strong>variazione</strong> (di quanto qualcosa cambia) si scrive con la lettera greca <strong>\(\Delta\)</strong> («delta»): <strong>\(\Delta y\)</strong> = quanto sali, <strong>\(\Delta x\)</strong> = quanto avanzi.</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Si prendono due punti della retta e si divide la variazione verticale per quella orizzontale:</p>
+  <p style="text-align:center">\( m = \dfrac{\Delta y}{\Delta x} = \dfrac{\text{quanto sali}}{\text{quanto avanzi}} \)</p>
+  <p>È definita solo quando <strong>\(\Delta x \neq 0\)</strong> (avanzi almeno un po'). Su un muro verticale \(\Delta x = 0\): la pendenza non è «tanta», è <strong>indefinita</strong> — sarebbe una divisione per zero.</p>
 </div>
 
-<hr/>
+<figure>
+<svg viewBox="0 0 460 300" role="img" aria-label="Retta con triangolo che mostra quanto si sale e quanto si avanza">
+  <!-- assi -->
+  <line x1="48" y1="262" x2="418" y2="262" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="56" y1="262" x2="56" y2="34" stroke="#c7cfc9" stroke-width="1.5"/>
+  <text x="424" y="266" font-size="13" fill="#5a6168">avanzi →</text>
+  <text x="40" y="30" font-size="13" fill="#5a6168" text-anchor="end">↑ sali</text>
+  <!-- retta -->
+  <line x1="98" y1="244" x2="350" y2="28" stroke="#2c6e57" stroke-width="2.5"/>
+  <!-- triangolo -->
+  <line x1="140" y1="208" x2="308" y2="208" stroke="#8a5a24" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="308" y1="208" x2="308" y2="64" stroke="#8a5a24" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="296" y="196" width="12" height="12" fill="none" stroke="#8a5a24" stroke-width="1.3"/>
+  <!-- punti -->
+  <circle cx="140" cy="208" r="5" fill="#22262a"/>
+  <circle cx="308" cy="64" r="5" fill="#22262a"/>
+  <text x="128" y="228" font-size="13" fill="#22262a" text-anchor="end">(2, 3)</text>
+  <text x="316" y="60" font-size="13" fill="#22262a">(6, 11)</text>
+  <!-- etichette -->
+  <text x="224" y="230" font-size="14" fill="#8a5a24" text-anchor="middle">Δx = 4 (avanzi)</text>
+  <text x="318" y="140" font-size="14" fill="#8a5a24">Δy = 8</text>
+  <text x="318" y="158" font-size="14" fill="#8a5a24">(sali)</text>
+</svg>
+<figcaption>Da <b>(2, 3)</b> a <b>(6, 11)</b>: sali \(11-3=8\), avanzi \(6-2=4\). Pendenza \(= 8/4 = 2\): ogni passo avanti, due in su.</figcaption>
+</figure>
+
+<hr>
+
+<h2 id="sec-2">2. Dalla retta alla curva: la derivata</h2>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Una <strong>retta</strong> ha una sola pendenza dappertutto. Una <strong>curva</strong> no: è più ripida in certi punti, meno in altri. Ma se ne ingrandisci un pezzetto piccolissimo, la curva sembra dritta come una retta — e quella retta ha una pendenza ben precisa. Quella è la ripidità «locale».</p>
+</div>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>La <strong>derivata</strong> di una funzione in un punto è un numero che misura la pendenza della curva esattamente in quel punto: quanto la funzione sta crescendo o calando proprio lì. Si ottiene così: si guarda la pendenza della retta che unisce il punto dato a un secondo punto vicino della curva, e la si osserva mentre il secondo punto si avvicina al primo. Il numero verso cui questa pendenza si stabilizza è la derivata.</p>
+  <span class="lbl">Il simbolo</span>
+  <p>La derivata di \(f\) nel punto \(x\) si scrive <strong>\(f'(x)\)</strong> (si legge «f primo di x»). La retta che unisce due punti della curva si chiama <strong>secante</strong>. La distanza tra i due punti si indica con <strong>\(h\)</strong>. La freccia <strong>\(\to\)</strong> significa «si avvicina a»: «\(h \to 0\)» si legge «h si avvicina a zero».</p>
+  <span class="lbl">Come si calcola (l'idea)</span>
+  <p>La pendenza della secante fra il punto \(x\) e il punto vicino \(x+h\) è</p>
+  <p style="text-align:center">\( \dfrac{f(x+h) - f(x)}{h} \)</p>
+  <p>La derivata è il numero verso cui tende questa pendenza quando <strong>\(h \to 0\)</strong> (il secondo punto si stringe sul primo). In questa wiki basta l'<strong>idea</strong>: le regole per ottenere il numero esatto non servono.</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 460 300" role="img" aria-label="Curva con rette secanti che si avvicinano alla tangente in un punto">
+  <!-- curva y=x^2 stile -->
+  <path d="M 70 250 C 180 246 258 206 388 62" fill="none" stroke="#2c6e57" stroke-width="2.5"/>
+  <!-- punto fisso P -->
+  <circle cx="300" cy="150" r="5.5" fill="#22262a"/>
+  <text x="292" y="172" font-size="14" fill="#22262a" text-anchor="end">P</text>
+  <!-- secante lontana verso Q1 -->
+  <circle cx="380" cy="80" r="4" fill="#9a9488"/>
+  <text x="388" y="76" font-size="13" fill="#7a746a">Q₁</text>
+  <line x1="240" y1="203" x2="404" y2="60" stroke="#9a9488" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <!-- secante vicina verso Q2 -->
+  <circle cx="336" cy="118" r="4" fill="#9a9488"/>
+  <text x="343" y="114" font-size="13" fill="#7a746a">Q₂</text>
+  <line x1="252" y1="188" x2="392" y2="82" stroke="#9a9488" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <!-- tangente -->
+  <line x1="222" y1="196" x2="392" y2="98" stroke="#8a5a24" stroke-width="2.6"/>
+  <text x="398" y="102" font-size="13" fill="#8a5a24">tangente</text>
+  <!-- freccia Q -> P -->
+  <text x="340" y="150" font-size="13" fill="#7a746a">Q → P</text>
+</svg>
+<figcaption>Le <b>secanti</b> (tratteggiate) da <b>P</b> ai punti vicini Q ruotano verso una retta limite: la <b>tangente</b>. La sua pendenza è la derivata in P.</figcaption>
+</figure>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — la secante che si avvicina</span>
+  <p>Prendiamo la curva \(f(x)=x^2\) e il punto in \(x=1\) (dove \(f=1\)). Calcoliamo la pendenza della secante verso punti sempre più vicini a \(1\), con la sola divisione (F0.1):</p>
+  <table>
+    <caption>Secondo punto che si avvicina a \(x=1\). Pendenza \(= (f(x)-1)\,/\,(x-1)\).</caption>
+    <thead><tr><th>secondo punto \(x\)</th><th>\(f(x)=x^2\)</th><th>pendenza secante</th></tr></thead>
+    <tbody>
+      <tr><td class="num">2</td><td class="num">4</td><td class="num">\((4-1)/(2-1)=3\)</td></tr>
+      <tr><td class="num">1,5</td><td class="num">2,25</td><td class="num">\((2{,}25-1)/(0{,}5)=2{,}5\)</td></tr>
+      <tr><td class="num">1,1</td><td class="num">1,21</td><td class="num">\((0{,}21)/(0{,}1)=2{,}1\)</td></tr>
+      <tr><td class="num">1,01</td><td class="num">1,0201</td><td class="num">\((0{,}0201)/(0{,}01)=2{,}01\)</td></tr>
+    </tbody>
+  </table>
+  <p>La pendenza scende \(3 \to 2{,}5 \to 2{,}1 \to 2{,}01\): si avvicina a <strong>2</strong>. Quindi la derivata di \(x^2\) in \(x=1\) è \(f'(1)=2\). Nessuna regola, solo divisioni che si stabilizzano.</p>
+</div>
+
+<div class="def" style="border-left-color:var(--accent)">
+  <span class="lbl">Definizione</span>
+  <p>La <strong>tangente</strong> in un punto è la retta che passa per quel punto con pendenza uguale alla derivata. È la retta che «da vicino» si confonde con la curva. Non dipende dall'idea vaga di «sfiorare»: è definita a partire dalla derivata, quindi in modo preciso.</p>
+</div>
+
+<div class="warn">
+  <span class="lbl">Attenzione — quando la derivata non esiste</span>
+  <p>Nei punti «lisci» la curva, ingrandita, si avvicina a una retta sola, e quella pendenza è la derivata. Ma in uno <strong>spigolo</strong> no: per quanto ingrandisci restano <strong>due</strong> pendenze diverse, la retta unica non c'è, e la derivata <strong>non esiste</strong>. In questa wiki assumiamo curve <strong>lisce</strong>, prive di spigoli.</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 360 260" role="img" aria-label="Grafico a V del valore assoluto con due pendenze diverse nello spigolo">
+  <line x1="30" y1="200" x2="330" y2="200" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="180" y1="228" x2="180" y2="30" stroke="#c7cfc9" stroke-width="1.5"/>
+  <!-- V -->
+  <line x1="70" y1="60" x2="180" y2="190" stroke="#2c6e57" stroke-width="2.6"/>
+  <line x1="180" y1="190" x2="290" y2="60" stroke="#2c6e57" stroke-width="2.6"/>
+  <circle cx="180" cy="190" r="5.5" fill="#8a5a24"/>
+  <text x="180" y="216" font-size="13" fill="#22262a" text-anchor="middle">spigolo (x = 0)</text>
+  <text x="96" y="112" font-size="14" fill="#2c6e57" text-anchor="end">pendenza −1</text>
+  <text x="264" y="112" font-size="14" fill="#2c6e57">pendenza +1</text>
+</svg>
+<figcaption>Il grafico di \(|x|\): a sinistra scende con pendenza \(-1\), a destra sale con \(+1\). Nello spigolo <b>due pendenze</b> → nessuna tangente unica → derivata non definita.</figcaption>
+</figure>
+
+<hr>
 
 <h2 id="sec-3">3. Il segno della derivata dice la direzione</h2>
-<p>La cosa più utile della derivata è il suo <strong>segno</strong>:</p>
-<ul>
-<li>derivata <strong>positiva</strong> → la curva <strong>sale</strong> (più avanzi, più cresce);</li>
-<li>derivata <strong>negativa</strong> → la curva <strong>scende</strong>;</li>
-<li>derivata <strong>zero</strong> → punto <strong>piatto</strong>: un <strong>candidato</strong> a cima o fondo — ma può anche essere un pianoro o un flesso a tangente orizzontale (va controllato a parte).</li>
-</ul>
-<div class="callout intu"><span class="tag">Perché lo zero è speciale</span>
-<p>In cima a una collina, per un istante non stai né salendo né scendendo: pendenza zero. Lo stesso nel punto più basso di una valle. Ma l'implicazione vale in <strong>un solo verso</strong>: la derivata nulla in un punto <strong>interno e liscio</strong> è condizione <strong>necessaria</strong> (non sufficiente) per un massimo o un minimo. Dove c'è un estremo interno la pendenza è zero, ma non ogni punto a pendenza zero è un estremo: può essere un <strong>flesso a tangente orizzontale</strong> (\(x^3\) in 0 ha pendenza zero, eppure la curva continua a salire). E un estremo può cadere sul <strong>bordo</strong> del dominio, dove la pendenza non si annulla: nella MLE della 1.1, se i successi osservati sono 0 la stima è \(\theta = 0\), sul bordo. Perciò «pendenza zero» segnala i <strong>candidati</strong> (il trucco dietro la ricerca del massimo — la MLE della 1.1 — e del minimo — la discesa del gradiente di F4); quale sia cima, fondo o flesso, e cosa accada ai bordi, va controllato a parte.</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>La cosa più utile della derivata è il suo <strong>segno</strong>: dice solo se, in quel punto, stai salendo, scendendo o sei in piano — la direzione locale della curva.</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <ul>
+    <li>\(f'(x) > 0\) → la curva <strong>sale</strong> (più avanzi, più cresce);</li>
+    <li>\(f'(x) < 0\) → la curva <strong>scende</strong>;</li>
+    <li>\(f'(x) = 0\) → punto <strong>piatto</strong>: un <strong>candidato</strong> a cima o fondo (ma non è garantito — vedi sotto).</li>
+  </ul>
+  <p>Quando nella wiki leggi «la derivata è zero», traduci: «qui è piatto, non sta cambiando».</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 460 260" role="img" aria-label="Collina con tre rette tangenti: in salita positiva, in cima orizzontale, in discesa negativa">
+  <line x1="40" y1="228" x2="420" y2="228" stroke="#c7cfc9" stroke-width="1.5"/>
+  <!-- collina -->
+  <path d="M 60 220 Q 220 -60 380 220" fill="none" stroke="#2c6e57" stroke-width="2.6"/>
+  <!-- tangente salita -->
+  <line x1="104" y1="147" x2="176" y2="83" stroke="#8a5a24" stroke-width="2.4"/>
+  <circle cx="140" cy="115" r="4.5" fill="#22262a"/>
+  <text x="150" y="90" font-size="13" fill="#8a5a24">f′ &gt; 0 · sale</text>
+  <!-- tangente cima -->
+  <line x1="178" y1="80" x2="262" y2="80" stroke="#8a5a24" stroke-width="2.4"/>
+  <circle cx="220" cy="80" r="4.5" fill="#22262a"/>
+  <text x="220" y="66" font-size="13" fill="#8a5a24" text-anchor="middle">f′ = 0 · piatto</text>
+  <!-- tangente discesa -->
+  <line x1="264" y1="83" x2="336" y2="147" stroke="#8a5a24" stroke-width="2.4"/>
+  <circle cx="300" cy="115" r="4.5" fill="#22262a"/>
+  <text x="310" y="90" font-size="13" fill="#8a5a24">f′ &lt; 0 · scende</text>
+</svg>
+<figcaption>Salendo la tangente punta in su (\(f'>0\)); in cima è <b>orizzontale</b> (\(f'=0\)); scendendo punta in giù (\(f'<0\)).</figcaption>
+</figure>
+
+<div class="warn">
+  <span class="lbl">Attenzione — «pendenza zero» non basta</span>
+  <p>In cima a una collina, per un istante non sali né scendi: pendenza zero. Lo stesso in fondo a una valle. Ma l'implicazione vale in <strong>un solo verso</strong>: dove c'è un massimo o minimo <strong>interno e liscio</strong>, la pendenza è zero — è condizione <strong>necessaria, non sufficiente</strong>. Non ogni punto a pendenza zero è un estremo:</p>
+  <ul>
+    <li>può essere un <strong>flesso a tangente orizzontale</strong>: \(x^3\) in \(0\) ha pendenza zero, eppure la curva continua a salire;</li>
+    <li>un estremo può cadere sul <strong>bordo</strong> del dominio, dove la pendenza non si annulla — come nella MLE della 1.1, se i successi osservati sono \(0\) la stima è \(\theta = 0\), sul bordo.</li>
+  </ul>
+  <p>Perciò «pendenza zero» segnala i <strong>candidati</strong>; quale sia cima, fondo o flesso, e cosa accada ai bordi, va controllato a parte.</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 360 300" role="img" aria-label="Curva x al cubo con tangente orizzontale nell'origine ma che continua a salire">
+  <line x1="30" y1="150" x2="330" y2="150" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="180" y1="285" x2="180" y2="20" stroke="#c7cfc9" stroke-width="1.5"/>
+  <!-- x^3 -->
+  <path d="M 66 268 C 132 232 150 156 180 150 C 210 144 228 68 294 32" fill="none" stroke="#2c6e57" stroke-width="2.6"/>
+  <!-- tangente orizzontale in 0 -->
+  <line x1="120" y1="150" x2="240" y2="150" stroke="#8a5a24" stroke-width="2.2" stroke-dasharray="6 4"/>
+  <circle cx="180" cy="150" r="5.5" fill="#8a5a24"/>
+  <text x="180" y="138" font-size="13" fill="#8a5a24" text-anchor="middle">pendenza = 0</text>
+</svg>
+<figcaption>\(x^3\) in \(0\): la tangente è <b>orizzontale</b> (pendenza zero), ma la curva sale prima e dopo. Non è né massimo né minimo — è un <b>flesso</b>.</figcaption>
+</figure>
+
+<hr>
 
 <h2 id="sec-4">4. Dove la ritrovi nella wiki</h2>
+
 <ul>
-<li><strong>Discesa del gradiente</strong> (F4): «scendere la collina dell'errore». Il gradiente è la versione a più direzioni della derivata e punta dove la funzione <strong>cresce</strong> più in fretta (massima salita); per scendere si va nel verso <strong>opposto</strong> al gradiente — da cui il nome del metodo. Il segno della pendenza dà comunque la direzione locale: dove è negativa, avanzando la funzione scende.</li>
-<li><strong>MLE</strong> (1.1, §3.2): trovare il valore che <strong>massimizza</strong> la verosimiglianza. All'interno del dominio i candidati sono i punti a pendenza zero; al bordo (0 successi o tutti successi) il massimo cade dove la pendenza non si annulla — «pendenza zero» dà i candidati, non la risposta garantita.</li>
-<li>Ogni volta che un box dice «qui la funzione è massima/minima», sotto c'è l'idea di pendenza zero.</li>
+  <li><strong>Discesa del gradiente</strong> (F4): «scendere la collina dell'errore». Il <strong>gradiente</strong> è la versione a più direzioni della derivata e punta dove la funzione <strong>cresce</strong> più in fretta (massima salita); per scendere si va nel verso <strong>opposto</strong> al gradiente — da cui il nome. Dove la pendenza è negativa, avanzando la funzione scende.</li>
+  <li><strong>MLE</strong> (1.1, §3.2): trovare il valore che <strong>massimizza</strong> la verosimiglianza. All'interno del dominio i candidati sono i punti a pendenza zero; al bordo (0 successi, o tutti successi) il massimo cade dove la pendenza non si annulla — «pendenza zero» dà i candidati, non la risposta garantita.</li>
+  <li>Ogni volta che un box dice «qui la funzione è massima o minima», sotto c'è l'idea di <strong>pendenza zero</strong>.</li>
 </ul>
 
-<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<hr>
+
+<h2 id="esercizi">Esercizi</h2>
 <ol>
-<li>Una retta va da (orizzontale 1, verticale 2) a (orizzontale 4, verticale 8). Qual è la pendenza?</li>
-<li>Se la derivata di una curva in un punto è negativa, la curva lì sale o scende?</li>
-<li>Cosa significa, a parole, «la derivata è zero in quel punto»?</li>
-<li>Perché per trovare la cima di una collina si cerca dove la pendenza è zero?</li>
+  <li>Una retta va da \((1, 2)\) a \((4, 8)\). Qual è la pendenza?</li>
+  <li>Se la derivata di una curva in un punto è negativa, lì la curva sale o scende?</li>
+  <li>Cosa significa, a parole, «la derivata è zero in quel punto»?</li>
+  <li>Perché per trovare la cima di una collina si cerca dove la pendenza è zero?</li>
+  <li>La curva \(|x|\) ha una derivata nel punto \(0\)? Perché sì o perché no?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
-</div>
+<p class="lead">Soluzioni qui sotto.</p>
 
-<hr/>
-
-<h2 id="soluzioni">Soluzioni degli esercizi</h2>
-<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<h2 id="soluzioni">Soluzioni</h2>
 <ol>
-<li>Sali \(8 - 2 = 6\), avanzi \(4 - 1 = 3\): pendenza \(= \dfrac{6}{3} = 2\).</li>
-<li><strong>Scende</strong>: derivata negativa = curva in discesa.</li>
-<li>Che in quel punto la curva è <strong>piatta</strong>: non sta né salendo né scendendo (una cima, un fondo o un pianoro).</li>
-<li>Perché in cima, per un istante, non sali più e non scendi ancora: la pendenza vale zero proprio lì.</li>
+  <li>Sali \(8-2=6\), avanzi \(4-1=3\): pendenza \(= 6/3 = 2\).</li>
+  <li><strong>Scende</strong>: derivata negativa = curva in discesa.</li>
+  <li>Che in quel punto la curva è <strong>piatta</strong>: non sta né salendo né scendendo (una cima, un fondo, un pianoro o un flesso).</li>
+  <li>Perché in cima, per un istante, non sali più e non scendi ancora: la pendenza vale zero proprio lì (è un candidato, da confermare).</li>
+  <li><strong>No.</strong> Nello spigolo in \(0\) restano due pendenze diverse (a sinistra \(-1\), a destra \(+1\)): non c'è una tangente unica, quindi la derivata non è definita.</li>
 </ol>
 
-<hr/>
+<hr>
 
 <h2 id="simboli">Simboli e termini introdotti in questa pagina</h2>
-<p class="note">Da fondere nel Glossario globale.</p>
-<table class="gl">
-<thead><tr><th>simbolo/termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
-<tbody>
-<tr><td>derivata</td><td>pendenza in un punto</td><td>quanto è ripida una curva lì; «quanto sta cambiando proprio qui»</td><td>F0.7 §1</td></tr>
-<tr><td>pendenza</td><td>—</td><td>\(\dfrac{\text{quanto sali}}{\text{quanto avanzi}}\): una frazione</td><td>F0.7 §1</td></tr>
-<tr><td>tangente</td><td>—</td><td>la retta per il punto con la pendenza «da vicino» (limite delle rette per due punti che si stringono); la derivata è quella pendenza</td><td>F0.7 §2</td></tr>
-<tr><td>derivata = 0</td><td>punto piatto (candidato)</td><td>né sale né scende: cima, fondo, pianoro o flesso a tangente orizzontale — solo un candidato a estremo</td><td>F0.7 §3</td></tr>
-</tbody>
+<p class="lead">Da fondere nel Glossario globale.</p>
+<table>
+  <thead><tr><th>simbolo / termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+  <tbody>
+    <tr><td>\(m\)</td><td>pendenza</td><td>numero che misura l'inclinazione di una retta: \(\Delta y / \Delta x\), cioè quanto sali per unità di avanzamento</td><td>F0.7 §1</td></tr>
+    <tr><td>\(\Delta\)</td><td>variazione («delta»)</td><td>di quanto una grandezza cambia fra due punti: \(\Delta y\) = quanto sali, \(\Delta x\) = quanto avanzi</td><td>F0.7 §1</td></tr>
+    <tr><td>derivata, \(f'(x)\)</td><td>pendenza in un punto</td><td>numero che misura quanto la curva è ripida lì; il valore verso cui tende la pendenza secante quando il secondo punto si avvicina</td><td>F0.7 §2</td></tr>
+    <tr><td>secante</td><td>—</td><td>la retta che unisce due punti della curva</td><td>F0.7 §2</td></tr>
+    <tr><td>\(\to\)</td><td>«tende a / si avvicina a»</td><td>«\(h \to 0\)» = «h si avvicina a zero»</td><td>F0.7 §2</td></tr>
+    <tr><td>tangente</td><td>—</td><td>la retta per il punto con pendenza uguale alla derivata (la retta che «da vicino» si confonde con la curva)</td><td>F0.7 §2</td></tr>
+    <tr><td>\(f'(x)=0\)</td><td>punto piatto (candidato)</td><td>né sale né scende: cima, fondo, pianoro o flesso a tangente orizzontale — solo un candidato a estremo</td><td>F0.7 §3</td></tr>
+  </tbody>
 </table>
 
-<hr/>
-<p class="note">F0.7 — La derivata · <strong>bozza</strong> · prossima: F0.8 Integrale, l'ultimo prerequisito.</p>
+<p class="arrow-up"><a href="#top">↑ torna su</a></p>
 
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Gradino 0 — prerequisiti">
-<div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<span class="wk-pos">Gradino 0</span>
-<a rel="prev" href="F0_6_Vettori_e_prodotto_scalare.html" aria-label="Precedente: F0.6 — Vettori e prodotto scalare" title="Precedente: F0.6 — Vettori e prodotto scalare">← F0.6</a>
-<span class="wk-pos">7 di 8</span>
-<a rel="next" href="F0_8_Integrale.html" aria-label="Successivo: F0.8 — L'integrale (l'area)" title="Successivo: F0.8 — L'integrale (l'area)">F0.8 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
-<script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
-try{localStorage.setItem('wiki-tappa','F0.7|F0_7_Derivata.html');}catch(e){}</script>
+<footer>
+  <span class="status">F0.7 — La derivata</span>
+  <span>prossima: F0.8 Integrale, l'ultimo prerequisito.</span>
+  <span><a href="index.html">↩ Mappa</a></span>
+  <span><a href="F0_6_Vettori_e_prodotto_scalare.html">← F0.6</a></span>
+  <span>7 di 8</span>
+  <span><a href="F0_8_Integrale.html">F0.8 →</a></span>
+  <span><a href="Glossario_globale.html">Glossario</a></span>
+  <span><a href="Come_si_studia.html">Metodo</a></span>
+</footer>
+
+</div>
 </body>
 </html>

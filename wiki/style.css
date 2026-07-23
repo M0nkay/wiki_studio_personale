@@ -1,0 +1,174 @@
+/* Foglio di stile condiviso — standard "F0.7" per la wiki Sistemi di Fiducia.
+   Estratto dal blocco <style> di F0_7_Derivata.html.
+   Ogni pagina deve linkare questo file: <link rel="stylesheet" href="style.css">
+   e NON ridefinire lo stile inline.
+
+   v2 — adeguamento al profilo lettore (dislessia grave + ADHD grave).
+   Le sezioni marcate [v2] sono le uniche modifiche rispetto alla versione
+   estratta da F0.7. Tutto il resto è invariato.
+   Nessun nome di classe è cambiato: l'HTML esistente non va toccato. */
+
+:root{
+  --bg:#f4f6f4;        /* soft paper, faint green tint (lavagna) */
+  --ink:#22262a;       /* slate, not pure black */
+  --muted:#5a6168;
+  --rule:#d8e0da;
+  --accent:#2c6e57;    /* deep chalk-green — Definizione */
+  --accent-soft:#e7f0eb;
+  --box:#fffef9;
+  --warn:#8a5a24;      /* ambra — Attenzione */
+  --warn-soft:#f6efe2;
+  --maxw:720px;
+
+  /* [v2] Colore proprio per l'Intuizione.
+     Prima .def e .note erano entrambi verdi: il tipo di blocco non si
+     riconosceva a colpo d'occhio, bisognava leggere l'etichetta.
+     Tre blocchi, tre colori. Non aggiungerne un quarto. */
+  --note:#2a6199;      /* blu — Intuizione */
+  --note-soft:#e8eff7;
+
+  /* [v2] Spaziatura fra caratteri.
+     È il parametro con l'evidenza sperimentale più solida per la dislessia
+     (Zorzi et al., PNAS 2012: +20% di velocità, metà degli errori).
+     Prima era .01em, cioè assente.
+
+     Intervallo utile: da .04em a .12em. Questo è l'UNICO valore che vale
+     la pena tarare a mano: cambialo qui e guarda F0.7 renderizzata. */
+  --ls:.08em;
+
+  /* [v2] Spazio fra parole. Deve restare nettamente maggiore di --ls,
+     altrimenti le parole si fondono fra loro. */
+  --ws:.16em;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size:19px; line-height:1.75;
+  letter-spacing:var(--ls);           /* [v2] era .01em */
+  word-spacing:var(--ws);             /* [v2] nuovo */
+  hyphens:none; -webkit-hyphens:none; /* [v2] mai spezzare le parole a fine riga */
+  text-align:left; padding:0 18px 90px;
+}
+.wrap{max-width:var(--maxw); margin:0 auto}
+a{color:var(--accent); text-decoration:underline; text-underline-offset:2px}
+a:focus-visible, button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+nav.top{
+  display:flex; flex-wrap:wrap; gap:.4em .9em; font-size:.82rem;
+  padding:1em 0 .4em; border-bottom:1px solid var(--rule); margin-bottom:.6em;
+  color:var(--muted); word-spacing:normal;   /* [v2] */
+}
+nav.top a{color:var(--muted)}
+
+/* [v2] I titoli non hanno bisogno della spaziatura ampia: sono corti e
+   si leggono per forma complessiva, non carattere per carattere. */
+h1,h2,h3{letter-spacing:.01em; word-spacing:normal}
+
+h1{font-size:1.72rem; line-height:1.3; margin:1.1em 0 .1em}
+
+/* [v2] tolto text-transform:uppercase.
+   Il maiuscolo elimina il profilo della parola (salite e discese delle
+   lettere), che è l'appiglio su cui si legge per riconoscimento invece
+   che per decodifica. Su un'etichetta ricorrente è la scelta peggiore.
+   Il testo ora esce come è scritto nell'HTML. */
+.kicker{font-size:.82rem; letter-spacing:.06em; color:var(--accent); font-weight:700; margin-top:1.2em}
+
+h2{
+  font-size:1.28rem; line-height:1.35; margin:2.1em 0 .5em;
+  padding-top:.7em; border-top:1px solid var(--rule); color:var(--accent);
+}
+h3{font-size:1.05rem; margin:1.5em 0 .3em}
+p{margin:.7em 0}
+strong{color:#141719; font-weight:700}
+
+/* [v2] Il grassetto è l'unica enfasi ammessa. Corsivo e sottolineato
+   vengono neutralizzati per costruzione: se finiscono in una pagina,
+   non producono effetto. La regola non dipende più dalla disciplina
+   di chi scrive. */
+em,i{font-style:normal; font-weight:700}
+u{text-decoration:none; font-weight:700}
+
+hr{border:0; border-top:1px solid var(--rule); margin:2em 0}
+.lead{color:var(--muted)}
+.prereq{background:var(--accent-soft); border-radius:6px; padding:.6em 1em; font-size:.95rem}
+
+/* blocchi strutturati */
+.def, .note, .warn{border-radius:6px; padding:.6em 1.05em; margin:1.35em 0}  /* [v2] più aria */
+.def{background:var(--box); border:1px solid var(--rule); border-left:5px solid var(--accent)}
+.note{background:var(--note-soft); border-left:5px solid var(--note)}        /* [v2] blu */
+.warn{background:var(--warn-soft); border-left:5px solid var(--warn)}
+
+/* [v2] tolto text-transform:uppercase, aumentata la spaziatura per
+   compensare la perdita di stacco visivo. */
+.lbl{display:block; font-weight:700; color:var(--accent); font-size:.84rem;
+     letter-spacing:.08em; word-spacing:normal; margin:.5em 0 .2em}
+.note .lbl{color:var(--note)}    /* [v2] */
+.warn .lbl{color:var(--warn)}
+
+/* [v2] MATEMATICA — obbligatorio.
+   La spaziatura ampia aiuta nella prosa ma rovina le formule, dove la
+   posizione dei simboli È il significato: un pedice distanziato smette
+   di sembrare un pedice. Qui la spaziatura si azzera.
+   Senza questo blocco, tutta la matematica della wiki esce sbagliata. */
+mjx-container, mjx-container *{
+  letter-spacing:normal !important;
+  word-spacing:normal !important;
+}
+/* [v2] Su schermo stretto le formule in display devono poter scorrere
+   in orizzontale invece di sfondare la pagina. */
+mjx-container[display="true"]{overflow-x:auto; overflow-y:hidden; padding:.3em 0}
+
+/* [v2] Codice: spaziatura normale, come per le formule. */
+code,pre,kbd,samp{font-family:"Courier New",Courier,monospace; font-size:.92em;
+  letter-spacing:normal; word-spacing:normal}
+code{background:var(--accent-soft); padding:.1em .35em; border-radius:3px}
+pre{background:var(--box); border:1px solid var(--rule); border-radius:6px;
+  padding:.8em 1em; overflow-x:auto; line-height:1.5}
+pre code{background:none; padding:0}
+
+/* figure */
+figure{margin:1.7em 0}
+figure svg{display:block; width:100%; height:auto; max-width:460px; margin:0 auto;
+  background:var(--box); border:1px solid var(--rule); border-radius:8px}
+/* [v2] didascalie allineate a sinistra: il testo centrato su più righe
+   costringe l'occhio a cercare l'inizio di ogni riga in un punto diverso. */
+figcaption{font-size:.88rem; color:var(--muted); margin-top:.55em; text-align:left}
+figcaption b{color:var(--ink)}
+
+/* tabelle */
+table{border-collapse:collapse; width:100%; margin:1.2em 0; font-size:.94rem}
+caption{caption-side:top; text-align:left; font-size:.88rem; color:var(--muted); margin-bottom:.4em}
+th,td{border:1px solid var(--rule); padding:.5em .7em; text-align:left; vertical-align:top}
+th{background:var(--accent-soft)}
+td.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+/* [v2] righe alternate: si salta di rigo molto meno leggendo in orizzontale. */
+tbody tr:nth-child(even) td{background:#fbfcfb}
+
+ul{padding-left:1.25em; margin:.7em 0} li{margin:.35em 0}
+ol{padding-left:1.35em} ol li{margin:.5em 0}
+.arrow-up{margin-top:2.2em}
+footer{margin-top:2.6em; padding-top:1em; border-top:1px solid var(--rule);
+  font-size:.85rem; color:var(--muted); display:flex; flex-wrap:wrap; gap:.5em 1em;
+  align-items:center; word-spacing:normal}   /* [v2] */
+.status{font-size:.82rem; color:var(--accent); font-weight:700}
+
+/* [v2] Arrivando da un link con frammento (#sec-3), il titolo non deve
+   finire incollato al bordo superiore dello schermo. */
+[id]{scroll-margin-top:1.2rem}
+
+/* [v2] Schermi stretti: la spaziatura piena accorcia troppo le righe. */
+@media (max-width:480px){
+  :root{--ls:.06em; --ws:.14em}
+  body{font-size:18px; padding:0 14px 70px}
+}
+
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto}}
+
+/* [v2] Stampa */
+@media print{
+  body{background:#fff; color:#000; font-size:11pt; letter-spacing:.03em; word-spacing:normal}
+  nav.top, footer{display:none}
+  .def,.note,.warn,figure,table,pre{break-inside:avoid}
+  h2,h3{break-after:avoid}
+}

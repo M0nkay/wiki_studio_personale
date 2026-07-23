@@ -43,6 +43,15 @@ assunte come standard del run.** Delta accettati:
 
 <!-- voci in append, una per pagina, subito dopo il commit -->
 
+## F0.7 — La derivata (Passo 1)
+
+- **Modifica unica** (come da brief): rimosso il blocco `<style>` inline dal head, inserito `<link rel="stylesheet" href="style.css">`. Nessun'altra modifica a contenuto, struttura, figure.
+- **Confronto rendering**: superato col criterio anti-regressione (vedi sezione «Passo 1» in cima). `style.css` entra nel repo con questo commit.
+- **Controllo etichette `.lbl` maiuscole** (richiesto da Alex): eseguito su tutta `wiki/` — 14 etichette trovate, tutte già in capitalizzazione normale (`Definizione`, `Intuizione`, `Attenzione — …`, `Il simbolo`, `Come si calcola…`). Nessuna normalizzazione necessaria.
+- **Definizioni / esempi / figure**: invariati (sono il modello dello standard).
+- **Verifica meccanica**: controlli 1–9 tutti PASS.
+- **Ancore rinominate**: nessuna.
+
 ---
 
 # Pagine lasciate invariate
