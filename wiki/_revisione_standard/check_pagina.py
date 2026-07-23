@@ -19,6 +19,10 @@ import re
 import sys
 from html.parser import HTMLParser
 
+# la console Windows e' cp1252: senza questo la stampa di caratteri
+# della wiki (frecce, accentate) fa fallire il report stesso
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
         "link", "meta", "param", "source", "track", "wbr"}
 
@@ -277,8 +281,13 @@ def main():
            parser.balance_errors[:20])
 
     # 8 — punto decimale nella prosa (segnala)
-    hits = [f"…{ctx(prose_no_math, m.start(), m.end())}…"
-            for m in re.finditer(r"\d\.\d", prose_no_math)]
+    # esclusioni previste dal brief (versioni/nomi file): le sigle di pagina
+    # della wiki (F0.7, §3.2, 1.1 … 4.3) usano il punto e non sono decimali
+    prose_8 = re.sub(r"[F§]\d+(?:\.\d+)+", " ", prose_no_math)
+    prose_8 = re.sub(r"(?<![\d,.])(?:1\.[1-4]|2\.[1-3]|3\.[12]|4\.[1-3])"
+                     r"(?![\d.])", " ", prose_8)
+    hits = [f"…{ctx(prose_8, m.start(), m.end())}…"
+            for m in re.finditer(r"\d\.\d", prose_8)]
     report(8, not hits, f"numeri in prosa col punto decimale "
            f"({len(hits)} occorrenze)", hits, level="segnala")
 
