@@ -511,6 +511,27 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## 2.3 — Spam mass e l'isolamento delle link farm
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Link farm — un mucchio di pagine fantasma, fitte di link reciproci, costruite per pompare il PageRank di un bersaglio.
+- PR⁺ / spam mass — il PageRank calcolato col teletrasporto ristretto al nucleo fidato (non rinormalizzato); la spam mass assoluta è la differenza col PageRank normale, la relativa è la sua frazione: la parte di rank che il web fidato non giustifica.
+
+**Esempi numerici** (8 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Pioggia: 0,15/10⁶ = 1,5·10⁻⁷; farm da 10 000 pagine → ≈ 0,0013 al bersaglio ≈ 1.300 volte la media (esatto 1.275).
+- m della farm ≈ 0,999; m della pagina onesta = 0,1.
+- Soluzioni: m = 0,25; farm da 1.000 → ≈ 1,3·10⁻⁴, ≈ 130 volte (rapporto lineare).
+
+**Figure**: nessuna (pagina breve e numerica).
+
+**Scelte di giudizio e incertezze**:
+- Separatori delle migliaia in math riscritti con spazio sottile (1 000 000, 10 000, 1 000); in prosa resta lo stile italiano «1.300» (falso positivo noto del controllo 8).
+- L'elenco a un solo punto (PR(p)) sciolto in prosa; frase del lead = sintesi senza matematica.
+- ⚠ Ereditato: nel def §2 il paragrafo interpretativo segue la formula (deroga a «formula ultima», conservata per fedeltà — stessa classe di F2).
+- Blocco def misto «Definizione + Come si calcola»: pattern del modello F0.7, ricorre qui come in 1.2/2.1/2.2.
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
