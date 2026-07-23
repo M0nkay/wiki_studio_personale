@@ -553,6 +553,27 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Nota di processo**: da questa pagina in poi, dopo ogni commit la riga di registro viene appesa a `AVANZAMENTO.md` (istituito da Alex con commit 4788447) e viaggia nel commit successivo, per mantenere un commit per pagina.
 
+## 3.2 — Knowledge Graph, co-citazioni, reputazione
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Knowledge Graph — un grafo dove i nodi sono entità (persone, organizzazioni, opere, luoghi), non pagine.
+- Peso dell'arco — la PMI⁺ della co-citazione: quanto due entità compaiono insieme oltre il caso, coi negativi azzerati.
+- W e rep — matrice dei pesi normalizzata per colonna (diagonale nulla, colonne nulle trattate come i dangling); la reputazione è l'unica distribuzione soluzione della propagazione con smorzamento α.
+
+**Esempi numerici** (7 verifiche + revisore, tutti OK):
+- PMI: rapporto 10 → log₂ 10 ≈ 3,32; rapporto 1 → 0; soluzione: rapporto 5 → ≈ 2,32.
+- Contributo dei vicini: 0,75·0,8 + 0,25·0,1 = 0,625; soluzione: 0,6.
+- Verificata anche l'identità PMI⁺(a;a) = −log₂ P(a) citata nella costruzione di W.
+
+**Figure**: nessuna (la macchina di propagazione è già illustrata in 2.2).
+
+**Scelte di giudizio e incertezze**:
+- Etichetta dell'esempio §3 cambiata da «la media pesata dei vicini» a «il contributo dei vicini»: la pagina stessa (fix f388186) precisa «Non è una media»; l'etichetta contraddiceva il testo.
+- Prima stesura RESPINTA dal revisore: nello spostamento dell'intro §3 era caduto il marcatore epistemico [INF]. Reintegrato nell'Intuizione. Riesaminata.
+- I due «N.B.» del §3 (costruzione di W; tipo e buona posizione) sono ora le due parti del def.
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Link vincolante in uscita F3#sec-4 conservato (nav + prerequisiti).
+
 ---
 
 # Pagine lasciate invariate

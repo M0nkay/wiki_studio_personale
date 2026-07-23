@@ -28,3 +28,4 @@ Formato riga: `- ✅ <sigla> — <file> · commit <hash> · <data> [· note]`
 - ✅ 2.1 — Sezione_2_1_PageRank.html · commit ebaac2c · 23/07/2026
 - ✅ 2.2 — Sezione_2_2_TrustRank.html · commit b806034 · 23/07/2026
 - ✅ 2.3 — Sezione_2_3_Spam_mass.html · commit 303ebf7 · 23/07/2026
+- ✅ 3.1 — Sezione_3_1_EEAT_ranking.html · commit bcbc160 · 23/07/2026
