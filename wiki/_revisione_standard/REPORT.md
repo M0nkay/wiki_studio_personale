@@ -52,6 +52,34 @@ assunte come standard del run.** Delta accettati:
 - **Verifica meccanica**: controlli 1–9 tutti PASS.
 - **Ancore rinominate**: nessuna.
 
+## F0.1 — Frazioni e percentuali
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Frazione — un numero: la quantità che ottieni tagliando un intero in b parti uguali e prendendone a; sopra e sotto due interi.
+- Semplificare — riscrivere la frazione dividendo sopra e sotto per lo stesso numero: non cambia il valore, cambia la scrittura.
+- Numero decimale — lo stesso valore della frazione, scritto con la virgola invece che con la barra; si ottiene eseguendo la divisione.
+- Percentuale — un numero scritto «su cento»; il simbolo % significa «diviso 100».
+
+**Esempi numerici** (aritmetica ricomputata con `fractions`/`decimal`, tutta OK):
+- 3/4 di 800: 800 : 4 = 200; 3 · 200 = 600; in un colpo solo (3 · 800)/4 = 2400/4 = 600.
+- Semplificare 6/8: 6 : 2 = 3; 8 : 2 = 4; quindi 6/8 = 3/4 = 0,75.
+- Conversioni: 0,3% = 0,3 : 100 = 0,003; 0,05 · 100 = 5%; 20% di 300 = 0,20 · 300 = 60.
+- Tabellina: 1/2 = 0,5; 1/4 = 0,25; 3/4 = 0,75; 1/10 = 0,1; 1/100 = 0,01; 1/3 = 0,333…
+- Soluzioni: 0,5 · 50 = 25; 4/10 = 2/5 = 0,4; 2% = 0,02; 0,5% = 0,005; 0,10 · 200 = 20; 0,2% = 0,002.
+
+**Figure**:
+- Barra divisa in 4 parti uguali (larghezza 100 ciascuna su base 400), 3 colorate — illustra «3/4 di 800 g = 600 g» del §1. Geometria verificata (4 · 200 g = 800 g; 3 · 200 g = 600 g).
+
+**Scelte di giudizio e incertezze**:
+- ⚠ **Corretto errore aritmetico preesistente**: «0,001 — mille volte più piccolo» → «**cento** volte più piccolo» (0,1 ÷ 0,001 = 100; coerente con la divisione già in pagina 0,1 : 100 = 0,001, e col «fattore cento» del resto della pagina). Trovato dalla revisione indipendente.
+- ⚠ Controllo 9 segnala `\(0.75\)`: **falso positivo intenzionale** — è il contrasto con la notazione anglosassone nel blocco sulla virgola («si scrive 0,75, non 0.75»), presente identico nell'originale.
+- «Più a fondo (opzionale)» convertito da callout a h3 + prosa, contenuto integro, marcatura di opzionalità conservata.
+- La regola «di» significa «per» spostata dentro la definizione di frazione (etichetta «Come si calcola»); era un callout separato.
+- Aggiunta la riga «semplificare» alla tabella simboli (termine già definito in pagina).
+- Revisione indipendente eseguita: 2 rilievi bloccanti (errore «mille volte», definizione §3 senza cover test), entrambi corretti prima del commit.
+
+**Ancore rinominate**: `ex-1` → `esercizi` (gli esercizi erano in un callout, ora sono sezione h2 come nel modello). Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate

@@ -1,262 +1,231 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>F0.1 — Frazioni e percentuali · Wiki Sistemi di Fiducia</title>
-<style>
-:root{
-  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
-  --box:#F1E9DA; --border:#e2d6bf;
-  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
-  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
-  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
-  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
-  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
-}
-html{font-size:118%;-webkit-text-size-adjust:100%;}
-body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
-  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
-  letter-spacing:.012em;word-spacing:.03em;}
-p{margin:.7em 0 1em;}
-h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
-h1{font-size:1.7rem;margin:.2em 0 .2em;}
-.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
-h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
-h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
-h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
-strong{font-weight:700;}
-ul,ol{padding-left:1.35em;}
-li{margin:.4em 0;}
-hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
-code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
-  padding:.05em .35em;border-radius:4px;font-size:.9em;}
-
-/* callout boxes */
-.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
-.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
-.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
-.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;margin-bottom:.35em;}
-.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
-.intu .tag{color:var(--intu-bd);}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
-.warn .tag{color:var(--warn-bd);}
-.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
-.deep .tag{color:var(--deep-bd);}
-.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
-.ex .tag{color:#5f594d;}
-
-/* the orienting pipeline / index box */
-.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
-  padding:1em 1.2em;margin:1.4em 0 2em;}
-.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
-.chain{font-weight:700;color:var(--navy);line-height:1.9;}
-.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
-  padding:.12em .5em;display:inline-block;margin:.15em 0;}
-.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
-
-/* formula highlight */
-.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
-  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
-.formula.key{border-left:5px solid var(--navy);}
-
-/* tables */
-table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
-caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
-th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
-th{background:#fff8ec;color:var(--navy);}
-.cm td{text-align:center;font-size:.92rem;}
-.ok{background:#EAF3EE;}
-.fn{background:#FBF3DC;}
-.fp{background:#F8E3DC;}
-.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
-
-.note{font-size:.9rem;color:var(--navy2);}
-mjx-container{overflow-x:auto;overflow-y:hidden;}
-@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
-</style>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  svg: { fontCache: 'global' }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
-
-<style>
-/* navigazione — solo schermo, deriva dai colori del documento */
-html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-[id]{scroll-margin-top:3.6rem;}
-.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
- background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
- padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
-.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.quicknav a:hover{background:#fff2c4;}
-.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
- outline:2px solid var(--navy);outline-offset:2px;}
-details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
- padding:.75rem 1.1rem;margin:0 0 2rem;}
-details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
-details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
-details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
-details.toc li{margin:.28rem 0;}
-details.toc a{text-decoration:none;}
-details.toc a:hover{text-decoration:underline;}
-a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
-a.xref:hover{background:#fff2c4;}
-@media print{.quicknav,details.toc{display:none;}}
-</style>
-
-<style>
-.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
- padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
-.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
-</style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Frazione</a><a href="#sec-2">§2 Operazioni</a><a href="#sec-3">§3 Decimali</a><a href="#sec-4">§4 Percentuali</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="#top">↑ inizio</a></nav>
+<div class="wrap" id="top">
 
-<h1 id="top">F0.1 — Frazioni e percentuali <span class="badge bozza">BOZZA</span></h1>
-<p class="note">Primo gradino dei <strong>prerequisiti</strong> della wiki. Nessuna base richiesta: si parte da qui. <strong>Bozza</strong>: schermo sì, carta no.</p>
+<nav class="top" aria-label="indice pagina">
+  <a href="#sec-1">§1 Frazione</a>
+  <a href="#sec-2">§2 Semplificare</a>
+  <a href="#sec-3">§3 Decimali</a>
+  <a href="#sec-4">§4 Percentuali</a>
+  <a href="#esercizi">Esercizi</a>
+  <a href="#simboli">Simboli</a>
+  <a href="index.html">↩ Mappa</a>
+</nav>
 
-<div class="callout warn"><span class="tag">Perché questa pagina viene prima di tutto</span>
-<p>Le percentuali sono la <strong>trappola numero uno</strong> di tutta la wiki: \(0{,}1\%\) non è \(0{,}1\). Sbagliare qui fa sballare interi ragionamenti più avanti (le soglie di reclamo della 1.2, per esempio). Vale la pena inchiodare bene le basi.</p>
+<p class="kicker">Gradino 0 · 1 di 8</p>
+<h1>F0.1 — Frazioni e percentuali</h1>
+<p class="lead">Qui si impara a leggere <strong>frazioni</strong>, <strong>numeri decimali</strong> e <strong>percentuali</strong> — tre modi di scrivere la stessa cosa — senza sbagliare di un fattore cento.</p>
+
+<p class="prereq"><strong>Nessun prerequisito.</strong> È il primo gradino della wiki: si parte da qui.</p>
+
+<div class="warn">
+  <span class="lbl">Attenzione — perché questa pagina viene prima di tutto</span>
+  <p>Le percentuali sono la <strong>trappola numero uno</strong> di tutta la wiki: \(0{,}1\%\) non è \(0{,}1\). Sbagliare qui fa sballare interi ragionamenti più avanti (le soglie di reclamo della 1.2, per esempio). Vale la pena inchiodare bene le basi.</p>
 </div>
 
-<hr/>
+<hr>
 
 <h2 id="sec-1">1. Che cos'è una frazione</h2>
-<p><strong>Intuizione.</strong> Una <strong>frazione</strong> nasce da un gesto: tagli un intero in parti uguali e ne prendi alcune. «Tre quarti» = taglio la torta in 4 fette uguali, ne prendo 3. Quella quantità — 3 fette su 4 — è proprio il numero che, moltiplicato per 4, ricostruisce le 3 fette: è così che il gesto diventa un numero.</p>
-<p><strong>Definizione.</strong> Una <strong>frazione</strong> è un <strong>numero</strong>: la quantità che ottieni tagliando un intero in \(b\) parti uguali e prendendone \(a\). <strong>Il simbolo.</strong> Si scrive \(\dfrac{a}{b}\): sotto, il <strong>denominatore</strong> \(b\) (in quante parti tagli); sopra, il <strong>numeratore</strong> \(a\) (quante ne prendi). La barra si legge «diviso»: \(\dfrac{3}{4}\) è anche «3 diviso 4».</p>
-<div class="callout warn"><span class="tag">Il confine — perché il denominatore non può essere zero</span>
-<p>\(\dfrac{3}{0}\) chiederebbe: quale numero, moltiplicato per 0, dà 3? Nessuno — tutto per 0 fa 0. E \(\dfrac{0}{0}\)? Qui ogni numero va bene (\(1\cdot 0 = 0\), \(5\cdot 0 = 0\)…): non ce n'è <strong>uno solo</strong>. In un caso non esiste risposta, nell'altro non ne esiste una sola: ecco perché il denominatore zero è sempre vietato. E se numeratore e denominatore non fossero interi (per esempio \(0{,}5 / 2{,}3\))? Sarebbe un quoziente qualsiasi, non una frazione: la frazione richiede due <strong>interi</strong>. Il numeratore, invece, può essere anche 0 o negativo: \(\dfrac{0}{5} = 0\) e \(\dfrac{-3}{4}\) sono frazioni a pieno titolo — la definizione dice più del disegno della torta.</p>
-</div>
-<div class="callout ex"><span class="tag">Esempio numerico</span>
-<p>\(\dfrac{3}{4}\): quattro fette, ne prendi tre. Se la torta pesa 800 g, una fetta è \(800 : 4 = 200\) g, e tre fette sono \(3 \cdot 200 = 600\) g. Quindi \(\dfrac{3}{4}\) di 800 = 600.</p>
-</div>
-<div class="callout intu"><span class="tag">La regola pratica: «di» significa «per»</span>
-<p>Calcolare «\(\dfrac{3}{4}\) <strong>di</strong> 800» = moltiplicare: \(\dfrac{3}{4} \cdot 800 = \dfrac{3 \cdot 800}{4} = \dfrac{2400}{4} = 600\). Ogni volta che leggi «i tre quarti di qualcosa», moltiplica per la frazione.</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Una frazione nasce da un gesto: <strong>tagli</strong> un intero in parti uguali e ne <strong>prendi</strong> alcune. «Tre quarti» = taglio la torta in 4 fette uguali, ne prendo 3. Quella quantità — 3 fette su 4 — è il numero che, moltiplicato per 4, ricostruisce le 3 fette: è così che il gesto diventa un numero.</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Una <strong>frazione</strong> è un <strong>numero</strong>: la quantità che ottieni tagliando un intero in \(b\) parti uguali e prendendone \(a\). Sopra e sotto ci vogliono due <strong>interi</strong>.</p>
+  <span class="lbl">Il simbolo</span>
+  <p>Si scrive \(\dfrac{a}{b}\): sotto sta il <strong>denominatore</strong> \(b\) (in quante parti tagli); sopra sta il <strong>numeratore</strong> \(a\) (quante ne prendi). La barra si legge «<strong>diviso</strong>»: \(\dfrac{3}{4}\) è anche «3 diviso 4». «Diviso» si scrive anche \(:\) oppure \(\div\).</p>
+  <span class="lbl">Come si calcola una frazione «di» qualcosa</span>
+  <p>«<strong>Di</strong>» significa «<strong>per</strong>»: calcolare «\(\dfrac{3}{4}\) di 800» vuol dire moltiplicare per la frazione:</p>
+  <p style="text-align:center">\( \dfrac{3}{4} \cdot 800 = \dfrac{3 \cdot 800}{4} = \dfrac{2400}{4} = 600 \)</p>
+  <p>Ogni volta che leggi «i tre quarti di qualcosa», moltiplica per la frazione.</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 460 150" role="img" aria-label="Barra divisa in quattro parti uguali, tre delle quali evidenziate">
+  <rect x="30" y="35" width="100" height="55" fill="#2c6e57"/>
+  <rect x="130" y="35" width="100" height="55" fill="#2c6e57"/>
+  <rect x="230" y="35" width="100" height="55" fill="#2c6e57"/>
+  <rect x="330" y="35" width="100" height="55" fill="#e7f0eb"/>
+  <rect x="30" y="35" width="400" height="55" fill="none" stroke="#22262a" stroke-width="1.6"/>
+  <line x1="130" y1="35" x2="130" y2="90" stroke="#22262a" stroke-width="1.2"/>
+  <line x1="230" y1="35" x2="230" y2="90" stroke="#22262a" stroke-width="1.2"/>
+  <line x1="330" y1="35" x2="330" y2="90" stroke="#22262a" stroke-width="1.2"/>
+  <text x="80" y="68" font-size="14" fill="#fffef9" text-anchor="middle">200 g</text>
+  <text x="180" y="68" font-size="14" fill="#fffef9" text-anchor="middle">200 g</text>
+  <text x="280" y="68" font-size="14" fill="#fffef9" text-anchor="middle">200 g</text>
+  <text x="380" y="68" font-size="14" fill="#5a6168" text-anchor="middle">200 g</text>
+  <text x="180" y="118" font-size="14" fill="#2c6e57" text-anchor="middle">prese: 3 parti = 600 g</text>
+  <text x="380" y="118" font-size="14" fill="#5a6168" text-anchor="middle">lasciata: 1</text>
+</svg>
+<figcaption>Un intero da 800 g tagliato in <b>4 parti uguali</b> da 200 g: ne prendi <b>3</b>. La quantità presa è \(\dfrac{3}{4}\) dell'intero, cioè 600 g.</figcaption>
+</figure>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — i tre quarti di 800</span>
+  <ol>
+    <li>Una parte: \(800 : 4 = 200\) g.</li>
+    <li>Tre parti: \(3 \cdot 200 = 600\) g.</li>
+  </ol>
+  <p>Quindi \(\dfrac{3}{4}\) di 800 = <strong>600</strong>. Lo stesso conto in un colpo solo: \(\dfrac{3 \cdot 800}{4} = \dfrac{2400}{4} = 600\).</p>
+</div>
+
+<div class="warn">
+  <span class="lbl">Attenzione — perché il denominatore non può essere zero</span>
+  <p>\(\dfrac{3}{0}\) chiederebbe: quale numero, moltiplicato per 0, dà 3? Nessuno — tutto per 0 fa 0. E \(\dfrac{0}{0}\)? Qui ogni numero va bene (\(1\cdot 0 = 0\), \(5\cdot 0 = 0\)…): non ce n'è <strong>uno solo</strong>. In un caso non esiste risposta, nell'altro non ne esiste una sola: ecco perché il denominatore zero è sempre vietato.</p>
+  <p>E se numeratore e denominatore non fossero interi (per esempio \(0{,}5 / 2{,}3\))? Sarebbe un quoziente qualsiasi, non una frazione: la frazione richiede due <strong>interi</strong>. Il numeratore, invece, può essere anche 0 o negativo: \(\dfrac{0}{5} = 0\) e \(\dfrac{-3}{4}\) sono frazioni a pieno titolo — la definizione dice più del disegno della torta.</p>
+</div>
+
+<hr>
 
 <h2 id="sec-2">2. Semplificare e confrontare</h2>
-<p><strong>Intuizione.</strong> La stessa quantità di torta si può scrivere in modi diversi: \(\dfrac{2}{4}\) e \(\dfrac{1}{2}\) sono la <strong>stessa cosa</strong> — metà torta.</p>
-<p><strong>Regola.</strong> <strong>Semplificare</strong> = dividere sopra e sotto per lo stesso numero. \(\dfrac{2}{4} = \dfrac{2 : 2}{4 : 2} = \dfrac{1}{2}\). Non cambia il valore, cambia solo la scrittura — come ridurre ai minimi termini.</p>
-<div class="callout ex"><span class="tag">Esempio numerico</span>
-<p>\(\dfrac{6}{8}\): sopra e sotto divisibili per 2 → \(\dfrac{3}{4}\). Non si può semplificare oltre (3 e 4 non hanno divisori comuni). Quindi \(\dfrac{6}{8} = \dfrac{3}{4} = 0{,}75\).</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>La stessa quantità di torta si può scrivere in modi diversi: \(\dfrac{2}{4}\) e \(\dfrac{1}{2}\) sono la <strong>stessa cosa</strong> — metà torta.</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p><strong>Semplificare</strong> una frazione è riscriverla dividendo sopra e sotto per lo stesso numero. Non cambia il valore, cambia solo la scrittura — è il «ridurre ai minimi termini»:</p>
+  <p style="text-align:center">\( \dfrac{2}{4} = \dfrac{2 : 2}{4 : 2} = \dfrac{1}{2} \)</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — semplificare \(6/8\)</span>
+  <ol>
+    <li>Sopra e sotto sono divisibili per 2: \(6 : 2 = 3\) e \(8 : 2 = 4\).</li>
+    <li>Quindi \(\dfrac{6}{8} = \dfrac{3}{4}\).</li>
+    <li>Non si può semplificare oltre: 3 e 4 non hanno divisori comuni.</li>
+  </ol>
+  <p>Quindi \(\dfrac{6}{8} = \dfrac{3}{4} = 0{,}75\).</p>
+</div>
+
+<hr>
 
 <h2 id="sec-3">3. Dalla frazione al numero decimale</h2>
-<p><strong>Intuizione.</strong> La frazione è un'istruzione: «dividi». Se la esegui, ottieni un <strong>numero decimale</strong> — quello con la virgola.</p>
-<p><strong>Come si fa.</strong> Numeratore diviso denominatore. \(\dfrac{3}{4} = 3 : 4 = 0{,}75\).</p>
-<div class="callout warn"><span class="tag">Convenzione italiana — la virgola</span>
-<p>In italiano il separatore dei decimali è la <strong>virgola</strong>: si scrive \(0{,}75\), non \(0.75\). Tutta la wiki usa la virgola. (I paesi anglosassoni usano il punto: attenzione quando leggi materiale in inglese.)</p>
-</div>
-<div class="callout ex"><span class="tag">Esempi utili da ricordare</span>
-<p>\(\dfrac{1}{2} = 0{,}5\) · \(\dfrac{1}{4} = 0{,}25\) · \(\dfrac{3}{4} = 0{,}75\) · \(\dfrac{1}{10} = 0{,}1\) · \(\dfrac{1}{100} = 0{,}01\) · \(\dfrac{1}{3} = 0{,}333\ldots\) (i puntini: continua all'infinito).</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>La frazione è un'istruzione: «dividi». Se la esegui, ottieni un <strong>numero decimale</strong> — quello con la virgola.</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Il <strong>numero decimale</strong> è lo stesso valore della frazione, scritto in un'altra forma: con la <strong>virgola</strong> invece che con la barra.</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Si esegue la divisione che la frazione comanda: numeratore diviso denominatore. \(\dfrac{3}{4} = 3 : 4 = 0{,}75\).</p>
+</div>
+
+<div class="warn">
+  <span class="lbl">Attenzione — convenzione italiana: la virgola</span>
+  <p>In italiano il separatore dei decimali è la <strong>virgola</strong>: si scrive \(0{,}75\), non \(0.75\). Tutta la wiki usa la virgola. (I paesi anglosassoni usano il punto: attenzione quando leggi materiale in inglese.)</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Esempi utili da ricordare</span>
+  <p>\(\dfrac{1}{2} = 0{,}5\) · \(\dfrac{1}{4} = 0{,}25\) · \(\dfrac{3}{4} = 0{,}75\) · \(\dfrac{1}{10} = 0{,}1\) · \(\dfrac{1}{100} = 0{,}01\) · \(\dfrac{1}{3} = 0{,}333\ldots\) (i puntini: continua all'infinito).</p>
+</div>
+
+<hr>
 
 <h2 id="sec-4">4. Le percentuali</h2>
-<p><strong>Intuizione.</strong> «Per cento» vuol dire proprio <strong>su cento</strong>. Il \(70\%\) è «70 pezzi ogni 100»: la torta tagliata in 100 fettine, ne prendi 70.</p>
-<p><strong>Definizione.</strong> Il simbolo \(\%\) significa «\(\div 100\)». Quindi convertire una percentuale in numero = <strong>dividere per 100</strong> (spostare la virgola di due posti a sinistra):</p>
-<div class="formula key">\[ 70\% = \frac{70}{100} = 0{,}70 \qquad 5\% = \frac{5}{100} = 0{,}05 \qquad 0{,}1\% = \frac{0{,}1}{100} = 0{,}001 \]</div>
-<div class="callout warn"><span class="tag">LA trappola da non sbagliare mai</span>
-<p>\(0{,}1\%\) <strong>non</strong> è \(0{,}1\). È \(0{,}001\) — mille volte più piccolo. Guarda: \(0{,}1\%\) significa «un decimo di uno su cento». Prima \(0{,}1 : 100 = 0{,}001\). Nella 1.2 questo è la differenza tra un mittente pulito e uno bandito: sbagliarla ribalta il verdetto.</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>«Per cento» vuol dire proprio <strong>su cento</strong>. Il \(70\%\) è «70 pezzi ogni 100»: la torta tagliata in 100 fettine, ne prendi 70.</p>
 </div>
-<div class="callout ex"><span class="tag">Esempio numerico — nei due sensi</span>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Una percentuale è un numero scritto «su cento». Il simbolo \(\%\) significa «\(\div 100\)».</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Convertire una percentuale in numero = <strong>dividere per 100</strong>, cioè spostare la virgola di due posti a sinistra:</p>
+  <p style="text-align:center">\[ 70\% = \frac{70}{100} = 0{,}70 \qquad 5\% = \frac{5}{100} = 0{,}05 \qquad 0{,}1\% = \frac{0{,}1}{100} = 0{,}001 \]</p>
+</div>
+
+<div class="warn">
+  <span class="lbl">Attenzione — LA trappola da non sbagliare mai</span>
+  <p>\(0{,}1\%\) <strong>non</strong> è \(0{,}1\). È \(0{,}001\) — cento volte più piccolo. Guarda: \(0{,}1\%\) significa «un decimo di uno su cento». Prima la divisione: \(0{,}1 : 100 = 0{,}001\). Nella 1.2 questo è la differenza tra un mittente pulito e uno bandito: sbagliarla ribalta il verdetto.</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — nei due sensi</span>
+  <ol>
+    <li><strong>Percentuale → numero</strong>: \(0{,}3\% = 0{,}3 : 100 = 0{,}003\).</li>
+    <li><strong>Numero → percentuale</strong> (moltiplica per 100): \(0{,}05 = 0{,}05 \cdot 100 = 5\%\).</li>
+    <li><strong>Percentuale di una quantità</strong>: il \(20\%\) di 300 email = \(0{,}20 \cdot 300 = 60\) email.</li>
+  </ol>
+</div>
+
+<h3>Più a fondo (opzionale) — frazione, decimale e percentuale sono la stessa cosa</h3>
+<p>Sono tre modi di scrivere lo stesso valore: \(\dfrac{1}{4} = 0{,}25 = 25\%\). Si passa dall'uno all'altro così: frazione → decimale (dividi); decimale → percentuale (moltiplica per 100); percentuale → decimale (dividi per 100). Un solo numero, tre vestiti.</p>
+
+<hr>
+
+<h2 id="esercizi">Esercizi</h2>
 <ol>
-<li><strong>Percentuale → numero</strong>: \(0{,}3\% = 0{,}3 : 100 = 0{,}003\).</li>
-<li><strong>Numero → percentuale</strong> (moltiplica per 100): \(0{,}05 = 0{,}05 \cdot 100 = 5\%\).</li>
-<li><strong>Percentuale di una quantità</strong>: il \(20\%\) di 300 email = \(0{,}20 \cdot 300 = 60\) email.</li>
+  <li>Quanto fa \(\dfrac{1}{2}\) di 50?</li>
+  <li>Semplifica \(\dfrac{4}{10}\) e scrivila come decimale.</li>
+  <li>Converti in numero: \(2\%\), poi \(0{,}5\%\).</li>
+  <li>Il \(10\%\) di 200 quanto vale?</li>
+  <li>La trappola: \(0{,}2\%\) come numero decimale?</li>
 </ol>
-</div>
-<div class="callout deep"><span class="tag">Più a fondo (opzionale) — frazione, decimale e percentuale sono la stessa cosa</span>
-<p>Sono tre modi di scrivere lo stesso valore: \(\dfrac{1}{4} = 0{,}25 = 25\%\). Passi dall'uno all'altro così: frazione → decimale (dividi); decimale → percentuale (×100); percentuale → decimale (÷100). Un solo numero, tre vestiti.</p>
-</div>
+<p class="lead">Soluzioni qui sotto.</p>
 
-<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<h2 id="soluzioni">Soluzioni</h2>
 <ol>
-<li>Quanto fa \(\dfrac{1}{2}\) di 50?</li>
-<li>Semplifica \(\dfrac{4}{10}\) e scrivila come decimale.</li>
-<li>Converti in numero: \(2\%\), poi \(0{,}5\%\).</li>
-<li>Il \(10\%\) di 200 quanto vale?</li>
-<li>La trappola: \(0{,}2\%\) come numero decimale?</li>
-</ol>
-<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
-</div>
-
-<hr/>
-
-<h2 id="soluzioni">Soluzioni degli esercizi</h2>
-<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
-<ol>
-<li>\(\dfrac{1}{2}\) di 50 \(= 0{,}5 \cdot 50 = 25\).</li>
-<li>\(\dfrac{4}{10} = \dfrac{2}{5} = 0{,}4\) (diviso 2 sopra e sotto; oppure \(4 : 10 = 0{,}4\)).</li>
-<li>\(2\% = 0{,}02\); \(0{,}5\% = 0{,}5 : 100 = 0{,}005\).</li>
-<li>\(10\%\) di 200 \(= 0{,}10 \cdot 200 = 20\).</li>
-<li>\(0{,}2\% = 0{,}2 : 100 = 0{,}002\) (non \(0{,}2\)!).</li>
+  <li>\(\dfrac{1}{2}\) di 50 \(= 0{,}5 \cdot 50 = 25\).</li>
+  <li>\(\dfrac{4}{10} = \dfrac{2}{5} = 0{,}4\) (diviso 2 sopra e sotto; oppure \(4 : 10 = 0{,}4\)).</li>
+  <li>\(2\% = 0{,}02\); \(0{,}5\% = 0{,}5 : 100 = 0{,}005\).</li>
+  <li>\(10\%\) di 200 \(= 0{,}10 \cdot 200 = 20\).</li>
+  <li>\(0{,}2\% = 0{,}2 : 100 = 0{,}002\) (non \(0{,}2\)!).</li>
 </ol>
 
-<hr/>
+<hr>
 
-<h2 id="simboli">Simboli introdotti in questa pagina</h2>
-<p class="note">Da fondere nel Glossario globale.</p>
-<table class="gl">
-<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
-<tbody>
-<tr><td>\(\dfrac{a}{b}\)</td><td>frazione</td><td>\(a\) numeratore (quante parti), \(b\) denominatore (in quante taglio); la barra = «diviso»</td><td>F0.1 §1</td></tr>
-<tr><td>\(:\) oppure \(\div\)</td><td>diviso</td><td>l'operazione di divisione</td><td>F0.1 §1</td></tr>
-<tr><td>virgola \(0{,}5\)</td><td>separatore decimale</td><td>convenzione italiana (l'inglese usa il punto)</td><td>F0.1 §3</td></tr>
-<tr><td>\(\%\)</td><td>per cento</td><td>significa «\(\div 100\)»: \(70\% = 0{,}70\)</td><td>F0.1 §4</td></tr>
-</tbody>
+<h2 id="simboli">Simboli e termini introdotti in questa pagina</h2>
+<p class="lead">Da fondere nel Glossario globale.</p>
+<table>
+  <thead><tr><th>simbolo / termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+  <tbody>
+    <tr><td>\(\dfrac{a}{b}\)</td><td>frazione</td><td>numero: la quantità che ottieni tagliando un intero in \(b\) parti uguali (denominatore, sotto) e prendendone \(a\) (numeratore, sopra); la barra = «diviso»</td><td>F0.1 §1</td></tr>
+    <tr><td>\(:\) oppure \(\div\)</td><td>diviso</td><td>l'operazione di divisione</td><td>F0.1 §1</td></tr>
+    <tr><td>semplificare</td><td>—</td><td>dividere numeratore e denominatore per lo stesso numero: cambia la scrittura, non il valore</td><td>F0.1 §2</td></tr>
+    <tr><td>virgola \(0{,}5\)</td><td>separatore decimale</td><td>convenzione italiana (l'inglese usa il punto)</td><td>F0.1 §3</td></tr>
+    <tr><td>\(\%\)</td><td>per cento</td><td>significa «\(\div 100\)»: \(70\% = 0{,}70\)</td><td>F0.1 §4</td></tr>
+  </tbody>
 </table>
 
-<hr/>
-<p class="note">F0.1 — Frazioni e percentuali · <strong>bozza</strong> · primo dei prerequisiti · prossima: F0.2 Potenze e radici.</p>
+<p class="arrow-up"><a href="#top">↑ torna su</a></p>
 
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Gradino 0 — prerequisiti">
-<div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<span class="wk-pos">Gradino 0</span>
-<span class="wk-pos">1 di 8</span>
-<a rel="next" href="F0_2_Potenze_e_radici.html" aria-label="Successivo: F0.2 — Potenze e radici" title="Successivo: F0.2 — Potenze e radici">F0.2 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
+<footer>
+  <span class="status">F0.1 — Frazioni e percentuali</span>
+  <span>prossima: F0.2 Potenze e radici.</span>
+  <span><a href="index.html">↩ Mappa</a></span>
+  <span>1 di 8</span>
+  <span><a href="F0_2_Potenze_e_radici.html">F0.2 →</a></span>
+  <span><a href="Glossario_globale.html">Glossario</a></span>
+  <span><a href="Come_si_studia.html">Metodo</a></span>
+</footer>
+
+</div>
 <script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
 try{localStorage.setItem('wiki-tappa','F0.1|F0_1_Frazioni_e_percentuali.html');}catch(e){}</script>
 </body>
