@@ -532,6 +532,27 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## 3.1 — E-E-A-T e learning-to-rank
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- E-E-A-T — una sigla dalle linee guida per i valutatori di qualità [DOC]: Experience, Expertise, Authoritativeness, Trust; non è un punteggio dentro l'algoritmo.
+- Pipeline — i valutatori producono etichette (query, documento, voto); le etichette addestrano un modello di learning-to-rank che massimizza NDCG e generalizza a tutte le query.
+
+**Esempi numerici** (verificati, tutti OK):
+- RankNet: σ(1,5 − 0,3) = σ(1,2) ≈ 0,77; soluzione: punteggi identici → σ(0) = 0,5.
+
+**Figure**: nessuna (pagina discorsiva).
+
+**Scelte di giudizio e incertezze**:
+- «L'oracolo fa da metro e da maestro, il modello generalizza» spostata nel blocco Intuizione del §2 (testo identico).
+- La pipeline in 4 punti dentro un def con etichetta «Come funziona».
+- Il link vincolante in uscita F4#sec-6 conservato in nav e prerequisiti (verificato dal revisore).
+- I blocchi «Onestà» e le trappole dei simboli conservati come Attenzione.
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
+**Nota di processo**: da questa pagina in poi, dopo ogni commit la riga di registro viene appesa a `AVANZAMENTO.md` (istituito da Alex con commit 4788447) e viaggia nel commit successivo, per mantenere un commit per pagina.
+
 ---
 
 # Pagine lasciate invariate
