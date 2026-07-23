@@ -256,6 +256,40 @@ la struttura interna non è stata toccata, quindi niente blocchi `.def`/`.note`.
 rendono come prosa piana fino alla ristrutturazione vera; le tabelle e i link prendono lo stile condiviso.
 Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
+## F4 — Statistica e machine learning
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Vettore — una lista ordinata di numeri; ogni posizione è una componente (ripasso, come in F0.6).
+- Prodotto scalare — combina dati e pesi in un solo numero: moltiplica componente per componente, poi somma.
+- Norma — la lunghezza del vettore: la distanza dall'origine; misura «quanto sono grossi i pesi».
+- Regressione logistica — una famiglia di funzioni (una per ogni scelta dei pesi): prende i dati e restituisce un numero strettamente tra 0 e 1, la probabilità stimata che l'etichetta valga 1; caratterizzata dal logit affine nei dati.
+- Gradiente — il vettore delle pendenze della perdita rispetto a ciascun peso; il passo è governato dal learning rate.
+- EWMA — un numero tenuto in memoria e aggiornato a ogni dato: la media che dimentica.
+- Intervallo di confidenza / LCB — forchetta di valori plausibili costruita dai dati; il bordo inferiore è il LCB; z ne governa la larghezza.
+- DCG / NDCG — un numero: la pagella di un ordinamento, somma dei guadagni scontati per posizione; NDCG la normalizza con l'ordinamento ideale.
+
+**Esempi numerici** (28 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- (1; −2)·(0,5; 0,25) = 0; norma (3; 4) = 5; σ(0) = 0,5; σ(1) ≈ 0,73.
+- Log-loss: −ln 0,9 ≈ 0,105; −ln 0,1 ≈ 2,303; soluzione: −ln 0,01 ≈ 4,605 contro −ln 0,5 ≈ 0,693 («quasi 7 volte» = 6,64).
+- Passo SGD completo: errore −0,5 → θ = (1,05; −1,975); prova del nove: nuovo punteggio 0,03125 > 0, r ≈ 0,51.
+- EWMA: 10 → 15 → 17,5; soluzione 100 → 120 → 136; 1 − e⁻¹ ≈ 0,63.
+- Wilson (z=2): pochi dati centro 0,3/1,4 ≈ 0,214 = 3/14, radice ≈ 0,138, LCB ≈ 0,017; tanti dati LCB ≈ 0,083; k=0 → LCB = 0.
+- DCG = 8,5; IDCG ≈ 8,89; NDCG ≈ 0,956; soluzione DCG ≈ 7,42, NDCG ≈ 0,834.
+
+**Figure**:
+- Sigmoide come polilinea per 13 punti calcolati esattamente (x = −6…6, y = 240 − 180·σ(x), scarto max 0,05 px) con σ(0) = 0,5 e σ(1) ≈ 0,73 evidenziati — illustra §2.1 («comprime la retta reale in (0,1)»). Verificata da me e dal revisore con calcoli indipendenti.
+
+**Scelte di giudizio e incertezze**:
+- ⚠ **Riparato refuso preesistente** in sol-6: `pprox` → `\approx` (2×; la formula era illeggibile a schermo).
+- Rimosso per intero il box «Stato: bozza — regole d'ingaggio» (scuse sul documento: «bozza», «non si trascrive su carta»).
+- Il riferimento alla derivata ora punta a F0.7 (prima puntava al box opzionale della 1.1; F0.7 è ora la sede propria del concetto).
+- Su rilievo del revisore: def EWMA completato con tipo/funzione; def gradiente con puntatore esplicito alla regola del §3.2; formula di Wilson inglobata in un blocco def in §5.3.
+- Esercizi e soluzioni restano per sezione (ex-1…ex-6 / sol-1…sol-6 con i loro backlink): struttura adatta a una pagina lunga, ancore conservate.
+- Caduta la nota ridondante «Simboli nuovi censiti nella tabella in fondo» (l'informazione sta nell'intestazione della tabella).
+- Controllo 8: 12 segnalazioni, tutte numerazioni di sottosezione (2.4, 5.1…) o riferimenti («sezione 3.1»): false positive. Controllo 9: 7 segnalazioni, tutte intervalli \((0,1)\)/\([0,1]\): virgole da separatore, false positive.
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisiti; nessun inbound). Tutti gli altri id conservati, inclusa **`sec-6` vincolata da Sezione_3_1** (verificato dal revisore).
+
 ---
 
 # Pagine lasciate invariate
