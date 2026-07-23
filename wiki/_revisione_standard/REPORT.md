@@ -358,6 +358,8 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 - ⚠ Ereditato dal vecchio, conservato: la prosa spiega 𝟙[·] e ∧ «li conosci già entrambi», ma la formula usa i cases (senza 𝟙): il paper introduce 𝟙, la pagina lo censisce in tabella. Da valutare in revisione se allineare formula e prosa.
 - ⚠ Ereditato dal vecchio, conservato: la formula di z_V usa V_t mentre l'indice dei giorni altrove è d (V_d); V_t non è in tabella simboli.
 
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati (ex-3, ex-4, sol-3, sol-4 inclusi).
+
 ## F3 — Teoria dell'informazione
 
 **Definizioni scritte** (testo senza formula, per il cover test):
@@ -438,7 +440,33 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 - Riferimento «la potenza di F4» corretto in «la potenza di F0.2» (la potenza è definita lì).
 - Footer con F6 nel percorso ripristinato su rilievo del revisore.
 
-**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati (ex-3, ex-4, sol-3, sol-4 inclusi).
+## F2 — Algebra lineare e catene di Markov
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Matrice — una tabella di numeri (array bidimensionale); il prodotto matrice·vettore è una pila di prodotti scalari: una macchina che trasforma vettori in vettori.
+- Colonna-stocastica / catena di Markov — ogni colonna somma a 1 (probabilità in uscita da uno stato); la catena è senza memoria: il prossimo passo dipende solo da dove sei.
+- Distribuzione stazionaria — un vettore di probabilità che la catena non cambia (il punto fermo).
+- Autovettore / autovalore — un vettore non nullo che la matrice non devia: lo riscala soltanto, del fattore autovalore.
+- Velocità di convergenza — sotto le ipotesi dichiarate, l'errore dopo k passi decade come il modulo del secondo autovalore alla k.
+- Inversa — l'unica matrice che annulla l'effetto di una matrice quadrata non singolare.
+- Serie di Neumann — l'inversa di (I − αM) come somma dei contributi di tutti i cammini, smorzati da α^k.
+
+**Esempi numerici** (11 verifiche con python + rifatti a mano dal revisore in aritmetica esatta, tutti OK):
+- M(0,5; 0,5) = (0,55; 0,45); meteo (1; 0) → (0,9; 0,1) → (0,83; 0,17).
+- Stazionaria: 0,2 = 0,3x → x = 2/3, prova del nove 0,9·⅔ + 0,2·⅓ = ⅔; sequenza 1; 0,9; 0,83; 0,781; 0,747 → ⅔.
+- Autovettori: M(2; 1) = (2; 1) (λ=1); M(1; −1) = (0,7; −0,7) (λ₂=0,7); errori ×0,7 esatti (errore iniziale proporzionale a v₂).
+- Serie geometrica: 1/(1−0,5) = 2; controesempio M = 2I divergente.
+- Soluzioni: (0,62; 0,38); M(3; 1) = (2,9; 1,1), rapporto 2,64 ≠ 3; 1/0,9 ≈ 1,111.
+
+**Figure**:
+- Successione della probabilità di sole (punti a y = 60, 105, 136,5, 158,6, 174) con la linea dell'equilibrio ⅔ a y = 210 — illustra §3/§5; il revisore ha verificato anche che le distanze dalla linea si contraggono di fattore 0,7. Didascalia precisata: asse verticale da 0,6 a 1.
+
+**Scelte di giudizio e incertezze**:
+- Il blocco esistenza/unicità/convergenza + teorema ergodico [PROP] spostato dal N.B. a blocco Attenzione adiacente al def (testo integro, controesempio incluso).
+- ⚠ Ereditato: i blocchi «definizione rigorosa» di §5 e §6b sono proposizioni/teoremi etichettati «Definizione»; in §5 la precisazione asintotica segue la formula (deroga a «formula ultima», conservata per fedeltà).
+- ⚠ «Non devia: lo riscala soltanto» è impreciso per λ negativi/complessi; la formula adiacente e la parentesi sul caso complesso (ereditata) delimitano.
+
+**Ancore rinominate**: `ex-6` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
 ---
 
