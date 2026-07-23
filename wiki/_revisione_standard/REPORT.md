@@ -468,6 +468,27 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `ex-6` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## 2.1 — PageRank: il random surfer
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- PageRank — il vettore che assegna a ogni pagina un numero in [0,1] con somma 1: la frazione di tempo di lungo periodo del navigatore casuale, cioè la distribuzione stazionaria (ben posta dopo la costruzione di G).
+- Formula scalare — pioggia uniforme del teletrasporto più le fette: ogni pagina divide il suo punteggio in parti uguali fra i link uscenti.
+- Matrice di Google — link, dangling e teletrasporto in un'unica matrice stocastica, irriducibile e aperiodica.
+
+**Esempi numerici** (verifiche in frazioni esatte, mie + del revisore, tutte OK):
+- Tre pagine (d = 0,5): PR(A) = 1/3, PR(B) = 1/4, PR(C) = 5/12; prova del nove 4/12+3/12+5/12 = 1.
+- Convergenza: 0,85^k = 10⁻⁶ → k ≈ 85 (esatto: 85,01).
+- Soluzione: due pagine, PR(A) = 1/4, PR(B) = 3/4.
+
+**Figure**:
+- Grafo diretto del web a tre pagine (A→B, A→C, B→C, C→A con frecce marker): il revisore ha verificato coordinata per coordinata che ogni freccia parte e arriva sui bordi dei nodi giusti nel verso giusto. Illustra l'esempio del §2.
+
+**Scelte di giudizio e incertezze**:
+- Il «N.B.» del §2 è diventato la Definizione del def; quello del §4 un blocco Attenzione («la buona posizione», serie di Neumann). Testo integro.
+- ⚠ Ereditato: la matrice G è costruita a parole, senza formula esplicita (scriverla sarebbe stato inventare matematica: scelta conservativa conforme al brief).
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
