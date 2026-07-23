@@ -574,6 +574,23 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Link vincolante in uscita F3#sec-4 conservato (nav + prerequisiti).
 
+## 4.1 — Safe Browsing: blacklist a prefissi di hash
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Flusso di verifica — canonicalizzazione → SHA-256 → confronto locale dei primi 4 byte → su match, richiesta degli hash completi inviando solo il prefisso → verdetto locale; URL e hash completo non lasciano mai il dispositivo.
+
+**Esempi numerici** (verificati, tutti OK):
+- 4,3·10⁶/2³² ≈ 0,001 = 0,1%; soluzione: 8,6·10⁶/2³² ≈ 0,002 (lineare, P ≪ 2³²).
+
+**Figure**: nessuna (la matematica è in F6; il flusso è procedurale).
+
+**Scelte di giudizio e incertezze**:
+- Corretto refuso preesistente «privacy: Dietro» → «privacy: dietro».
+- La parte k-anonimità / «non è segretezza assoluta» del §3 in blocco Attenzione; i due marcatori [INF] conservati (verificati dal revisore).
+- Il flusso in 5 passi in un def «Come funziona» (verbatim).
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
