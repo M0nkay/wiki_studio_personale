@@ -80,6 +80,32 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi` (gli esercizi erano in un callout, ora sono sezione h2 come nel modello). Nessun link esterno puntava a frammenti di questa pagina.
 
+## F0.2 — Potenze e radici
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Potenza — un numero: il risultato di una moltiplicazione ripetuta; per esponente intero positivo, il prodotto di b fattori tutti uguali ad a.
+- Esponente zero — qualsiasi numero (tranne 0) elevato a 0 fa 1, perché una cosa divisa per sé stessa fa 1.
+- Esponente negativo — significa «uno diviso»: il meno manda sotto la frazione.
+- Radice quadrata — per c ≥ 0, un numero non negativo: l'unico numero ≥ 0 il cui quadrato è c.
+
+**Esempi numerici** (aritmetica ricomputata + rifatta a mano dal revisore indipendente, tutta OK):
+- 2³ = 2·2·2 = 8; 10² = 100; 5¹ = 5; 3⁴ = 81.
+- Regole: 2²·2³ = cinque «2» = 2⁵ = 32; 10²·10³ = 10⁵ = 100 000 (verifica 100·1000); 10⁵/10² = 10³ = 1000.
+- a⁰: a³/a³ = a⁰ = 1; 10⁻⁶ = 1/1 000 000 = 0,000001; 2⁻¹ = 0,5.
+- Radici: √1=1, √4=2, √9=3, √16=4, √25=5, √100=10; √2 ≈ 1,41; (−5)² = 25.
+- Soluzioni: 2⁴=16; 10³=1000; 3²·3² = 3⁴ = 81 (verifica 9·9); 7⁰=1; 10⁻³=0,001; √36=6; √81=9.
+
+**Figure**:
+- Quadrato di lato 5 con area 25 e i due versi (lato→area 5²=25; area→lato √25=5) — illustra il blocco «perché si chiama quadrata» del §4. Geometria verificata (rect 150×150, lato marcato lungo 150).
+
+**Scelte di giudizio e incertezze**:
+- Il callout «Il confine» (0⁰ indefinito, esponenti non interi) convertito in blocco Attenzione.
+- I caveat della radice (c<0 non definito; √25 = 5 non −5; √0=0) estratti dalla definizione in un blocco Attenzione dedicato.
+- La sezione «Prerequisiti» (h2) compressa nel riquadro prerequisito a inizio pagina, come nel modello.
+- ⚠ Nota del revisore: «il risultato di una moltiplicazione ripetuta» descrive a rigore solo il caso b intero positivo; la frase successiva delimita («Quando b è un intero positivo…») e il blocco Attenzione marca il confine. Accettato così.
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisito). Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
