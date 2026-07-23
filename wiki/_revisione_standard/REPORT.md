@@ -338,6 +338,31 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati.
 
+## 1.3 — Warmup di IP e dominio
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Piano di crescita — il volume di ogni giorno è il minimo tra il tetto e il volume iniziale moltiplicato per il fattore di crescita elevato al giorno (crescita geometrica con tetto).
+- Fattore del giorno ρ_d — il moltiplicatore effettivamente applicato quel giorno: ρ_max se tutte le soglie di qualità sono rispettate, altrimenti ρ_hold (=1 mantiene, <1 arretra).
+- Probabilità di accettazione — una probabilità: sigmoide di un punteggio che premia la buona reputazione (a·(1−r)) e penalizza l'anomalia di volume (−b·z_V); z_V definito con σ_V>0, convenzione z_V:=0 a storico insufficiente.
+
+**Esempi numerici** (11 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Serie 100·1,5^d: 150, 225, ≈338, ≈506, ≈759, ≈1139 → tetto 1000 al giorno 6.
+- Regime/picco: σ(1,2) ≈ 0,77; σ(−1,8) ≈ 0,14 («sei su sette differite»: 1−0,14 ≈ 6/7).
+- Soluzioni: 50·2³ = 400 (giorno 3); indicatrice 0 con bounce 3% > 2%; σ(0) = 0,5.
+
+**Figure**:
+- Barre della serie geometrica (scala 1 px = 5 email; altezze 20, 30, 45, 67,5, 101,3, 151,9 e barra al tetto 200 con linea a y=40) — illustra «geometrica con tetto» del §2. Coerenza numerica verificata dal revisore (arrotondamenti sub-pixel su 101,25 e 151,875).
+
+**Scelte di giudizio e incertezze**:
+- Prima stesura RESPINTA dal revisore sui cover test dei def §3 e §4; corretta: il def §3 ora definisce ρ_d e la regola di scelta a parole; il def §4 ora definisce P_accept (tipo probabilità, struttura dei segni esplicitata: a premia 1−r, b penalizza z_V) prima delle ipotesi su z_V. Riesaminata e approvata.
+- ⚠ Ereditato dal vecchio, conservato: la prosa spiega 𝟙[·] e ∧ «li conosci già entrambi», ma la formula usa i cases (senza 𝟙): il paper introduce 𝟙, la pagina lo censisce in tabella. Da valutare in revisione se allineare formula e prosa.
+- ⚠ Ereditato dal vecchio, conservato: la formula di z_V usa V_t mentre l'indice dei giorni altrove è d (V_d); V_t non è in tabella simboli.
+- «Lettura» del §3 resa blocco «Intuizione — il termostato» (l'analogia sta nel blocco giusto).
+- Riferimento «la potenza di F4» corretto in «la potenza di F0.2» (la potenza è definita lì).
+- Footer con F6 nel percorso ripristinato su rilievo del revisore.
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati (ex-3, ex-4, sol-3, sol-4 inclusi).
+
 ---
 
 # Pagine lasciate invariate

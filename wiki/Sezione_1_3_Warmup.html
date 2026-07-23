@@ -1,268 +1,203 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>1.3 — Warmup di IP e dominio · Wiki Sistemi di Fiducia</title>
-<style>
-:root{
-  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
-  --box:#F1E9DA; --border:#e2d6bf;
-  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
-  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
-  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
-  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
-  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
-}
-html{font-size:118%;-webkit-text-size-adjust:100%;}
-body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
-  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
-  letter-spacing:.012em;word-spacing:.03em;}
-p{margin:.7em 0 1em;}
-h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
-h1{font-size:1.7rem;margin:.2em 0 .2em;}
-.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
-h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
-h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
-h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
-strong{font-weight:700;}
-ul,ol{padding-left:1.35em;}
-li{margin:.4em 0;}
-hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
-code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
-  padding:.05em .35em;border-radius:4px;font-size:.9em;}
-
-/* callout boxes */
-.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
-.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
-.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
-.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;margin-bottom:.35em;}
-.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
-.intu .tag{color:var(--intu-bd);}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
-.warn .tag{color:var(--warn-bd);}
-.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
-.deep .tag{color:var(--deep-bd);}
-.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
-.ex .tag{color:#5f594d;}
-
-/* the orienting pipeline / index box */
-.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
-  padding:1em 1.2em;margin:1.4em 0 2em;}
-.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
-.chain{font-weight:700;color:var(--navy);line-height:1.9;}
-.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
-  padding:.12em .5em;display:inline-block;margin:.15em 0;}
-.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
-
-/* formula highlight */
-.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
-  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
-.formula.key{border-left:5px solid var(--navy);}
-
-/* tables */
-table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
-caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
-th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
-th{background:#fff8ec;color:var(--navy);}
-.cm td{text-align:center;font-size:.92rem;}
-.ok{background:#EAF3EE;}
-.fn{background:#FBF3DC;}
-.fp{background:#F8E3DC;}
-.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
-
-.note{font-size:.9rem;color:var(--navy2);}
-mjx-container{overflow-x:auto;overflow-y:hidden;}
-@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
-</style>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  svg: { fontCache: 'global' }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
-
-<style>
-/* navigazione — solo schermo, deriva dai colori del documento */
-html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-[id]{scroll-margin-top:3.6rem;}
-.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
- background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
- padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
-.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.quicknav a:hover{background:#fff2c4;}
-.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
- outline:2px solid var(--navy);outline-offset:2px;}
-details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
- padding:.75rem 1.1rem;margin:0 0 2rem;}
-details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
-details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
-details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
-details.toc li{margin:.28rem 0;}
-details.toc a{text-decoration:none;}
-details.toc a:hover{text-decoration:underline;}
-a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
-a.xref:hover{background:#fff2c4;}
-@media print{.quicknav,details.toc{display:none;}}
-</style>
-
-<style>
-.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
- padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
-.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
-</style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Problema</a><a href="#sec-2">§2 Crescita</a><a href="#sec-3">§3 Retroazione</a><a href="#sec-4">§4 Lato ESP</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="Sezione_1_2_Score_reputazionali.html">↩ 1.2</a><a href="#top">↑ inizio</a></nav>
+<div class="wrap" id="top">
 
-<h1 id="top">1.3 — Warmup di IP e dominio <span class="badge bozza">BOZZA</span></h1>
-<p class="note">Pagina Sezione della wiki · paper §1.3. <strong>Bozza</strong>: schermo sì, carta no.</p>
+<nav class="top" aria-label="indice pagina">
+  <a href="#sec-1">§1 Problema</a>
+  <a href="#sec-2">§2 Crescita</a>
+  <a href="#sec-3">§3 Retroazione</a>
+  <a href="#sec-4">§4 Lato ESP</a>
+  <a href="#soluzioni">Soluzioni</a>
+  <a href="#simboli">Simboli</a>
+  <a href="Sezione_1_2_Score_reputazionali.html">↩ 1.2</a>
+</nav>
 
-<h2 id="prerequisiti">Prerequisiti</h2>
-<p><a class="xref" href="Sezione_1_2_Score_reputazionali.html">1.2</a> (prior diffidente, reputazione), <a class="xref" href="F4_Statistica_e_ML.html">F4</a> §2 (sigmoide al lavoro), <a class="xref" href="F5_Segnali_e_rilevamento.html">F5</a> §1 (z-score) e §3 (i 4xx del token bucket).</p>
+<p class="kicker">Percorso · 5 di 17</p>
+<h1>1.3 — Warmup di IP e dominio</h1>
+<p class="lead">Pagina Sezione della wiki · paper §1.3. Un IP nuovo nasce sconosciuto: il <strong>warmup</strong> è costruirsi una storia positiva crescendo di volume in modo controllato, agganciati ai segnali.</p>
 
-<hr/>
+<p class="prereq"><strong>Prerequisiti.</strong> <a href="Sezione_1_2_Score_reputazionali.html">1.2</a> (prior diffidente, reputazione), <a href="F4_Statistica_e_ML.html">F4</a> §2 (sigmoide al lavoro), <a href="F5_Segnali_e_rilevamento.html">F5</a> §1 (z-score) e §3 (i 4xx del token bucket).</p>
+
+<hr>
 
 <h2 id="sec-1">1. Il problema: nascere sconosciuti</h2>
-<p>Dalla 1.2 sai che un IP nuovo <strong>nasce con un prior diffidente</strong> (il quartiere, il cold start). Se dal giorno uno spara alto volume, accende due allarmi insieme: reputazione debole <em>e</em> anomalia volumetrica (F5). Risultato: rallentamenti e classificazione a spam. Il <strong>warmup</strong> è la risposta del mittente onesto: <strong>costruire storia positiva aumentando il volume in modo controllato</strong>, partendo dai destinatari più affezionati (massimizzano aperture e risposte, minimizzano reclami).</p>
 
-<hr/>
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Dalla 1.2 sai che un IP nuovo <strong>nasce con un prior diffidente</strong> (il quartiere, il cold start). Se dal giorno uno spara alto volume, accende due allarmi insieme: reputazione debole <strong>e</strong> anomalia volumetrica (F5). Risultato: rallentamenti e classificazione a spam. Il warmup è la risposta del mittente onesto: <strong>costruire storia positiva aumentando il volume in modo controllato</strong>, partendo dai destinatari più affezionati (massimizzano aperture e risposte, minimizzano reclami).</p>
+</div>
+
+<hr>
 
 <h2 id="sec-2">2. Il piano di crescita: geometrica con tetto</h2>
-<p>Lo schema canonico del paper:</p>
-<div class="formula key">\[ V_d \;=\; \min\bigl(V_{\max},\ V_0\,\rho^{\,d}\bigr) \]</div>
-<p>I pezzi: \(V_d\) = volume del giorno \(d\); \(V_0\) = volume iniziale (decine o centinaia); \(\rho\) (rho) = <strong>fattore di crescita giornaliero</strong>, tipicamente tra \(1{,}3\) e \(2\); \(\rho^{\,d}\) è la potenza di F4 (\(\rho\) moltiplicato per sé stesso \(d\) volte): crescita <strong>geometrica</strong>, cioè «per moltiplicazione». Il \(\min\) è il tetto \(V_{\max}\).</p>
-<div class="callout ex"><span class="tag">Esempio numerico</span>
-<p>\(V_0 = 100\), \(\rho = 1{,}5\), tetto \(V_{\max} = 1000\):</p>
-<p>giorno 1: \(150\) · giorno 2: \(225\) · giorno 3: \(\approx 338\) · giorno 4: \(\approx 506\) · giorno 5: \(\approx 759\) · giorno 6: \(1{,}5^6 \cdot 100 \approx 1139\) → <strong>tetto: 1000</strong>. In sei giorni da cento a mille, senza mai raddoppiare di colpo.</p>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Il piano canonico del paper è una crescita <strong>geometrica</strong> («per moltiplicazione») con un <strong>tetto</strong>: il volume di ogni giorno è il minimo tra il tetto e il volume iniziale moltiplicato per il fattore di crescita elevato al giorno.</p>
+  <span class="lbl">Come si calcola</span>
+  <p style="text-align:center">\[ V_d \;=\; \min\bigl(V_{\max},\ V_0\,\rho^{\,d}\bigr) \]</p>
+  <p>I pezzi: \(V_d\) = volume del giorno \(d\); \(V_0\) = volume iniziale (decine o centinaia); \(\rho\) (rho) = <strong>fattore di crescita giornaliero</strong>, tipicamente tra \(1{,}3\) e \(2\); \(\rho^{\,d}\) è la potenza di F0.2 (\(\rho\) moltiplicato per sé stesso \(d\) volte). Il \(\min\) è il tetto \(V_{\max}\).</p>
 </div>
 
-<hr/>
+<div class="note">
+  <span class="lbl">Esempio numerico</span>
+  <p>\(V_0 = 100\), \(\rho = 1{,}5\), tetto \(V_{\max} = 1000\):</p>
+  <p>giorno 1: \(150\) · giorno 2: \(225\) · giorno 3: \(\approx 338\) · giorno 4: \(\approx 506\) · giorno 5: \(\approx 759\) · giorno 6: \(1{,}5^6 \cdot 100 \approx 1139\) → <strong>tetto: 1000</strong>. In sei giorni da cento a mille, senza mai raddoppiare di colpo.</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 460 260" role="img" aria-label="Barre del volume giornaliero che crescono geometricamente fino a fermarsi al tetto">
+  <line x1="35" y1="240" x2="445" y2="240" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="35" y1="40" x2="445" y2="40" stroke="#8a5a24" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="40" y="32" font-size="13" fill="#8a5a24">tetto V max = 1000</text>
+  <rect x="55"  y="220"   width="40" height="20"    fill="#e7f0eb" stroke="#2c6e57" stroke-width="1.2"/>
+  <rect x="110" y="210"   width="40" height="30"    fill="#e7f0eb" stroke="#2c6e57" stroke-width="1.2"/>
+  <rect x="165" y="195"   width="40" height="45"    fill="#e7f0eb" stroke="#2c6e57" stroke-width="1.2"/>
+  <rect x="220" y="172.5" width="40" height="67.5"  fill="#e7f0eb" stroke="#2c6e57" stroke-width="1.2"/>
+  <rect x="275" y="138.7" width="40" height="101.3" fill="#e7f0eb" stroke="#2c6e57" stroke-width="1.2"/>
+  <rect x="330" y="88.1"  width="40" height="151.9" fill="#e7f0eb" stroke="#2c6e57" stroke-width="1.2"/>
+  <rect x="385" y="40"    width="40" height="200"   fill="#f6efe2" stroke="#8a5a24" stroke-width="1.6"/>
+  <text x="75"  y="256" font-size="12" fill="#5a6168" text-anchor="middle">g0</text>
+  <text x="130" y="256" font-size="12" fill="#5a6168" text-anchor="middle">g1</text>
+  <text x="185" y="256" font-size="12" fill="#5a6168" text-anchor="middle">g2</text>
+  <text x="240" y="256" font-size="12" fill="#5a6168" text-anchor="middle">g3</text>
+  <text x="295" y="256" font-size="12" fill="#5a6168" text-anchor="middle">g4</text>
+  <text x="350" y="256" font-size="12" fill="#5a6168" text-anchor="middle">g5</text>
+  <text x="405" y="256" font-size="12" fill="#5a6168" text-anchor="middle">g6</text>
+</svg>
+<figcaption>L'esempio in figura (scala: 1 px = 5 email): <b>100, 150, 225, 338, 506, 759</b>… al giorno 6 la crescita chiederebbe 1139, ma il \(\min\) la ferma al <b>tetto 1000</b> (barra ambra).</figcaption>
+</figure>
+
+<hr>
 
 <h2 id="sec-3">3. La versione realistica: crescita in retroazione</h2>
-<p>Crescere «a tabella» è ingenuo: la crescita va <strong>subordinata ai segnali</strong>. Il paper la scrive con due simboli nuovi:</p>
-<p>Siano \(\rho_{\max} \geq 1\) il fattore di crescita massimo (lo stesso \(\rho \in [1{,}3;\ 2]\) del §2) e \(\rho_{\text{hold}}\) il fattore in attesa: \(\rho_{\text{hold}} = 1\) per mantenere il volume, \(\rho_{\text{hold}} < 1\) per arretrare. Se serve distinguere attesa e arretramento, prevedere due valori (o due rami) espliciti, non un unico \(\rho_{\text{hold}}\).</p>
-<div class="formula key">\[ \rho_d = \begin{cases} \rho_{\max} & \text{se } c_d < c^{*} \wedge \text{bounce}_d < b^{*} \wedge \text{block}_d < \beta^{*} \\ \rho_{\text{hold}} & \text{altrimenti} \end{cases} \]</div>
-<p>Da programmatore li conosci già entrambi: \(\mathbb{1}[\text{condizione}]\) è la <strong>funzione indicatrice</strong> — vale \(1\) se la condizione è vera, \(0\) se falsa (un cast da booleano a numero); \(\wedge\) è la <strong>e logica</strong> (l'<code>and</code>). L'<strong>asterisco</strong> in alto (\(c^{*}\), \(b^{*}\), \(\beta^{*}\)) marca i <strong>valori obiettivo</strong>, le soglie da rispettare — target tipici: reclami \(c^{*} = 0{,}1\%\), hard bounce \(b^{*} \approx 2\%\) <strong>[DOC/INF]</strong>.</p>
-<p>Lettura: <strong>se tutti i KPI tengono</strong> (KPI = indicatori chiave di prestazione), acceleri a \(\rho_{\max}\); <strong>se uno solo sgarra</strong>, l'indicatrice si azzera e resti fermo a \(\rho_{\text{hold}}\) (mantieni, o arretri se i blocchi sono alti). È un termostato: la retroazione tiene la crescita agganciata ai segnali reali.</p>
 
-<div class="callout ex" id="ex-3"><span class="tag">Esercizi — §2–§3</span>
-<ol>
-<li>\(V_0 = 50\), \(\rho = 2\), tetto \(400\): in che giorno lo raggiungi?</li>
-<li>Oggi: \(c_d = 0{,}08\%\), bounce \(= 3\%\), blocchi sotto soglia. Con \(c^{*} = 0{,}1\%\) e \(b^{*} = 2\%\): quanto vale l'indicatrice, e che \(\rho_d\) usi?</li>
-</ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-3">fondo pagina</a>.</p>
+<p>Crescere «a tabella» è ingenuo: la crescita va <strong>subordinata ai segnali</strong>. Il paper la scrive con due simboli nuovi:</p>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Il <strong>fattore di crescita del giorno</strong> \(\rho_d\) è il moltiplicatore effettivamente applicato al volume quel giorno. La regola lo sceglie fra due valori: se <strong>tutte</strong> le soglie di qualità sono rispettate, si usa il fattore massimo \(\rho_{\max} \geq 1\) (lo stesso \(\rho \in [1{,}3;\ 2]\) del §2); altrimenti il fattore in attesa \(\rho_{\text{hold}}\): \(\rho_{\text{hold}} = 1\) per mantenere il volume, \(\rho_{\text{hold}} < 1\) per arretrare. Se serve distinguere attesa e arretramento, prevedere due valori (o due rami) espliciti, non un unico \(\rho_{\text{hold}}\).</p>
+  <span class="lbl">Come si calcola</span>
+  <p style="text-align:center">\[ \rho_d = \begin{cases} \rho_{\max} & \text{se } c_d < c^{*} \wedge \text{bounce}_d < b^{*} \wedge \text{block}_d < \beta^{*} \\ \rho_{\text{hold}} & \text{altrimenti} \end{cases} \]</p>
+  <p>Da programmatore li conosci già entrambi: \(\mathbb{1}[\text{condizione}]\) è la <strong>funzione indicatrice</strong> — vale \(1\) se la condizione è vera, \(0\) se falsa (un cast da booleano a numero); \(\wedge\) è la <strong>e logica</strong> (l'<code>and</code>). L'<strong>asterisco</strong> in alto (\(c^{*}\), \(b^{*}\), \(\beta^{*}\)) marca i <strong>valori obiettivo</strong>, le soglie da rispettare — target tipici: reclami \(c^{*} = 0{,}1\%\), hard bounce \(b^{*} \approx 2\%\) <strong>[DOC/INF]</strong>.</p>
 </div>
 
-<hr/>
+<div class="note">
+  <span class="lbl">Intuizione — il termostato</span>
+  <p><strong>Se tutti i KPI tengono</strong> (KPI = indicatori chiave di prestazione), acceleri a \(\rho_{\max}\); <strong>se uno solo sgarra</strong>, l'indicatrice si azzera e resti fermo a \(\rho_{\text{hold}}\) (mantieni, o arretri se i blocchi sono alti). È un termostato: la retroazione tiene la crescita agganciata ai segnali reali.</p>
+</div>
+
+<h3 id="ex-3">Esercizi — §2–§3</h3>
+<ol>
+  <li>\(V_0 = 50\), \(\rho = 2\), tetto \(400\): in che giorno lo raggiungi?</li>
+  <li>Oggi: \(c_d = 0{,}08\%\), bounce \(= 3\%\), blocchi sotto soglia. Con \(c^{*} = 0{,}1\%\) e \(b^{*} = 2\%\): quanto vale l'indicatrice, e che \(\rho_d\) usi?</li>
+</ol>
+<p class="lead">Soluzioni nel <a href="#sol-3">blocco §2–§3 in fondo</a>.</p>
+
+<hr>
 
 <h2 id="sec-4">4. Dall'altra parte: come il ricevente legge il warmup</h2>
+
 <p>Il fornitore che riceve (nel paper: l'ESP, es. Gmail) osserva la <strong>traiettoria congiunta</strong>: volume, engagement, reclami, bounce, autenticazione. Un mittente legittimo in crescita mostra volume che sale <strong>insieme</strong> all'engagement e <strong>senza</strong> reclami; uno spammer mostra volume alto con engagement piatto. Il paper condensa il giudizio in una probabilità di accettazione — e sono tutti pezzi che possiedi:</p>
-<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p>Ipotesi: il mittente dispone di uno storico di volume con \(\sigma_V > 0\). Allora \(z_V \in \mathbb{R}\), \(z_V = \frac{V_t - \mu_V}{\sigma_V}\). Nei primi giorni di warmup, con storico insufficiente (\(\sigma_V = 0\)), si adotta la convenzione esplicita \(z_V := 0\) finché lo storico non è stabile.</p>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>La <strong>probabilità di accettazione</strong> \(P_{\text{accept}}\) è una <strong>probabilità</strong>: la sigmoide di un punteggio che <strong>premia la buona reputazione</strong> — il peso \(a\) moltiplica la quota buona \(1 - r(\mathbf{x})\) — e <strong>penalizza l'anomalia di volume</strong> — il peso \(b\) moltiplica, col segno meno, lo z-score del volume.</p>
+  <p>Ipotesi sullo z-score: il mittente dispone di uno storico di volume con \(\sigma_V > 0\). Allora \(z_V \in \mathbb{R}\), \(z_V = \frac{V_t - \mu_V}{\sigma_V}\). Nei primi giorni di warmup, con storico insufficiente (\(\sigma_V = 0\)), si adotta la convenzione esplicita \(z_V := 0\) finché lo storico non è stabile.</p>
+  <span class="lbl">Come si calcola</span>
+  <p style="text-align:center">\[ P_{\text{accept}} \;=\; \sigma\bigl(a\,(1 - r(\mathbf{x})) - b\,z_V\bigr),\quad a, b > 0. \]</p>
+  <p>Dentro: \(r(\mathbf{x})\) = la reputazione della 1.2; \(z_V\) = lo <strong>z-score del volume</strong> (F5 §1) rispetto allo storico del mittente — il pedice \(V\) dice «del volume»; \(a, b\) = pesi di importanza dei due segnali; la sigmoide impacchetta tutto in una probabilità. Picco improvviso (\(z_V\) grande) su reputazione fragile → \(P_{\text{accept}}\) crolla → fioccano i <strong>4xx</strong> («deferral»: riprova più tardi, F5 §3), e il mittente deve rallentare con pazienza.</p>
 </div>
-<div class="formula key">\[ P_{\text{accept}} \;=\; \sigma\bigl(a\,(1 - r(\mathbf{x})) - b\,z_V\bigr),\quad a, b > 0. \]</div>
-<p>Dentro: \(r(\mathbf{x})\) = la reputazione della 1.2; \(z_V\) = lo <strong>z-score del volume</strong> (F5 §1) rispetto allo storico del mittente — il pedice \(V\) dice «del volume»; \(a, b\) = pesi di importanza dei due segnali; la sigmoide impacchetta tutto in una probabilità. Picco improvviso (\(z_V\) grande) su reputazione fragile → \(P_{\text{accept}}\) crolla → fioccano i <strong>4xx</strong> («deferral»: riprova più tardi, F5 §3), e il mittente deve rallentare con pazienza.</p>
-<div class="callout warn"><span class="tag">Trappola dei simboli</span>
-<p>Questi \(a\) e \(b\) sono <strong>pesi</strong>: il \(b\) qui non è il conteggio spam della 1.1. E \(\rho\) (rho) non è la \(p\) di probabilità: è una lettera greca diversa, scelta apposta per il fattore di crescita.</p>
+
+<div class="warn">
+  <span class="lbl">Attenzione — trappola dei simboli</span>
+  <p>Questi \(a\) e \(b\) sono <strong>pesi</strong>: il \(b\) qui non è il conteggio spam della 1.1. E \(\rho\) (rho) non è la \(p\) di probabilità: è una lettera greca diversa, scelta apposta per il fattore di crescita.</p>
 </div>
-<div class="callout ex"><span class="tag">Esempio numerico — regime contro picco</span>
-<p>Mittente con \(r(\mathbf{x}) = 0{,}4\) (40 % stimato abusivo → buona reputazione \(0{,}6\)); pesi \(a = 2\), \(b = 1\).</p>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — regime contro picco</span>
+  <p>Mittente con \(r(\mathbf{x}) = 0{,}4\) (40 % stimato abusivo → buona reputazione \(0{,}6\)); pesi \(a = 2\), \(b = 1\).</p>
+  <ol>
+    <li><strong>Regime</strong> (\(z_V = 0\)): \(P_{\text{accept}} = \sigma(2 \cdot 0{,}6 - 0) = \sigma(1{,}2) \approx 0{,}77\) — quasi tutto passa.</li>
+    <li><strong>Picco</strong> (\(z_V = 3\)): \(P_{\text{accept}} = \sigma(2 \cdot 0{,}6 - 3) = \sigma(-1{,}8) \approx 0{,}14\) — sei email su sette differite.</li>
+  </ol>
+  <p>Stessa reputazione: a fare la differenza è <strong>quanto sei strano rispetto al tuo storico</strong>.</p>
+</div>
+
+<h3 id="ex-4">Esercizi — §4</h3>
 <ol>
-<li><strong>Regime</strong> (\(z_V = 0\)): \(P_{\text{accept}} = \sigma(2 \cdot 0{,}6 - 0) = \sigma(1{,}2) \approx 0{,}77\) — quasi tutto passa.</li>
-<li><strong>Picco</strong> (\(z_V = 3\)): \(P_{\text{accept}} = \sigma(2 \cdot 0{,}6 - 3) = \sigma(-1{,}8) \approx 0{,}14\) — sei email su sette differite.</li>
+  <li>Stesso mittente, picco moderato \(z_V = 1{,}2\): calcola \(P_{\text{accept}}\) (suggerimento: l'argomento diventa \(0\)).</li>
+  <li>Il mittente riceve una raffica di 4xx. Qual è la mossa giusta, e perché conviene anche a lui?</li>
 </ol>
-<p>Stessa reputazione: a fare la differenza è <strong>quanto sei strano rispetto al tuo storico</strong>.</p>
-</div>
+<p class="lead">Soluzioni nel <a href="#sol-4">blocco §4 in fondo</a>.</p>
 
-<div class="callout ex" id="ex-4"><span class="tag">Esercizi — §4</span>
-<ol>
-<li>Stesso mittente, picco moderato \(z_V = 1{,}2\): calcola \(P_{\text{accept}}\) (suggerimento: l'argomento diventa \(0\)).</li>
-<li>Il mittente riceve una raffica di 4xx. Qual è la mossa giusta, e perché conviene anche a lui?</li>
-</ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-4">fondo pagina</a>.</p>
-</div>
+<hr>
 
-<hr/>
-
-<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<h2 id="soluzioni">Soluzioni</h2>
 
 <h3 id="sol-3">Soluzioni — §2–§3</h3>
-<p class="note"><a class="xref" href="#ex-3">↩ Torna agli esercizi</a></p>
+<p class="lead"><a href="#ex-3">↩ Torna agli esercizi</a></p>
 <ol>
-<li>\(50 \to 100 \to 200 \to 400\): il tetto arriva al <strong>giorno 3</strong> (\(50 \cdot 2^3 = 400\)).</li>
-<li>Reclami ok (\(0{,}08\% < 0{,}1\%\)) ma bounce sgarra (\(3\% > 2\%\)): la \(\wedge\) vuole <strong>tutte</strong> le condizioni vere → \(\mathbb{1} = 0\) → \(\rho_d = \rho_{\text{hold}}\): niente accelerazione oggi.</li>
+  <li>\(50 \to 100 \to 200 \to 400\): il tetto arriva al <strong>giorno 3</strong> (\(50 \cdot 2^3 = 400\)).</li>
+  <li>Reclami ok (\(0{,}08\% < 0{,}1\%\)) ma bounce sgarra (\(3\% > 2\%\)): la \(\wedge\) vuole <strong>tutte</strong> le condizioni vere → \(\mathbb{1} = 0\) → \(\rho_d = \rho_{\text{hold}}\): niente accelerazione oggi.</li>
 </ol>
 
 <h3 id="sol-4">Soluzioni — §4</h3>
-<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<p class="lead"><a href="#ex-4">↩ Torna agli esercizi</a></p>
 <ol>
-<li>\(\sigma(2 \cdot 0{,}6 - 1 \cdot 1{,}2) = \sigma(0) = 0{,}5\): metà del traffico differito — il termostato sta già frenando.</li>
-<li>Rispettare i 4xx e <strong>rallentare</strong> (ritentare con calma, riducendo il volume): forzare peggiorerebbe proprio i segnali da cui dipende la sua reputazione futura.</li>
+  <li>\(\sigma(2 \cdot 0{,}6 - 1 \cdot 1{,}2) = \sigma(0) = 0{,}5\): metà del traffico differito — il termostato sta già frenando.</li>
+  <li>Rispettare i 4xx e <strong>rallentare</strong> (ritentare con calma, riducendo il volume): forzare peggiorerebbe proprio i segnali da cui dipende la sua reputazione futura.</li>
 </ol>
 
-<hr/>
+<hr>
 
-<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
-<p class="note">Da fondere nel Glossario globale.</p>
-<table class="gl">
-<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
-<tbody>
-<tr><td>\(V_d\), \(V_0\), \(V_{\max}\)</td><td>volumi</td><td>email del giorno \(d\); volume iniziale; tetto</td><td>1.3 §2</td></tr>
-<tr><td>\(\rho\)</td><td>rho, fattore di crescita</td><td>moltiplicatore giornaliero del volume (≠ \(p\) di probabilità)</td><td>1.3 §2</td></tr>
-<tr><td>\(d\)</td><td>giorno</td><td>l'indice dei giorni di warmup</td><td>1.3 §2</td></tr>
-<tr><td>\(\mathbb{1}[\cdot]\)</td><td>funzione indicatrice</td><td>vale \(1\) se la condizione è vera, \(0\) altrimenti</td><td>1.3 §3</td></tr>
-<tr><td>\(\wedge\)</td><td>e logica</td><td>l'<code>and</code>: vera solo se tutte le condizioni sono vere</td><td>1.3 §3</td></tr>
-<tr><td>\(c^{*}\), \(b^{*}\), \(\beta^{*}\)</td><td>valori obiettivo</td><td>l'asterisco in alto marca la soglia da rispettare</td><td>1.3 §3</td></tr>
-<tr><td>\(\rho_{\max}\), \(\rho_{\text{hold}}\)</td><td>fattori di crescita in retroazione</td><td>\(\rho_{\max} \geq 1\) crescita massima; \(\rho_{\text{hold}}\) fattore in attesa (\(=1\) mantiene, \(<1\) arretra)</td><td>1.3 §3</td></tr>
-<tr><td>KPI, ESP</td><td>sigle</td><td>indicatori chiave di prestazione; il fornitore email che riceve e giudica</td><td>1.3 §3–§4</td></tr>
-<tr><td>\(z_V\), \(\mu_V\), \(\sigma_V\)</td><td>z-score del volume</td><td>anomalia del volume di oggi rispetto allo storico; pedice \(V\) = «del volume»</td><td>1.3 §4</td></tr>
-<tr><td>\(a\), \(b\)</td><td>pesi</td><td>importanza di reputazione e anomalia (questo \(b\) ≠ conteggio spam della 1.1)</td><td>1.3 §4</td></tr>
-<tr><td>4xx, deferral</td><td>rifiuto temporaneo</td><td>«riprova più tardi»: il freno gentile del ricevente</td><td>1.3 §4</td></tr>
-</tbody>
+<h2 id="simboli">Simboli e termini introdotti in questa pagina</h2>
+<p class="lead">Da fondere nel Glossario globale.</p>
+<table>
+  <thead><tr><th>simbolo / termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+  <tbody>
+    <tr><td>\(V_d\), \(V_0\), \(V_{\max}\)</td><td>volumi</td><td>email del giorno \(d\); volume iniziale; tetto</td><td>1.3 §2</td></tr>
+    <tr><td>\(\rho\)</td><td>rho, fattore di crescita</td><td>moltiplicatore giornaliero del volume (≠ \(p\) di probabilità)</td><td>1.3 §2</td></tr>
+    <tr><td>\(d\)</td><td>giorno</td><td>l'indice dei giorni di warmup</td><td>1.3 §2</td></tr>
+    <tr><td>\(\mathbb{1}[\cdot]\)</td><td>funzione indicatrice</td><td>vale \(1\) se la condizione è vera, \(0\) altrimenti</td><td>1.3 §3</td></tr>
+    <tr><td>\(\wedge\)</td><td>e logica</td><td>l'<code>and</code>: vera solo se tutte le condizioni sono vere</td><td>1.3 §3</td></tr>
+    <tr><td>\(c^{*}\), \(b^{*}\), \(\beta^{*}\)</td><td>valori obiettivo</td><td>l'asterisco in alto marca la soglia da rispettare</td><td>1.3 §3</td></tr>
+    <tr><td>\(\rho_{\max}\), \(\rho_{\text{hold}}\)</td><td>fattori di crescita in retroazione</td><td>\(\rho_{\max} \geq 1\) crescita massima; \(\rho_{\text{hold}}\) fattore in attesa (\(=1\) mantiene, \(<1\) arretra)</td><td>1.3 §3</td></tr>
+    <tr><td>KPI, ESP</td><td>sigle</td><td>indicatori chiave di prestazione; il fornitore email che riceve e giudica</td><td>1.3 §3–§4</td></tr>
+    <tr><td>\(z_V\), \(\mu_V\), \(\sigma_V\)</td><td>z-score del volume</td><td>anomalia del volume di oggi rispetto allo storico; pedice \(V\) = «del volume»</td><td>1.3 §4</td></tr>
+    <tr><td>\(a\), \(b\)</td><td>pesi</td><td>importanza di reputazione e anomalia (questo \(b\) ≠ conteggio spam della 1.1)</td><td>1.3 §4</td></tr>
+    <tr><td>4xx, deferral</td><td>rifiuto temporaneo</td><td>«riprova più tardi»: il freno gentile del ricevente</td><td>1.3 §4</td></tr>
+  </tbody>
 </table>
 
-<hr/>
-<p class="note">1.3 — Warmup · stato: <strong>bozza</strong> · prossima nel percorso: 1.4 (Difese), con F3 e F6.</p>
+<p class="arrow-up"><a href="#top">↑ torna su</a></p>
 
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<a rel="prev" href="F5_Segnali_e_rilevamento.html" aria-label="Precedente: F5 — Segnali e rilevamento" title="Precedente: F5 — Segnali e rilevamento">← F5</a>
-<span class="wk-pos">5 di 17</span>
-<a rel="next" href="F3_Teoria_informazione.html" aria-label="Successiva: F3 — Teoria dell'informazione" title="Successiva: F3 — Teoria dell'informazione">F3 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
+<footer>
+  <span class="status">1.3 — Warmup di IP e dominio</span>
+  <span>prossima: F3 Teoria dell'informazione, poi F6 e la 1.4 (Difese).</span>
+  <span><a href="index.html">↩ Mappa</a></span>
+  <span><a href="F5_Segnali_e_rilevamento.html">← F5</a></span>
+  <span>5 di 17</span>
+  <span><a href="F3_Teoria_informazione.html">F3 →</a></span>
+  <span><a href="Glossario_globale.html">Glossario</a></span>
+  <span><a href="Come_si_studia.html">Metodo</a></span>
+</footer>
+
+</div>
 <script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
 try{localStorage.setItem('wiki-tappa','1.3|Sezione_1_3_Warmup.html');}catch(e){}</script>
 </body>
