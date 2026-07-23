@@ -1,277 +1,224 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>F3 — Teoria dell'informazione · Wiki Sistemi di Fiducia</title>
-<style>
-:root{
-  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
-  --box:#F1E9DA; --border:#e2d6bf;
-  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
-  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
-  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
-  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
-  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
-}
-html{font-size:118%;-webkit-text-size-adjust:100%;}
-body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
-  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
-  letter-spacing:.012em;word-spacing:.03em;}
-p{margin:.7em 0 1em;}
-h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
-h1{font-size:1.7rem;margin:.2em 0 .2em;}
-.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
-h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
-h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
-h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
-strong{font-weight:700;}
-ul,ol{padding-left:1.35em;}
-li{margin:.4em 0;}
-hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
-code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
-  padding:.05em .35em;border-radius:4px;font-size:.9em;}
-
-/* callout boxes */
-.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
-.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
-.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
-.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;margin-bottom:.35em;}
-.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
-.intu .tag{color:var(--intu-bd);}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
-.warn .tag{color:var(--warn-bd);}
-.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
-.deep .tag{color:var(--deep-bd);}
-.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
-.ex .tag{color:#5f594d;}
-
-/* the orienting pipeline / index box */
-.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
-  padding:1em 1.2em;margin:1.4em 0 2em;}
-.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
-.chain{font-weight:700;color:var(--navy);line-height:1.9;}
-.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
-  padding:.12em .5em;display:inline-block;margin:.15em 0;}
-.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
-
-/* formula highlight */
-.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
-  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
-.formula.key{border-left:5px solid var(--navy);}
-
-/* tables */
-table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
-caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
-th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
-th{background:#fff8ec;color:var(--navy);}
-.cm td{text-align:center;font-size:.92rem;}
-.ok{background:#EAF3EE;}
-.fn{background:#FBF3DC;}
-.fp{background:#F8E3DC;}
-.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
-
-.note{font-size:.9rem;color:var(--navy2);}
-mjx-container{overflow-x:auto;overflow-y:hidden;}
-@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
-</style>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  svg: { fontCache: 'global' }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
-
-<style>
-/* navigazione — solo schermo, deriva dai colori del documento */
-html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-[id]{scroll-margin-top:3.6rem;}
-.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
- background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
- padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
-.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.quicknav a:hover{background:#fff2c4;}
-.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
- outline:2px solid var(--navy);outline-offset:2px;}
-details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
- padding:.75rem 1.1rem;margin:0 0 2rem;}
-details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
-details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
-details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
-details.toc li{margin:.28rem 0;}
-details.toc a{text-decoration:none;}
-details.toc a:hover{text-decoration:underline;}
-a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
-a.xref:hover{background:#fff2c4;}
-@media print{.quicknav,details.toc{display:none;}}
-</style>
-
-<style>
-.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
- padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
-.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
-</style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Sorpresa</a><a href="#sec-2">§2 Entropia</a><a href="#sec-3">§3 Sorgenti</a><a href="#sec-4">§4 PMI</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="#top">↑ inizio</a></nav>
+<div class="wrap" id="top">
 
-<h1 id="top">F3 — Teoria dell'informazione <span class="badge bozza">BOZZA</span></h1>
-<p class="note">Pagina Fondamenta della wiki · serve alla 1.4 (entropia) e alla 3.2 (PMI). <strong>Bozza</strong>: schermo sì, carta no.</p>
+<nav class="top" aria-label="indice pagina">
+  <a href="#sec-1">§1 Sorpresa</a>
+  <a href="#sec-2">§2 Entropia</a>
+  <a href="#sec-3">§3 Sorgenti</a>
+  <a href="#sec-4">§4 PMI</a>
+  <a href="#soluzioni">Soluzioni</a>
+  <a href="#simboli">Simboli</a>
+  <a href="Sezione_1_3_Warmup.html">↩ 1.3</a>
+</nav>
 
-<h2 id="prerequisiti">Prerequisiti</h2>
-<p>Dalla <a class="xref" href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: probabilità (§1–§2), logaritmi (§5.2), indipendenza (Appendice A.3), e l'idea di «sorpresa» già usata da Fisher (§5.5).</p>
+<p class="kicker">Percorso · 6 di 17</p>
+<h1>F3 — Teoria dell'informazione</h1>
+<p class="lead">Pagina Fondamenta della wiki · serve alla 1.4 (entropia) e alla 3.2 (PMI). Il filo conduttore: dare un'unità di misura alla <strong>sorpresa</strong>.</p>
 
-<div class="callout warn"><span class="tag">Trappola dei simboli — il quarto mestiere della lettera H</span>
-<p>Finora \(H\) è stata: classe ham (1.1 §2), indicatore di Fisher (1.1 §5.6), ipotesi nulla \(H_0\) (1.1 §5.4). Qui arriva il quarto lavoro: <strong>entropia</strong>, sempre con un pedice che dice «di cosa» (\(H_{\text{src}}\), \(H_{\text{content}}\)). Il pedice è la targa: senza pedice e con le formule di questa pagina intorno, è entropia.</p>
+<p class="prereq"><strong>Prerequisiti.</strong> Dalla <a href="Bella_copia_1.1_Filtraggio_Bayesiano.html">1.1</a>: probabilità (§1–§2), logaritmi (§5.2), indipendenza (Appendice A.3), e l'idea di «sorpresa» già usata da Fisher (§5.5).</p>
+
+<div class="warn">
+  <span class="lbl">Attenzione — il quarto mestiere della lettera H</span>
+  <p>Finora \(H\) è stata: classe ham (1.1 §2), indicatore di Fisher (1.1 §5.6), ipotesi nulla \(H_0\) (1.1 §5.4). Qui arriva il quarto lavoro: <strong>entropia</strong>, sempre con un pedice che dice «di cosa» (\(H_{\text{src}}\), \(H_{\text{content}}\)). Il pedice è la targa: senza pedice e con le formule di questa pagina intorno, è entropia.</p>
 </div>
 
-<hr/>
+<hr>
 
 <h2 id="sec-1">1. La sorpresa di un evento</h2>
-<p>Idea già incontrata con Fisher: un evento <strong>raro</strong> è <strong>sorprendente</strong>, uno scontato non dice nulla. La teoria dell'informazione dà a questa idea un'unità di misura:</p>
-<div class="formula key">\[ \text{sorpresa}(p) \;=\; -\log_2 p \qquad \text{(misurata in bit)} \]</div>
-<p>Il simbolo \(\log_2\) è il <strong>logaritmo in base 2</strong>: l'esponente da dare a \(2\) per ottenere l'argomento (\(\log_2 8 = 3\) perché \(2^3 = 8\)). È il fratello del \(\ln\) di §5.2: cambia solo la base, cioè l'unità di misura — come metri contro piedi. Il segno meno raddrizza: \(p < 1\) → logaritmo negativo → sorpresa positiva.</p>
-<p>Punti di riferimento: \(p = 1/2\) → \(1\) bit; \(p = 1/4\) → \(2\) bit; \(p = 1\) → \(0\) bit (nessuna sorpresa). Un <strong>bit</strong> è la sorpresa di una moneta equa: una domanda sì/no onesta.</p>
 
-<hr/>
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Idea già incontrata con Fisher: un evento <strong>raro</strong> è <strong>sorprendente</strong>, uno scontato non dice nulla. La teoria dell'informazione dà a questa idea un'unità di misura.</p>
+</div>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>La <strong>sorpresa</strong> di un evento di probabilità \(p\) è un <strong>numero mai negativo</strong>, misurato in <strong>bit</strong>: quantifica quanto l'evento è raro — grande per gli eventi improbabili, zero per quelli certi.</p>
+  <span class="lbl">Come si calcola</span>
+  <p style="text-align:center">\[ \text{sorpresa}(p) \;=\; -\log_2 p \qquad \text{(misurata in bit)} \]</p>
+  <p>Il simbolo \(\log_2\) è il <strong>logaritmo in base 2</strong>: l'esponente da dare a \(2\) per ottenere l'argomento (\(\log_2 8 = 3\) perché \(2^3 = 8\)). È il fratello del \(\ln\) di §5.2: cambia solo la base, cioè l'unità di misura — come metri contro piedi. Il segno meno raddrizza: \(p < 1\) → logaritmo negativo → sorpresa positiva.</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Punti di riferimento</span>
+  <p>\(p = 1/2\) → \(1\) bit; \(p = 1/4\) → \(2\) bit; \(p = 1\) → \(0\) bit (nessuna sorpresa). Un <strong>bit</strong> è la sorpresa di una moneta equa: una domanda sì/no onesta.</p>
+</div>
+
+<hr>
 
 <h2 id="sec-2">2. L'entropia di Shannon: la sorpresa media</h2>
-<p>Una sorgente casuale produce esiti con probabilità \(p_1, \dots, p_n\). La sua <strong>entropia</strong> è la <strong>sorpresa media</strong> che ti riserva.</p>
-<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p>Sia \((p_1, \dots, p_n)\) una <strong>distribuzione di probabilità</strong>: \(p_i \ge 0\) per ogni \(i\) e \(\sum_i p_i = 1\). L'entropia di Shannon è \(H = -\sum_i p_i \log_2 p_i \in [0,\, \log_2 n]\) (convenzione \(0 \cdot \log_2 0 := 0\)), in bit. È la sorpresa media, cioè il valore atteso di \(-\log_2 p_i\).</p>
-</div>
-<div class="formula key">\[ H \;=\; -\sum_i p_i \log_2 p_i \]</div>
-<p>Ogni esito porta la sua sorpresa \(-\log_2 p_i\), pesata per quanto spesso capita (\(p_i\)): è un valore atteso (Appendice D.2 della 1.1). Lettura: \(H\) alta = sorgente <strong>imprevedibile</strong>; \(H = 0\) = tutto già scritto. Convenzione: \(0 \cdot \log_2 0 := 0\) (un esito impossibile non contribuisce).</p>
-<div class="callout ex"><span class="tag">Esempi numerici</span>
-<ol>
-<li><strong>Moneta equa</strong>: \(H = -(0{,}5 \cdot (-1) + 0{,}5 \cdot (-1)) = 1\) bit.</li>
-<li><strong>Moneta truccata</strong> (\(0{,}9 / 0{,}1\)): \(\log_2 0{,}9 \approx -0{,}152\), \(\log_2 0{,}1 \approx -3{,}32\) → \(H = 0{,}9 \cdot 0{,}152 + 0{,}1 \cdot 3{,}32 \approx 0{,}47\) bit. Più prevedibile = meno entropia.</li>
-<li><strong>Quattro esiti equiprobabili</strong>: \(H = \log_2 4 = 2\) bit — l'uniforme è il massimo dell'imprevedibilità.</li>
-<li><strong>Evento certo</strong>: \(H = 0\).</li>
-</ol>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Una sorgente casuale produce esiti con probabilità \(p_1, \dots, p_n\). La sua entropia è la <strong>sorpresa media</strong> che ti riserva: alta = sorgente imprevedibile; zero = tutto già scritto.</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Sia \((p_1, \dots, p_n)\) una <strong>distribuzione di probabilità</strong>: \(p_i \ge 0\) per ogni \(i\) e \(\sum_i p_i = 1\). L'<strong>entropia di Shannon</strong> è un numero in \([0,\, \log_2 n]\), misurato in bit: la sorpresa media, cioè il valore atteso di \(-\log_2 p_i\) (Appendice D.2 della 1.1).</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Ogni esito porta la sua sorpresa \(-\log_2 p_i\), pesata per quanto spesso capita (\(p_i\)):</p>
+  <p style="text-align:center">\[ H \;=\; -\sum_i p_i \log_2 p_i \]</p>
+  <p>Convenzione: \(0 \cdot \log_2 0 := 0\) (un esito impossibile non contribuisce).</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Esempi numerici</span>
+  <ol>
+    <li><strong>Moneta equa</strong>: \(H = -(0{,}5 \cdot (-1) + 0{,}5 \cdot (-1)) = 1\) bit.</li>
+    <li><strong>Moneta truccata</strong> (\(0{,}9 / 0{,}1\)): \(\log_2 0{,}9 \approx -0{,}152\), \(\log_2 0{,}1 \approx -3{,}32\) → \(H = 0{,}9 \cdot 0{,}152 + 0{,}1 \cdot 3{,}32 \approx 0{,}47\) bit. Più prevedibile = meno entropia.</li>
+    <li><strong>Quattro esiti equiprobabili</strong>: \(H = \log_2 4 = 2\) bit — l'uniforme è il massimo dell'imprevedibilità.</li>
+    <li><strong>Evento certo</strong>: \(H = 0\).</li>
+  </ol>
+</div>
+
+<figure>
+<svg viewBox="0 0 460 290" role="img" aria-label="Curva dell'entropia di una moneta con probabilità di testa p: zero agli estremi, massima per la moneta equa">
+  <line x1="40" y1="240" x2="440" y2="240" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="60" y1="260" x2="60" y2="40" stroke="#c7cfc9" stroke-width="1.5"/>
+  <polyline points="60,240.0 78,188.4 96,155.6 114,130.2 132,110.1 150,94.0 168,81.4 186,71.9 204,65.2 222,61.3 240,60.0 258,61.3 276,65.2 294,71.9 312,81.4 330,94.0 348,110.1 366,130.2 384,155.6 402,188.4 420,240.0"
+    fill="none" stroke="#2c6e57" stroke-width="2.6"/>
+  <circle cx="240" cy="60" r="4.5" fill="#22262a"/>
+  <circle cx="384" cy="155.6" r="4.5" fill="#8a5a24"/>
+  <text x="240" y="46" font-size="13" fill="#22262a" text-anchor="middle">p = 0,5 → H = 1 bit</text>
+  <text x="380" y="140" font-size="13" fill="#8a5a24" text-anchor="middle">p = 0,9 → H ≈ 0,47</text>
+  <text x="66" y="256" font-size="13" fill="#5a6168">p = 0</text>
+  <text x="434" y="256" font-size="13" fill="#5a6168" text-anchor="end">p = 1</text>
+</svg>
+<figcaption>L'entropia di una moneta con probabilità di testa \(p\): vale <b>0 bit</b> agli estremi (esito certo) ed è <b>massima, 1 bit,</b> per la moneta equa \(p = 0{,}5\). La moneta truccata \(0{,}9/0{,}1\) dell'esempio sta sul fianco: \(H \approx 0{,}47\) bit.</figcaption>
+</figure>
+
+<hr>
 
 <h2 id="sec-3">3. L'entropia di una distribuzione di sorgenti</h2>
-<p>Il ponte verso la 1.4: prendi il traffico email e chiediti «<strong>da quali IP arriva?</strong>». L'entropia delle quote di volume degli IP misura quanto il traffico è <strong>concentrato o sparpagliato</strong>.</p>
-<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p>Sia \(v_i \ge 0\) il volume dell'IP \(i\) e \(V = \sum_j v_j\) il volume totale nella finestra. Se \(V > 0\), le quote \(p_i = v_i / V\) formano una distribuzione (\(p_i \ge 0\), \(\sum_i p_i = 1\)) e \(H_{\text{src}} = -\sum_i p_i \log_2 p_i\) (convenzione \(0 \cdot \log_2 0 := 0\)). Se \(V = 0\) (nessun traffico) \(H_{\text{src}}\) non è definita: la finestra va esclusa a monte.</p>
-</div>
-<div class="callout ex"><span class="tag">Esempio numerico — concentrato contro sparpagliato</span>
-<ol>
-<li><strong>Sparpagliato</strong>: 4 IP con quote uguali \((0{,}25 \times 4)\) → \(H_{\text{src}} = 2\) bit.</li>
-<li><strong>Concentrato</strong>: un IP al \(97\%\) e tre all'\(1\%\): \(H_{\text{src}} = 0{,}97 \cdot 0{,}044 + 3 \cdot 0{,}01 \cdot 6{,}64 \approx 0{,}24\) bit.</li>
-</ol>
-<p>Un mittente legittimo concentra (pochi server, \(H_{\text{src}}\) bassa); lo snowshoe della 1.4 sparpaglia di proposito (\(H_{\text{src}}\) alta). Il contenuto fa il gioco inverso: quasi-duplicato per lo spammer (\(H_{\text{content}}\) bassa), vario per il legittimo.</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Il ponte verso la 1.4: prendi il traffico email e chiediti «<strong>da quali IP arriva?</strong>». L'entropia delle quote di volume degli IP misura quanto il traffico è <strong>concentrato o sparpagliato</strong>.</p>
 </div>
 
-<div class="callout ex" id="ex-2"><span class="tag">Esercizi — §2–§3</span>
-<ol>
-<li>Otto esiti equiprobabili: quanti bit di entropia?</li>
-<li>Sorgente con un solo IP attivo (quota \(1\)): \(H_{\text{src}}\)?</li>
-</ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-2">fondo pagina</a>.</p>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>\(H_{\text{src}}\) è l'<strong>entropia di Shannon delle quote di volume</strong>: un numero in \([0, \log_2 n]\) bit che misura quanto il traffico è sparpagliato fra le sorgenti.</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Sia \(v_i \ge 0\) il volume dell'IP \(i\) e \(V = \sum_j v_j\) il volume totale nella finestra. Se \(V > 0\), le quote \(p_i = v_i / V\) formano una distribuzione (\(p_i \ge 0\), \(\sum_i p_i = 1\)) e \(H_{\text{src}} = -\sum_i p_i \log_2 p_i\) (convenzione \(0 \cdot \log_2 0 := 0\)). Se \(V = 0\) (nessun traffico) \(H_{\text{src}}\) non è definita: la finestra va esclusa a monte.</p>
 </div>
 
-<hr/>
+<div class="note">
+  <span class="lbl">Esempio numerico — concentrato contro sparpagliato</span>
+  <ol>
+    <li><strong>Sparpagliato</strong>: 4 IP con quote uguali \((0{,}25 \times 4)\) → \(H_{\text{src}} = 2\) bit.</li>
+    <li><strong>Concentrato</strong>: un IP al \(97\%\) e tre all'\(1\%\): \(H_{\text{src}} = 0{,}97 \cdot 0{,}044 + 3 \cdot 0{,}01 \cdot 6{,}64 \approx 0{,}24\) bit.</li>
+  </ol>
+  <p>Un mittente legittimo concentra (pochi server, \(H_{\text{src}}\) bassa); lo snowshoe della 1.4 sparpaglia di proposito (\(H_{\text{src}}\) alta). Il contenuto fa il gioco inverso: quasi-duplicato per lo spammer (\(H_{\text{content}}\) bassa), vario per il legittimo.</p>
+</div>
+
+<h3 id="ex-2">Esercizi — §2–§3</h3>
+<ol>
+  <li>Otto esiti equiprobabili: quanti bit di entropia?</li>
+  <li>Sorgente con un solo IP attivo (quota \(1\)): \(H_{\text{src}}\)?</li>
+</ol>
+<p class="lead">Soluzioni nel <a href="#sol-2">blocco §2–§3 in fondo</a>.</p>
+
+<hr>
 
 <h2 id="sec-4">4. PMI: insieme più del caso?</h2>
-<p>Domanda della 3.2: due entità che compaiono <strong>insieme</strong> nei documenti sono legate, o è caso? Il metro è il confronto con l'indipendenza (Appendice A.3 della 1.1): se \(a\) e \(b\) fossero indipendenti, \(P(a,b) = P(a)\,P(b)\). La <strong>PMI</strong> (pointwise mutual information) misura di quanto la realtà scarta da lì.</p>
-<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p>Siano \(P(a), P(b) \in (0,1]\) le probabilità marginali e \(P(a,b) \in [0,1]\) la congiunta, con \(P(a,b) \le \min(P(a), P(b))\). Per \(P(a,b) > 0\) si pone \(\text{PMI}(a;b) = \log_2\!\left[\dfrac{P(a,b)}{P(a)\,P(b)}\right] \in \mathbb{R}\). Caso \(P(a,b) = 0\) (mai insieme): \(\text{PMI} := -\infty\) per convenzione. Un evento mai osservato (\(P = 0\)) non ha PMI. È per questo che a valle si usa \(\text{PMI}^{+} = \max(0, \text{PMI})\), sempre finita e \(\ge 0\).</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Domanda della 3.2: due entità che compaiono <strong>insieme</strong> nei documenti sono legate, o è caso? Il metro è il confronto con l'indipendenza (Appendice A.3 della 1.1): se \(a\) e \(b\) fossero indipendenti, \(P(a,b) = P(a)\,P(b)\). La PMI misura di quanto la realtà scarta da lì.</p>
 </div>
-<div class="formula key">\[ \text{PMI}(a;b) \;=\; \log_2 \frac{P(a,b)}{P(a)\,P(b)} \]</div>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Siano \(P(a), P(b) \in (0,1]\) le probabilità marginali e \(P(a,b) \in [0,1]\) la congiunta, con \(P(a,b) \le \min(P(a), P(b))\). La <strong>PMI</strong> (pointwise mutual information) è un numero reale: misura quanto la co-occorrenza osservata scarta dal puro caso.</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Per \(P(a,b) > 0\):</p>
+  <p style="text-align:center">\[ \text{PMI}(a;b) \;=\; \log_2 \frac{P(a,b)}{P(a)\,P(b)} \]</p>
+  <p>Caso \(P(a,b) = 0\) (mai insieme): \(\text{PMI} := -\infty\) per convenzione. Un evento mai osservato (\(P = 0\)) non ha PMI. È per questo che a valle si usa \(\text{PMI}^{+} = \max(0, \text{PMI})\), sempre finita e \(\ge 0\).</p>
+</div>
+
 <p>Lettura: PMI \(= 0\) → esattamente come il caso; <strong>positiva</strong> → compaiono insieme più del caso (legame); <strong>negativa</strong> → si evitano. Nella 3.2 si usa la \(\text{PMI}^{+} = \max(0, \text{PMI})\): i legami negativi vengono azzerati.</p>
-<div class="callout ex"><span class="tag">Esempio numerico</span>
-<p>\(P(a) = 0{,}1\), \(P(b) = 0{,}1\) → caso puro: \(P(a)\,P(b) = 0{,}01\).</p>
-<ol>
-<li>Osservato \(P(a,b) = 0{,}05\): rapporto \(5\) → \(\text{PMI} = \log_2 5 \approx 2{,}32\): forte legame.</li>
-<li>Osservato \(P(a,b) = 0{,}01\): rapporto \(1\) → \(\text{PMI} = 0\): indipendenti.</li>
-<li>Osservato \(P(a,b) = 0{,}001\): rapporto \(0{,}1\) → \(\text{PMI} = \log_2 0{,}1 \approx -3{,}32\): si evitano.</li>
-</ol>
+
+<div class="note">
+  <span class="lbl">Esempio numerico</span>
+  <p>\(P(a) = 0{,}1\), \(P(b) = 0{,}1\) → caso puro: \(P(a)\,P(b) = 0{,}01\).</p>
+  <ol>
+    <li>Osservato \(P(a,b) = 0{,}05\): rapporto \(5\) → \(\text{PMI} = \log_2 5 \approx 2{,}32\): forte legame.</li>
+    <li>Osservato \(P(a,b) = 0{,}01\): rapporto \(1\) → \(\text{PMI} = 0\): indipendenti.</li>
+    <li>Osservato \(P(a,b) = 0{,}001\): rapporto \(0{,}1\) → \(\text{PMI} = \log_2 0{,}1 \approx -3{,}32\): si evitano.</li>
+  </ol>
 </div>
 
-<div class="callout ex" id="ex-4"><span class="tag">Esercizi — §4</span>
+<h3 id="ex-4">Esercizi — §4</h3>
 <ol>
-<li>\(P(a) = 0{,}2\), \(P(b) = 0{,}5\), \(P(a,b) = 0{,}1\). Calcola la PMI e interpreta.</li>
-<li>Perché il confronto giusto è con \(P(a)\,P(b)\)? (Una frase, con la parola «indipendenza».)</li>
+  <li>\(P(a) = 0{,}2\), \(P(b) = 0{,}5\), \(P(a,b) = 0{,}1\). Calcola la PMI e interpreta.</li>
+  <li>Perché il confronto giusto è con \(P(a)\,P(b)\)? (Una frase, con la parola «indipendenza».)</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-4">fondo pagina</a>.</p>
-</div>
+<p class="lead">Soluzioni nel <a href="#sol-4">blocco §4 in fondo</a>.</p>
 
-<hr/>
+<hr>
 
-<h2 id="soluzioni">Soluzioni degli esercizi</h2>
+<h2 id="soluzioni">Soluzioni</h2>
+
 <h3 id="sol-2">Soluzioni — §2–§3</h3>
-<p class="note"><a class="xref" href="#ex-2">↩ Torna agli esercizi</a></p>
+<p class="lead"><a href="#ex-2">↩ Torna agli esercizi</a></p>
 <ol>
-<li>\(H = \log_2 8 = 3\) bit.</li>
-<li>\(H_{\text{src}} = 0\): quota \(1\) = nessuna sorpresa su «chi invia».</li>
+  <li>\(H = \log_2 8 = 3\) bit.</li>
+  <li>\(H_{\text{src}} = 0\): quota \(1\) = nessuna sorpresa su «chi invia».</li>
 </ol>
+
 <h3 id="sol-4">Soluzioni — §4</h3>
-<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi</a></p>
+<p class="lead"><a href="#ex-4">↩ Torna agli esercizi</a></p>
 <ol>
-<li>Caso puro: \(0{,}2 \cdot 0{,}5 = 0{,}1\) = l'osservato → \(\text{PMI} = \log_2 1 = 0\): nessun legame oltre il caso.</li>
-<li>Perché \(P(a)\,P(b)\) è ciò che accadrebbe <strong>sotto indipendenza</strong>: è la linea di base del «puro caso» da cui misurare lo scarto.</li>
+  <li>Caso puro: \(0{,}2 \cdot 0{,}5 = 0{,}1\) = l'osservato → \(\text{PMI} = \log_2 1 = 0\): nessun legame oltre il caso.</li>
+  <li>Perché \(P(a)\,P(b)\) è ciò che accadrebbe <strong>sotto indipendenza</strong>: è la linea di base del «puro caso» da cui misurare lo scarto.</li>
 </ol>
 
-<hr/>
+<hr>
 
-<h2 id="simboli">Simboli nuovi introdotti in questa pagina</h2>
-<p class="note">Da fondere nel Glossario globale.</p>
-<table class="gl">
-<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
-<tbody>
-<tr><td>\(\log_2\)</td><td>logaritmo in base 2</td><td>l'esponente da dare a \(2\); cugino di \(\ln\), cambia solo l'unità</td><td>F3 §1</td></tr>
-<tr><td>bit</td><td>unità di sorpresa</td><td>la sorpresa di una moneta equa; una domanda sì/no</td><td>F3 §1</td></tr>
-<tr><td>\(H\), \(H_{\text{src}}\), \(H_{\text{content}}\)</td><td>entropia</td><td>sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera H)</td><td>F3 §2</td></tr>
-<tr><td>\(0 \cdot \log_2 0 := 0\)</td><td>convenzione</td><td>gli esiti impossibili non contribuiscono all'entropia</td><td>F3 §2</td></tr>
-<tr><td>PMI, \(\text{PMI}^{+}\)</td><td>pointwise mutual information</td><td>\(\log_2\) del rapporto tra co-occorrenza reale e caso puro; la versione \(^{+}\) azzera i negativi</td><td>F3 §4</td></tr>
-</tbody>
+<h2 id="simboli">Simboli e termini introdotti in questa pagina</h2>
+<p class="lead">Da fondere nel Glossario globale.</p>
+<table>
+  <thead><tr><th>simbolo / termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+  <tbody>
+    <tr><td>\(\log_2\)</td><td>logaritmo in base 2</td><td>l'esponente da dare a \(2\); cugino di \(\ln\), cambia solo l'unità</td><td>F3 §1</td></tr>
+    <tr><td>bit</td><td>unità di sorpresa</td><td>la sorpresa di una moneta equa; una domanda sì/no</td><td>F3 §1</td></tr>
+    <tr><td>\(H\), \(H_{\text{src}}\), \(H_{\text{content}}\)</td><td>entropia</td><td>sorpresa media di una sorgente; il pedice dice «di cosa» (quarto mestiere della lettera H)</td><td>F3 §2</td></tr>
+    <tr><td>\(0 \cdot \log_2 0 := 0\)</td><td>convenzione</td><td>gli esiti impossibili non contribuiscono all'entropia</td><td>F3 §2</td></tr>
+    <tr><td>PMI, \(\text{PMI}^{+}\)</td><td>pointwise mutual information</td><td>\(\log_2\) del rapporto tra co-occorrenza reale e caso puro; la versione \(^{+}\) azzera i negativi</td><td>F3 §4</td></tr>
+  </tbody>
 </table>
 
-<hr/>
-<p class="note">F3 — Teoria dell'informazione · stato: <strong>bozza</strong> · serve a 1.4 e 3.2.</p>
+<p class="arrow-up"><a href="#top">↑ torna su</a></p>
 
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<a rel="prev" href="Sezione_1_3_Warmup.html" aria-label="Precedente: 1.3 — Warmup di IP e dominio" title="Precedente: 1.3 — Warmup di IP e dominio">← 1.3</a>
-<span class="wk-pos">6 di 17</span>
-<a rel="next" href="F6_Similarita_hashing_codifiche.html" aria-label="Successiva: F6 — Similarità, hashing e codifiche" title="Successiva: F6 — Similarità, hashing e codifiche">F6 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
+<footer>
+  <span class="status">F3 — Teoria dell'informazione</span>
+  <span>prossima: F6 Similarità, hashing e codifiche.</span>
+  <span><a href="index.html">↩ Mappa</a></span>
+  <span><a href="Sezione_1_3_Warmup.html">← 1.3</a></span>
+  <span>6 di 17</span>
+  <span><a href="F6_Similarita_hashing_codifiche.html">F6 →</a></span>
+  <span><a href="Glossario_globale.html">Glossario</a></span>
+  <span><a href="Come_si_studia.html">Metodo</a></span>
+</footer>
+
+</div>
 <script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
 try{localStorage.setItem('wiki-tappa','F3|F3_Teoria_informazione.html');}catch(e){}</script>
 </body>

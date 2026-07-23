@@ -357,6 +357,30 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 - Prima stesura RESPINTA dal revisore sui cover test dei def §3 e §4; corretta: il def §3 ora definisce ρ_d e la regola di scelta a parole; il def §4 ora definisce P_accept (tipo probabilità, struttura dei segni esplicitata: a premia 1−r, b penalizza z_V) prima delle ipotesi su z_V. Riesaminata e approvata.
 - ⚠ Ereditato dal vecchio, conservato: la prosa spiega 𝟙[·] e ∧ «li conosci già entrambi», ma la formula usa i cases (senza 𝟙): il paper introduce 𝟙, la pagina lo censisce in tabella. Da valutare in revisione se allineare formula e prosa.
 - ⚠ Ereditato dal vecchio, conservato: la formula di z_V usa V_t mentre l'indice dei giorni altrove è d (V_d); V_t non è in tabella simboli.
+
+## F3 — Teoria dell'informazione
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Sorpresa — un numero mai negativo, misurato in bit: quantifica quanto un evento è raro; grande per gli improbabili, zero per i certi.
+- Entropia di Shannon — un numero in [0, log₂ n] bit: la sorpresa media di una sorgente, cioè il valore atteso della sorpresa dei suoi esiti.
+- Entropia delle sorgenti H_src — l'entropia di Shannon delle quote di volume: misura quanto il traffico è sparpagliato fra le sorgenti (non definita a traffico nullo).
+- PMI — un numero reale: misura quanto la co-occorrenza osservata di due entità scarta dal puro caso (dall'indipendenza); PMI⁺ azzera i negativi.
+
+**Esempi numerici** (13 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Moneta equa H = 1 bit; truccata 0,9/0,1 → H ≈ 0,47; quattro equiprobabili H = 2; evento certo H = 0.
+- Concentrato: 0,97·0,044 + 3·0,01·6,64 ≈ 0,24 bit (esatto 0,242).
+- PMI: rapporto 5 → log₂ 5 ≈ 2,32; rapporto 1 → 0; rapporto 0,1 → ≈ −3,32.
+- Soluzioni: log₂ 8 = 3; H(quota 1) = 0; 0,2·0,5 = 0,1 → PMI = 0.
+
+**Figure**:
+- Curva dell'entropia binaria H(p) come polilinea di 21 punti calcolati esattamente (errore max 0,05 px), con p = 0,5 → 1 bit e p = 0,9 → ≈ 0,47 evidenziati — illustra gli esempi del §2. Verificata da me e dal revisore.
+
+**Scelte di giudizio e incertezze**:
+- I tre «N.B. — definizione rigorosa» sono diventati blocchi Definizione (+ «Come si calcola»); su rilievo del revisore aggiunta la frase di tipo a H_src.
+- ⚠ Fuori perimetro ma da sapere: `index.html` mostra ancora il badge «bozza» per F3 (e per tutte le pagine rifatte) — il brief vieta di toccare index.html; da riallineare in una passata futura decisa da Alex.
+- Controllo 9: 2 segnalazioni (intervalli (0,1] e [0,1]) — false positive da virgola-separatore.
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). **`sec-4` vincolata da Sezione_3_2 conservata** (verificato dal revisore).
 - «Lettura» del §3 resa blocco «Intuizione — il termostato» (l'analogia sta nel blocco giusto).
 - Riferimento «la potenza di F4» corretto in «la potenza di F0.2» (la potenza è definita lì).
 - Footer con F6 nel percorso ripristinato su rilievo del revisore.
