@@ -1,260 +1,183 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>F0.8 — L'integrale · Wiki Sistemi di Fiducia</title>
-<style>
-:root{
-  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
-  --box:#F1E9DA; --border:#e2d6bf;
-  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
-  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
-  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
-  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
-  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
-}
-html{font-size:118%;-webkit-text-size-adjust:100%;}
-body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
-  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
-  letter-spacing:.012em;word-spacing:.03em;}
-p{margin:.7em 0 1em;}
-h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
-h1{font-size:1.7rem;margin:.2em 0 .2em;}
-.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
-h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
-h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
-h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
-strong{font-weight:700;}
-ul,ol{padding-left:1.35em;}
-li{margin:.4em 0;}
-hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
-code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
-  padding:.05em .35em;border-radius:4px;font-size:.9em;}
-
-/* callout boxes */
-.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
-.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
-.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
-.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;margin-bottom:.35em;}
-.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
-.intu .tag{color:var(--intu-bd);}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
-.warn .tag{color:var(--warn-bd);}
-.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
-.deep .tag{color:var(--deep-bd);}
-.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
-.ex .tag{color:#5f594d;}
-
-/* the orienting pipeline / index box */
-.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
-  padding:1em 1.2em;margin:1.4em 0 2em;}
-.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
-.chain{font-weight:700;color:var(--navy);line-height:1.9;}
-.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
-  padding:.12em .5em;display:inline-block;margin:.15em 0;}
-.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
-
-/* formula highlight */
-.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
-  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
-.formula.key{border-left:5px solid var(--navy);}
-
-/* tables */
-table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
-caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
-th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
-th{background:#fff8ec;color:var(--navy);}
-.cm td{text-align:center;font-size:.92rem;}
-.ok{background:#EAF3EE;}
-.fn{background:#FBF3DC;}
-.fp{background:#F8E3DC;}
-.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
-
-.note{font-size:.9rem;color:var(--navy2);}
-mjx-container{overflow-x:auto;overflow-y:hidden;}
-@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F0.8 — L'integrale: l'area · Wiki Sistemi di Fiducia</title>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  svg: { fontCache: 'global' }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
-
-<style>
-/* navigazione — solo schermo, deriva dai colori del documento */
-html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-[id]{scroll-margin-top:3.6rem;}
-.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
- background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
- padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
-.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.quicknav a:hover{background:#fff2c4;}
-.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
- outline:2px solid var(--navy);outline-offset:2px;}
-details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
- padding:.75rem 1.1rem;margin:0 0 2rem;}
-details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
-details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
-details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
-details.toc li{margin:.28rem 0;}
-details.toc a{text-decoration:none;}
-details.toc a:hover{text-decoration:underline;}
-a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
-a.xref:hover{background:#fff2c4;}
-@media print{.quicknav,details.toc{display:none;}}
-</style>
-
-<style>
-.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
- padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
-.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
-</style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 L'area</a><a href="#sec-2">§2 Somma di fettine</a><a href="#sec-3">§3 Il simbolo</a><a href="#sec-4">§4 Nella wiki</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_7_Derivata.html">↩ F0.7</a><a href="#top">↑ inizio</a></nav>
+<div class="wrap" id="top">
 
-<h1 id="top">F0.8 — L'integrale: l'area <span class="badge bozza">BOZZA</span></h1>
-<p class="note">Ottavo e ultimo gradino dei prerequisiti. Come per la derivata: impari <strong>l'idea</strong>, non la tecnica. <strong>Bozza</strong>: schermo sì, carta no.</p>
+<nav class="top" aria-label="indice pagina">
+  <a href="#sec-1">§1 L'area</a>
+  <a href="#sec-2">§2 Somma di fettine</a>
+  <a href="#sec-3">§3 Il simbolo</a>
+  <a href="#sec-4">§4 Nella wiki</a>
+  <a href="#esercizi">Esercizi</a>
+  <a href="#simboli">Simboli</a>
+  <a href="F0_7_Derivata.html">↩ F0.7</a>
+</nav>
 
-<h2 id="prerequisiti">Prerequisiti</h2>
-<p>La <a class="xref" href="F0_4_Somme_e_produttorie.html">sommatoria \(\sum\)</a> (F0.4): l'integrale è una somma «infinita». Aiuta aver visto la <a class="xref" href="F0_7_Derivata.html">derivata</a> (F0.7), perché sono le due facce opposte.</p>
+<p class="kicker">Gradino 0 · 8 di 8</p>
+<h1>F0.8 — L'integrale: l'area</h1>
+<p class="lead">Ultimo prerequisito. Come per la derivata: impari <strong>l'idea</strong>, non la tecnica — l'integrale è l'<strong>area sotto una curva</strong>, sommata a fettine.</p>
 
-<div class="callout warn"><span class="tag">Onestà: perché questa pagina è l'ultima e la più «di lusso»</span>
-<p>Il documento che studi è quasi <strong>tutto discreto</strong>: usa somme \(\sum\), non integrali. L'integrale compare in <strong>un solo box opzionale</strong> di tutta la wiki. Quindi impararlo è utile per <strong>colmare la tua lacuna</strong> e per leggere altri testi, più che per capire questo documento. Nessuna fretta: è un bonus, non un ostacolo sul percorso.</p>
+<p class="prereq"><strong>Prerequisiti.</strong> La <a href="F0_4_Somme_e_produttorie.html">sommatoria \(\sum\)</a> (F0.4): l'integrale è una somma «infinita». Aiuta aver visto la <a href="F0_7_Derivata.html">derivata</a> (F0.7), perché sono le due facce opposte.</p>
+
+<div class="warn">
+  <span class="lbl">Onestà — perché questa pagina è l'ultima e la più «di lusso»</span>
+  <p>Il documento che studi è quasi <strong>tutto discreto</strong>: usa somme \(\sum\), non integrali. L'integrale compare in <strong>un solo box opzionale</strong> di tutta la wiki. Quindi impararlo è utile per <strong>colmare la tua lacuna</strong> e per leggere altri testi, più che per capire questo documento. Nessuna fretta: è un bonus, non un ostacolo sul percorso.</p>
 </div>
 
-<hr/>
+<hr>
 
 <h2 id="sec-1">1. L'intuizione: quanta area sta sotto la curva</h2>
-<p><strong>Intuizione.</strong> Hai una curva disegnata su un foglio. L'<strong>integrale</strong> risponde a una domanda semplice: «<strong>quanta area</strong> c'è sotto quella curva?» — lo spazio racchiuso tra la curva e la linea di terra.</p>
-<p>Se la derivata (F0.7) misura <strong>quanto è ripido</strong>, l'integrale misura <strong>quanto spazio è racchiuso</strong>. Sono le due domande fondamentali del calcolo, ed è utile pensarle come opposte: una guarda la pendenza, l'altra accumula l'area.</p>
 
-<hr/>
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Hai una curva disegnata su un foglio. L'integrale risponde a una domanda semplice: «<strong>quanta area</strong> c'è sotto quella curva?» — lo spazio racchiuso tra la curva e la linea di terra.</p>
+  <p>Se la derivata (F0.7) misura <strong>quanto è ripido</strong>, l'integrale misura <strong>quanto spazio è racchiuso</strong>. Sono le due domande fondamentali del calcolo, ed è utile pensarle come opposte: una guarda la pendenza, l'altra accumula l'area.</p>
+</div>
+
+<hr>
 
 <h2 id="sec-2">2. Come si calcola l'idea: sommare tante fettine</h2>
-<p><strong>Il trucco.</strong> Un'area dai bordi curvi è difficile. Ma se la <strong>affetti</strong> in tante strisce verticali sottili, ogni striscia è quasi un <strong>rettangolo</strong> — e l'area di un rettangolo è facile: base × altezza. Sommi tutte le fettine e hai l'area totale.</p>
-<p>Ecco il legame con F0.4: l'integrale è una <strong>sommatoria \(\sum\)</strong> di tante fettine. La differenza: le fettine sono <strong>infinitamente sottili</strong>, quindi ne sommi infinite. «Integrale» = «somma continua».</p>
-<div class="callout ex"><span class="tag">Esempio numerico — quando l'area è facile</span>
-<p>Se la curva è una <strong>retta orizzontale</strong> all'altezza 3, da orizzontale 0 a orizzontale 4, l'area sotto è un rettangolo: base 4 × altezza 3 = <strong>12</strong>. Questo è l'integrale di quella funzione su quel tratto. (Con curve vere servono le fettine, ma l'idea è identica: area = somma di basi × altezze.)</p>
-</div>
-<div class="callout intu"><span class="tag">Un caso che già conosci</span>
-<p>Percorri una strada a velocità costante 60 km/h per 2 ore. Distanza = \(60 \cdot 2 = 120\) km. Se disegni la velocità (una linea orizzontale a 60) e guardi l'area sotto, per 2 ore di larghezza: \(60 \times 2 = 120\). L'area sotto la curva della velocità <strong>è</strong> la distanza percorsa. Ecco cosa «accumula» un integrale.</p>
+
+<div class="note">
+  <span class="lbl">Il trucco — affettare</span>
+  <p>Un'area dai bordi curvi è difficile. Ma se la <strong>affetti</strong> in tante strisce verticali sottili, ogni striscia è quasi un <strong>rettangolo</strong> — e l'area di un rettangolo è facile: base × altezza. Sommi tutte le fettine e hai l'area totale.</p>
 </div>
 
-<hr/>
+<p>Ecco il legame con F0.4: l'integrale è una <strong>sommatoria \(\sum\)</strong> di tante fettine. La differenza: le fettine sono <strong>infinitamente sottili</strong>, quindi ne sommi infinite. «Integrale» = «somma continua».</p>
+
+<figure>
+<svg viewBox="0 0 460 280" role="img" aria-label="Curva crescente con sei rettangoli verticali inscritti sotto di essa: le fettine">
+  <line x1="40" y1="240" x2="440" y2="240" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="60" y1="260" x2="60" y2="30" stroke="#c7cfc9" stroke-width="1.5"/>
+  <rect x="60"  y="220" width="60" height="20"  fill="#e7f0eb" stroke="#2c6e57" stroke-width="1"/>
+  <rect x="120" y="216" width="60" height="24"  fill="#e7f0eb" stroke="#2c6e57" stroke-width="1"/>
+  <rect x="180" y="203" width="60" height="37"  fill="#e7f0eb" stroke="#2c6e57" stroke-width="1"/>
+  <rect x="240" y="180" width="60" height="60"  fill="#e7f0eb" stroke="#2c6e57" stroke-width="1"/>
+  <rect x="300" y="149" width="60" height="91"  fill="#e7f0eb" stroke="#2c6e57" stroke-width="1"/>
+  <rect x="360" y="109" width="60" height="131" fill="#e7f0eb" stroke="#2c6e57" stroke-width="1"/>
+  <path d="M 60 220 Q 240 220 420 60" fill="none" stroke="#2c6e57" stroke-width="2.6"/>
+  <text x="240" y="264" font-size="14" fill="#5a6168" text-anchor="middle">base di ogni fettina</text>
+  <text x="110" y="185" font-size="14" fill="#8a5a24">la curva</text>
+</svg>
+<figcaption>L'area sotto la <b>curva</b>, affettata in strisce verticali: ogni striscia è quasi un <b>rettangolo</b> (base × altezza). Più le fettine sono sottili, meglio riempiono l'area — l'integrale le somma tutte.</figcaption>
+</figure>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — quando l'area è facile</span>
+  <p>Se la curva è una <strong>retta orizzontale</strong> all'altezza 3, da orizzontale 0 a orizzontale 4, l'area sotto è un rettangolo: base 4 × altezza 3 = <strong>12</strong>. Questo è l'integrale di quella funzione su quel tratto. (Con curve vere servono le fettine, ma l'idea è identica: area = somma di basi × altezze.)</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Un caso che già conosci</span>
+  <p>Percorri una strada a velocità costante 60 km/h per 2 ore. Distanza = \(60 \cdot 2 = 120\) km. Se disegni la velocità (una linea orizzontale a 60) e guardi l'area sotto, per 2 ore di larghezza: \(60 \times 2 = 120\). L'area sotto la curva della velocità <strong>è</strong> la distanza percorsa. Ecco cosa «accumula» un integrale.</p>
+</div>
+
+<hr>
 
 <h2 id="sec-3">3. Il simbolo (per riconoscerlo, non per calcolarlo)</h2>
-<p><strong>Definizione.</strong> L'<strong>integrale</strong> di una funzione tra due bordi \(a\) e \(b\) è un <strong>numero</strong>: l'<strong>area</strong> racchiusa tra la curva e la linea di terra su quel tratto — la somma di infinite fettine sottilissime (§2). <strong>Il simbolo.</strong> Una <strong>S allungata</strong> — sta per «Somma»: \(\displaystyle\int\). Nella forma completa:</p>
-<div class="formula key">\[ \int_{a}^{b} f(x)\,dx \]</div>
+
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>L'<strong>integrale</strong> di una funzione tra due bordi \(a\) e \(b\) è un <strong>numero</strong>: l'<strong>area</strong> racchiusa tra la curva e la linea di terra su quel tratto — la somma di infinite fettine sottilissime (§2).</p>
+  <span class="lbl">Il simbolo</span>
+  <p>Una <strong>S allungata</strong> — sta per «Somma»: \(\displaystyle\int\). Nella forma completa:</p>
+  <p style="text-align:center">\[ \int_{a}^{b} f(x)\,dx \]</p>
+</div>
+
 <p>Leggiamo i pezzi, come abbiamo fatto per Σ:</p>
 <ul>
-<li>\(\displaystyle\int\) = «somma continua» (la S di somma);</li>
-<li>\(a\) e \(b\) sotto e sopra = <strong>da dove a dove</strong> (i bordi sinistro e destro dell'area), come gli estremi della sommatoria;</li>
-<li>\(f(x)\) = l'<strong>altezza</strong> della curva in ogni punto (la funzione);</li>
-<li>\(dx\) = la <strong>larghezza</strong> di una fettina infinitamente sottile.</li>
+  <li>\(\displaystyle\int\) = «somma continua» (la S di somma);</li>
+  <li>\(a\) e \(b\) sotto e sopra = <strong>da dove a dove</strong> (i bordi sinistro e destro dell'area), come gli estremi della sommatoria;</li>
+  <li>\(f(x)\) = l'<strong>altezza</strong> della curva in ogni punto (la funzione);</li>
+  <li>\(dx\) = la <strong>larghezza</strong> di una fettina infinitamente sottile.</li>
 </ul>
 <p>Messo insieme: «somma, da \(a\) a \(b\), di (altezza × larghezza di ogni fettina)». È l'area, fettina per fettina. Non ti serve risolverlo: ti serve <strong>vedere</strong> che è una somma di aree.</p>
-<div class="callout warn"><span class="tag">Attenzione — sotto l'asse conta in negativo</span>
-<p>Se un tratto di grafico sta <strong>sotto</strong> l'asse orizzontale, la sua area viene <strong>sottratta</strong>. Un integrale può quindi risultare <strong>negativo</strong> o <strong>zero</strong>, non solo positivo. Negli esempi di questa pagina (curve sopra lo zero) il saldo è tutto positivo: è un caso particolare.</p>
-</div>
-<div class="callout deep"><span class="tag">Il confine (opzionale)</span>
-<p>Se \(f\) non è limitata, o il tratto si allunga all'infinito, si esce da questo integrale e si entra negli integrali <strong>impropri</strong> (definiti come limite, a volte senza un valore finito). E da non confondere: l'integrale definito è <strong>un numero</strong>, la <strong>primitiva</strong> è <strong>una funzione</strong> — le lega il teorema fondamentale (§4).</p>
-</div>
-<div class="callout warn"><span class="tag">Il gemello discreto che userai davvero</span>
-<p>Quasi ovunque nella wiki, al posto di \(\int f(x)\,dx\) trovi \(\sum_i x_i\): la <strong>stessa idea</strong> con fettine di larghezza 1 invece che infinitesime. Se hai capito la sommatoria (F0.4), hai già il 90% dell'integrale. La S allunga la somma dal discreto al continuo.</p>
+
+<div class="warn">
+  <span class="lbl">Attenzione — sotto l'asse conta in negativo</span>
+  <p>Se un tratto di grafico sta <strong>sotto</strong> l'asse orizzontale, la sua area viene <strong>sottratta</strong>. Un integrale può quindi risultare <strong>negativo</strong> o <strong>zero</strong>, non solo positivo. Negli esempi di questa pagina (curve sopra lo zero) il saldo è tutto positivo: è un caso particolare.</p>
 </div>
 
-<hr/>
+<div class="warn">
+  <span class="lbl">Il gemello discreto che userai davvero</span>
+  <p>Quasi ovunque nella wiki, al posto di \(\int f(x)\,dx\) trovi \(\sum_i x_i\): la <strong>stessa idea</strong> con fettine di larghezza 1 invece che infinitesime. Se hai capito la sommatoria (F0.4), hai già il 90% dell'integrale. La S allunga la somma dal discreto al continuo.</p>
+</div>
+
+<h3>Il confine (opzionale)</h3>
+<p>Se \(f\) non è limitata, o il tratto si allunga all'infinito, si esce da questo integrale e si entra negli integrali <strong>impropri</strong> (definiti come limite, a volte senza un valore finito). E da non confondere: l'integrale definito è <strong>un numero</strong>, la <strong>primitiva</strong> è <strong>una funzione</strong> — le lega il teorema fondamentale (§4).</p>
+
+<hr>
 
 <h2 id="sec-4">4. Dove (poco) la ritrovi nella wiki</h2>
+
 <ul>
-<li><strong>Un box opzionale</strong> della 1.1 (§2.2) accenna all'integrale spiegando cosa cambia tra probabilità <strong>discrete</strong> (somme) e <strong>continue</strong> (integrali). Tutto il resto del documento resta sul discreto.</li>
-<li>Ti serve soprattutto come <strong>cultura di base</strong>: ora, se apri un altro testo e vedi il segno \(\int\), sai leggerlo — «area sotto la curva, somma di fettine».</li>
+  <li><strong>Un box opzionale</strong> della 1.1 (§2.2) accenna all'integrale spiegando cosa cambia tra probabilità <strong>discrete</strong> (somme) e <strong>continue</strong> (integrali). Tutto il resto del documento resta sul discreto.</li>
+  <li>Ti serve soprattutto come <strong>cultura di base</strong>: ora, se apri un altro testo e vedi il segno \(\int\), sai leggerlo — «area sotto la curva, somma di fettine».</li>
 </ul>
-<div class="callout deep"><span class="tag">Più a fondo (opzionale) — il legame con la derivata</span>
+
+<h3>Più a fondo (opzionale) — il legame con la derivata</h3>
 <p>Derivata e integrale sono <strong>l'una l'inverso dell'altra</strong>: la derivata smonta (dà la pendenza), l'integrale rimonta (accumula l'area). È il risultato più importante del calcolo — il «teorema fondamentale». Per la wiki non serve, ma è bello sapere che le due idee di queste ultime due pagine sono due lati della stessa medaglia.</p>
-</div>
 
-<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<hr>
+
+<h2 id="esercizi">Esercizi</h2>
 <ol>
-<li>A parole: a quale domanda risponde un integrale?</li>
-<li>Una retta orizzontale è all'altezza 5, da orizzontale 0 a orizzontale 3. Qual è l'area sotto (cioè l'integrale su quel tratto)?</li>
-<li>Quale simbolo del calcolo è «parente» dell'integrale, con fettine di larghezza 1 invece che sottilissime?</li>
-<li>Nel simbolo \(\int_a^b f(x)\,dx\), cosa rappresentano \(a\) e \(b\)?</li>
+  <li>A parole: a quale domanda risponde un integrale?</li>
+  <li>Una retta orizzontale è all'altezza 5, da orizzontale 0 a orizzontale 3. Qual è l'area sotto (cioè l'integrale su quel tratto)?</li>
+  <li>Quale simbolo del calcolo è «parente» dell'integrale, con fettine di larghezza 1 invece che sottilissime?</li>
+  <li>Nel simbolo \(\int_a^b f(x)\,dx\), cosa rappresentano \(a\) e \(b\)?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
-</div>
+<p class="lead">Soluzioni qui sotto.</p>
 
-<hr/>
-
-<h2 id="soluzioni">Soluzioni degli esercizi</h2>
-<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<h2 id="soluzioni">Soluzioni</h2>
 <ol>
-<li>«Quanta <strong>area</strong> c'è sotto la curva?» (lo spazio racchiuso tra la curva e la linea di terra).</li>
-<li>Rettangolo: base \(3\) × altezza \(5 = 15\).</li>
-<li>La <strong>sommatoria</strong> \(\sum\): l'integrale è la sua versione «continua», con fettine infinitamente sottili.</li>
-<li>I <strong>bordi</strong> dell'area: da dove (\(a\), sinistra) a dove (\(b\), destra) sommare.</li>
+  <li>«Quanta <strong>area</strong> c'è sotto la curva?» (lo spazio racchiuso tra la curva e la linea di terra).</li>
+  <li>Rettangolo: base \(3\) × altezza \(5 = 15\).</li>
+  <li>La <strong>sommatoria</strong> \(\sum\): l'integrale è la sua versione «continua», con fettine infinitamente sottili.</li>
+  <li>I <strong>bordi</strong> dell'area: da dove (\(a\), sinistra) a dove (\(b\), destra) sommare.</li>
 </ol>
 
-<hr/>
+<hr>
 
 <h2 id="simboli">Simboli e termini introdotti in questa pagina</h2>
-<p class="note">Da fondere nel Glossario globale.</p>
-<table class="gl">
-<thead><tr><th>simbolo/termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
-<tbody>
-<tr><td>integrale</td><td>area con segno sotto la curva</td><td>saldo tra l'area sopra (positiva) e sotto (negativa) l'asse; esiste se \(f\) è limitata e integrabile</td><td>F0.8 §1</td></tr>
-<tr><td>\(\displaystyle\int\)</td><td>segno di integrale</td><td>una S allungata = «Somma»; \(\int_a^b f(x)\,dx\)</td><td>F0.8 §3</td></tr>
-<tr><td>\(f(x)\)</td><td>funzione (altezza)</td><td>il valore/altezza della curva nel punto \(x\)</td><td>F0.8 §3</td></tr>
-<tr><td>\(dx\)</td><td>larghezza infinitesima</td><td>la larghezza di una fettina sottilissima</td><td>F0.8 §3</td></tr>
-</tbody>
+<p class="lead">Da fondere nel Glossario globale.</p>
+<table>
+  <thead><tr><th>simbolo / termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+  <tbody>
+    <tr><td>integrale</td><td>area con segno sotto la curva</td><td>saldo tra l'area sopra (positiva) e sotto (negativa) l'asse; esiste se \(f\) è limitata e integrabile</td><td>F0.8 §1</td></tr>
+    <tr><td>\(\displaystyle\int\)</td><td>segno di integrale</td><td>una S allungata = «Somma»; \(\int_a^b f(x)\,dx\)</td><td>F0.8 §3</td></tr>
+    <tr><td>\(f(x)\)</td><td>funzione (altezza)</td><td>il valore/altezza della curva nel punto \(x\)</td><td>F0.8 §3</td></tr>
+    <tr><td>\(dx\)</td><td>larghezza infinitesima</td><td>la larghezza di una fettina sottilissima</td><td>F0.8 §3</td></tr>
+  </tbody>
 </table>
 
-<hr/>
-<p class="note">F0.8 — L'integrale · <strong>bozza</strong> · <strong>ultimo prerequisito.</strong> Con questo, i precursori sono completi: sei pronto per la wiki.</p>
+<p class="arrow-up"><a href="#top">↑ torna su</a></p>
 
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Gradino 0 — prerequisiti">
-<div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<span class="wk-pos">Gradino 0</span>
-<a rel="prev" href="F0_7_Derivata.html" aria-label="Precedente: F0.7 — La derivata (la pendenza)" title="Precedente: F0.7 — La derivata (la pendenza)">← F0.7</a>
-<span class="wk-pos">8 di 8</span>
-<a rel="next" href="Bella_copia_1.1_Filtraggio_Bayesiano.html" aria-label="Fine dei prerequisiti — inizia il percorso: 1.1 — Filtraggio Bayesiano dello Spam" title="Fine dei prerequisiti — inizia il percorso: 1.1 — Filtraggio Bayesiano dello Spam">Inizia il percorso: 1.1 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
+<footer>
+  <span class="status">F0.8 — L'integrale</span>
+  <span>ultimo prerequisito: i precursori sono completi, sei pronto per il percorso.</span>
+  <span><a href="index.html">↩ Mappa</a></span>
+  <span><a href="F0_7_Derivata.html">← F0.7</a></span>
+  <span>8 di 8</span>
+  <span><a href="Bella_copia_1.1_Filtraggio_Bayesiano.html">Inizia il percorso: 1.1 →</a></span>
+  <span><a href="Glossario_globale.html">Glossario</a></span>
+  <span><a href="Come_si_studia.html">Metodo</a></span>
+</footer>
+
+</div>
 <script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
 try{localStorage.setItem('wiki-tappa','F0.8|F0_8_Integrale.html');}catch(e){}</script>
 </body>

@@ -201,6 +201,26 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## F0.8 — L'integrale
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Integrale — di una funzione tra due bordi è un numero: l'area racchiusa tra la curva e la linea di terra su quel tratto, la somma di infinite fettine sottilissime.
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- Retta orizzontale ad altezza 3, da 0 a 4: area = 4 × 3 = 12.
+- Velocità costante: 60 km/h × 2 h = 120 km (l'area sotto la curva della velocità è la distanza).
+- Soluzione 2: base 3 × altezza 5 = 15.
+
+**Figure**:
+- Fettine sotto la curva: Bézier quadratica con x(t) = 60+360t e y(t) = 220−160t² (verificato: il termine t² di x si annulla), 6 rettangoli inscritti con altezza = floor dell'altezza della curva al bordo sinistro (20, 24, 37, 60, 91, 131) — somma di Riemann sinistra di funzione crescente, ogni rettangolo interamente sotto la curva. Illustra il §2 (affettare l'area). Geometria verificata da me e dal revisore con calcoli indipendenti. Etichetta «la curva» spostata in zona libera su rilievo del revisore.
+
+**Scelte di giudizio e incertezze**:
+- Il blocco «Onestà» (la wiki è quasi tutta discreta, l'integrale è un bonus) conservato integralmente: non è una scusa sul documento, è una guida di lettura onesta.
+- «Il confine (opzionale)» e «Più a fondo (opzionale) — legame con la derivata» convertiti in h3, testo integro.
+- «Il gemello discreto» resta blocco Attenzione come nel vecchio (caveat d'uso).
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisiti). Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
