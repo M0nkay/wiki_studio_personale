@@ -1,143 +1,35 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filtraggio Bayesiano dello Spam — Sezione 1.1 (bella copia)</title>
-<style>
-:root{
-  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
-  --box:#F1E9DA; --border:#e2d6bf;
-  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
-  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
-  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
-  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
-  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
-}
-html{font-size:118%;-webkit-text-size-adjust:100%;}
-body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
-  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
-  letter-spacing:.012em;word-spacing:.03em;}
-p{margin:.7em 0 1em;}
-h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
-h1{font-size:1.7rem;margin:.2em 0 .2em;}
-.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
-h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
-h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
-h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
-strong{font-weight:700;}
-ul,ol{padding-left:1.35em;}
-li{margin:.4em 0;}
-hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
-code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
-  padding:.05em .35em;border-radius:4px;font-size:.9em;}
-
-/* callout boxes */
-.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
-.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
-.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
-.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;margin-bottom:.35em;}
-.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
-.intu .tag{color:var(--intu-bd);}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
-.warn .tag{color:var(--warn-bd);}
-.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
-.deep .tag{color:var(--deep-bd);}
-.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
-.ex .tag{color:#5f594d;}
-
-/* the orienting pipeline / index box */
-.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
-  padding:1em 1.2em;margin:1.4em 0 2em;}
-.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
-.chain{font-weight:700;color:var(--navy);line-height:1.9;}
-.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
-  padding:.12em .5em;display:inline-block;margin:.15em 0;}
-.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
-
-/* formula highlight */
-.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
-  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
-.formula.key{border-left:5px solid var(--navy);}
-
-/* tables */
-table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
-caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
-th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
-th{background:#fff8ec;color:var(--navy);}
-.cm td{text-align:center;font-size:.92rem;}
-.ok{background:#EAF3EE;}
-.fn{background:#FBF3DC;}
-.fp{background:#F8E3DC;}
-.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
-
-.note{font-size:.9rem;color:var(--navy2);}
-mjx-container{overflow-x:auto;overflow-y:hidden;}
-@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
-</style>
 <script>
 window.MathJax = {
-  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  tex: { inlineMath: [['\(','\)']], displayMath: [['\[','\]']] },
+  svg: { fontCache: 'global' }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
-
-<style>
-/* navigazione — solo schermo, deriva dai colori del documento */
-html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-[id]{scroll-margin-top:3.6rem;}
-.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
- background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
- padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
-.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.quicknav a:hover{background:#fff2c4;}
-.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
- outline:2px solid var(--navy);outline-offset:2px;}
-details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
- padding:.75rem 1.1rem;margin:0 0 2rem;}
-details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
-details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
-details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
-details.toc li{margin:.28rem 0;}
-details.toc a{text-decoration:none;}
-details.toc a:hover{text-decoration:underline;}
-a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
-a.xref:hover{background:#fff2c4;}
-@media print{.quicknav,details.toc{display:none;}}
-</style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="quicknav" aria-label="Navigazione rapida"><a href="#mappa">Mappa</a><a href="#sec-1">§1</a><a href="#sec-2">§2</a><a href="#sec-3">§3</a><a href="#sec-4">§4</a><a href="#sec-5">§5</a><a href="#app-a">Concetti</a><a href="#app-b">Glossario</a><a href="#app-c">Soluzioni</a><a href="#app-d">Extra</a><a href="#top">↑ inizio</a></nav>
+<div class="wrap">
+<nav class="top" aria-label="indice pagina">
+  <a href="#mappa">Mappa</a>
+  <a href="#sec-1">§1</a>
+  <a href="#sec-2">§2</a>
+  <a href="#sec-3">§3</a>
+  <a href="#sec-4">§4</a>
+  <a href="#sec-5">§5</a>
+  <a href="#app-a">Concetti</a>
+  <a href="#app-b">Glossario</a>
+  <a href="#app-c">Soluzioni</a>
+  <a href="#app-d">Extra</a>
+</nav>
 
 <h1 id="top">Filtraggio Bayesiano dello Spam</h1>
-<p class="subtitle">Sezione 1.1 — bella copia degli appunti · probabilità, Bayes, Graham, Robinson, Fisher</p>
+<p class="lead">Sezione 1.1 — bella copia · probabilità, Bayes, Graham, Robinson, Fisher</p>
 
 <div class="leg">
 <h2 id="mappa">La catena di montaggio (mappa)</h2>
@@ -145,7 +37,7 @@ a{color:var(--navy);}
 <p class="chain">
 <span>stima (Graham, <a class="xref" href="#sec-3">§3</a>)</span><span class="arrow">→</span><span>clamp [0,01; 0,99]</span><span class="arrow">→</span><span>shrink (Robinson, <a class="xref" href="#sec-4">§4</a>)</span><span class="arrow">→</span><span>fusione (Fisher, <a class="xref" href="#sec-5">§5</a>)</span>
 </p>
-<p class="note">Tieni questa catena sotto mano: ogni paragrafo che segue è uno di questi anelli. Corrispondenza con il paper: <strong><a class="xref" href="#sec-3">§3</a> = 1.1.1 · <a class="xref" href="#sec-4">§4</a> = 1.1.2 · <a class="xref" href="#sec-5">§5</a> = 1.1.3</strong> (i numeri del paper compaiono solo come etichette; la navigazione interna usa sempre <a class="xref" href="#sec-1">§1</a>–<a class="xref" href="#sec-5">§5</a>). Ogni sezione chiude con i suoi <strong>esercizi</strong>; le soluzioni sono in <strong><a class="xref" href="#app-c">Appendice C</a></strong>, il glossario dei simboli in <strong><a class="xref" href="#app-b">Appendice B</a></strong>; gli approfondimenti facoltativi, fuori dal perimetro del paper, in <strong><a class="xref" href="#app-d">Appendice D</a></strong>.</p>
+<p class="lead">Tieni questa catena sotto mano: ogni paragrafo che segue è uno di questi anelli. Corrispondenza con il paper: <strong><a class="xref" href="#sec-3">§3</a> = 1.1.1 · <a class="xref" href="#sec-4">§4</a> = 1.1.2 · <a class="xref" href="#sec-5">§5</a> = 1.1.3</strong> (i numeri del paper compaiono solo come etichette; la navigazione interna usa sempre <a class="xref" href="#sec-1">§1</a>–<a class="xref" href="#sec-5">§5</a>). Ogni sezione chiude con i suoi <strong>esercizi</strong>; le soluzioni sono in <strong><a class="xref" href="#app-c">Appendice C</a></strong>, il glossario dei simboli in <strong><a class="xref" href="#app-b">Appendice B</a></strong>; gli approfondimenti facoltativi, fuori dal perimetro del paper, in <strong><a class="xref" href="#app-d">Appendice D</a></strong>.</p>
 </div>
 
 <details class="toc"><summary>Indice completo — tocca per aprire</summary>
@@ -217,7 +109,7 @@ a{color:var(--navy);}
 <h3 id="sec-1-2">1.2 Regola del complemento</h3>
 <p>L'<strong>opposto</strong>, ovvero l'evento «non accade», è detto <strong>complemento</strong> e si indica con \(\overline{A}\). Poiché "accade" e "non accade" insieme coprono ogni possibilità, le loro probabilità sommano a \(1\):</p>
 <div class="formula">\[ P(\overline{A}) = 1 - P(A) \]</div>
-<p class="note">Esempio: se un'email ha \(P(\text{spam})=0{,}9\), allora \(P(\text{buona}) = 1 - 0{,}9 = 0{,}1\). Nel paper l'espressione \(1-p\) ricorre ovunque: è sempre il "non".</p>
+<p class="lead">Esempio: se un'email ha \(P(\text{spam})=0{,}9\), allora \(P(\text{buona}) = 1 - 0{,}9 = 0{,}1\). Nel paper l'espressione \(1-p\) ricorre ovunque: è sempre il "non".</p>
 
 <h3 id="sec-1-3">1.3 Probabilità condizionata</h3>
 <p>La <strong>probabilità condizionata</strong> è la probabilità di \(A\) <em>sapendo già</em> che è accaduto \(B\). In pratica ci si <strong>restringe a un mondo più piccolo</strong> (solo i casi in cui vale \(B\)) e si ricalcola lì dentro.</p>
@@ -233,7 +125,7 @@ a{color:var(--navy);}
 <li>Su 200 email totali, 80 sono spam; 60 di queste contengono «offerta». Calcola \(P(\text{«offerta»} \mid \text{spam})\). Attento al denominatore.</li>
 <li>Nell'esercizio 2: qual è il "mondo ristretto" su cui si calcola? Quante email restano fuori gioco?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-1">Appendice C — blocco §1</a>.</p>
+<p class="lead">Soluzioni in <a class="xref" href="#sol-1">Appendice C — blocco §1</a>.</p>
 </div>
 
 <hr/>
@@ -298,7 +190,7 @@ a{color:var(--navy);}
 <h4>Definizione — probabilità condizionata (il posterior)</h4>
 <p>Per due eventi \(A, B \in \mathcal{F}\) con <strong>\(P(B) > 0\)</strong>, la probabilità di \(A\) condizionata a \(B\) è definita da</p>
 <div class="formula key">\[ P(A \mid B) \;:=\; \frac{P(A \cap B)}{P(B)} \]</div>
-<p class="note">Il simbolo \(:=\) si legge «<strong>uguale per definizione</strong>»: non è un'uguaglianza da verificare: introduce un nome, il lato sinistro è <strong>definito</strong> come il lato destro.</p>
+<p class="lead">Il simbolo \(:=\) si legge «<strong>uguale per definizione</strong>»: non è un'uguaglianza da verificare: introduce un nome, il lato sinistro è <strong>definito</strong> come il lato destro.</p>
 <p>Smontiamola. \(A \cap B\) è l'evento "<strong>\(A\) e \(B\) insieme</strong>" (l'intersezione: gli esiti che stanno in entrambi i sottoinsiemi). La domanda è: <strong>sapendo già</strong> che \(B\) è accaduto, quanto è probabile \(A\)?</p>
 <p>Lo si fa <strong>rimpicciolendo l'universo</strong> da \(\Omega\) a \(B\): solo gli esiti dentro \(B\) restano "in gioco". In questo universo ridotto si misura quanta parte è anche in \(A\) (il numeratore), e si <strong>divide per \(P(B)\)</strong> per riscalare, così che nel nuovo universo la probabilità totale torni a \(1\) (infatti \(P(B \mid B) = 1\)). Si richiede \(P(B) > 0\) perché non si può dividere per zero: condizionare su un evento impossibile non ha senso.</p>
 <div class="callout ex"><span class="tag">Esempio · spam</span>
@@ -351,13 +243,13 @@ a{color:var(--navy);}
 <li>Ti dicono: «\(P(w \mid S) = 0{,}3\)». È una likelihood o un posterior? Significa che "l'email è spam al 30%"?</li>
 <li>Perché, per la sola classificazione (\(\arg\max\)), si può evitare di calcolare il denominatore \(P(B)\)?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-2">Appendice C — blocco §2</a>.</p>
+<p class="lead">Soluzioni in <a class="xref" href="#sol-2">Appendice C — blocco §2</a>.</p>
 </div>
 
 <hr/>
 
 <h2 id="sec-3">3. La formula di Graham — probabilità di spam per parola <span style="font-weight:400;">(paper: 1.1.1)</span></h2>
-<p class="note">D'ora in poi: \(S\) = spam (<em>bad mail</em>), \(H\) = ham (<em>good mail</em>, le email buone), \(w\) = una parola.</p>
+<p class="lead">D'ora in poi: \(S\) = spam (<em>bad mail</em>), \(H\) = ham (<em>good mail</em>, le email buone), \(w\) = una parola.</p>
 
 <h3 id="sec-3-1">3.1 Le due verosimiglianze di una parola</h3>
 <p>Per ogni parola misuriamo <strong>due verosimiglianze</strong> (il termine è quello di <a class="xref" href="#sec-2-2">§2.2</a>: una probabilità \(P(\text{dato}\mid\text{ipotesi})\) letta come funzione dell'ipotesi):</p>
@@ -446,7 +338,7 @@ a{color:var(--navy);}
 <li>Una parola compare in \(0\) ham su \(50\) (\(g = 0\)). Quanto vale \(p(w)\) con la MLE nuda? Perché è pericoloso, e quale dei tre accorgimenti interviene?</li>
 <li>In una frase: che cosa massimizza la stima di massima verosimiglianza?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-3">Appendice C — blocco §3</a>.</p>
+<p class="lead">Soluzioni in <a class="xref" href="#sol-3">Appendice C — blocco §3</a>.</p>
 </div>
 
 <hr/>
@@ -494,7 +386,7 @@ a{color:var(--navy);}
 <p>La <strong>distribuzione Beta</strong> è una distribuzione di probabilità <em>sopra una probabilità</em>: descrive l'incertezza su un valore \(\theta \in [0,1]\) tramite due parametri \(\alpha, \beta\), leggibili come <strong>conteggi virtuali</strong> — \(\alpha\) successi e \(\beta\) insuccessi "già visti" in immaginazione prima dei dati.</p>
 <p><strong>Coniugazione</strong>: se la credenza iniziale su \(\theta\) è \(\text{Beta}(\alpha, \beta)\) e si osservano \(k\) successi su \(n\) prove reali, la credenza aggiornata è ancora una Beta: \(\text{Beta}(\alpha + k,\ \beta + n - k)\). "Coniugata" significa questo: prior e posterior nella <strong>stessa famiglia</strong>, e aggiornare = <strong>sommare i conteggi reali a quelli virtuali</strong>.</p>
 <p>La <strong>media a posteriori</strong> è la media della distribuzione aggiornata: \(\dfrac{\alpha + k}{\alpha + \beta + n}\). Ponendo \(\alpha = s\,x\) e \(\beta = s\,(1-x)\) — cioè "\(s\) osservazioni virtuali con media \(x\)" — diventa \(\dfrac{s\,x + k}{s + n}\): <strong>esattamente la formula di Robinson</strong>, con \(p(w)\) al posto della frequenza \(k/n\). Le "email-fantasma" di <a class="xref" href="#sec-4-3">§4.3</a> <em>sono</em> il prior Beta.</p>
-<p class="note">Onestà: Robinson inserisce il \(p(w)\) di Graham (che non è una pura frequenza) al posto di \(k/n\): la struttura è Beta-Bernoulli, l'uso è euristico. Questo modello torna da protagonista nella sezione 1.2.2 del paper (reputazione dei mittenti): qui è un assaggio, non serve per proseguire.</p>
+<p class="lead">Onestà: Robinson inserisce il \(p(w)\) di Graham (che non è una pura frequenza) al posto di \(k/n\): la struttura è Beta-Bernoulli, l'uso è euristico. Questo modello torna da protagonista nella sezione 1.2.2 del paper (reputazione dei mittenti): qui è un assaggio, non serve per proseguire.</p>
 </div>
 
 <div class="callout ex" id="ex-4"><span class="tag">Esercizi — <a class="xref" href="#sec-4">§4</a></span>
@@ -504,7 +396,7 @@ a{color:var(--navy);}
 <li>Come nell'esercizio 1 ma con \(s = 3\). Calcola \(f(w)\) e spiega in una frase che cosa rappresenta \(s\).</li>
 <li>In una frase: qual è la differenza di fondo tra il clamp di Graham e lo shrink di Robinson?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-4">Appendice C — blocco §4</a>.</p>
+<p class="lead">Soluzioni in <a class="xref" href="#sol-4">Appendice C — blocco §4</a>.</p>
 </div>
 
 <hr/>
@@ -523,7 +415,7 @@ a{color:var(--navy);}
 <h4>Underflow numerico (problema di rappresentazione)</h4>
 <p>Moltiplicando molti fattori in \((0,1)\) — parentesi tonde: intervallo con <strong>estremi esclusi</strong>, numeri strettamente tra \(0\) e \(1\), a differenza di \([0,1]\) che li include — il prodotto <strong>decade esponenzialmente</strong> (\(\sim p^{\,n}\)) e finisce <strong>sotto la precisione di macchina</strong> → viene arrotondato a \(0\). La cura standard, citata nel paper, è lavorare in <strong>spazio logaritmico</strong>: il logaritmo è <strong>monotòno</strong> (preserva l'ordine) e trasforma il prodotto in somma.</p>
 <div class="formula">\[ \ln \prod_i p_i = \sum_i \ln p_i \]</div>
-<p class="note">Qui \(\ln\) è il <strong>logaritmo naturale</strong>: l'inverso della funzione \(e^t\), dove \(e \approx 2{,}718\) (numero di Nepero). Due proprietà che useremo: \(\ln(a \cdot b) = \ln a + \ln b\) (trasforma i prodotti in somme), e per numeri in \((0,1)\) il logaritmo è <strong>negativo</strong> — più il numero è vicino a \(0\), più \(\ln\) è grande in negativo.</p>
+<p class="lead">Qui \(\ln\) è il <strong>logaritmo naturale</strong>: l'inverso della funzione \(e^t\), dove \(e \approx 2{,}718\) (numero di Nepero). Due proprietà che useremo: \(\ln(a \cdot b) = \ln a + \ln b\) (trasforma i prodotti in somme), e per numeri in \((0,1)\) il logaritmo è <strong>negativo</strong> — più il numero è vicino a \(0\), più \(\ln\) è grande in negativo.</p>
 
 <h4>Saturazione del posterior (problema statistico)</h4>
 <p>Anche ignorando l'aritmetica, c'è un difetto strutturale. Per vederlo servono due oggetti; li definisco prima di usarli.</p>
@@ -627,7 +519,7 @@ a{color:var(--navy);}
 <li>\(T_S = -2 \cdot 3 \cdot (-2{,}303) = 13{,}82\) → \(S = P(\chi^2_6 > 13{,}82) \approx 0{,}032\) (sorpresa alta: forte evidenza di spam).</li>
 <li>\(I = \dfrac{1 + 0{,}996 - 0{,}032}{2} \approx 0{,}98\) → spam netto.</li>
 </ul>
-<p class="note">I due valori di sopravvivenza vengono da tavole o software (\(n = 3\) è piccolo apposta, per fare a mano i conti di \(T\)).</p>
+<p class="lead">I due valori di sopravvivenza vengono da tavole o software (\(n = 3\) è piccolo apposta, per fare a mano i conti di \(T\)).</p>
 </div>
 
 <div class="callout ex"><span class="tag">Esempio numerico 2 — il conflitto: dove Fisher batte naïve Bayes</span>
@@ -654,7 +546,7 @@ a{color:var(--navy);}
 <li>Soglia \(\tau = 0{,}9\): un'email con \(I = 0{,}85\) viene consegnata in inbox, ma era spam. Con il vocabolario dell'<a class="xref" href="#app-a-1">Appendice A.1</a>: che tipo di errore è?</li>
 <li>Due ragioni per cui si sommano logaritmi invece di moltiplicare direttamente le probabilità?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#sol-5">Appendice C — blocco §5</a>.</p>
+<p class="lead">Soluzioni in <a class="xref" href="#sol-5">Appendice C — blocco §5</a>.</p>
 </div>
 
 <hr/>
@@ -673,13 +565,13 @@ a{color:var(--navy);}
 <tr><th>è BUONA (ham)</th><td class="fp">FALSO POSITIVO<br>posta vera nel cestino<br>(errore peggiore)</td><td class="ok">GIUSTO<br>posta consegnata</td></tr>
 </tbody>
 </table>
-<p class="note">Il <strong>falso positivo</strong> (perdere posta vera) è più grave del falso negativo (uno spam in più). Per questo Graham raddoppia \(g\): per spostare il filtro verso l'errore meno grave.</p>
+<p class="lead">Il <strong>falso positivo</strong> (perdere posta vera) è più grave del falso negativo (uno spam in più). Per questo Graham raddoppia \(g\): per spostare il filtro verso l'errore meno grave.</p>
 
 <h3 id="app-a-2">A.2 Odds e log-odds (logit)</h3>
 <p>Invece di "probabilità \(0{,}8\)" si può dire \(0{,}8/0{,}2 = 4\) (quattro a uno). Questo è l'<strong>odds</strong>; il suo logaritmo è il <strong>log-odds (logit)</strong>.</p>
 <div class="formula">\[ \text{odds} = \frac{p}{1-p} \qquad\qquad \mathrm{logit}(p) = \ln \frac{p}{1-p} \]</div>
 <p>A cosa serve: raddrizza la scala storta \([0,1]\) in una scala dritta da \(-\infty\) a \(+\infty\), dove l'evidenza si <strong>somma</strong> invece di moltiplicare. Lo \(0{,}5\) diventa logit \(0\) (incertezza pura). È la riga "in spazio logaritmico" della sezione 1.1.1 del paper, ed è il motore della <strong>regressione logistica</strong> della sezione 1.2 del paper (la \(\sigma\) di <a class="xref" href="#sec-5-2">§5.2</a> è la funzione inversa: riporta i log-odds in probabilità).</p>
-<p class="note">Numeri: \(p = 0{,}8 \to\) odds \(= 0{,}8/0{,}2 = 4 \to\) logit \(= \ln 4 \approx +1{,}39\). &nbsp; \(p = 0{,}5 \to\) odds \(1 \to\) logit \(0\). &nbsp; \(p = 0{,}2 \to\) odds \(0{,}25 \to\) logit \(\approx -1{,}39\): la scala è simmetrica intorno allo zero.</p>
+<p class="lead">Numeri: \(p = 0{,}8 \to\) odds \(= 0{,}8/0{,}2 = 4 \to\) logit \(= \ln 4 \approx +1{,}39\). &nbsp; \(p = 0{,}5 \to\) odds \(1 \to\) logit \(0\). &nbsp; \(p = 0{,}2 \to\) odds \(0{,}25 \to\) logit \(\approx -1{,}39\): la scala è simmetrica intorno allo zero.</p>
 
 <h3 id="app-a-3">A.3 Indipendenza condizionale</h3>
 <p>L'assunto su cui si apre la sezione 1.1.1 del paper: <strong>sapendo già la classe</strong>, una parola non dice nulla sulle altre.</p>
@@ -694,12 +586,12 @@ a{color:var(--navy);}
 <tr><td>probabilità, complemento, condizionata, Bayes; che gli errori non costino uguale (teoria della decisione)</td><td>il raddoppio \(2g\); il clamp \([0{,}01;0{,}99]\); il valore \(0{,}4\); il prior bloccato a \(0{,}5\)</td></tr>
 </tbody>
 </table>
-<p class="note">Il principio "sbilancia verso l'errore meno grave" è universale; il numero \(2\) no. E attenzione: anche <em>quale</em> sia l'errore peggiore cambia col contesto (in un test medico il falso negativo può essere il più grave).</p>
+<p class="lead">Il principio "sbilancia verso l'errore meno grave" è universale; il numero \(2\) no. E attenzione: anche <em>quale</em> sia l'errore peggiore cambia col contesto (in un test medico il falso negativo può essere il più grave).</p>
 
 <hr/>
 
 <h2 id="app-b">Appendice B — Glossario dei simboli</h2>
-<p class="note">Ordinamento: <strong>per apparizione</strong> nel documento. <strong>Pavimento dichiarato</strong> — sono esclusi di proposito i simboli che si leggono da soli: le quattro operazioni (\(+\), \(-\), la barra e la linea di frazione), l'uguale \(=\), il punto di moltiplicazione \(\cdot\), le disuguaglianze (\(\ge\), \(\le\), \(>\), \(<\), \(\neq\), \(\gg\), \(\ll\)), l'insieme vuoto \(\emptyset\), le cifre e le parentesi di raggruppamento. Tutto il resto è censito. «(opz.)» = compare solo in un box o in un'appendice opzionale.</p>
+<p class="lead">Ordinamento: <strong>per apparizione</strong> nel documento. <strong>Pavimento dichiarato</strong> — sono esclusi di proposito i simboli che si leggono da soli: le quattro operazioni (\(+\), \(-\), la barra e la linea di frazione), l'uguale \(=\), il punto di moltiplicazione \(\cdot\), le disuguaglianze (\(\ge\), \(\le\), \(>\), \(<\), \(\neq\), \(\gg\), \(\ll\)), l'insieme vuoto \(\emptyset\), le cifre e le parentesi di raggruppamento. Tutto il resto è censito. «(opz.)» = compare solo in un box o in un'appendice opzionale.</p>
 <table class="gl">
 <thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
 <tbody>
@@ -768,7 +660,7 @@ a{color:var(--navy);}
 <h2 id="app-c">Appendice C — Soluzioni degli esercizi</h2>
 
 <h3 id="sol-1">Soluzioni — §1</h3>
-<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi di §1</a></p>
+<p class="lead"><a class="xref" href="#ex-1">↩ Torna agli esercizi di §1</a></p>
 <ol>
 <li>\(P(\text{buona}) = 1 - 0{,}7 = 0{,}3\) (regola del complemento, <a class="xref" href="#sec-1-2">§1.2</a>).</li>
 <li>\(P(\text{«offerta»} \mid \text{spam}) = 60/80 = 0{,}75\). Il denominatore è il mondo ristretto — le 80 spam — <strong>non</strong> le 200 totali: \(60/200 = 0{,}3\) è la trappola.</li>
@@ -776,7 +668,7 @@ a{color:var(--navy);}
 </ol>
 
 <h3 id="sol-2">Soluzioni — §2</h3>
-<p class="note"><a class="xref" href="#ex-2">↩ Torna agli esercizi di §2</a></p>
+<p class="lead"><a class="xref" href="#ex-2">↩ Torna agli esercizi di §2</a></p>
 <ol>
 <li>Su 1.000 persone: malati \(= 2\% = 20\), di cui positivi \(90\% = 18\) (veri positivi); sani \(= 980\), di cui positivi \(10\% = 98\) (falsi positivi). Positivi totali \(= 18 + 98 = 116\). Quindi \(P(\text{malato} \mid +) = 18/116 \approx 0{,}16\): anche qui i falsi positivi sommergono i veri, perché il prior (\(2\%\)) è basso.</li>
 <li>È una <strong>likelihood</strong>: la frequenza della parola <em>dentro</em> lo spam, funzione dell'ipotesi. Da sola non dice quanto l'email sia spam — quello è il posterior \(P(S \mid w)\), e per ottenerlo serve Bayes, prior compreso.</li>
@@ -784,7 +676,7 @@ a{color:var(--navy);}
 </ol>
 
 <h3 id="sol-3">Soluzioni — §3</h3>
-<p class="note"><a class="xref" href="#ex-3">↩ Torna agli esercizi di §3</a></p>
+<p class="lead"><a class="xref" href="#ex-3">↩ Torna agli esercizi di §3</a></p>
 <ol>
 <li>\(P(w\mid S) = 30/100 = 0{,}3\); \(P(w\mid H) = 10/200 = 0{,}05\); \(\mathrm{LR} = 0{,}3/0{,}05 = 6\) (sei volte più frequente nello spam); \(p(w) = \dfrac{0{,}3}{0{,}3 + 0{,}05} = \dfrac{0{,}3}{0{,}35} \approx 0{,}86\).</li>
 <li>Il termine ham raddoppia: \(2 \cdot 0{,}05 = 0{,}1\), quindi \(p(w) = \dfrac{0{,}3}{0{,}3 + 0{,}1} = 0{,}75\). Il valore <strong>scende</strong>: il filtro diventa più restio a dire spam → <strong>meno falsi positivi</strong>, al prezzo di qualche falso negativo in più.</li>
@@ -793,7 +685,7 @@ a{color:var(--navy);}
 </ol>
 
 <h3 id="sol-4">Soluzioni — §4</h3>
-<p class="note"><a class="xref" href="#ex-4">↩ Torna agli esercizi di §4</a></p>
+<p class="lead"><a class="xref" href="#ex-4">↩ Torna agli esercizi di §4</a></p>
 <ol>
 <li>\(f = \dfrac{1 \cdot 0{,}5 + 2 \cdot 0{,}9}{1 + 2} = \dfrac{0{,}5 + 1{,}8}{3} = \dfrac{2{,}3}{3} \approx 0{,}77\).</li>
 <li>\(n = 0\) → \(f = x = 0{,}5\): senza dati resta il puro neutro (comportamento agli estremi, <a class="xref" href="#sec-4-4">§4.4</a>).</li>
@@ -802,7 +694,7 @@ a{color:var(--navy);}
 </ol>
 
 <h3 id="sol-5">Soluzioni — §5</h3>
-<p class="note"><a class="xref" href="#ex-5">↩ Torna agli esercizi di §5</a></p>
+<p class="lead"><a class="xref" href="#ex-5">↩ Torna agli esercizi di §5</a></p>
 <ol>
 <li>\(T = -2 \ln 0{,}5 \approx -2 \cdot (-0{,}693) = 1{,}386\). Sopravvivenza a \(2\) gradi: \(e^{-T/2} = e^{-0{,}693} = 0{,}5\). Torna esattamente \(u\): con un solo ingrediente, Fisher restituisce l'ingrediente.</li>
 <li>\(I = \dfrac{1 + 0{,}9 - 0{,}1}{2} = \dfrac{1{,}8}{2} = 0{,}9\): forte pendenza verso spam. Se \(H = S\), i due termini si cancellano e \(I = 1/2 = 0{,}5\) sempre: indecisione, qualunque sia il valore comune.</li>
@@ -813,7 +705,7 @@ a{color:var(--navy);}
 <hr/>
 
 <h2 id="app-d">Appendice D — Approfondimenti opzionali (fuori dal perimetro del paper)</h2>
-<p class="note">Nulla di questa appendice serve per leggere la sezione 1.1 del paper. È la strada che parte dai due rimandi «fuori perimetro» di <a class="xref" href="#sec-2-2">§2.2</a> (l'interpretazione soggettiva; il caso continuo). Da studiare solo se e quando ne hai voglia.</p>
+<p class="lead">Nulla di questa appendice serve per leggere la sezione 1.1 del paper. È la strada che parte dai due rimandi «fuori perimetro» di <a class="xref" href="#sec-2-2">§2.2</a> (l'interpretazione soggettiva; il caso continuo). Da studiare solo se e quando ne hai voglia.</p>
 
 <h3 id="app-d-1">D.1 Perché «credere» obbedisce alla probabilità: de Finetti e Cox</h3>
 <p>La domanda aperta in <a class="xref" href="#sec-2-2">§2.2</a>: se il posterior si <em>interpreta</em> come grado di credenza, che cosa obbliga i gradi di credenza a rispettare gli assiomi di Kolmogorov? Due risposte classiche, per strade diverse.</p>
@@ -859,19 +751,22 @@ a{color:var(--navy);}
 <p>Nel discreto l'aspettazione condizionata l'abbiamo <strong>costruita a mano</strong>, contando. Nel continuo (box di <a class="xref" href="#sec-2-2">§2.2</a>) contare non si può: eventi come «\(X = 0{,}5\) esatto» hanno probabilità \(0\), e la definizione elementare \(P(A \mid B) = P(A \cap B)/P(B)\) non è applicabile — divisione per zero. Ma la <strong>proprietà che definisce</strong> \(\mathbb{E}[X \mid \mathcal{G}]\) (le medie coincidono su ogni evento di \(\mathcal{G}\)) ha senso anche lì. Il teorema di <strong>Radon–Nikodym</strong> è esattamente questa garanzia: un oggetto con quella proprietà <strong>esiste sempre ed è unico</strong>, a meno di differenze su eventi di probabilità \(0\). Non lo costruisce con una formula da calcolare: certifica che c'è. Nel mondo del paper — tutto discreto — la costruzione a mano di <a class="xref" href="#app-d-4">D.4</a> è già l'intera storia.</p>
 
 <hr/>
-<p class="note">Bella copia della sezione 1.1 · costruita un mattone alla volta. I prossimi capitoli del documento (PageRank/TrustRank, E-E-A-T, Safe Browsing) introdurranno nuovi mondi matematici: algebra lineare e autovettori, entropia, hashing. Ma le fondamenta — probabilità, Bayes, stima, calibrazione — tornano ovunque.</p>
+<p class="lead">Bella copia della sezione 1.1 · costruita un mattone alla volta. I prossimi capitoli del documento (PageRank/TrustRank, E-E-A-T, Safe Browsing) introdurranno nuovi mondi matematici: algebra lineare e autovettori, entropia, hashing. Ma le fondamenta — probabilità, Bayes, stima, calibrazione — tornano ovunque.</p>
 
 
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Percorso della wiki"><div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<span class="wk-pos">1 di 17</span>
-<a rel="next" href="F4_Statistica_e_ML.html" aria-label="Successiva: F4 — Statistica e machine learning" title="Successiva: F4 — Statistica e machine learning">F4 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
+<p class="arrow-up"><a href="#top">↑ torna su</a></p>
+
+<footer>
+  <span class="status">1.1 — Filtraggio Bayesiano dello Spam</span>
+  <span>prossima: F4 Statistica e machine learning.</span>
+  <span><a href="index.html">↩ Mappa</a></span>
+  <span>1 di 17</span>
+  <span><a href="F4_Statistica_e_ML.html">F4 →</a></span>
+  <span><a href="Glossario_globale.html">Glossario</a></span>
+  <span><a href="Come_si_studia.html">Metodo</a></span>
+</footer>
+
+</div>
 <script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
 try{localStorage.setItem('wiki-tappa','1.1|Bella_copia_1.1_Filtraggio_Bayesiano.html');}catch(e){}</script>
 </body>

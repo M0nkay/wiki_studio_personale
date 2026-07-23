@@ -221,6 +221,41 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisiti). Nessun link esterno puntava a frammenti di questa pagina.
 
+## 1.1 — Filtraggio Bayesiano dello Spam (SOLO STRATO MECCANICO)
+
+**Ristrutturazione F0.7 rimandata** per decisione di Alex (23/07/2026): la pagina è al centro
+della revisione manuale in corso (voce 32 di 62 del glossario) ed è l'unica marcata VERIFICATA —
+una ristrutturazione invaliderebbe la revisione e farebbe perdere l'unica verifica umana esistente.
+Registrata qui perché non risulti dimenticata: andrà portata a blocchi F0.7 quando la revisione
+manuale sarà conclusa.
+
+**Cosa è stato fatto** (solo involucro):
+- Head standard (title conservato), link a `style.css`, rimossi i 4 blocchi `<style>` inline.
+- `nav.quicknav` → `nav.top` (stessi target; caduto solo «↑ inizio», sostituito da «↑ torna su» in fondo).
+- `nav.wikibar` → `footer` a modello (status, «prossima: F4…», ↩ Mappa, 1 di 17, F4 →, Glossario, Metodo).
+- Rimosso «degli appunti» dal sottotitolo (unica occorrenza di parola vietata; nessun badge bozza presente).
+- Involucro `div.wrap` per la larghezza di colonna; script `wiki-tappa` conservato.
+- Solo attributi, testo intatto: `class="subtitle"` → `lead`; 23 × vecchia `class="note"` (testo attenuato) → `class="lead"` (D5: evita che il vecchio uso renda come blocco Intuizione blu).
+
+**Verifica del vincolo duro** (testo con tag rimossi, prima/dopo):
+- Diff a livello di parole: 11.024 → 11.035. Uniche differenze: «↑ inizio» (−), «degli appunti» (−),
+  «↑ torna su» + riga di stato del footer (+). **Nessun'altra parola cambiata.**
+- Insieme degli `id`: 50 prima, 50 dopo, **identici anche nell'ordine**. Le 18 ancore puntate dal
+  Glossario tutte presenti e immutate.
+- Riparato in corsa: l'apertura di `div.wrap` inizialmente non inserita (file CRLF) — controllo 7
+  l'ha intercettata; ora tag bilanciati.
+
+**Verifica meccanica**: controlli 1–4, 6, 7 PASS; **controllo 5 SOSPESO** (`--no-blocks`) per accordo:
+la struttura interna non è stata toccata, quindi niente blocchi `.def`/`.note`.
+- ⚠ Controllo 8 segnala 41 occorrenze: tutte false positive da contenuto intatto — numeri di sezione
+  del paper (1.1.1, 5.2…) e separatori delle migliaia all'italiana (10.000, 9.900, 1.000).
+- ⚠ Controllo 9 segnala 31 occorrenze: tutte false positive — virgole da separatore in intervalli
+  \([0,1]\) e insiemi \(\{1,2,3\}\), non decimali. Prosa e formule non toccate per vincolo.
+
+**Nota resa visiva** ⚠: senza lo stile inline, i vecchi callout (`.callout/.intu/.deep/.ex/.formula/.leg`)
+rendono come prosa piana fino alla ristrutturazione vera; le tabelle e i link prendono lo stile condiviso.
+Stato interim accettato dalla decisione di rimandare la ristrutturazione.
+
 ---
 
 # Pagine lasciate invariate
