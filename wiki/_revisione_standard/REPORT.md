@@ -43,14 +43,79 @@ assunte come standard del run.** Delta accettati:
 
 <!-- voci in append, una per pagina, subito dopo il commit -->
 
-## F0.7 — La derivata (Passo 1)
+## Glossario_globale (Passo 4 — riallineamento, commit separato)
 
-- **Modifica unica** (come da brief): rimosso il blocco `<style>` inline dal head, inserito `<link rel="stylesheet" href="style.css">`. Nessun'altra modifica a contenuto, struttura, figure.
-- **Confronto rendering**: superato col criterio anti-regressione (vedi sezione «Passo 1» in cima). `style.css` entra nel repo con questo commit.
-- **Controllo etichette `.lbl` maiuscole** (richiesto da Alex): eseguito su tutta `wiki/` — 14 etichette trovate, tutte già in capitalizzazione normale (`Definizione`, `Intuizione`, `Attenzione — …`, `Il simbolo`, `Come si calcola…`). Nessuna normalizzazione necessaria.
-- **Definizioni / esempi / figure**: invariati (sono il modello dello standard).
-- **Verifica meccanica**: controlli 1–9 tutti PASS.
-- **Ancore rinominate**: nessuna.
+**Perimetro rispettato**: niente ristrutturazione a blocchi (D6, controllo 5 sospeso). Solo strato
+meccanico + riallineamento puntuale. Il revisore ha verificato riga per riga che le modifiche siano
+esattamente e soltanto quelle dichiarate.
+
+**Strato meccanico**: head standard (title allineato all'h1), nav.top con gli stessi 18 target + ↩ Mappa,
+involucro wrap, p.note → p.lead, 60 `class="xref"` rimossi (href intatti), tabella senza `.gl`,
+18 righe-separatore col colore condiviso `var(--accent-soft)`, footer a modello al posto della wikibar,
+nota finale con «bozza» sostituita dalla riga di stato. **19 id identici; i 18 link a frammenti della 1.1
+tutti conservati** (verificato da me e dal revisore).
+
+**Riallineamenti applicati** (⚠ ciascuno, per la revisione manuale in corso):
+- ⚠ Aggiunta la riga «semplificare» (F0.1 §2) — la tabella di F0.1 rifatta la contiene, byte-identica.
+- ⚠ \(J(A,B)\) → \(J(A;B)\) — allineato a F6 (separatore ; della regola D).
+- ⚠ \(1/1.000.000\) → \(1/1\,000\,000\) — convenzione migliaia della wiki (come 2.3).
+
+**Fix in corsa** ⚠: la trasformazione via script aveva dimezzato le backslash della config MathJax
+(stesso bug della 1.1, stessa causa — v. Addendum 1.1); stanato dal revisore, riparato prima del commit.
+
+**Disallineamenti PREESISTENTI trovati dal revisore — NON toccati** (decisioni da prendere nella tua
+revisione manuale; «qualunque correzione si fa qui e si riporta lì»):
+- ⚠ Voce \(\sim\) del blocco 1.2: il glossario dice «in 1.1 §5.2 era “dell'ordine di”» (corretto); la
+  **pagina** 1.2 dice «in F4 era…» — ma la tabella di F4 non ha \(\sim\): l'errore sta nella pagina 1.2
+  (ereditato dal vecchio, conservato per fedeltà).
+- ⚠ Voce \(z\) del blocco F5: prima occ. «F5 §1.2» nel glossario contro «F4 §5.2 (riciclato)» nella
+  pagina F5 — due letture difendibili (lo z-score nasce in F5; la lettera è riciclata da F4).
+- ⚠ Il blocco Gradino 0 (di tua mano, commit a8448af) è deliberatamente compatto: non censisce
+  \(m\), \(\Delta\), secante, \(\to\), \(h\) della tabella di F0.7 né la voce \(N\) («uscite dell'hash») di F6.
+- ⚠ «Numero di Eulero» (Gradino 0 / F0.3) contro «numero di Nepero» (blocco 1.1): due nomi per la
+  stessa costante, ciascuno fedele alla propria pagina.
+
+**Verifica meccanica**: 1–4, 6–7 PASS (5 sospeso); segnalazioni 8–9 false positive (sigle e intervalli).
+
+## 1.1 — Filtraggio Bayesiano dello Spam (SOLO STRATO MECCANICO)
+
+**Ristrutturazione F0.7 rimandata** per decisione di Alex (23/07/2026): la pagina è al centro
+della revisione manuale in corso (voce 32 di 62 del glossario) ed è l'unica marcata VERIFICATA —
+una ristrutturazione invaliderebbe la revisione e farebbe perdere l'unica verifica umana esistente.
+Registrata qui perché non risulti dimenticata: andrà portata a blocchi F0.7 quando la revisione
+manuale sarà conclusa.
+
+**Cosa è stato fatto** (solo involucro):
+- Head standard (title conservato), link a `style.css`, rimossi i 4 blocchi `<style>` inline.
+- `nav.quicknav` → `nav.top` (stessi target; caduto solo «↑ inizio», sostituito da «↑ torna su» in fondo).
+- `nav.wikibar` → `footer` a modello (status, «prossima: F4…», ↩ Mappa, 1 di 17, F4 →, Glossario, Metodo).
+- Rimosso «degli appunti» dal sottotitolo (unica occorrenza di parola vietata; nessun badge bozza presente).
+- Involucro `div.wrap` per la larghezza di colonna; script `wiki-tappa` conservato.
+- Solo attributi, testo intatto: `class="subtitle"` → `lead`; 23 × vecchia `class="note"` (testo attenuato) → `class="lead"` (D5: evita che il vecchio uso renda come blocco Intuizione blu).
+
+**Verifica del vincolo duro** (testo con tag rimossi, prima/dopo):
+- Diff a livello di parole: 11.024 → 11.035. Uniche differenze: «↑ inizio» (−), «degli appunti» (−),
+  «↑ torna su» + riga di stato del footer (+). **Nessun'altra parola cambiata.**
+- Insieme degli `id`: 50 prima, 50 dopo, **identici anche nell'ordine**. Le 18 ancore puntate dal
+  Glossario tutte presenti e immutate.
+- Riparato in corsa: l'apertura di `div.wrap` inizialmente non inserita (file CRLF) — controllo 7
+  l'ha intercettata; ora tag bilanciati.
+
+**Verifica meccanica**: controlli 1–4, 6, 7 PASS; **controllo 5 SOSPESO** (`--no-blocks`) per accordo:
+la struttura interna non è stata toccata, quindi niente blocchi `.def`/`.note`.
+- ⚠ Controllo 8 segnala 41 occorrenze: tutte false positive da contenuto intatto — numeri di sezione
+  del paper (1.1.1, 5.2…) e separatori delle migliaia all'italiana (10.000, 9.900, 1.000).
+- ⚠ Controllo 9 segnala 31 occorrenze: tutte false positive — virgole da separatore in intervalli
+  \([0,1]\) e insiemi \(\{1,2,3\}\), non decimali. Prosa e formule non toccate per vincolo.
+
+**Nota resa visiva** ⚠: senza lo stile inline, i vecchi callout (`.callout/.intu/.deep/.ex/.formula/.leg`)
+rendono come prosa piana fino alla ristrutturazione vera; le tabelle e i link prendono lo stile condiviso.
+Stato interim accettato dalla decisione di rimandare la ristrutturazione.
+
+**Addendum (fix successivo)** ⚠: la trasformazione via script aveva dimezzato le backslash della
+config MathJax (`\(` invece di `\\(` nei delimitatori): resa delle formule compromessa. Bug mio,
+stanato dal revisore del Glossario (stesso difetto, stessa causa); riparato con commit dedicato.
+Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 
 ## F0.1 — Frazioni e percentuali
 
@@ -80,6 +145,56 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi` (gli esercizi erano in un callout, ora sono sezione h2 come nel modello). Nessun link esterno puntava a frammenti di questa pagina.
 
+## 1.3 — Warmup di IP e dominio
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Piano di crescita — il volume di ogni giorno è il minimo tra il tetto e il volume iniziale moltiplicato per il fattore di crescita elevato al giorno (crescita geometrica con tetto).
+- Fattore del giorno ρ_d — il moltiplicatore effettivamente applicato quel giorno: ρ_max se tutte le soglie di qualità sono rispettate, altrimenti ρ_hold (=1 mantiene, <1 arretra).
+- Probabilità di accettazione — una probabilità: sigmoide di un punteggio che premia la buona reputazione (a·(1−r)) e penalizza l'anomalia di volume (−b·z_V); z_V definito con σ_V>0, convenzione z_V:=0 a storico insufficiente.
+
+**Esempi numerici** (11 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Serie 100·1,5^d: 150, 225, ≈338, ≈506, ≈759, ≈1139 → tetto 1000 al giorno 6.
+- Regime/picco: σ(1,2) ≈ 0,77; σ(−1,8) ≈ 0,14 («sei su sette differite»: 1−0,14 ≈ 6/7).
+- Soluzioni: 50·2³ = 400 (giorno 3); indicatrice 0 con bounce 3% > 2%; σ(0) = 0,5.
+
+**Figure**:
+- Barre della serie geometrica (scala 1 px = 5 email; altezze 20, 30, 45, 67,5, 101,3, 151,9 e barra al tetto 200 con linea a y=40) — illustra «geometrica con tetto» del §2. Coerenza numerica verificata dal revisore (arrotondamenti sub-pixel su 101,25 e 151,875).
+
+**Scelte di giudizio e incertezze**:
+- Prima stesura RESPINTA dal revisore sui cover test dei def §3 e §4; corretta: il def §3 ora definisce ρ_d e la regola di scelta a parole; il def §4 ora definisce P_accept (tipo probabilità, struttura dei segni esplicitata: a premia 1−r, b penalizza z_V) prima delle ipotesi su z_V. Riesaminata e approvata.
+- ⚠ Ereditato dal vecchio, conservato: la prosa spiega 𝟙[·] e ∧ «li conosci già entrambi», ma la formula usa i cases (senza 𝟙): il paper introduce 𝟙, la pagina lo censisce in tabella. Da valutare in revisione se allineare formula e prosa.
+- ⚠ Ereditato dal vecchio, conservato: la formula di z_V usa V_t mentre l'indice dei giorni altrove è d (V_d); V_t non è in tabella simboli.
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati (ex-3, ex-4, sol-3, sol-4 inclusi).
+
+## F2 — Algebra lineare e catene di Markov
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Matrice — una tabella di numeri (array bidimensionale); il prodotto matrice·vettore è una pila di prodotti scalari: una macchina che trasforma vettori in vettori.
+- Colonna-stocastica / catena di Markov — ogni colonna somma a 1 (probabilità in uscita da uno stato); la catena è senza memoria: il prossimo passo dipende solo da dove sei.
+- Distribuzione stazionaria — un vettore di probabilità che la catena non cambia (il punto fermo).
+- Autovettore / autovalore — un vettore non nullo che la matrice non devia: lo riscala soltanto, del fattore autovalore.
+- Velocità di convergenza — sotto le ipotesi dichiarate, l'errore dopo k passi decade come il modulo del secondo autovalore alla k.
+- Inversa — l'unica matrice che annulla l'effetto di una matrice quadrata non singolare.
+- Serie di Neumann — l'inversa di (I − αM) come somma dei contributi di tutti i cammini, smorzati da α^k.
+
+**Esempi numerici** (11 verifiche con python + rifatti a mano dal revisore in aritmetica esatta, tutti OK):
+- M(0,5; 0,5) = (0,55; 0,45); meteo (1; 0) → (0,9; 0,1) → (0,83; 0,17).
+- Stazionaria: 0,2 = 0,3x → x = 2/3, prova del nove 0,9·⅔ + 0,2·⅓ = ⅔; sequenza 1; 0,9; 0,83; 0,781; 0,747 → ⅔.
+- Autovettori: M(2; 1) = (2; 1) (λ=1); M(1; −1) = (0,7; −0,7) (λ₂=0,7); errori ×0,7 esatti (errore iniziale proporzionale a v₂).
+- Serie geometrica: 1/(1−0,5) = 2; controesempio M = 2I divergente.
+- Soluzioni: (0,62; 0,38); M(3; 1) = (2,9; 1,1), rapporto 2,64 ≠ 3; 1/0,9 ≈ 1,111.
+
+**Figure**:
+- Successione della probabilità di sole (punti a y = 60, 105, 136,5, 158,6, 174) con la linea dell'equilibrio ⅔ a y = 210 — illustra §3/§5; il revisore ha verificato anche che le distanze dalla linea si contraggono di fattore 0,7. Didascalia precisata: asse verticale da 0,6 a 1.
+
+**Scelte di giudizio e incertezze**:
+- Il blocco esistenza/unicità/convergenza + teorema ergodico [PROP] spostato dal N.B. a blocco Attenzione adiacente al def (testo integro, controesempio incluso).
+- ⚠ Ereditato: i blocchi «definizione rigorosa» di §5 e §6b sono proposizioni/teoremi etichettati «Definizione»; in §5 la precisazione asintotica segue la formula (deroga a «formula ultima», conservata per fedeltà).
+- ⚠ «Non devia: lo riscala soltanto» è impreciso per λ negativi/complessi; la formula adiacente e la parentesi sul caso complesso (ereditata) delimitano.
+
+**Ancore rinominate**: `ex-6` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ## F0.2 — Potenze e radici
 
 **Definizioni scritte** (testo senza formula, per il cover test):
@@ -105,51 +220,6 @@ assunte come standard del run.** Delta accettati:
 - ⚠ Nota del revisore: «il risultato di una moltiplicazione ripetuta» descrive a rigore solo il caso b intero positivo; la frase successiva delimita («Quando b è un intero positivo…») e il blocco Attenzione marca il confine. Accettato così.
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisito). Nessun link esterno puntava a frammenti di questa pagina.
-
-## F0.3 — Logaritmi
-
-**Definizioni scritte** (testo senza formula, per il cover test):
-- Logaritmo — un esponente: dice a quale potenza va elevata la base per raggiungere l'argomento; è l'unico numero con questa proprietà (condizioni: base positiva e diversa da 1, argomento positivo).
-
-**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
-- log₁₀ 1000 = 3 perché 10³ = 1000; log₂ 4 = 2; log₂ 8 = 3; log₁₀ 100 = 2.
-- Valori speciali: log_b 1 = 0 (b⁰ = 1); log_b b = 1.
-- Regola d'oro: log₁₀(100·1000) → sinistra 100·1000 = 100 000 = 10⁵ → 5; destra 2 + 3 = 5. Uguali.
-- Soluzioni: log₂ 16 = 4 (2⁴=16); log₁₀ 10 000 = 4; log₅ 1 = 0; ln = log_e con e ≈ 2,718; log(7·3) = log 7 + log 3.
-- Regole gemelle verificate numericamente (log(8/2) = log 8 − log 2; log(3⁴) = 4·log 3; log((−3)²) = 2·log 3).
-
-**Figure**: nessuna (pagina algebrica; il brief lo prevede — «una pagina di algebra può averne zero»).
-
-**Scelte di giudizio e incertezze**:
-- Il callout «N.B. — definizione rigorosa» è diventato il blocco Definizione; la parte «fuori da queste condizioni non è definito» spostata in blocco Attenzione dedicato.
-- Su rilievo del revisore, la frase funzionale («dice a quale potenza va elevata la base per raggiungere l'argomento») è stata portata dentro il blocco Definizione, prima della caratterizzazione formale.
-- «Più a fondo (opzionale) — la regola gemella» convertito da callout a h3 + prosa, contenuto integro (incluso il caso a<0 con n log|a|).
-- Footer: la riga «prossima trance: F0.4, F0.5, F0.6» ridotta a «prossima: F0.4» (era meta-informazione dello stato bozza).
-
-**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
-
-## F0.4 — Somme Σ e produttorie Π
-
-**Definizioni scritte** (testo senza formula, per il cover test):
-- Sommatoria — un numero: il totale che si ottiene sommando gli elementi indicati, uno per ogni valore dell'indice.
-- Produttoria — un numero: il risultato della moltiplicazione di tutti gli elementi indicati, uno per ogni valore dell'indice.
-
-**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
-- Σ con x = (2, 5, 3): 2 + 5 + 3 = 10.
-- Σ i² da 1 a 3: 1 + 4 + 9 = 14.
-- Π con gli stessi numeri: 2 · 5 · 3 = 30 (contro 10 della somma).
-- Caso vuoto: somma vuota = 0, prodotto vuoto = 1 (verificato anche 0! = 1).
-- log(Π) = Σ log verificata numericamente su (2, 5, 3).
-- Soluzioni: 1+2+3+4 = 10; 1·2·3·4 = 24 (= 4!); 10+1+4 = 15.
-
-**Figure**: nessuna (pagina di notazione).
-
-**Scelte di giudizio e incertezze**:
-- Il callout «N.B. — estremi e caso vuoto» convertito in blocco Attenzione (è un caveat sulla convenzione).
-- «Traduzione in parole» e «A parole» mantenuti come blocchi note dedicati.
-- Il link «↩ Torna agli esercizi» nelle Soluzioni non è replicato: il modello F0.7 non lo ha.
-
-**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
 ## F0.5 — Notazione di base
 
@@ -200,66 +270,6 @@ assunte come standard del run.** Delta accettati:
 - «Cosa non è un vettore» e «convenzione del grassetto» convertiti in blocchi Attenzione.
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
-
-## F0.8 — L'integrale
-
-**Definizioni scritte** (testo senza formula, per il cover test):
-- Integrale — di una funzione tra due bordi è un numero: l'area racchiusa tra la curva e la linea di terra su quel tratto, la somma di infinite fettine sottilissime.
-
-**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
-- Retta orizzontale ad altezza 3, da 0 a 4: area = 4 × 3 = 12.
-- Velocità costante: 60 km/h × 2 h = 120 km (l'area sotto la curva della velocità è la distanza).
-- Soluzione 2: base 3 × altezza 5 = 15.
-
-**Figure**:
-- Fettine sotto la curva: Bézier quadratica con x(t) = 60+360t e y(t) = 220−160t² (verificato: il termine t² di x si annulla), 6 rettangoli inscritti con altezza = floor dell'altezza della curva al bordo sinistro (20, 24, 37, 60, 91, 131) — somma di Riemann sinistra di funzione crescente, ogni rettangolo interamente sotto la curva. Illustra il §2 (affettare l'area). Geometria verificata da me e dal revisore con calcoli indipendenti. Etichetta «la curva» spostata in zona libera su rilievo del revisore.
-
-**Scelte di giudizio e incertezze**:
-- Il blocco «Onestà» (la wiki è quasi tutta discreta, l'integrale è un bonus) conservato integralmente: non è una scusa sul documento, è una guida di lettura onesta.
-- «Il confine (opzionale)» e «Più a fondo (opzionale) — legame con la derivata» convertiti in h3, testo integro.
-- «Il gemello discreto» resta blocco Attenzione come nel vecchio (caveat d'uso).
-
-**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisiti). Nessun link esterno puntava a frammenti di questa pagina.
-
-## 1.1 — Filtraggio Bayesiano dello Spam (SOLO STRATO MECCANICO)
-
-**Ristrutturazione F0.7 rimandata** per decisione di Alex (23/07/2026): la pagina è al centro
-della revisione manuale in corso (voce 32 di 62 del glossario) ed è l'unica marcata VERIFICATA —
-una ristrutturazione invaliderebbe la revisione e farebbe perdere l'unica verifica umana esistente.
-Registrata qui perché non risulti dimenticata: andrà portata a blocchi F0.7 quando la revisione
-manuale sarà conclusa.
-
-**Cosa è stato fatto** (solo involucro):
-- Head standard (title conservato), link a `style.css`, rimossi i 4 blocchi `<style>` inline.
-- `nav.quicknav` → `nav.top` (stessi target; caduto solo «↑ inizio», sostituito da «↑ torna su» in fondo).
-- `nav.wikibar` → `footer` a modello (status, «prossima: F4…», ↩ Mappa, 1 di 17, F4 →, Glossario, Metodo).
-- Rimosso «degli appunti» dal sottotitolo (unica occorrenza di parola vietata; nessun badge bozza presente).
-- Involucro `div.wrap` per la larghezza di colonna; script `wiki-tappa` conservato.
-- Solo attributi, testo intatto: `class="subtitle"` → `lead`; 23 × vecchia `class="note"` (testo attenuato) → `class="lead"` (D5: evita che il vecchio uso renda come blocco Intuizione blu).
-
-**Verifica del vincolo duro** (testo con tag rimossi, prima/dopo):
-- Diff a livello di parole: 11.024 → 11.035. Uniche differenze: «↑ inizio» (−), «degli appunti» (−),
-  «↑ torna su» + riga di stato del footer (+). **Nessun'altra parola cambiata.**
-- Insieme degli `id`: 50 prima, 50 dopo, **identici anche nell'ordine**. Le 18 ancore puntate dal
-  Glossario tutte presenti e immutate.
-- Riparato in corsa: l'apertura di `div.wrap` inizialmente non inserita (file CRLF) — controllo 7
-  l'ha intercettata; ora tag bilanciati.
-
-**Verifica meccanica**: controlli 1–4, 6, 7 PASS; **controllo 5 SOSPESO** (`--no-blocks`) per accordo:
-la struttura interna non è stata toccata, quindi niente blocchi `.def`/`.note`.
-- ⚠ Controllo 8 segnala 41 occorrenze: tutte false positive da contenuto intatto — numeri di sezione
-  del paper (1.1.1, 5.2…) e separatori delle migliaia all'italiana (10.000, 9.900, 1.000).
-- ⚠ Controllo 9 segnala 31 occorrenze: tutte false positive — virgole da separatore in intervalli
-  \([0,1]\) e insiemi \(\{1,2,3\}\), non decimali. Prosa e formule non toccate per vincolo.
-
-**Nota resa visiva** ⚠: senza lo stile inline, i vecchi callout (`.callout/.intu/.deep/.ex/.formula/.leg`)
-rendono come prosa piana fino alla ristrutturazione vera; le tabelle e i link prendono lo stile condiviso.
-Stato interim accettato dalla decisione di rimandare la ristrutturazione.
-
-**Addendum (fix successivo)** ⚠: la trasformazione via script aveva dimezzato le backslash della
-config MathJax (`\(` invece di `\\(` nei delimitatori): resa delle formule compromessa. Bug mio,
-stanato dal revisore del Glossario (stesso difetto, stessa causa); riparato con commit dedicato.
-Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 
 ## F4 — Statistica e machine learning
 
@@ -343,28 +353,6 @@ Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 
 **Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati.
 
-## 1.3 — Warmup di IP e dominio
-
-**Definizioni scritte** (testo senza formula, per il cover test):
-- Piano di crescita — il volume di ogni giorno è il minimo tra il tetto e il volume iniziale moltiplicato per il fattore di crescita elevato al giorno (crescita geometrica con tetto).
-- Fattore del giorno ρ_d — il moltiplicatore effettivamente applicato quel giorno: ρ_max se tutte le soglie di qualità sono rispettate, altrimenti ρ_hold (=1 mantiene, <1 arretra).
-- Probabilità di accettazione — una probabilità: sigmoide di un punteggio che premia la buona reputazione (a·(1−r)) e penalizza l'anomalia di volume (−b·z_V); z_V definito con σ_V>0, convenzione z_V:=0 a storico insufficiente.
-
-**Esempi numerici** (11 verifiche con python + rifatti a mano dal revisore, tutti OK):
-- Serie 100·1,5^d: 150, 225, ≈338, ≈506, ≈759, ≈1139 → tetto 1000 al giorno 6.
-- Regime/picco: σ(1,2) ≈ 0,77; σ(−1,8) ≈ 0,14 («sei su sette differite»: 1−0,14 ≈ 6/7).
-- Soluzioni: 50·2³ = 400 (giorno 3); indicatrice 0 con bounce 3% > 2%; σ(0) = 0,5.
-
-**Figure**:
-- Barre della serie geometrica (scala 1 px = 5 email; altezze 20, 30, 45, 67,5, 101,3, 151,9 e barra al tetto 200 con linea a y=40) — illustra «geometrica con tetto» del §2. Coerenza numerica verificata dal revisore (arrotondamenti sub-pixel su 101,25 e 151,875).
-
-**Scelte di giudizio e incertezze**:
-- Prima stesura RESPINTA dal revisore sui cover test dei def §3 e §4; corretta: il def §3 ora definisce ρ_d e la regola di scelta a parole; il def §4 ora definisce P_accept (tipo probabilità, struttura dei segni esplicitata: a premia 1−r, b penalizza z_V) prima delle ipotesi su z_V. Riesaminata e approvata.
-- ⚠ Ereditato dal vecchio, conservato: la prosa spiega 𝟙[·] e ∧ «li conosci già entrambi», ma la formula usa i cases (senza 𝟙): il paper introduce 𝟙, la pagina lo censisce in tabella. Da valutare in revisione se allineare formula e prosa.
-- ⚠ Ereditato dal vecchio, conservato: la formula di z_V usa V_t mentre l'indice dei giorni altrove è d (V_d); V_t non è in tabella simboli.
-
-**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati (ex-3, ex-4, sol-3, sol-4 inclusi).
-
 ## F3 — Teoria dell'informazione
 
 **Definizioni scritte** (testo senza formula, per il cover test):
@@ -445,34 +433,6 @@ Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 - Riferimento «la potenza di F4» corretto in «la potenza di F0.2» (la potenza è definita lì).
 - Footer con F6 nel percorso ripristinato su rilievo del revisore.
 
-## F2 — Algebra lineare e catene di Markov
-
-**Definizioni scritte** (testo senza formula, per il cover test):
-- Matrice — una tabella di numeri (array bidimensionale); il prodotto matrice·vettore è una pila di prodotti scalari: una macchina che trasforma vettori in vettori.
-- Colonna-stocastica / catena di Markov — ogni colonna somma a 1 (probabilità in uscita da uno stato); la catena è senza memoria: il prossimo passo dipende solo da dove sei.
-- Distribuzione stazionaria — un vettore di probabilità che la catena non cambia (il punto fermo).
-- Autovettore / autovalore — un vettore non nullo che la matrice non devia: lo riscala soltanto, del fattore autovalore.
-- Velocità di convergenza — sotto le ipotesi dichiarate, l'errore dopo k passi decade come il modulo del secondo autovalore alla k.
-- Inversa — l'unica matrice che annulla l'effetto di una matrice quadrata non singolare.
-- Serie di Neumann — l'inversa di (I − αM) come somma dei contributi di tutti i cammini, smorzati da α^k.
-
-**Esempi numerici** (11 verifiche con python + rifatti a mano dal revisore in aritmetica esatta, tutti OK):
-- M(0,5; 0,5) = (0,55; 0,45); meteo (1; 0) → (0,9; 0,1) → (0,83; 0,17).
-- Stazionaria: 0,2 = 0,3x → x = 2/3, prova del nove 0,9·⅔ + 0,2·⅓ = ⅔; sequenza 1; 0,9; 0,83; 0,781; 0,747 → ⅔.
-- Autovettori: M(2; 1) = (2; 1) (λ=1); M(1; −1) = (0,7; −0,7) (λ₂=0,7); errori ×0,7 esatti (errore iniziale proporzionale a v₂).
-- Serie geometrica: 1/(1−0,5) = 2; controesempio M = 2I divergente.
-- Soluzioni: (0,62; 0,38); M(3; 1) = (2,9; 1,1), rapporto 2,64 ≠ 3; 1/0,9 ≈ 1,111.
-
-**Figure**:
-- Successione della probabilità di sole (punti a y = 60, 105, 136,5, 158,6, 174) con la linea dell'equilibrio ⅔ a y = 210 — illustra §3/§5; il revisore ha verificato anche che le distanze dalla linea si contraggono di fattore 0,7. Didascalia precisata: asse verticale da 0,6 a 1.
-
-**Scelte di giudizio e incertezze**:
-- Il blocco esistenza/unicità/convergenza + teorema ergodico [PROP] spostato dal N.B. a blocco Attenzione adiacente al def (testo integro, controesempio incluso).
-- ⚠ Ereditato: i blocchi «definizione rigorosa» di §5 e §6b sono proposizioni/teoremi etichettati «Definizione»; in §5 la precisazione asintotica segue la formula (deroga a «formula ultima», conservata per fedeltà).
-- ⚠ «Non devia: lo riscala soltanto» è impreciso per λ negativi/complessi; la formula adiacente e la parentesi sul caso complesso (ereditata) delimitano.
-
-**Ancore rinominate**: `ex-6` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
-
 ## 2.1 — PageRank: il random surfer
 
 **Definizioni scritte** (testo senza formula, per il cover test):
@@ -494,6 +454,101 @@ Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## 2.3 — Spam mass e l'isolamento delle link farm
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Link farm — un mucchio di pagine fantasma, fitte di link reciproci, costruite per pompare il PageRank di un bersaglio.
+- PR⁺ / spam mass — il PageRank calcolato col teletrasporto ristretto al nucleo fidato (non rinormalizzato); la spam mass assoluta è la differenza col PageRank normale, la relativa è la sua frazione: la parte di rank che il web fidato non giustifica.
+
+**Esempi numerici** (8 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Pioggia: 0,15/10⁶ = 1,5·10⁻⁷; farm da 10 000 pagine → ≈ 0,0013 al bersaglio ≈ 1.300 volte la media (esatto 1.275).
+- m della farm ≈ 0,999; m della pagina onesta = 0,1.
+- Soluzioni: m = 0,25; farm da 1.000 → ≈ 1,3·10⁻⁴, ≈ 130 volte (rapporto lineare).
+
+**Figure**: nessuna (pagina breve e numerica).
+
+**Scelte di giudizio e incertezze**:
+- Separatori delle migliaia in math riscritti con spazio sottile (1 000 000, 10 000, 1 000); in prosa resta lo stile italiano «1.300» (falso positivo noto del controllo 8).
+- L'elenco a un solo punto (PR(p)) sciolto in prosa; frase del lead = sintesi senza matematica.
+- ⚠ Ereditato: nel def §2 il paragrafo interpretativo segue la formula (deroga a «formula ultima», conservata per fedeltà — stessa classe di F2).
+- Blocco def misto «Definizione + Come si calcola»: pattern del modello F0.7, ricorre qui come in 1.2/2.1/2.2.
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
+## F0.7 — La derivata (Passo 1)
+
+- **Modifica unica** (come da brief): rimosso il blocco `<style>` inline dal head, inserito `<link rel="stylesheet" href="style.css">`. Nessun'altra modifica a contenuto, struttura, figure.
+- **Confronto rendering**: superato col criterio anti-regressione (vedi sezione «Passo 1» in cima). `style.css` entra nel repo con questo commit.
+- **Controllo etichette `.lbl` maiuscole** (richiesto da Alex): eseguito su tutta `wiki/` — 14 etichette trovate, tutte già in capitalizzazione normale (`Definizione`, `Intuizione`, `Attenzione — …`, `Il simbolo`, `Come si calcola…`). Nessuna normalizzazione necessaria.
+- **Definizioni / esempi / figure**: invariati (sono il modello dello standard).
+- **Verifica meccanica**: controlli 1–9 tutti PASS.
+- **Ancore rinominate**: nessuna.
+
+## F0.3 — Logaritmi
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Logaritmo — un esponente: dice a quale potenza va elevata la base per raggiungere l'argomento; è l'unico numero con questa proprietà (condizioni: base positiva e diversa da 1, argomento positivo).
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- log₁₀ 1000 = 3 perché 10³ = 1000; log₂ 4 = 2; log₂ 8 = 3; log₁₀ 100 = 2.
+- Valori speciali: log_b 1 = 0 (b⁰ = 1); log_b b = 1.
+- Regola d'oro: log₁₀(100·1000) → sinistra 100·1000 = 100 000 = 10⁵ → 5; destra 2 + 3 = 5. Uguali.
+- Soluzioni: log₂ 16 = 4 (2⁴=16); log₁₀ 10 000 = 4; log₅ 1 = 0; ln = log_e con e ≈ 2,718; log(7·3) = log 7 + log 3.
+- Regole gemelle verificate numericamente (log(8/2) = log 8 − log 2; log(3⁴) = 4·log 3; log((−3)²) = 2·log 3).
+
+**Figure**: nessuna (pagina algebrica; il brief lo prevede — «una pagina di algebra può averne zero»).
+
+**Scelte di giudizio e incertezze**:
+- Il callout «N.B. — definizione rigorosa» è diventato il blocco Definizione; la parte «fuori da queste condizioni non è definito» spostata in blocco Attenzione dedicato.
+- Su rilievo del revisore, la frase funzionale («dice a quale potenza va elevata la base per raggiungere l'argomento») è stata portata dentro il blocco Definizione, prima della caratterizzazione formale.
+- «Più a fondo (opzionale) — la regola gemella» convertito da callout a h3 + prosa, contenuto integro (incluso il caso a<0 con n log|a|).
+- Footer: la riga «prossima trance: F0.4, F0.5, F0.6» ridotta a «prossima: F0.4» (era meta-informazione dello stato bozza).
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
+## F0.4 — Somme Σ e produttorie Π
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Sommatoria — un numero: il totale che si ottiene sommando gli elementi indicati, uno per ogni valore dell'indice.
+- Produttoria — un numero: il risultato della moltiplicazione di tutti gli elementi indicati, uno per ogni valore dell'indice.
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- Σ con x = (2, 5, 3): 2 + 5 + 3 = 10.
+- Σ i² da 1 a 3: 1 + 4 + 9 = 14.
+- Π con gli stessi numeri: 2 · 5 · 3 = 30 (contro 10 della somma).
+- Caso vuoto: somma vuota = 0, prodotto vuoto = 1 (verificato anche 0! = 1).
+- log(Π) = Σ log verificata numericamente su (2, 5, 3).
+- Soluzioni: 1+2+3+4 = 10; 1·2·3·4 = 24 (= 4!); 10+1+4 = 15.
+
+**Figure**: nessuna (pagina di notazione).
+
+**Scelte di giudizio e incertezze**:
+- Il callout «N.B. — estremi e caso vuoto» convertito in blocco Attenzione (è un caveat sulla convenzione).
+- «Traduzione in parole» e «A parole» mantenuti come blocchi note dedicati.
+- Il link «↩ Torna agli esercizi» nelle Soluzioni non è replicato: il modello F0.7 non lo ha.
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
+## F0.8 — L'integrale
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Integrale — di una funzione tra due bordi è un numero: l'area racchiusa tra la curva e la linea di terra su quel tratto, la somma di infinite fettine sottilissime.
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- Retta orizzontale ad altezza 3, da 0 a 4: area = 4 × 3 = 12.
+- Velocità costante: 60 km/h × 2 h = 120 km (l'area sotto la curva della velocità è la distanza).
+- Soluzione 2: base 3 × altezza 5 = 15.
+
+**Figure**:
+- Fettine sotto la curva: Bézier quadratica con x(t) = 60+360t e y(t) = 220−160t² (verificato: il termine t² di x si annulla), 6 rettangoli inscritti con altezza = floor dell'altezza della curva al bordo sinistro (20, 24, 37, 60, 91, 131) — somma di Riemann sinistra di funzione crescente, ogni rettangolo interamente sotto la curva. Illustra il §2 (affettare l'area). Geometria verificata da me e dal revisore con calcoli indipendenti. Etichetta «la curva» spostata in zona libera su rilievo del revisore.
+
+**Scelte di giudizio e incertezze**:
+- Il blocco «Onestà» (la wiki è quasi tutta discreta, l'integrale è un bonus) conservato integralmente: non è una scusa sul documento, è una guida di lettura onesta.
+- «Il confine (opzionale)» e «Più a fondo (opzionale) — legame con la derivata» convertiti in h3, testo integro.
+- «Il gemello discreto» resta blocco Attenzione come nel vecchio (caveat d'uso).
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisiti). Nessun link esterno puntava a frammenti di questa pagina.
+
 ## 2.2 — TrustRank: semi e propagazione
 
 **Definizioni scritte** (testo senza formula, per il cover test):
@@ -513,27 +568,6 @@ Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 - Prima stesura RESPINTA dal revisore: il def §3 apriva con la formula nuda. Corretto con la frase di tipo (vettore/distribuzione — deriva dall'intro e dall'Ipotesi già presenti) prima della ricorsione. Riesaminata.
 - Il «N.B. — ipotesi» è ora il paragrafo «Ipotesi.» dentro il def §3; l'assunzione di separazione approssimata è un blocco Attenzione dedicato in §1.
 - Nav.top con link Soluzioni ripristinato; footer con «poi la sezione 3».
-
-**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
-
-## 2.3 — Spam mass e l'isolamento delle link farm
-
-**Definizioni scritte** (testo senza formula, per il cover test):
-- Link farm — un mucchio di pagine fantasma, fitte di link reciproci, costruite per pompare il PageRank di un bersaglio.
-- PR⁺ / spam mass — il PageRank calcolato col teletrasporto ristretto al nucleo fidato (non rinormalizzato); la spam mass assoluta è la differenza col PageRank normale, la relativa è la sua frazione: la parte di rank che il web fidato non giustifica.
-
-**Esempi numerici** (8 verifiche con python + rifatti a mano dal revisore, tutti OK):
-- Pioggia: 0,15/10⁶ = 1,5·10⁻⁷; farm da 10 000 pagine → ≈ 0,0013 al bersaglio ≈ 1.300 volte la media (esatto 1.275).
-- m della farm ≈ 0,999; m della pagina onesta = 0,1.
-- Soluzioni: m = 0,25; farm da 1.000 → ≈ 1,3·10⁻⁴, ≈ 130 volte (rapporto lineare).
-
-**Figure**: nessuna (pagina breve e numerica).
-
-**Scelte di giudizio e incertezze**:
-- Separatori delle migliaia in math riscritti con spazio sottile (1 000 000, 10 000, 1 000); in prosa resta lo stile italiano «1.300» (falso positivo noto del controllo 8).
-- L'elenco a un solo punto (PR(p)) sciolto in prosa; frase del lead = sintesi senza matematica.
-- ⚠ Ereditato: nel def §2 il paragrafo interpretativo segue la formula (deroga a «formula ultima», conservata per fedeltà — stessa classe di F2).
-- Blocco def misto «Definizione + Come si calcola»: pattern del modello F0.7, ricorre qui come in 1.2/2.1/2.2.
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
@@ -630,39 +664,47 @@ Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
-## Glossario_globale (Passo 4 — riallineamento, commit separato)
 
-**Perimetro rispettato**: niente ristrutturazione a blocchi (D6, controllo 5 sospeso). Solo strato
-meccanico + riallineamento puntuale. Il revisore ha verificato riga per riga che le modifiche siano
-esattamente e soltanto quelle dichiarate.
+---
 
-**Strato meccanico**: head standard (title allineato all'h1), nav.top con gli stessi 18 target + ↩ Mappa,
-involucro wrap, p.note → p.lead, 60 `class="xref"` rimossi (href intatti), tabella senza `.gl`,
-18 righe-separatore col colore condiviso `var(--accent-soft)`, footer a modello al posto della wikibar,
-nota finale con «bozza» sostituita dalla riga di stato. **19 id identici; i 18 link a frammenti della 1.1
-tutti conservati** (verificato da me e dal revisore).
+# Chiusura del run (verifica finale, 23/07/2026)
 
-**Riallineamenti applicati** (⚠ ciascuno, per la revisione manuale in corso):
-- ⚠ Aggiunta la riga «semplificare» (F0.1 §2) — la tabella di F0.1 rifatta la contiene, byte-identica.
-- ⚠ \(J(A,B)\) → \(J(A;B)\) — allineato a F6 (separatore ; della regola D).
-- ⚠ \(1/1.000.000\) → \(1/1\,000\,000\) — convenzione migliaia della wiki (come 2.3).
+- **26 pagine toccate, tutte PASS** alla verifica meccanica finale (controllo 5 sospeso per accordo
+  solo su 1.1 e Glossario).
+- **Scansione globale link/frammenti su tutta `wiki/`: zero link rotti** (incluse le pagine non toccate).
+- **Parole vietate**: 0 su tutte le pagine toccate; restano solo in `index.html` (53) e
+  `Come_si_studia.html` (3), fuori perimetro per vincolo del brief.
+- Un commit per pagina + commit infrastrutturali; Glossario committato separatamente; nessun push.
+- **Nessuna pagina saltata per criterio di dubbio.**
 
-**Fix in corsa** ⚠: la trasformazione via script aveva dimezzato le backslash della config MathJax
-(stesso bug della 1.1, stessa causa — v. Addendum 1.1); stanato dal revisore, riparato prima del commit.
+## Indice per la revisione (sezioni ordinate per ⚠, come qui sotto)
 
-**Disallineamenti PREESISTENTI trovati dal revisore — NON toccati** (decisioni da prendere nella tua
-revisione manuale; «qualunque correzione si fa qui e si riporta lì»):
-- ⚠ Voce \(\sim\) del blocco 1.2: il glossario dice «in 1.1 §5.2 era “dell'ordine di”» (corretto); la
-  **pagina** 1.2 dice «in F4 era…» — ma la tabella di F4 non ha \(\sim\): l'errore sta nella pagina 1.2
-  (ereditato dal vecchio, conservato per fedeltà).
-- ⚠ Voce \(z\) del blocco F5: prima occ. «F5 §1.2» nel glossario contro «F4 §5.2 (riciclato)» nella
-  pagina F5 — due letture difendibili (lo z-score nasce in F5; la lettera è riciclata da F4).
-- ⚠ Il blocco Gradino 0 (di tua mano, commit a8448af) è deliberatamente compatto: non censisce
-  \(m\), \(\Delta\), secante, \(\to\), \(h\) della tabella di F0.7 né la voce \(N\) («uscite dell'hash») di F6.
-- ⚠ «Numero di Eulero» (Gradino 0 / F0.3) contro «numero di Nepero» (blocco 1.1): due nomi per la
-  stessa costante, ciascuno fedele alla propria pagina.
-
-**Verifica meccanica**: 1–4, 6–7 PASS (5 sospeso); segnalazioni 8–9 false positive (sigle e intervalli).
+- ⚠⚠⚠⚠⚠⚠ (9) Glossario_globale (Passo 4 — riallineamento, commit separato)
+- ⚠⚠⚠⚠ (4) 1.1 — Filtraggio Bayesiano dello Spam (SOLO STRATO MECCANICO)
+- ⚠⚠ (2) F0.1 — Frazioni e percentuali
+- ⚠⚠ (2) 1.3 — Warmup di IP e dominio
+- ⚠⚠ (2) F2 — Algebra lineare e catene di Markov
+- ⚠ (1) F0.2 — Potenze e radici
+- ⚠ (1) F0.5 — Notazione di base
+- ⚠ (1) F0.6 — Vettori e prodotto scalare
+- ⚠ (1) F4 — Statistica e machine learning
+- ⚠ (1) 1.2 — Score reputazionali di IP e dominio
+- ⚠ (1) F5 — Segnali e rilevamento
+- ⚠ (1) F3 — Teoria dell'informazione
+- ⚠ (1) F6 — Similarità, hashing e codifiche
+- ⚠ (1) 1.4 — Difese: spam distribuito ed elusivo
+- ⚠ (1) 2.1 — PageRank: il random surfer
+- ⚠ (1) 2.3 — Spam mass e l'isolamento delle link farm
+- (0) F0.7 — La derivata (Passo 1)
+- (0) F0.3 — Logaritmi
+- (0) F0.4 — Somme Σ e produttorie Π
+- (0) F0.8 — L'integrale
+- (0) 2.2 — TrustRank: semi e propagazione
+- (0) 3.1 — E-E-A-T e learning-to-rank
+- (0) 3.2 — Knowledge Graph, co-citazioni, reputazione
+- (0) 4.1 — Safe Browsing: blacklist a prefissi di hash
+- (0) 4.2 — Web Risk API
+- (0) 4.3 — Sincronizzazione blacklist e falsi positivi
 
 ---
 

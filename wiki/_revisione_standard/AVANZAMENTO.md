@@ -34,3 +34,6 @@ Formato riga: `- ✅ <sigla> — <file> · commit <hash> · <data> [· note]`
 - ✅ 4.2 — Sezione_4_2_Web_Risk.html · commit 8887bf8 · 23/07/2026
 - ✅ 4.3 — Sezione_4_3_Sincronizzazione.html · commit b34624a · 23/07/2026
 - ✅ 1.1 (fix) — Bella_copia_1.1_Filtraggio_Bayesiano.html · commit 8dcc633 · 23/07/2026 · escaping MathJax
+- ✅ Glossario — Glossario_globale.html · commit 1ea5aa1 · 23/07/2026 · riallineamento, no blocchi
+
+Run completato il 23/07/2026: 26 pagine ✅ (8 Gradino 0, 17 tappe, Glossario), 2 fuori perimetro. Verifica finale: 26/26 PASS, zero link rotti, zero parole vietate sulle pagine toccate.
