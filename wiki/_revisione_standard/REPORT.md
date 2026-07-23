@@ -314,6 +314,30 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati (ex-2/3/5, sol-2/3/5 inclusi).
 
+## F5 — Segnali e rilevamento
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Deviazione standard — un numero mai negativo, nella stessa unità dei dati: misura quanto, in tipico, i dati si allontanano dalla media; radice della media dei quadrati degli scarti.
+- z-score — un numero puro: quante deviazioni standard un valore dista dalla media (definito solo con σ > 0).
+- CUSUM — un accumulatore mai negativo: somma gli sforamenti oltre il livello atteso al netto del margine; le osservazioni sotto il livello lo svuotano, mai sotto zero; allarme oltre la soglia.
+- Token bucket — un contatore di gettoni con un tetto: ogni messaggio consuma un gettone, la ricarica è a velocità costante, a secchio vuoto si rifiuta temporaneamente.
+
+**Esempi numerici** (11 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- σ degli 8 numeri (2,4,4,4,5,5,7,9): μ = 40/8 = 5; quadrati degli scarti sommano 32; σ = √4 = 2.
+- z(9) = 2; soluzioni: z(2) = −1,5; z(1800) = 4.
+- Trace CUSUM (μ₀=10, κ=1): 1, 3, 1, 4, 7 → allarme (7 > 5); soluzione: 1, 3, 5 → allarme al terzo passo.
+- Token bucket: ricarica 2·1,5 = 3; min(10, 3) = 3; soluzione: 5 passano, il 6º dopo 1 minuto.
+
+**Figure**:
+- Barre CUSUM (1, 3, 1, 4, 7) in scala 20 px/unità con soglia h=5 a y=140: solo l'ultima barra la supera — illustra l'esempio del §2. Geometria verificata da me e dal revisore; etichetta della soglia spostata a sinistra su rilievo (si sovrapponeva all'ultima barra).
+
+**Scelte di giudizio e incertezze**:
+- La «Trappola dei simboli» d'apertura (4 lettere riciclate) resa blocco Attenzione in testa, come nel vecchio.
+- Su rilievo del revisore: regola di consumo/rifiuto portata dentro il def del token bucket; clausola «misura» nel def di σ; drenaggio esplicito nel def CUSUM (tutto testo già presente in pagina).
+- ⚠ Preesistente, conservato: la condizione dello z-score «n ≥ 1 e dati non tutti uguali» è ridondante (con n = 1 i dati sono banalmente tutti uguali): la congiunzione resta corretta, ma la forma effettiva è n ≥ 2.
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati.
+
 ---
 
 # Pagine lasciate invariate
