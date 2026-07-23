@@ -172,3 +172,32 @@ footer{margin-top:2.6em; padding-top:1em; border-top:1px solid var(--rule);
   .def,.note,.warn,figure,table,pre{break-inside:avoid}
   h2,h3{break-after:avoid}
 }
+
+/* [v2b] Classi ereditate dalle pagine pre-standard.
+   Servono a 1.1, che non è stata ristrutturata e le usa nel markup.
+   .ex è anche la casa degli esempi numerici delle pagine nuove:
+   neutro di proposito, i tre colori semantici restano def/note/warn. */
+
+.callout, .formula, .leg{border-radius:6px; margin:1.35em 0}
+.callout{padding:.6em 1.05em; border-left:5px solid var(--rule); background:var(--box)}
+
+.intu{background:var(--note-soft); border-left-color:var(--note)}
+.warn{background:var(--warn-soft); border-left-color:var(--warn)}
+.deep{background:var(--accent-soft); border-left-color:var(--accent)}
+.ex{background:#f2f0ea; border-left:5px solid #8a8478;
+    padding:.6em 1.05em; border-radius:6px; margin:1.35em 0}
+.leg{background:var(--accent-soft); border:1px solid var(--rule); padding:1em 1.2em}
+
+.callout .tag, .ex .tag{display:block; font-weight:700; font-size:.84rem;
+  letter-spacing:.08em; word-spacing:normal; margin:.5em 0 .2em; color:var(--muted)}
+.intu .tag{color:var(--note)}
+.warn .tag{color:var(--warn)}
+.deep .tag{color:var(--accent)}
+
+.formula{background:var(--box); border:1px solid var(--rule);
+  padding:.3em .8em; overflow-x:auto}
+.formula.key{border-left:5px solid var(--accent)}
+
+/* [v2b] Le etichette dentro le figure non ereditano la spaziatura ampia:
+   sposterebbe il centraggio di text-anchor="middle". */
+svg text{letter-spacing:normal; word-spacing:normal}
