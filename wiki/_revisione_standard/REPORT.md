@@ -106,6 +106,28 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisito). Nessun link esterno puntava a frammenti di questa pagina.
 
+## F0.3 — Logaritmi
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Logaritmo — un esponente: dice a quale potenza va elevata la base per raggiungere l'argomento; è l'unico numero con questa proprietà (condizioni: base positiva e diversa da 1, argomento positivo).
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- log₁₀ 1000 = 3 perché 10³ = 1000; log₂ 4 = 2; log₂ 8 = 3; log₁₀ 100 = 2.
+- Valori speciali: log_b 1 = 0 (b⁰ = 1); log_b b = 1.
+- Regola d'oro: log₁₀(100·1000) → sinistra 100·1000 = 100 000 = 10⁵ → 5; destra 2 + 3 = 5. Uguali.
+- Soluzioni: log₂ 16 = 4 (2⁴=16); log₁₀ 10 000 = 4; log₅ 1 = 0; ln = log_e con e ≈ 2,718; log(7·3) = log 7 + log 3.
+- Regole gemelle verificate numericamente (log(8/2) = log 8 − log 2; log(3⁴) = 4·log 3; log((−3)²) = 2·log 3).
+
+**Figure**: nessuna (pagina algebrica; il brief lo prevede — «una pagina di algebra può averne zero»).
+
+**Scelte di giudizio e incertezze**:
+- Il callout «N.B. — definizione rigorosa» è diventato il blocco Definizione; la parte «fuori da queste condizioni non è definito» spostata in blocco Attenzione dedicato.
+- Su rilievo del revisore, la frase funzionale («dice a quale potenza va elevata la base per raggiungere l'argomento») è stata portata dentro il blocco Definizione, prima della caratterizzazione formale.
+- «Più a fondo (opzionale) — la regola gemella» convertito da callout a h3 + prosa, contenuto integro (incluso il caso a<0 con n log|a|).
+- Footer: la riga «prossima trance: F0.4, F0.5, F0.6» ridotta a «prossima: F0.4» (era meta-informazione dello stato bozza).
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
