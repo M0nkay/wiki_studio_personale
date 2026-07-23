@@ -489,6 +489,28 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## 2.2 — TrustRank: semi e propagazione
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Oracolo / budget / funzione di trust — il giudizio umano certo (0 o 1), costoso: budget di L chiamate; il trust è una funzione in [0,1] calcolabile per tutti che ordina come farebbe l'oracolo.
+- Semi e distribuzione d — le pagine promosse dall'oracolo fra le prime L per inverse PageRank (almeno una); d è l'uniforme sui semi, zero altrove.
+- TrustRank — un vettore: il trust di ogni pagina, una distribuzione definita come il Personalized PageRank col teletrasporto sui semi.
+
+**Esempi numerici** (8 verifiche in frazioni esatte, mie + del revisore, tutte OK):
+- Anello (α = 0,5): t* = (4/7, 2/7, 1/7) ≈ (0,571; 0,286; 0,143); somma 1; rapporto 4:2:1.
+- Dangling non corretto: t* = (0,5; 0,25; 0,125), somma 0,875 (l'invariante «distribuzione» cade).
+- Potenze: 0,85⁵ ≈ 0,44; 0,85¹⁰ ≈ 0,20; 0,85¹⁴ ≈ 0,10; 0,85¹⁵ ≈ 0,087 < 0,1; 0,85²⁰ ≈ 0,04.
+
+**Figure**:
+- Anello Seme → A → B → Seme con i valori di trust dell'esempio: frecce verificate nodo per nodo dal revisore; illustra il trust dampening (dimezza a ogni hop).
+
+**Scelte di giudizio e incertezze**:
+- Prima stesura RESPINTA dal revisore: il def §3 apriva con la formula nuda. Corretto con la frase di tipo (vettore/distribuzione — deriva dall'intro e dall'Ipotesi già presenti) prima della ricorsione. Riesaminata.
+- Il «N.B. — ipotesi» è ora il paragrafo «Ipotesi.» dentro il def §3; l'assunzione di separazione approssimata è un blocco Attenzione dedicato in §1.
+- Nav.top con link Soluzioni ripristinato; footer con «poi la sezione 3».
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
