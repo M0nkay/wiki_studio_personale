@@ -607,6 +607,24 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `ex-3` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## 4.3 — Sincronizzazione blacklist e falsi positivi
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Compressione delle aggiunte — la catena ordina → delta → Rice: valore base grezzo, solo i P−1 delta codificati.
+- Rimozioni e sigillo — viaggiano gli indici (riferiti alla lista ordinata pre-cancellazione, applicati in ordine decrescente); dopo il diff, checksum dell'intero DB e ri-sincronizzazione da zero se non torna.
+
+**Esempi numerici** (8 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Delta medio 2³²/4,3·10⁶ ≈ 1 000; k ≈ log₂ 1 000 ≈ 10; ≈ 12 bit contro 32 («quasi un terzo», stima di massima come nell'originale).
+- Soluzione Rice (k=2): delta 4 e 12 → codici «1000» e «111000»; ricostruzione 100, 104, 116.
+
+**Figure**: nessuna.
+
+**Scelte di giudizio e incertezze**:
+- «1.000» in math riscritto 1 000 (2×, convenzione della wiki); [INF] del §4 conservato; link vincolante in uscita F6#sec-6 in nav e prerequisiti (verificato dal revisore).
+- Caduta la frase di raccordo «E qui i conti spiegano perché funziona così bene:» nella fusione dei paragrafi (retorica di transizione; la sostanza è conservata).
+
+**Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
