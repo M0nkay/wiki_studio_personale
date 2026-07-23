@@ -33,3 +33,4 @@ Formato riga: `- ✅ <sigla> — <file> · commit <hash> · <data> [· note]`
 - ✅ 4.1 — Sezione_4_1_Safe_Browsing.html · commit 901780f · 23/07/2026
 - ✅ 4.2 — Sezione_4_2_Web_Risk.html · commit 8887bf8 · 23/07/2026
 - ✅ 4.3 — Sezione_4_3_Sincronizzazione.html · commit b34624a · 23/07/2026
+- ✅ 1.1 (fix) — Bella_copia_1.1_Filtraggio_Bayesiano.html · commit 8dcc633 · 23/07/2026 · escaping MathJax

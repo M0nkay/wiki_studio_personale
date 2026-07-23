@@ -630,6 +630,40 @@ Il testo della pagina non è stato toccato dal fix (solo la riga 9 dell'head).
 
 **Ancore rinominate**: `ex-4` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## Glossario_globale (Passo 4 — riallineamento, commit separato)
+
+**Perimetro rispettato**: niente ristrutturazione a blocchi (D6, controllo 5 sospeso). Solo strato
+meccanico + riallineamento puntuale. Il revisore ha verificato riga per riga che le modifiche siano
+esattamente e soltanto quelle dichiarate.
+
+**Strato meccanico**: head standard (title allineato all'h1), nav.top con gli stessi 18 target + ↩ Mappa,
+involucro wrap, p.note → p.lead, 60 `class="xref"` rimossi (href intatti), tabella senza `.gl`,
+18 righe-separatore col colore condiviso `var(--accent-soft)`, footer a modello al posto della wikibar,
+nota finale con «bozza» sostituita dalla riga di stato. **19 id identici; i 18 link a frammenti della 1.1
+tutti conservati** (verificato da me e dal revisore).
+
+**Riallineamenti applicati** (⚠ ciascuno, per la revisione manuale in corso):
+- ⚠ Aggiunta la riga «semplificare» (F0.1 §2) — la tabella di F0.1 rifatta la contiene, byte-identica.
+- ⚠ \(J(A,B)\) → \(J(A;B)\) — allineato a F6 (separatore ; della regola D).
+- ⚠ \(1/1.000.000\) → \(1/1\,000\,000\) — convenzione migliaia della wiki (come 2.3).
+
+**Fix in corsa** ⚠: la trasformazione via script aveva dimezzato le backslash della config MathJax
+(stesso bug della 1.1, stessa causa — v. Addendum 1.1); stanato dal revisore, riparato prima del commit.
+
+**Disallineamenti PREESISTENTI trovati dal revisore — NON toccati** (decisioni da prendere nella tua
+revisione manuale; «qualunque correzione si fa qui e si riporta lì»):
+- ⚠ Voce \(\sim\) del blocco 1.2: il glossario dice «in 1.1 §5.2 era “dell'ordine di”» (corretto); la
+  **pagina** 1.2 dice «in F4 era…» — ma la tabella di F4 non ha \(\sim\): l'errore sta nella pagina 1.2
+  (ereditato dal vecchio, conservato per fedeltà).
+- ⚠ Voce \(z\) del blocco F5: prima occ. «F5 §1.2» nel glossario contro «F4 §5.2 (riciclato)» nella
+  pagina F5 — due letture difendibili (lo z-score nasce in F5; la lettera è riciclata da F4).
+- ⚠ Il blocco Gradino 0 (di tua mano, commit a8448af) è deliberatamente compatto: non censisce
+  \(m\), \(\Delta\), secante, \(\to\), \(h\) della tabella di F0.7 né la voce \(N\) («uscite dell'hash») di F6.
+- ⚠ «Numero di Eulero» (Gradino 0 / F0.3) contro «numero di Nepero» (blocco 1.1): due nomi per la
+  stessa costante, ciascuno fedele alla propria pagina.
+
+**Verifica meccanica**: 1–4, 6–7 PASS (5 sospeso); segnalazioni 8–9 false positive (sigle e intervalli).
+
 ---
 
 # Pagine lasciate invariate
