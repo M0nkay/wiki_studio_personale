@@ -1,271 +1,214 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>F0.6 — Vettori e prodotto scalare · Wiki Sistemi di Fiducia</title>
-<style>
-:root{
-  --bg:#FBF7EF; --fg:#22201c; --navy:#1F3A5F; --navy2:#2c4a6e;
-  --box:#F1E9DA; --border:#e2d6bf;
-  --intu-bg:#EAF3EE; --intu-bd:#2E8B6F;
-  --warn-bg:#FBEEE6; --warn-bd:#C2683A;
-  --deep-bg:#EDF0F6; --deep-bd:#3B5C86;
-  --ex-bg:#F2F0EA; --ex-bd:#8a8478;
-  --leg-bg:#FFF8EC; --leg-bd:#e8ddc6;
-}
-html{font-size:118%;-webkit-text-size-adjust:100%;}
-body{font-family:Verdana,Tahoma,"Trebuchet MS",sans-serif;background:var(--bg);color:var(--fg);
-  max-width:46rem;margin:0 auto;padding:2.4rem 1.3rem 5rem;line-height:1.75;
-  letter-spacing:.012em;word-spacing:.03em;}
-p{margin:.7em 0 1em;}
-h1,h2,h3,h4{color:var(--navy);line-height:1.3;font-weight:700;}
-h1{font-size:1.7rem;margin:.2em 0 .2em;}
-.subtitle{color:var(--navy2);font-size:1rem;font-weight:400;margin-top:0;}
-h2{font-size:1.34rem;border-bottom:2px solid var(--border);padding-bottom:.2em;margin:2.2em 0 .5em;}
-h3{font-size:1.12rem;color:var(--navy2);margin:1.6em 0 .35em;}
-h4{font-size:1rem;color:var(--navy2);margin:1.2em 0 .3em;}
-strong{font-weight:700;}
-ul,ol{padding-left:1.35em;}
-li{margin:.4em 0;}
-hr{border:none;border-top:1px solid var(--border);margin:2em 0;}
-code{font-family:"DejaVu Sans Mono",Consolas,monospace;background:var(--box);
-  padding:.05em .35em;border-radius:4px;font-size:.9em;}
-
-/* callout boxes */
-.callout{border-radius:8px;padding:.7em 1em;margin:1.1em 0;}
-.nb{background:#eef3fa;border:1px solid #c9d7ea;border-left:5px solid var(--navy);}
-.callout p:first-child{margin-top:0;} .callout p:last-child{margin-bottom:0;}
-.callout .tag{display:block;font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  text-transform:uppercase;margin-bottom:.35em;}
-.intu{background:var(--intu-bg);border-left:5px solid var(--intu-bd);}
-.intu .tag{color:var(--intu-bd);}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warn-bd);}
-.warn .tag{color:var(--warn-bd);}
-.deep{background:var(--deep-bg);border-left:5px solid var(--deep-bd);}
-.deep .tag{color:var(--deep-bd);}
-.ex{background:var(--ex-bg);border-left:5px solid var(--ex-bd);}
-.ex .tag{color:#5f594d;}
-
-/* the orienting pipeline / index box */
-.leg{background:var(--leg-bg);border:1px solid var(--leg-bd);border-radius:10px;
-  padding:1em 1.2em;margin:1.4em 0 2em;}
-.leg h2{border:none;margin:.1em 0 .4em;font-size:1.15rem;padding:0;}
-.chain{font-weight:700;color:var(--navy);line-height:1.9;}
-.chain span{background:#fff;border:1px solid var(--border);border-radius:6px;
-  padding:.12em .5em;display:inline-block;margin:.15em 0;}
-.arrow{color:var(--warn-bd);font-weight:700;padding:0 .25em;}
-
-/* formula highlight */
-.formula{background:var(--box);border:1px solid var(--border);border-radius:8px;
-  padding:.3em .8em;margin:1em 0;overflow-x:auto;}
-.formula.key{border-left:5px solid var(--navy);}
-
-/* tables */
-table{border-collapse:collapse;width:100%;margin:1.2em 0;font-size:.95rem;}
-caption{caption-side:top;text-align:left;font-style:italic;color:var(--navy2);margin-bottom:.5em;}
-th,td{border:1px solid var(--border);padding:.5em .6em;text-align:left;vertical-align:top;}
-th{background:#fff8ec;color:var(--navy);}
-.cm td{text-align:center;font-size:.92rem;}
-.ok{background:#EAF3EE;}
-.fn{background:#FBF3DC;}
-.fp{background:#F8E3DC;}
-.gl td:first-child{font-family:"DejaVu Sans Mono",Consolas,monospace;white-space:nowrap;}
-
-.note{font-size:.9rem;color:var(--navy2);}
-mjx-container{overflow-x:auto;overflow-y:hidden;}
-@media (max-width:600px){html{font-size:112%;}body{padding:1.4rem 1rem 4rem;}}
-</style>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  svg: { fontCache: 'global' }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
-
-<style>
-/* navigazione — solo schermo, deriva dai colori del documento */
-html{scroll-behavior:smooth;scroll-padding-top:3.6rem;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-[id]{scroll-margin-top:3.6rem;}
-.quicknav{position:sticky;top:0;z-index:50;display:flex;gap:.45rem;overflow-x:auto;
- background:rgba(251,247,239,.97);border-bottom:2px solid #e4d9c4;
- padding:.55rem .1rem;margin:0 0 1.4rem;-webkit-overflow-scrolling:touch;}
-.quicknav a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.quicknav a:hover{background:#fff2c4;}
-.quicknav a:focus-visible,details.toc summary:focus-visible,a.xref:focus-visible{
- outline:2px solid var(--navy);outline-offset:2px;}
-details.toc{background:#fff8ec;border:1px solid #e8ddc6;border-radius:10px;
- padding:.75rem 1.1rem;margin:0 0 2rem;}
-details.toc summary{cursor:pointer;font-weight:700;color:var(--navy);}
-details.toc ul{list-style:none;padding-left:0;margin:.6rem 0 0;}
-details.toc ul ul{padding-left:1.15rem;margin:.15rem 0 .55rem;}
-details.toc li{margin:.28rem 0;}
-details.toc a{text-decoration:none;}
-details.toc a:hover{text-decoration:underline;}
-a.xref{text-decoration:none;border-bottom:1px dotted var(--link);white-space:nowrap;}
-a.xref:hover{background:#fff2c4;}
-@media print{.quicknav,details.toc{display:none;}}
-</style>
-
-<style>
-.badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;
- padding:.16rem .6rem;border-radius:999px;vertical-align:middle;margin-left:.55rem;}
-.badge.bozza{background:#fff2c4;border:1px solid #dfc86a;color:#7a5c00;}
-</style>
-
-<!-- ═════════ INVOLUCRO WIKI (aggiunto dal contenitore, non tocca il contenuto) ═════════
-     Stile della barra fissa del percorso, in fondo allo schermo. Nascosta in stampa.
-     Le due righe su --link e sui link senza classe sono le correzioni dichiarate
-     nel design system della wiki (var --link usata da a.xref ma mai definita). -->
-<style>
-:root{--link:var(--navy);}
-a{color:var(--navy);}
-.wikibar{position:fixed;left:0;right:0;bottom:0;z-index:60;
- background:rgba(251,247,239,.97);border-top:2px solid #e4d9c4;
- padding:.5rem 1.3rem calc(.5rem + env(safe-area-inset-bottom));}
-.wikibar-in{max-width:46rem;margin:0 auto;display:flex;align-items:center;gap:.45rem;
- overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.wikibar a{flex:0 0 auto;white-space:nowrap;text-decoration:none;font-size:.82rem;
- font-weight:700;color:var(--navy);background:#fff8ec;border:1px solid #e8ddc6;
- border-radius:999px;padding:.18rem .62rem;}
-.wikibar a:hover{background:#fff2c4;}
-.wikibar a:focus-visible{outline:2px solid var(--navy);outline-offset:2px;}
-.wikibar .wk-pos{flex:0 0 auto;font-size:.78rem;font-weight:700;color:var(--navy2);white-space:nowrap;}
-.wikibar .wk-sep{flex:1 1 .8rem;min-width:.2rem;}
-@media print{.wikibar{display:none;}}
-</style>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="quicknav" aria-label="Navigazione rapida"><a href="#sec-1">§1 Vettore</a><a href="#sec-2">§2 Prodotto scalare</a><a href="#sec-3">§3 Norma</a><a href="#sec-4">§4 Nella wiki</a><a href="#soluzioni">Soluzioni</a><a href="#simboli">Simboli</a><a href="F0_5_Notazione_di_base.html">↩ F0.5</a><a href="#top">↑ inizio</a></nav>
+<div class="wrap" id="top">
 
-<h1 id="top">F0.6 — Vettori e prodotto scalare <span class="badge bozza">BOZZA</span></h1>
-<p class="note">Sesto gradino: il mattone che apre F4, la 1.2 e tutta l'algebra lineare. <strong>Bozza</strong>: schermo sì, carta no.</p>
+<nav class="top" aria-label="indice pagina">
+  <a href="#sec-1">§1 Vettore</a>
+  <a href="#sec-2">§2 Prodotto scalare</a>
+  <a href="#sec-3">§3 Norma</a>
+  <a href="#sec-4">§4 Nella wiki</a>
+  <a href="#esercizi">Esercizi</a>
+  <a href="#simboli">Simboli</a>
+  <a href="F0_5_Notazione_di_base.html">↩ F0.5</a>
+</nav>
 
-<h2 id="prerequisiti">Prerequisiti</h2>
-<p>La <a class="xref" href="F0_4_Somme_e_produttorie.html">sommatoria \(\sum\)</a> (F0.4) e la <a class="xref" href="F0_2_Potenze_e_radici.html">radice quadrata</a> (F0.2, per la norma al §3).</p>
+<p class="kicker">Gradino 0 · 6 di 8</p>
+<h1>F0.6 — Vettori e prodotto scalare</h1>
+<p class="lead">Tre oggetti in una pagina: il <strong>vettore</strong> (più numeri come blocco unico), il <strong>prodotto scalare</strong> (da due liste, un solo numero) e la <strong>norma</strong> (la lunghezza). È il mattone che apre F4, la 1.2 e tutta l'algebra lineare.</p>
 
-<hr/>
+<p class="prereq"><strong>Prerequisiti.</strong> La <a href="F0_4_Somme_e_produttorie.html">sommatoria \(\sum\)</a> (F0.4) e la <a href="F0_2_Potenze_e_radici.html">radice quadrata</a> (F0.2, per la norma al §3).</p>
+
+<hr>
 
 <h2 id="sec-1">1. Il vettore: più numeri come un oggetto unico</h2>
-<p><strong>Intuizione.</strong> A volte un oggetto non si descrive con <strong>un solo</strong> numero, ma con <strong>più numeri insieme</strong>. Un punto su una mappa ha due numeri (est, nord); un mittente email ne ha tanti (reclami, bounce, autenticazione). Tienili come un blocco unico e hai l'immagine intuitiva di un vettore. Attenzione però: ciò che rende quel blocco un vettore non è l'essere fatto di numeri, ma il fatto che due di essi si possono <strong>sommare</strong> e uno si può <strong>ingrandire o rimpicciolire</strong> restando sempre nella stessa famiglia.</p>
-<p><strong>Definizione.</strong> Un <strong>vettore</strong> è una <strong>lista ordinata di numeri</strong>, trattata come un oggetto unico. Ogni numero della lista è una <strong>componente</strong>, e <strong>l'ordine conta</strong>: la prima posizione ha un significato diverso dalla seconda. <strong>Il simbolo.</strong> Si scrive in grassetto e tra parentesi: \(\mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n)\). Da programmatore: un array.</p>
-<div class="callout deep"><span class="tag">Il confine — cosa non è un vettore</span>
-<p>Togli una condizione e non hai più un vettore. I numeri naturali \(0, 1, 2, \dots\) si sommano e restano naturali, ma manca l'<strong>opposto</strong> (\(-3\) non è naturale): non sono uno spazio vettoriale. Da non confondere col vettore: lo <strong>scalare</strong> (un semplice numero) e il <strong>punto</strong> di una mappa (diventa un vettore solo dopo aver fissato un'origine). E la <strong>lunghezza</strong> (§3) non fa parte della definizione di vettore: è una struttura in più.</p>
-</div>
-<div class="callout ex"><span class="tag">Esempio numerico</span>
-<p>\(\mathbf{x} = (3;\ 4)\) è un vettore a due componenti: prima componente 3, seconda 4. Puoi immaginarlo come un punto: «3 passi a destra, 4 in su». Sommalo a \((1;\ 1)\) e ottieni \((4;\ 5)\); scalalo per 2 e ottieni \((6;\ 8)\): sempre liste di due numeri — resti nella stessa famiglia.</p>
-</div>
-<div class="callout warn"><span class="tag">Convenzione — il grassetto</span>
-<p>Il <strong>grassetto</strong> segnala «questo è un oggetto a più componenti»: \(\mathbf{x}\) è un vettore, \(x\) da solo è un numero singolo. Nella wiki lo vedi per i dati \(\mathbf{x}\), i pesi \(\boldsymbol\theta\), le distribuzioni \(\mathbf{p}\).</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>A volte un oggetto non si descrive con <strong>un solo</strong> numero, ma con <strong>più numeri insieme</strong>. Un punto su una mappa ha due numeri (est, nord); un mittente email ne ha tanti (reclami, bounce, autenticazione). Tienili come un blocco unico e hai l'immagine intuitiva di un vettore. Attenzione però: ciò che rende quel blocco un vettore non è l'essere fatto di numeri, ma il fatto che due di essi si possono <strong>sommare</strong> e uno si può <strong>ingrandire o rimpicciolire</strong> restando sempre nella stessa famiglia.</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Un <strong>vettore</strong> è una <strong>lista ordinata di numeri</strong>, trattata come un oggetto unico. Ogni numero della lista è una <strong>componente</strong>, e <strong>l'ordine conta</strong>: la prima posizione ha un significato diverso dalla seconda.</p>
+  <span class="lbl">Il simbolo</span>
+  <p>Si scrive in grassetto e tra parentesi: \(\mathbf{x} = (x_1;\ x_2;\ \dots;\ x_n)\). Da programmatore: un array.</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Esempio numerico</span>
+  <p>\(\mathbf{x} = (3;\ 4)\) è un vettore a due componenti: prima componente 3, seconda 4. Puoi immaginarlo come un punto: «3 passi a destra, 4 in su». Sommalo a \((1;\ 1)\) e ottieni \((4;\ 5)\); scalalo per 2 e ottieni \((6;\ 8)\): sempre liste di due numeri — resti nella stessa famiglia.</p>
+</div>
+
+<div class="warn">
+  <span class="lbl">Attenzione — cosa non è un vettore</span>
+  <p>Togli una condizione e non hai più un vettore. I numeri naturali \(0, 1, 2, \dots\) si sommano e restano naturali, ma manca l'<strong>opposto</strong> (\(-3\) non è naturale): non sono uno spazio vettoriale. Da non confondere col vettore: lo <strong>scalare</strong> (un semplice numero) e il <strong>punto</strong> di una mappa (diventa un vettore solo dopo aver fissato un'origine). E la <strong>lunghezza</strong> (§3) non fa parte della definizione di vettore: è una struttura in più.</p>
+</div>
+
+<div class="warn">
+  <span class="lbl">Attenzione — la convenzione del grassetto</span>
+  <p>Il <strong>grassetto</strong> segnala «questo è un oggetto a più componenti»: \(\mathbf{x}\) è un vettore, \(x\) da solo è un numero singolo. Nella wiki lo vedi per i dati \(\mathbf{x}\), i pesi \(\boldsymbol\theta\), le distribuzioni \(\mathbf{p}\).</p>
+</div>
+
+<hr>
 
 <h2 id="sec-2">2. Il prodotto scalare: da due liste, un solo numero</h2>
-<p><strong>Intuizione.</strong> Immagina due frecce che partono dall'origine. Il <strong>prodotto scalare</strong> misura <strong>quanto puntano nella stessa direzione</strong>: grande e positivo se vanno d'accordo, <strong>zero</strong> se sono perpendicolari, negativo se puntano in versi opposti — il tutto amplificato dalle loro <strong>lunghezze</strong> (frecce più lunghe → numeri più grandi).</p>
-<p><strong>Definizione.</strong> Il <strong>prodotto scalare</strong> di due vettori della stessa lunghezza è un <strong>numero</strong>: il <strong>punteggio complessivo</strong> che ottieni pesando ogni dato con la sua importanza. <strong>Come si calcola.</strong> Moltiplichi le componenti a coppie e sommi tutto (la sommatoria di F0.4):</p>
-<div class="formula key">\[ \boldsymbol\theta^{\top}\mathbf{x} \;=\; \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n \;=\; \sum_{i=1}^{n} \theta_i x_i \]</div>
-<p>Da programmatore: <code>sum(t*x for t, x in zip(theta, xs))</code>.</p>
-<div class="callout ex"><span class="tag">Esempio numerico — passo per passo</span>
-<p>\(\boldsymbol\theta = (2;\ -1)\) (i pesi), \(\mathbf{x} = (3;\ 4)\) (i dati):</p>
-<ol>
-<li>Moltiplica le prime componenti: \(2 \cdot 3 = 6\).</li>
-<li>Moltiplica le seconde: \(-1 \cdot 4 = -4\).</li>
-<li>Somma: \(6 + (-4) = 2\).</li>
-</ol>
-<p>Quindi \(\boldsymbol\theta^{\top}\mathbf{x} = 2\). Un peso positivo spinge il punteggio in su, uno negativo lo tira in giù.</p>
-<p>Due vettori <strong>perpendicolari</strong> danno \(0\): \((1;\ 0)\) e \((0;\ 1)\) → \(1\cdot 0 + 0\cdot 1 = 0\).</p>
-</div>
-<div class="callout warn"><span class="tag">Il caso della wiki — punteggio pesato</span>
-<p>Quando un vettore sono <strong>pesi</strong> (importanze) e l'altro <strong>dati</strong>, il prodotto scalare diventa il <strong>punteggio totale</strong>: ogni dato contato secondo la sua importanza. È il cuore della regressione logistica (F4). Ma è un <strong>caso particolare</strong> del significato geometrico, non il significato in sé.</p>
-</div>
-<div class="callout nb"><span class="tag">N.B. — definizione rigorosa</span>
-<p>Per un matematico il prodotto scalare non si definisce con la geometria (sarebbe circolare: angolo e lunghezza nascono da lui), ma con tre condizioni: è <strong>lineare</strong> in ciascuno dei due vettori, <strong>simmetrico</strong> (\(\mathbf{v}\cdot\mathbf{w} = \mathbf{w}\cdot\mathbf{v}\)) e <strong>definito positivo</strong> (\(\mathbf{v}\cdot\mathbf{v} > 0\) per ogni \(\mathbf{v}\) non nullo). Da queste tre discende la formula geometrica: per due vettori non nulli, \(\boldsymbol\theta^{\top}\mathbf{x} = \lVert\boldsymbol\theta\rVert\,\lVert\mathbf{x}\rVert\cos\varphi\), dove \(\varphi\) è l'angolo tra loro (\(\cos\varphi = 1\) se allineati, \(0\) se perpendicolari, \(-1\) se opposti). Togli la <strong>definita positività</strong> e resta una forma che può valere \(0\) anche su vettori non nulli: non è più un prodotto scalare.</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Immagina due frecce che partono dall'origine. Il prodotto scalare misura <strong>quanto puntano nella stessa direzione</strong>: grande e positivo se vanno d'accordo, <strong>zero</strong> se sono perpendicolari, negativo se puntano in versi opposti — il tutto amplificato dalle loro <strong>lunghezze</strong> (frecce più lunghe → numeri più grandi).</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>Il <strong>prodotto scalare</strong> di due vettori con lo stesso numero di componenti è un <strong>numero</strong>: misura quanto i due vettori puntano nella stessa direzione, amplificato dalle loro lunghezze.</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Moltiplichi le componenti a coppie e sommi tutto (la sommatoria di F0.4):</p>
+  <p style="text-align:center">\[ \boldsymbol\theta^{\top}\mathbf{x} \;=\; \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n \;=\; \sum_{i=1}^{n} \theta_i x_i \]</p>
+  <p>Da programmatore: <code>sum(t*x for t, x in zip(theta, xs))</code>.</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — passo per passo</span>
+  <p>\(\boldsymbol\theta = (2;\ -1)\) (i pesi), \(\mathbf{x} = (3;\ 4)\) (i dati):</p>
+  <ol>
+    <li>Moltiplica le prime componenti: \(2 \cdot 3 = 6\).</li>
+    <li>Moltiplica le seconde: \(-1 \cdot 4 = -4\).</li>
+    <li>Somma: \(6 + (-4) = 2\).</li>
+  </ol>
+  <p>Quindi \(\boldsymbol\theta^{\top}\mathbf{x} = 2\). Un peso positivo spinge il punteggio in su, uno negativo lo tira in giù.</p>
+  <p>Due vettori <strong>perpendicolari</strong> danno \(0\): \((1;\ 0)\) e \((0;\ 1)\) → \(1\cdot 0 + 0\cdot 1 = 0\).</p>
+</div>
+
+<div class="warn">
+  <span class="lbl">Attenzione — il caso della wiki: punteggio pesato</span>
+  <p>Quando un vettore sono <strong>pesi</strong> (importanze) e l'altro <strong>dati</strong>, il prodotto scalare diventa il <strong>punteggio totale</strong>: ogni dato contato secondo la sua importanza. È il cuore della regressione logistica (F4). Ma è un <strong>caso particolare</strong> del significato geometrico, non il significato in sé.</p>
+</div>
+
+<h3>Più a fondo (opzionale) — la definizione rigorosa</h3>
+<p>Per un matematico il prodotto scalare non si definisce con la geometria (sarebbe circolare: angolo e lunghezza nascono da lui), ma con tre condizioni: è <strong>lineare</strong> in ciascuno dei due vettori, <strong>simmetrico</strong> (\(\mathbf{v}\cdot\mathbf{w} = \mathbf{w}\cdot\mathbf{v}\)) e <strong>definito positivo</strong> (\(\mathbf{v}\cdot\mathbf{v} > 0\) per ogni \(\mathbf{v}\) non nullo). Da queste tre discende la formula geometrica: per due vettori non nulli, \(\boldsymbol\theta^{\top}\mathbf{x} = \lVert\boldsymbol\theta\rVert\,\lVert\mathbf{x}\rVert\cos\varphi\), dove \(\varphi\) è l'angolo tra loro (\(\cos\varphi = 1\) se allineati, \(0\) se perpendicolari, \(-1\) se opposti). Togli la <strong>definita positività</strong> e resta una forma che può valere \(0\) anche su vettori non nulli: non è più un prodotto scalare.</p>
+
+<hr>
 
 <h2 id="sec-3">3. La norma: la «lunghezza» di un vettore</h2>
-<p><strong>Intuizione.</strong> Se il vettore è una freccia dall'origine, la <strong>norma</strong> è la sua <strong>lunghezza</strong>. Raddoppi la freccia e la lunghezza raddoppia; la capovolgi e la lunghezza non cambia; e la via diretta da un punto a un altro non è mai più lunga di un percorso con una tappa in mezzo.</p>
-<p><strong>Definizione.</strong> La <strong>norma</strong> è una <strong>funzione</strong>: prende in ingresso un <strong>vettore</strong> e restituisce un <strong>numero mai negativo</strong> — la <strong>lunghezza</strong> del vettore, cioè quanto dista dall'origine il punto che il vettore descrive. La norma <strong>euclidea</strong> (l'unica usata nel paper) misura questa lunghezza <strong>in linea d'aria</strong>, col teorema di Pitagora. <strong>Il simbolo.</strong> Doppie barre attorno al vettore: \(\lVert \mathbf{x} \rVert\). <strong>Come si calcola.</strong> Eleva al quadrato ogni componente, somma, e fai la radice (F0.2):</p>
-<div class="formula key">\[ \lVert \mathbf{x} \rVert \;=\; \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \;=\; \sqrt{\sum_{i=1}^{n} x_i^2} \]</div>
-<div class="callout ex"><span class="tag">Esempio numerico — il classico 3-4-5</span>
-<p>\(\mathbf{x} = (3;\ 4)\): \(\lVert \mathbf{x} \rVert = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5\). La freccia da (0,0) a (3,4) è lunga 5.</p>
-</div>
-<div class="callout deep"><span class="tag">Più a fondo (opzionale) — il collaudo delle lunghezze</span>
-<p>In matematica «norma» è il nome di una <strong>specie</strong>: qualunque funzione che si comporti da lunghezza. Il collaudo ha quattro prove, tutte di buon senso: (1) mai negativa; (2) vale zero <strong>solo</strong> per il vettore nullo; (3) raddoppi il vettore → raddoppia la lunghezza; (4) la linea d'aria non supera mai la deviazione (la «disuguaglianza triangolare»). La Pitagora di questa pagina è l'esemplare più famoso della specie, non l'unico.</p>
-</div>
-<div class="callout deep"><span class="tag">Il confine (opzionale) — la seminorma</span>
-<p>Le quattro condizioni non sono decorative: togline una e ottieni un altro oggetto. Se lasci cadere la <strong>definitezza</strong> (zero solo per il vettore nullo), resta una <strong>seminorma</strong>: una quasi-lunghezza che può valere zero anche per vettori non nulli. E ogni norma genera una <strong>distanza</strong>, \(d(\mathbf{x},\mathbf{y}) = \lVert \mathbf{x}-\mathbf{y} \rVert\), ma non ogni distanza nasce da una norma. La norma euclidea è l'esemplare più famoso, ma la <strong>specie</strong> «norma» è definita dalle quattro condizioni, non da Pitagora.</p>
+
+<div class="note">
+  <span class="lbl">Intuizione</span>
+  <p>Se il vettore è una freccia dall'origine, la norma è la sua <strong>lunghezza</strong>. Raddoppi la freccia e la lunghezza raddoppia; la capovolgi e la lunghezza non cambia; e la via diretta da un punto a un altro non è mai più lunga di un percorso con una tappa in mezzo.</p>
 </div>
 
-<hr/>
+<div class="def">
+  <span class="lbl">Definizione</span>
+  <p>La <strong>norma</strong> è una <strong>funzione</strong>: prende in ingresso un <strong>vettore</strong> e restituisce un <strong>numero mai negativo</strong> — la <strong>lunghezza</strong> del vettore, cioè quanto dista dall'origine il punto che il vettore descrive. La norma <strong>euclidea</strong> (l'unica usata nel paper) misura questa lunghezza <strong>in linea d'aria</strong>, col teorema di Pitagora.</p>
+  <span class="lbl">Il simbolo</span>
+  <p>Doppie barre attorno al vettore: \(\lVert \mathbf{x} \rVert\).</p>
+  <span class="lbl">Come si calcola</span>
+  <p>Eleva al quadrato ogni componente, somma, e fai la radice (F0.2):</p>
+  <p style="text-align:center">\[ \lVert \mathbf{x} \rVert \;=\; \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \;=\; \sqrt{\sum_{i=1}^{n} x_i^2} \]</p>
+</div>
+
+<div class="note">
+  <span class="lbl">Esempio numerico — il classico 3-4-5</span>
+  <p>\(\mathbf{x} = (3;\ 4)\): \(\lVert \mathbf{x} \rVert = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5\). La freccia da (0,0) a (3,4) è lunga 5.</p>
+</div>
+
+<figure>
+<svg viewBox="0 0 460 280" role="img" aria-label="Freccia dall'origine al punto tre-quattro, con i due cateti tratteggiati e la lunghezza cinque">
+  <line x1="40" y1="240" x2="420" y2="240" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="60" y1="260" x2="60" y2="30" stroke="#c7cfc9" stroke-width="1.5"/>
+  <line x1="60" y1="240" x2="180" y2="240" stroke="#8a5a24" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="180" y1="240" x2="180" y2="80" stroke="#8a5a24" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="60" y1="240" x2="180" y2="80" stroke="#2c6e57" stroke-width="2.6"/>
+  <circle cx="180" cy="80" r="5" fill="#22262a"/>
+  <circle cx="60" cy="240" r="4" fill="#22262a"/>
+  <text x="52" y="258" font-size="13" fill="#5a6168" text-anchor="middle">(0, 0)</text>
+  <text x="192" y="74" font-size="13" fill="#22262a">(3, 4)</text>
+  <text x="120" y="260" font-size="14" fill="#8a5a24" text-anchor="middle">3 a destra</text>
+  <text x="192" y="165" font-size="14" fill="#8a5a24">4 in su</text>
+  <text x="96" y="150" font-size="14" fill="#2c6e57">‖x‖ = 5</text>
+</svg>
+<figcaption>La freccia da <b>(0, 0)</b> a <b>(3, 4)</b>: 3 passi a destra, 4 in su. Per Pitagora la sua lunghezza è \(\sqrt{9+16} = \sqrt{25} = 5\).</figcaption>
+</figure>
+
+<h3>Più a fondo (opzionale) — il collaudo delle lunghezze</h3>
+<p>In matematica «norma» è il nome di una <strong>specie</strong>: qualunque funzione che si comporti da lunghezza. Il collaudo ha quattro prove, tutte di buon senso: (1) mai negativa; (2) vale zero <strong>solo</strong> per il vettore nullo; (3) raddoppi il vettore → raddoppia la lunghezza; (4) la linea d'aria non supera mai la deviazione (la «disuguaglianza triangolare»). La Pitagora di questa pagina è l'esemplare più famoso della specie, non l'unico.</p>
+
+<h3>Il confine (opzionale) — la seminorma</h3>
+<p>Le quattro condizioni non sono decorative: togline una e ottieni un altro oggetto. Se lasci cadere la <strong>definitezza</strong> (zero solo per il vettore nullo), resta una <strong>seminorma</strong>: una quasi-lunghezza che può valere zero anche per vettori non nulli. E ogni norma genera una <strong>distanza</strong>, \(d(\mathbf{x},\mathbf{y}) = \lVert \mathbf{x}-\mathbf{y} \rVert\), ma non ogni distanza nasce da una norma. La norma euclidea è l'esemplare più famoso, ma la <strong>specie</strong> «norma» è definita dalle quattro condizioni, non da Pitagora.</p>
+
+<hr>
 
 <h2 id="sec-4">4. Dove li ritrovi nella wiki</h2>
+
 <p>Questi tre oggetti sono il motore di mezza wiki:</p>
 <ul>
-<li><strong>Prodotto scalare</strong> \(\boldsymbol\theta^{\top}\mathbf{x}\): è il cuore della <strong>regressione logistica</strong> (F4, 1.2) — il punteggio grezzo di un mittente, prima della sigmoide. E di ogni punteggio del ranking (3.1).</li>
-<li><strong>Norma</strong> \(\lVert\boldsymbol\theta\rVert\): misura «quanto sono grossi i pesi», usata nella <strong>regolarizzazione L2</strong> (F4) per tenerli sotto controllo.</li>
-<li><strong>Vettori</strong>: le distribuzioni di probabilità di <strong>PageRank</strong> (F2, 2.1) sono vettori che una matrice trasforma passo dopo passo.</li>
+  <li><strong>Prodotto scalare</strong> \(\boldsymbol\theta^{\top}\mathbf{x}\): è il cuore della <strong>regressione logistica</strong> (F4, 1.2) — il punteggio grezzo di un mittente, prima della sigmoide. E di ogni punteggio del ranking (3.1).</li>
+  <li><strong>Norma</strong> \(\lVert\boldsymbol\theta\rVert\): misura «quanto sono grossi i pesi», usata nella <strong>regolarizzazione L2</strong> (F4) per tenerli sotto controllo.</li>
+  <li><strong>Vettori</strong>: le distribuzioni di probabilità di <strong>PageRank</strong> (F2, 2.1) sono vettori che una matrice trasforma passo dopo passo.</li>
 </ul>
 
-<div class="callout ex" id="ex-1"><span class="tag">Esercizi</span>
+<hr>
+
+<h2 id="esercizi">Esercizi</h2>
 <ol>
-<li>Nel vettore \(\mathbf{x} = (7;\ 2;\ 5)\), qual è la seconda componente?</li>
-<li>Calcola il prodotto scalare di \(\boldsymbol\theta = (1;\ 2)\) e \(\mathbf{x} = (4;\ 3)\).</li>
-<li>Calcola il prodotto scalare di \(\boldsymbol\theta = (2;\ -1)\) e \(\mathbf{x} = (1;\ 5)\).</li>
-<li>Calcola la norma di \(\mathbf{x} = (6;\ 8)\).</li>
-<li>A parole: cosa fa il prodotto scalare, in due mosse?</li>
+  <li>Nel vettore \(\mathbf{x} = (7;\ 2;\ 5)\), qual è la seconda componente?</li>
+  <li>Calcola il prodotto scalare di \(\boldsymbol\theta = (1;\ 2)\) e \(\mathbf{x} = (4;\ 3)\).</li>
+  <li>Calcola il prodotto scalare di \(\boldsymbol\theta = (2;\ -1)\) e \(\mathbf{x} = (1;\ 5)\).</li>
+  <li>Calcola la norma di \(\mathbf{x} = (6;\ 8)\).</li>
+  <li>A parole: cosa fa il prodotto scalare, in due mosse?</li>
 </ol>
-<p class="note">Soluzioni in <a class="xref" href="#soluzioni">fondo pagina</a>.</p>
-</div>
+<p class="lead">Soluzioni qui sotto.</p>
 
-<hr/>
-
-<h2 id="soluzioni">Soluzioni degli esercizi</h2>
-<p class="note"><a class="xref" href="#ex-1">↩ Torna agli esercizi</a></p>
+<h2 id="soluzioni">Soluzioni</h2>
 <ol>
-<li>La seconda componente è \(2\).</li>
-<li>\(1 \cdot 4 + 2 \cdot 3 = 4 + 6 = 10\).</li>
-<li>\(2 \cdot 1 + (-1) \cdot 5 = 2 - 5 = -3\).</li>
-<li>\(\sqrt{6^2 + 8^2} = \sqrt{36 + 64} = \sqrt{100} = 10\).</li>
-<li>Moltiplica le componenti a coppie, poi somma i risultati.</li>
+  <li>La seconda componente è \(2\).</li>
+  <li>\(1 \cdot 4 + 2 \cdot 3 = 4 + 6 = 10\).</li>
+  <li>\(2 \cdot 1 + (-1) \cdot 5 = 2 - 5 = -3\).</li>
+  <li>\(\sqrt{6^2 + 8^2} = \sqrt{36 + 64} = \sqrt{100} = 10\).</li>
+  <li>Moltiplica le componenti a coppie, poi somma i risultati.</li>
 </ol>
 
-<hr/>
+<hr>
 
-<h2 id="simboli">Simboli introdotti in questa pagina</h2>
-<p class="note">Da fondere nel Glossario globale.</p>
-<table class="gl">
-<thead><tr><th>simbolo</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
-<tbody>
-<tr><td>\(\mathbf{x}\)</td><td>vettore</td><td>elemento di uno spazio vettoriale (si somma e si scala); esempio: lista ordinata di numeri (\(\mathbb{R}^n\))</td><td>F0.6 §1</td></tr>
-<tr><td>\(x_i\)</td><td>componente</td><td>il numero in posizione \(i\) del vettore-lista</td><td>F0.6 §1</td></tr>
-<tr><td>\(\boldsymbol\theta^{\top}\mathbf{x}\), \(\top\)</td><td>prodotto scalare; trasposto</td><td>quanto due vettori sono allineati × lunghezze; si calcola «a coppie e somma»</td><td>F0.6 §2</td></tr>
-<tr><td>\(\lVert \mathbf{x} \rVert\)</td><td>norma</td><td>lunghezza (funzione, 4 condizioni); euclidea: \(\sqrt{\sum_i x_i^2}\)</td><td>F0.6 §3</td></tr>
-</tbody>
+<h2 id="simboli">Simboli e termini introdotti in questa pagina</h2>
+<p class="lead">Da fondere nel Glossario globale.</p>
+<table>
+  <thead><tr><th>simbolo / termine</th><th>nome</th><th>definizione</th><th>prima occ.</th></tr></thead>
+  <tbody>
+    <tr><td>\(\mathbf{x}\)</td><td>vettore</td><td>elemento di uno spazio vettoriale (si somma e si scala); esempio: lista ordinata di numeri (\(\mathbb{R}^n\))</td><td>F0.6 §1</td></tr>
+    <tr><td>\(x_i\)</td><td>componente</td><td>il numero in posizione \(i\) del vettore-lista</td><td>F0.6 §1</td></tr>
+    <tr><td>\(\boldsymbol\theta^{\top}\mathbf{x}\), \(\top\)</td><td>prodotto scalare; trasposto</td><td>quanto due vettori sono allineati × lunghezze; si calcola «a coppie e somma»</td><td>F0.6 §2</td></tr>
+    <tr><td>\(\lVert \mathbf{x} \rVert\)</td><td>norma</td><td>lunghezza (funzione, 4 condizioni); euclidea: \(\sqrt{\sum_i x_i^2}\)</td><td>F0.6 §3</td></tr>
+  </tbody>
 </table>
 
-<hr/>
-<p class="note">F0.6 — Vettori e prodotto scalare · <strong>bozza</strong> · prossima trance (l'ultima): F0.7 Derivata, F0.8 Integrale.</p>
+<p class="arrow-up"><a href="#top">↑ torna su</a></p>
 
-<!-- ═════════ INVOLUCRO WIKI: barra del percorso (aggiunta; il contenuto sopra è intatto) ═════════ -->
-<nav class="wikibar" aria-label="Gradino 0 — prerequisiti">
-<div class="wikibar-in">
-<a href="index.html">↩ Mappa</a>
-<span class="wk-sep"></span>
-<span class="wk-pos">Gradino 0</span>
-<a rel="prev" href="F0_5_Notazione_di_base.html" aria-label="Precedente: F0.5 — Notazione di base (|x|, floor, min/max, fattoriale)" title="Precedente: F0.5 — Notazione di base (|x|, floor, min/max, fattoriale)">← F0.5</a>
-<span class="wk-pos">6 di 8</span>
-<a rel="next" href="F0_7_Derivata.html" aria-label="Successivo: F0.7 — La derivata (la pendenza)" title="Successivo: F0.7 — La derivata (la pendenza)">F0.7 →</a>
-<span class="wk-sep"></span>
-<a href="Glossario_globale.html">Glossario</a>
-<a href="Come_si_studia.html">Metodo</a>
-</div></nav>
+<footer>
+  <span class="status">F0.6 — Vettori e prodotto scalare</span>
+  <span>prossima: F0.7 La derivata.</span>
+  <span><a href="index.html">↩ Mappa</a></span>
+  <span><a href="F0_5_Notazione_di_base.html">← F0.5</a></span>
+  <span>6 di 8</span>
+  <span><a href="F0_7_Derivata.html">F0.7 →</a></span>
+  <span><a href="Glossario_globale.html">Glossario</a></span>
+  <span><a href="Come_si_studia.html">Metodo</a></span>
+</footer>
+
+</div>
 <script>/* memoria dell'ultima tappa visitata, per il «Riprendi» della mappa */
 try{localStorage.setItem('wiki-tappa','F0.6|F0_6_Vettori_e_prodotto_scalare.html');}catch(e){}</script>
 </body>

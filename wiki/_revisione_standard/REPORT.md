@@ -176,6 +176,31 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## F0.6 — Vettori e prodotto scalare
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Vettore — una lista ordinata di numeri, trattata come un oggetto unico; ogni numero è una componente e l'ordine conta.
+- Prodotto scalare — di due vettori con lo stesso numero di componenti è un numero: misura quanto puntano nella stessa direzione, amplificato dalle loro lunghezze; si calcola «a coppie e somma».
+- Norma — una funzione: prende un vettore e restituisce un numero mai negativo, la lunghezza; l'euclidea la misura in linea d'aria con Pitagora.
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- (3; 4) + (1; 1) = (4; 5); 2·(3; 4) = (6; 8).
+- Prodotto scalare (2; −1)·(3; 4): 2·3 = 6; −1·4 = −4; 6 + (−4) = 2.
+- Perpendicolari: (1; 0)·(0; 1) = 1·0 + 0·1 = 0.
+- Norma di (3; 4): √(9+16) = √25 = 5.
+- Soluzioni: seconda componente 2; 1·4 + 2·3 = 10; 2·1 + (−1)·5 = −3; √(36+64) = √100 = 10.
+
+**Figure**:
+- Freccia da (0, 0) a (3, 4) con i cateti tratteggiati «3 a destra» e «4 in su» e lunghezza 5 — illustra l'esempio 3-4-5 del §3. Geometria verificata (scala 40 px/unità: cateti 120 e 160 px, ipotenusa 200 px).
+
+**Scelte di giudizio e incertezze**:
+- ⚠ Il def del prodotto scalare ora usa il significato geometrico («quanto puntano nella stessa direzione × lunghezze», già presente nell'intuizione e nella tabella simboli del vecchio); il significato-punteggio resta integrale nel blocco «il caso della wiki». Il vecchio def («punteggio complessivo…») contraddiceva il suo stesso caveat («è un caso particolare, non il significato in sé»): incoerenza interna risolta, contenuto tutto conservato. Verificato dal revisore.
+- Su rilievo del revisore: «della stessa lunghezza» → «con lo stesso numero di componenti» (evita l'equivoco con «lunghezze» = norme nella stessa frase).
+- «N.B. — definizione rigorosa», «collaudo delle lunghezze» e «seminorma» convertiti in h3 «Più a fondo (opzionale)» / «Il confine (opzionale)», contenuto integro.
+- «Cosa non è un vettore» e «convenzione del grassetto» convertiti in blocchi Attenzione.
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
