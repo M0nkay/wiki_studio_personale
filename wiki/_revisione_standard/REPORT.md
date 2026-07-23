@@ -410,6 +410,30 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 - Controllo 9: 6 segnalazioni, tutte insiemi \(\{1,2,3\}\) — virgole da separatore, false positive.
 
 **Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). **`sec-6` vincolata da Sezione_4_3 conservata** (verificato dal revisore).
+
+## 1.4 — Difese: spam distribuito ed elusivo
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Snowshoe — N sorgenti con volume sotto la soglia per-sorgente, scelte perché il prodotto N·v raggiunga il volume obiettivo complessivo.
+- Grafo della campagna — grafo non orientato: nodi (messaggi, IP, domini, URL, registrar) uniti da un arco quando condividono una relazione osservata; componente connessa = insieme massimale di nodi collegati da un cammino.
+- Indice snowshoe — un numero (a meno di scala): il rapporto fra l'entropia delle sorgenti e quella del contenuto.
+- DMARC — algebra booleana: si passa se almeno una delle due strade (SPF o DKIM) è autenticata e allineata col From.
+
+**Esempi numerici** (9 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Snowshoe: 200 sorgenti · 50 email = 10 000, tutte a metà della soglia 100.
+- Indici: campagna 2/0,24 ≈ 8,3; legittimo 0,24/2 = 0,12 (≈ 70× di differenza; H_content = 0,24 coincide col conto di F3).
+- Soluzioni: 30 000/150 = 200; 1,5/0,5 = 3 e 0,5/1,5 ≈ 0,33; DMARC (V∧F)∨(V∧V) = V → pass.
+
+**Figure**:
+- Grafo schematico della campagna: 3 messaggi, 3 IP distinti, 1 URL condiviso; 6 archi che collegano esattamente i centri dei nodi; connettività (unica componente di 7 nodi) verificata con visita del grafo da me e coordinate verificate dal revisore. Illustra il §2(b).
+
+**Scelte di giudizio e incertezze**:
+- Prima stesura RESPINTA dal revisore: (1) l'annotazione testuale nell'SVG sbordava dal viewBox (il letter/word-spacing [v2] di style.css eredita anche dentro `svg text`); (2) def dell'indice snowshoe senza glossa di H_src/H_content. Corretta: annotazione rimossa (il messaggio sta nella figcaption), def completato, V_target glossato. Riesaminata.
+- ⚠ **Segnalazione di sistema per Alex**: `style.css` azzera la spaziatura [v2] per formule e codice ma non per il testo dentro gli SVG — valutare una regola `svg text{letter-spacing:normal;word-spacing:normal}` nel foglio condiviso (non applicata: il brief vieta di modificare lo standard in corsa).
+- 10.000/30.000 in math riscritti 10 000/30 000 (spazio sottile, convenzione della wiki).
+- Titolo `<title>` allineato all'h1 («ed elusivo»).
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati.
 - «Lettura» del §3 resa blocco «Intuizione — il termostato» (l'analogia sta nel blocco giusto).
 - Riferimento «la potenza di F4» corretto in «la potenza di F0.2» (la potenza è definita lì).
 - Footer con F6 nel percorso ripristinato su rilievo del revisore.
