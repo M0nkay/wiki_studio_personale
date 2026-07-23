@@ -128,6 +128,29 @@ assunte come standard del run.** Delta accettati:
 
 **Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
 
+## F0.4 — Somme Σ e produttorie Π
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Sommatoria — un numero: il totale che si ottiene sommando gli elementi indicati, uno per ogni valore dell'indice.
+- Produttoria — un numero: il risultato della moltiplicazione di tutti gli elementi indicati, uno per ogni valore dell'indice.
+
+**Esempi numerici** (ricomputati + rifatti a mano dal revisore, tutti OK):
+- Σ con x = (2, 5, 3): 2 + 5 + 3 = 10.
+- Σ i² da 1 a 3: 1 + 4 + 9 = 14.
+- Π con gli stessi numeri: 2 · 5 · 3 = 30 (contro 10 della somma).
+- Caso vuoto: somma vuota = 0, prodotto vuoto = 1 (verificato anche 0! = 1).
+- log(Π) = Σ log verificata numericamente su (2, 5, 3).
+- Soluzioni: 1+2+3+4 = 10; 1·2·3·4 = 24 (= 4!); 10+1+4 = 15.
+
+**Figure**: nessuna (pagina di notazione).
+
+**Scelte di giudizio e incertezze**:
+- Il callout «N.B. — estremi e caso vuoto» convertito in blocco Attenzione (è un caveat sulla convenzione).
+- «Traduzione in parole» e «A parole» mantenuti come blocchi note dedicati.
+- Il link «↩ Torna agli esercizi» nelle Soluzioni non è replicato: il modello F0.7 non lo ha.
+
+**Ancore rinominate**: `ex-1` → `esercizi`; `prerequisiti` (h2) rimossa. Nessun link esterno puntava a frammenti di questa pagina.
+
 ---
 
 # Pagine lasciate invariate
