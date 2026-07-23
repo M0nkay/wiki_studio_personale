@@ -290,6 +290,30 @@ Stato interim accettato dalla decisione di rimandare la ristrutturazione.
 
 **Ancore rinominate**: `prerequisiti` (h2) rimossa (contenuto nel riquadro prerequisiti; nessun inbound). Tutti gli altri id conservati, inclusa **`sec-6` vincolata da Sezione_3_1** (verificato dal revisore).
 
+## 1.2 — Score reputazionali di IP e dominio
+
+**Definizioni scritte** (testo senza formula, per il cover test):
+- Reputazione — un numero in [0,1]: la probabilità, condizionata alle feature osservate e a un modello esplicito, che il prossimo evento del traffico del mittente sia abusivo (fissati orizzonte e nozione di evento abusivo).
+- Modello discriminativo — la regressione logistica di F4 applicata alle feature del mittente (forma [INF]).
+- Beta-Bernoulli — sotto le ipotesi (i)–(iii), la posterior è una Beta coi conteggi reali sommati ai virtuali; la media è (α₀+k)/(α₀+β₀+m).
+- Miscela cold start — combinazione convessa di score personale e prior del vicinato col peso w = m/(m+m₀); il vicinato entra una sola volta.
+
+**Esempi numerici** (13 verifiche con python + rifatti a mano dal revisore, tutti OK):
+- Verdetto: 500·0,004 − 3·0,9 = 2 − 2,7 = −0,7 → σ(−0,7) ≈ 0,33.
+- Quartiere cattivo: Beta(3,7) → 0,3; con m=20, k=0 → Beta(3,27) → 0,1; con k=2 → Beta(5,25) → 5/30 ≈ 0,17.
+- Miscela: 0,7·0,4 + 0,3·0,8 = 0,52.
+- Soluzioni: −2,35 → r ≈ 1/11,5 ≈ 0,09 (e^{2,35} ≈ 10,5); 3/2000 = 0,15% (viola < 0,1%); Beta(5,7) → 5/12 ≈ 0,42; miscela 0,4.
+
+**Figure**: nessuna (pagina di modellazione).
+
+**Scelte di giudizio e incertezze**:
+- I tre «N.B. — definizione rigorosa» sono diventati blocchi Definizione; il «caso limite + onestà» del §3 spostato in blocco Attenzione adiacente (testo integro, dedup di una formula enunciata due volte).
+- Il §4 (UCB vs LCB: quale bordo è prudente) reso come blocco Attenzione unico.
+- ⚠ Preesistente, conservato per fedeltà: «Tre reclami ogni mille consegne bastano per essere fuori» — 3/1000 = 0,3% esatto è il bordo della regola «c > 0,3%», non oltre. Da decidere in revisione se precisare.
+- Controllo 8: 4 segnalazioni (riferimenti «4.5», «D.2», «1.1» e il separatore migliaia «2.000») — false positive. Controllo 9: 5 segnalazioni (intervalli [0,1] e Beta(1,1)) — false positive da virgola-separatore.
+
+**Ancore rinominate**: `prerequisiti` (h2) rimossa (nessun inbound). Tutti gli altri id conservati (ex-2/3/5, sol-2/3/5 inclusi).
+
 ---
 
 # Pagine lasciate invariate
